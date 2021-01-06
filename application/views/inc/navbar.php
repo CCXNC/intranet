@@ -135,8 +135,8 @@
     </style>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm stroke" style="background-color: #003153 !important;">
         <div class="container">
-            <a class="navbar" href="{{ url('/') }}">
-                <!--<img id="image" src="../assets/images/BC.png" style="width:100px" alt="">-->
+            <a class="navbar" href="">
+                <img id="image" src="../assets/images/blaine.png" style="width:100px; position: absolute; left: 0" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
