@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
         <title>Intranet</title>
     </head>
     <body>
@@ -20,7 +21,7 @@
         #sidebar .list-group {
             max-width: 200px;
             background-color: #003153;
-            min-height: 100vh;
+            min-height: 300vh;
         }
 
         #sidebar i {
@@ -162,7 +163,7 @@
                     <a href="#" class="list-group-item d-inline-block collapsed"><i class="fa fa-archive" aria-hidden="true"></i><span class="d-none d-md-inline">5S and ESH</span></a>
                     <a href="#menu3" data-id="" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-users" aria-hidden="true"></i><span class="d-none d-md-inline">HR</span></a>
                     <div class="collapse" id="menu3" data-parent="#sidebar">
-                        <a href="<?php echo base_url(); ?>index.php/HrController/homepage" class="list-group-item" data-parent="#menu3">201</a>
+                        <a href="<?php echo base_url(); ?>Employee/index" class="list-group-item" data-parent="#menu3">201</a>
                         <a href="#" class="list-group-item" data-parent="#menu3">Announcement</a>
                         <a href="#" class="list-group-item" data-parent="#menu3">Timekeeping</a>
                     </div>
