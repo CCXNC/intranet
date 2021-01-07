@@ -642,7 +642,7 @@
                                 <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">201</a>
+                                        <a href="<?php echo base_url(); ?>employee/index">201</a>
                                     </li>
                                     <li>
                                         <a href="#">Announcement</a>
