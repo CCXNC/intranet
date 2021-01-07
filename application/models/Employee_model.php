@@ -8,6 +8,7 @@ class Employee_model extends CI_Model {
 		$this->db->trans_start();
 
 		//EMPLOYEE INPUT
+		$picture = $file_name = $_FILES['userfile']['name'];;
 		$employee_number = $this->input->post('employee_number');
 		$first_name = $this->input->post('first_name');
 		$middle_name = $this->input->post('middle_name');
@@ -60,6 +61,7 @@ class Employee_model extends CI_Model {
 		$date = date('Y-m-d h:i:s');
 		
 		$data_employee = array(
+			'picture'                  => $picture,
 			'employee_number'          => $employee_number,
 			'first_name'               => $first_name,
 			'middle_name'              => $middle_name,
@@ -116,7 +118,7 @@ class Employee_model extends CI_Model {
 
 		if($spouse_full_name == NULL) 
 		{
-
+			
 		} 
 		else 
 		{
@@ -155,14 +157,15 @@ class Employee_model extends CI_Model {
 		/*print_r('<pre>');
 		print_r($data_employment);
 		print_r('</pre>');*/
+		$children_full_name = $this->input->post('children_full_name');
 	
-		if($this->input->post('children_full_name') == NULL)
+		foreach($children_full_name as $fullname)
 		{
-			NULL;
-		}
-		else
-		{
-			foreach($this->input->post('children_full_name') as $fullname)
+			if($fullname == NULL)
+			{
+
+			}
+			else
 			{
 				$data_children = array(
 					'employee_number' => $employee_number,
@@ -178,11 +181,32 @@ class Employee_model extends CI_Model {
 				$i++;
 			}
 		}
+	
 		
 		$trans = $this->db->trans_complete();
 		return $trans;
 	
-    }
+	}
+	
+	public function get_employees()
+	{
+		$this->db->select("
+			employees.picture as picture,
+			employees.employee_number as emp_no,
+			CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
+			employment_info.date_hired as date_hired,
+			employee_status.name as employee_status
+		");
+		$this->db->from('employees');
+		$this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
+		$this->db->join('employee_status', 'employment_info.employee_status = employee_status.id');
+		$this->db->order_by('employees.last_name', 'ASC');
+		$this->db->where('employees.is_active', 1);
+
+		$query = $this->db->get();
+
+		return $query->result();
+	}
 	
 	public function get_department()
 	{
