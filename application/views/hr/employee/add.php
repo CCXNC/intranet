@@ -31,16 +31,26 @@
 
     });
 </script>
-<div class="container">
+
     <div class="card">
         <div class="card-header"><h4>HR USER MANAGEMENT</h4></div>
         <div class="card-body">
             <div style="color:red"><?php echo validation_errors(); ?> </div>
-            <form method="post" action="<?php echo base_url(); ?>employee/add">
+            <form method="post" action="<?php echo base_url(); ?>employee/do_upload" enctype="multipart/form-data">
                 <div class="card">
                     <div class="card-header">Personal Information</div>
                     <div class="card-body">
+                     
+                            <div style="position:absolute;">
+                                <div class="form-group">
+                                    <img src="<?php echo base_url(); ?>assets/images/user1.png" width="150px" height="150px" alt="" style="margin-left:20px;"><br><br>
+                                </div>
+                            </div>    
                         <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>*Employee Number</label>
@@ -59,15 +69,21 @@
                                     <input type="text" class="form-control"  name="middle_name">
                                 </div>
                             </div>
+                           
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>*Last Name</label>
                                     <input type="text" class="form-control"  name="last_name">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Nickname</label>
@@ -84,6 +100,13 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type='file' name='userfile' size='20' />
+                               
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>*Birthdate</label>
@@ -96,28 +119,29 @@
                                     <input type="number" class="form-control"  name="age">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>*Religion</label>
                                     <input type="text" class="form-control"  name="religion">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                           
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>*Email Address</label>
                                     <input type="text" class="form-control"  name="email">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>*Contact Number</label>
                                     <input type="text" class="form-control"  name="contact_number">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>*Marital Status</label>
                                     <select class="form-control" name="marital_status">
@@ -427,4 +451,3 @@
             </form>
         </div>
     </div>
-</div>

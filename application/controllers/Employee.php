@@ -4,17 +4,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Employee extends CI_Controller {
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set('Asia/Manila');
         if($this->session->userdata('logged_in') !== TRUE){
             redirect('Login');
         }
     }
 
     function index() {
+        $data['employees'] = $this->employee_model->get_employees();
         $data['main_content'] = 'hr/employee/index';
         $this->load->view('inc/navbar', $data);
     }
 
-    function add() {
+    function do_upload() {
 
         $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
@@ -39,6 +41,25 @@ class Employee extends CI_Controller {
         $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
         $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
 
+        $config = array(
+            'upload_path' => './uploads/images/',
+            'allowed_types' => "gif|jpg|png|jpeg|pdf|xls|xlsx",
+            'overwrite' => TRUE,
+            'max_size' => "100000000",
+            'max_height' => "768",
+            'max_width' => "1024"
+        );
+        $this->upload->initialize($config);
+        if($this->upload->do_upload())
+        {
+            $data = array('upload_data' => $this->upload->data());
+        }
+        else
+        {
+            $error = array('error' => $this->upload->display_errors());
+        }
+        
+        
         if($this->form_validation->run() == FALSE)
         {
             $data['main_content'] = 'hr/employee/add';
@@ -51,9 +72,9 @@ class Employee extends CI_Controller {
         }
         else
         {
-           $data['employees'] = $this->employee_model->add_employee();
-           $this->session->set_flashdata('success_msg', 'Employee Successfully Added!');
-           redirect('employee/index');
+            $data['employees'] = $this->employee_model->add_employee();
+            $this->session->set_flashdata('success_msg', 'Employee Successfully Added!');
+            redirect('employee/index');
         }
         
     
