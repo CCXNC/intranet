@@ -11,8 +11,46 @@ class Employee extends CI_Controller {
     }
 
     function index() {
-        $data['employees'] = $this->employee_model->get_employees();
+
+        if($this->input->server('REQUEST_METHOD') == 'POST')
+		{ 
+            $data['employee_status'] = $this->input->post('employee_status');
+            $data['department'] = $this->input->post('department');
+		}
+		else 
+		{
+            $data['department'] = 'ALL';
+			$data['employee_status'] = 'ALL';
+        }
+        
+        $data['employees'] = $this->employee_model->get_employees($data['employee_status'],$data['department']);
+        $data['departments'] = $this->employee_model->get_department();
+        $data['companies'] = $this->employee_model->get_company();
+        $data['ranks'] = $this->employee_model->get_rank();
+        $data['statuss'] = $this->employee_model->get_employee_status();
+        $data['groups'] = $this->employee_model->get_work_group();
         $data['main_content'] = 'hr/employee/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function view_employee($id,$employee_number) 
+    {
+        $data['employee'] = $this->employee_model->get_employee($id);
+        $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
+        $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
+        $data['main_content'] = 'hr/employee/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function employment_status($id,$employee_number)
+    {
+        $data['employee'] = $this->employee_model->get_employee($id);
+        $data['departments'] = $this->employee_model->get_department();
+        $data['companies'] = $this->employee_model->get_company();
+        $data['ranks'] = $this->employee_model->get_rank();
+        $data['statuss'] = $this->employee_model->get_employee_status();
+        $data['groups'] = $this->employee_model->get_work_group();
+        $data['main_content'] = 'hr/employee/employment_status';
         $this->load->view('inc/navbar', $data);
     }
 
@@ -24,7 +62,6 @@ class Employee extends CI_Controller {
         $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
         $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
         $this->form_validation->set_rules('age', 'Age', 'required|trim');
-        $this->form_validation->set_rules('religion', 'Religion', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('marital_status', 'Marital Status', 'required|trim');
         $this->form_validation->set_rules('address', 'Address', 'required|trim');
