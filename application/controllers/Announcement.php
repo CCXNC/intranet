@@ -9,8 +9,59 @@ class Announcement extends CI_Controller {
         }
     }
 
-    function add() {
-        $data['main_content'] = 'hr/announcement/add';
+    function index() {
+        $data['announcements'] = $this->announcement_model->get_announcement();
+        $data['main_content'] = 'hr/announcement/index';
+        $this->load->view('inc/navbar', $data);
+    
+    }
+
+    function do_upload() {
+        $this->form_validation->set_rules('title', 'Title', 'required|trim');
+		$this->form_validation->set_rules('content', 'Content', 'required|trim');
+
+        $config = array(
+            'upload_path' => './uploads/announcement/',
+            'allowed_types' => "gif|jpg|png|jpeg|pdf|xls|xlsx",
+            'overwrite' => TRUE,
+            'max_size' => "100000000",
+            'max_height' => "100000",
+            'max_width' => "100000"
+        );
+        $this->upload->initialize($config);
+        if($this->upload->do_upload())
+        {
+            $data = array('upload_data' => $this->upload->data());
+        }
+        else
+        {
+            $error = array('error' => $this->upload->display_errors());
+        }
+        
+        
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['main_content'] = 'hr/announcement/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            $this->announcement_model->add_announcement();
+            $this->session->set_flashdata('success_msg', 'Announcement Successfully Added!');
+            redirect('announcement/index');
+        }
+        
+    
+    }
+
+    function view() {
+        $data['main_content'] = 'hr/announcement/view';
+        $this->load->view('inc/navbar', $data);
+    
+    }
+
+    function edit() {
+        $data['main_content'] = 'hr/announcement/edit';
         $this->load->view('inc/navbar', $data);
     
     }

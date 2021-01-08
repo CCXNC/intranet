@@ -72,7 +72,7 @@ class Employee extends CI_Controller {
         }
         else
         {
-            $data['employees'] = $this->employee_model->add_employee();
+            $this->employee_model->add_employee();
             $this->session->set_flashdata('success_msg', 'Employee Successfully Added!');
             redirect('employee/index');
         }

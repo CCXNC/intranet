@@ -236,6 +236,11 @@
             display: inline-block;
         }
 
+
+        .sidebar-wrapper .sidebar-menu ul li:hover {
+           background-color: #3B3F48;
+        }
+
         .sidebar-wrapper .sidebar-menu ul li a {
             display: inline-block;
             width: 100%;
@@ -257,6 +262,7 @@
         .sidebar-wrapper .sidebar-menu ul li a:hover > i::before {
             display: inline-block;
             animation: swing ease-in-out 0.5s 1 alternate;
+            
         }
 
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown > a:after {
@@ -384,7 +390,7 @@
             overflow-x: hidden;
         }
 
-        /*------scroll bar---------------------*/
+        /*------------------scroll bar---------------------*/
 
         ::-webkit-scrollbar {
             width: 5px;
@@ -421,7 +427,7 @@
         }
 
 
-        /*-----------------------------chiller-theme-------------------------------------------------*/
+        /*-----------------------------chiller-theme---------------------------------*/
 
         .chiller-theme .sidebar-wrapper {
             background: #003153;
@@ -531,23 +537,36 @@
         });
     </script>
     <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm stroke" style="background-color: #003153 !important; height: 65px">
-        <div class="container">
-            <a class="navbar" href="">
-                
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                </ul>
-                <ul class="navbar-nav ml-auto fw">
-                    <!--user name-->
-                </ul>
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm stroke" style="background-color: #003153 !important;">
+            <div class="container">
+                <a class="navbar" href="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                    <ul class="navbar-nav ml-auto fw">
+                        <!--<span class="navbar-text">
+                            <a href="<?php echo site_url('Login/logout');?>" class="nav-link logout" style="color: white">Logout</a>
+                        </span>-->
+                        <li class="nav-item dropdown">
+                            <a style="color:white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user-circle"></i>
+                                <span>Username</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">My Profile</a>
+                                <a class="dropdown-item" href="#">Notification</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo site_url('Login/logout');?>">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
         <div class="page-wrapper chiller-theme toggled">
             <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
                 <i class="fas fa-bars"></i>
@@ -577,7 +596,7 @@
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                        <a href="#">Announcement</a>
+                                        <a href="<?php echo base_url(); ?>homepage/index">Announcement</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -636,21 +655,21 @@
                             <!--HR-->
                             <li class="sidebar-dropdown">
                                 <a href="#">
-                                <i class="fa fa-address-card"></i>
-                                <span>HR</span>
+                                    <i class="fa fa-address-card"></i>
+                                    <span>HR</span>
                                 </a>
                                 <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="<?php echo base_url(); ?>employee/index">201</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Announcement</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Timekeeping</a>
-                                    </li>
-                                </ul>
+                                    <ul>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>employee/index">201</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>announcement/index">Announcement</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Timekeeping</a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </li>
                             <!--SUPPLY CHAIN-->
@@ -727,7 +746,7 @@
                                 <span>Sign Out</span>
                                 </a>
                             </li>-->
-                            <a href="<?php echo site_url('Login/logout');?>" class="nav-link logout" style="color: white">Logout</a>
+                            <!--<a href="<?php echo site_url('Login/logout');?>" class="nav-link logout" style="color: white">Logout</a>-->
                         </ul>
                     </div>
                     <!-- sidebar-menu  -->
