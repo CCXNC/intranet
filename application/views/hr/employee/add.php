@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         
-        var html = '<div id="sib"><br><div class="row"><div class="col-md-3"><div class="form-group"><label>School</label><input type="text" class="form-control" name="school[]" ></div></div><div class="col-md-3"><div class="form-group"><label>Course/Diploma</label><input type="text" class="form-control" name="course[]" ></div></div><div class="col-md-3"><div class="form-group"><label>Year Graduated</label><input type="text" class="form-control"  name="year_graduated[]" > </div></div><div class="col-md-3"><div class="form-group"><label>License</label> <input type="text" class="form-control"  name="license[]" ></div></div></div> <input class="btn btn-danger" type="button" name="remove" id="remove" value="Remove"></div>';
+        var html = '<div id="sib"><br><div class="row"><div class="col-md-3"><div class="form-group"><label>School/Establishment</label><input type="text" class="form-control" name="school[]" ></div></div><div class="col-md-3"><div class="form-group"><label>Course/Diploma</label><input type="text" class="form-control" name="course[]" ></div></div><div class="col-md-3"><div class="form-group"><label>Year Graduated</label><input type="text" class="form-control"  name="year_graduated[]" > </div></div><div class="col-md-3"><div class="form-group"><label>License</label> <input type="text" class="form-control"  name="license[]" ></div></div></div> <input class="btn btn-danger" type="button" name="remove" id="remove" value="Remove"></div>';
         var children = '<div id="child"><br><div class="row"><div class="col-md-12"><div class="form-group"><input type="text" class="form-control" name="children_full_name[]" placeholder="Full Name"></div></div></div><div class="row"><div class="col-md-4"><div class="form-group"><label>Birthdate</label><input type="date" class="form-control"  name="children_birthday[]"></div></div><div class="col-md-4"><div class="form-group"><label>Age</label><input type="text" class="form-control"  name="children_age[]"></div></div><div class="col-md-4"><div class="form-group"><label>Gender</label><select class="form-control" name="children_gender[]"><option value="">Select Gender</option><option value="male">Male</option><option value="female">Female</option></select></div></div></div>   <input class="btn btn-danger" type="button" name="remove" id="cremove" value="Remove"></div></div>';
         var max = 10;
         var x = 1;
@@ -41,7 +41,6 @@
                 <div class="card">
                     <div class="card-header">Personal Information</div>
                     <div class="card-body">
-                     
                             <div style="position:absolute;">
                                 <div class="form-group">
                                     <img src="<?php echo base_url(); ?>assets/images/user1.png" width="150px" height="150px" alt="" style="margin-left:20px;"><br><br>
@@ -288,7 +287,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>School</label>
+                                    <label>School/Establishment</label>
                                     <input type="text" class="form-control" name="school[]" >
                                 </div>
                             </div>
@@ -403,7 +402,9 @@
                                         <option value="">Select Employee Status</option>
                                         <?php if($statuss) : ?>
                                             <?php foreach($statuss as $status) : ?>
-                                                <option value="<?php echo $status->id; ?>"><?php echo $status->name; ?></option>
+                                                <?php if($status->id <= 4) : ?>
+                                                    <option value="<?php echo $status->id; ?>"><?php echo $status->name; ?></option> 
+                                                <?php endif; ?>                                           
                                             <?php endforeach; ?>
                                         <?php endif; ?>  
                                     </select>
