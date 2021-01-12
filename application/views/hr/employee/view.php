@@ -215,40 +215,43 @@
         </div> 
         <br>
         <div class="card">
-            <div class="card-header">Spouse's Information</div>
+            <div class="card-header">Spouse's Information
+            </div>
             <div class="card-body">
             <?php if($employee->spouse_name != NULL) :  ?>
                 <div class="row">
-                    <div class="col-md-4">
-                        <label>Fullname</label>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Fullname</label>
                             <div class="form-control"><?php echo $employee->spouse_name; ?></div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Birthdate</label>
                             <div class="form-control"><?php echo date('F j, Y',strtotime($employee->spouse_birthday)); ?></div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Age</label>
                             <div class="form-control"><?php echo $employee->spouse_age; ?></div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Occupation</label>
                             <div class="form-control"><?php echo $employee->spouse_occupation; ?></div>
                         </div>
                     </div>
-                </div> 
+                </div>
             <?php endif; ?>    
             </div>
         </div>
         <br>
         <div class="card">
-            <div class="card-header">Children Information</div>
+            <div class="card-header">Children Information
+            </div>
             <div class="card-body">
                 <?php if($children_infos != NULL) : ?>
                     <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -278,7 +281,8 @@
         </div>        
         <br>
         <div class="card">
-            <div class="card-header">Academe Information</div>
+            <div class="card-header">Academe Information
+            </div>
             <div class="card-body">
                 <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
@@ -300,6 +304,27 @@
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
+                    </tbody>
+                </table>   
+            </div>
+        </div> 
+        <div class="card">
+            <div class="card-header">Recent Movement / Promote
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Company</th> 
+                            <th>Position</th>
+                            <th>Department Movement From</th>
+                            <th>Movement To</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     </tbody>
                 </table>   
             </div>

@@ -37,9 +37,12 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="<?php echo base_url(); ?>employee/view_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>"> View</a>
                                             <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employment_status/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Employment Status</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Transfer</a>
+                                                <a class="dropdown-item" href="#">Add Info</a>
+                                            <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_movement/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Movement</a>
+                                            <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_termination/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Termination</a>
                                         </div>
                                     </div>
                                 </center>
@@ -49,8 +52,11 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        <div class="float-right">
+            <?php echo $this->pagination->create_links(); ?>
+        </div>
     </div>
-    <div class="modal fade" id="exampleModal_00" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--<div class="modal fade" id="exampleModal_00" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -101,7 +107,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
         
