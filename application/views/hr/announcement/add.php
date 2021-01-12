@@ -12,12 +12,29 @@
                                 </center>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <input type='file' name='userfile' size='20' />
-                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label>Title</label>
                                 <input type="text" class="form-control" name="title">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="form-control" name="category">
+                                    <option value="">Select Category</option>
+                                    <option value="loginpage">Login Page</option>
+                                    <option value="homepage">Homepage</option>
+                                </select>
                             </div>
                         </div>
                     </div>

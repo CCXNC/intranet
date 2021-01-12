@@ -251,10 +251,10 @@
 
         .sidebar-wrapper .sidebar-menu ul li a i {
             margin-right: 10px;
-            font-size: 12px;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
+            font-size: 17px;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
             text-align: center;
             border-radius: 4px;
         }
@@ -575,10 +575,10 @@
                 <div class="sidebar-content">
                     <div class="sidebar-brand">
                         <a href="#">
-                            <img id="image" src="<?php echo base_url(); ?>assets/images/blaine.png" style="width:100px; " alt="">
+                            <img id="image" src="<?php echo base_url(); ?>assets/images/logo.png" style="width:60% " alt="">
                         </a>
                         <div id="close-sidebar">
-                            <i class="fas fa-times"></i>
+                            <i class="fas fa-window-minimize"></i>
                         </div>
                     </div>
                     <div class="sidebar-menu">

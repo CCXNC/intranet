@@ -7,7 +7,8 @@
         <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
             <thead>
                 <tr>
-                    <th>Announcement Picture</th>
+                    <th>Picture</th>
+                    <th>Category</th>
                     <th>Title</th>
                     <th>Content</th>
                     <th>Action</th>
@@ -18,8 +19,9 @@
                     <?php foreach($announcements as $announcement) : ?>
                         <tr>
                             <td><center><img src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" width="150px" height="50px" alt=""></center></td>
+                            <td><?php echo $announcement->category;  ?></td>
                             <td><?php echo $announcement->title;  ?></td>
-                            <td><?php echo $announcement->content;  ?></td>
+                            <td><?php echo word_limiter($announcement->content,10); ?></td>
                             <td>
                                 <center>
                                     <div class="btn-group">
@@ -27,7 +29,7 @@
                                             Action
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="<?php echo base_url(); ?>announcement/view">View</a>
+                                        <a class="dropdown-item" href="<?php echo base_url(); ?>announcement/view_announcement/<?php echo $announcement->id; ?>"> View</a>
                                             <a class="dropdown-item" href="<?php echo base_url(); ?>announcement/edit">Edit</a>
                                             <a class="dropdown-item" href="#">Delete</a>
                                         </div>

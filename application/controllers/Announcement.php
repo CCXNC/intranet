@@ -10,15 +10,29 @@ class Announcement extends CI_Controller {
     }
 
     function index() {
-        $data['announcements'] = $this->announcement_model->get_announcement();
+        $data['announcements'] = $this->announcement_model->get_announcements();
         $data['main_content'] = 'hr/announcement/index';
         $this->load->view('inc/navbar', $data);
     
     }
 
+    public function view_announcement($id) 
+    {
+        $data['announcement'] = $this->announcement_model->get_announcement($id);
+        $data['main_content'] = 'hr/announcement/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
     function do_upload() {
+        /* printing arrays: comment until
+            {
+                $error = array('error' => $this->upload->display_errors());
+            } 
+        */
+        //$this->form_validation->set_rules('title', 'Title', 'required|trim');
         $this->form_validation->set_rules('title', 'Title', 'required|trim');
-		$this->form_validation->set_rules('content', 'Content', 'required|trim');
+        $this->form_validation->set_rules('content', 'Content', 'required|trim');
+        $this->form_validation->set_rules('category', 'Category', 'required|trim');
 
         $config = array(
             'upload_path' => './uploads/announcement/',
@@ -49,14 +63,11 @@ class Announcement extends CI_Controller {
             $this->announcement_model->add_announcement();
             $this->session->set_flashdata('success_msg', 'Announcement Successfully Added!');
             redirect('announcement/index');
+
+            //$this->session->set_flashdata('success_msg', 'Announcement Successfully Added!');
+            //redirect('announcement/index');
         }
         
-    
-    }
-
-    function view() {
-        $data['main_content'] = 'hr/announcement/view';
-        $this->load->view('inc/navbar', $data);
     
     }
 

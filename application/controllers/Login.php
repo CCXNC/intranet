@@ -9,7 +9,8 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('login');
+        $data['announcements'] = $this->login_model->get_announcements();
+        $this->load->view('login', $data);
     }
     
     function auth() {
@@ -28,7 +29,7 @@ class Login extends CI_Controller {
                 'logged_in' => TRUE
             );
             $this->session->set_userdata($sesdata);
-            redirect('dashboard/index');
+            redirect('homepage/index');
         } else {
             echo "<script>alert('Incorrect Username or Password!');history.go(-1);</script>";
         }

@@ -1,21 +1,29 @@
+
 <div class="card">
     <div class="card-header"><h4>VIEW ANNOUNCEMENT</h4></div>
         <div class="card-body">
-            <div style="color:red"><?php echo validation_errors(); ?> </div>
-            <form method="post" action="<?php echo base_url(); ?>announcement/do_upload" enctype="multipart/form-data">
+            
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <center>
-                                        <img src="<?php echo base_url(); ?>assets/images/newsimage.png" alt="" style="width: 30%"><br><br>
+                                        <img src="<?php echo base_url(); ?>assets/images/<?php echo $announcement->image; ?>" alt="" style="width: 80%"><br><br>
                                     </center>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" name="title">
+                                    <div class="form-control"><?php echo $announcement->title; ?></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <div class="form-control"><?php echo $announcement->category; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -23,12 +31,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Content</label>
-                                    <textarea class="form-control" name="content" rows="4" cols="50"></textarea>
+                                    <div class="form-control"><?php echo $announcement->content; ?></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-            </form>
         </div>
     </div>
 </div>

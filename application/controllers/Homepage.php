@@ -9,7 +9,9 @@ class Homepage extends CI_Controller {
         }
     }
 
+
     function index() {
+        $data['announcements'] = $this->homepage_model->get_announcements();
         $data['main_content'] = 'homepage';
         $this->load->view('inc/navbar', $data);
     
