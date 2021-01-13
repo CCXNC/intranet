@@ -1,3 +1,6 @@
+<style>
+  
+</style>
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
@@ -12,8 +15,10 @@
             <thead>
                 <tr>
                     <th>Employee Picture</th>
-                    <th>Employee Number</th>
                     <th>Full Name</th>
+                    <th>Business Unit</th>
+                    <th>Department</th>
+                    <th>Position</th>
                     <th>Date Hired</th>
                     <th>Employee Status</th>
                     <th>Action</th>
@@ -23,9 +28,19 @@
                 <?php if($employees) : ?> 
                     <?php foreach($employees as $employee) : ?>
                         <tr>
-                            <td><center><img src="<?php echo base_url(); ?>uploads/images/<?php echo $employee->picture; ?>" width="100px" height="100px" alt=""></center></td>
-                            <td><?php echo $employee->emp_no;  ?></td>
+                            <td>
+                                <center>
+                                    <?php if($employee->picture != NULL) : ?>
+                                        <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" width="120px" height="120px" alt="">
+                                    <?php else : ?>
+                                        <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="120px" height="120px" alt="">
+                                    <?php endif; ?>
+                                </center>
+                            </td>
                             <td><?php echo $employee->fullname;  ?></td>
+                            <td><?php echo $employee->company;  ?></td>
+                            <td><?php echo $employee->department;  ?></td>
+                            <td><?php echo $employee->position;  ?></td>
                             <td><?php echo date('F j, Y',strtotime($employee->date_hired));  ?></td>
                             <td><?php echo $employee->employee_status;  ?></td>
                             <td>

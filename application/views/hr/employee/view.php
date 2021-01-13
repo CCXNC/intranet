@@ -7,7 +7,7 @@
                 
                     <div style="position:absolute;">
                         <div class="form-group">
-                            <img src="<?php echo base_url(); ?>assets/images/<?php echo $employee->picture; ?>" width="150px" height="150px" alt="" style="margin-left:20px;"><br><br>
+                            <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" width="150px" height="150px" alt="" style="margin-left:20px;"><br><br>
                         </div>
                     </div>    
                 <div class="row">

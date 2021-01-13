@@ -30,12 +30,18 @@ class Employee extends CI_Controller {
             employees.employee_number as emp_no,
             CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
             employment_info.date_hired as date_hired,
-            employment_info.department as department,
-            employee_status.name as employee_status
+            employee_status.name as employee_status,
+            employment_info.position as position,
+
+            company.name as company,
+            department.name as department,
+
         ");
         $this->db->from('employees');
         $this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
         $this->db->join('employee_status', 'employment_info.employee_status = employee_status.id');
+        $this->db->join('company', 'employment_info.company = company.id');
+        $this->db->join('department', 'employment_info.department = department.id');
         $this->db->order_by('employees.last_name', 'ASC');
         $this->db->where('employees.is_active', 1);
         
@@ -49,26 +55,26 @@ class Employee extends CI_Controller {
         $config['full_tag_close'] = '</div>';
             
         $config['first_link'] = 'First Page';
-        $config['first_tag_open'] = '<span class="firstlink">';
+        $config['first_tag_open'] = '<span class="btn btn-light firstlink">';
         $config['first_tag_close'] = '</span>';
             
         $config['last_link'] = 'Last Page';
-        $config['last_tag_open'] = '<span class="lastlink">';
-        $config['last_tag_close'] = '</span>';
+        $config['last_tag_open'] = '<li class=" btn btn-light lastlink">';
+        $config['last_tag_close'] = '</li>';
             
         $config['next_link'] = 'Next Page';
-        $config['next_tag_open'] = '<span class="nextlink">';
-        $config['next_tag_close'] = '</span>';
+        $config['next_tag_open'] = '<li class=" btn btn-light nextlink">';
+        $config['next_tag_close'] = '</li>';
 
         $config['prev_link'] = 'Prev Page';
-        $config['prev_tag_open'] = '<span class="prevlink">';
+        $config['prev_tag_open'] = '<span class="btn btn-light prevlink">';
         $config['prev_tag_close'] = '</span>';
 
-        $config['cur_tag_open'] = '<span class="curlink">';
-        $config['cur_tag_close'] = '</span>';
+        $config['cur_tag_open'] = '<li class="btn btn-light curlink">';
+        $config['cur_tag_close'] = '</li>';
 
-        $config['num_tag_open'] = '<span class="numlink">';
-        $config['num_tag_close'] = '</span>';
+        $config['num_tag_open'] = '<li class="btn btn-light numlink">';
+        $config['num_tag_close'] = '</li>';
 	  
 	  	$this->pagination->initialize($config);	
         $data['main_content'] = 'hr/employee/index';

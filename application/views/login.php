@@ -4,6 +4,18 @@
     <title>login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+    </script>   
 </head>
 <style>
     
@@ -105,6 +117,7 @@
         text-align: justify;
     }
 </style>
+
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm stroke" style="background-color: #003153 !important; height: 65px;">
         <div class="container">
             <a class="navbar" href="">
@@ -130,6 +143,20 @@
                                             <div class="group">
                                                 <label for="exampleInputPassword1" class="label">Password</label>
                                                 <input id="exampleInputPassword1" name="password" type="password" class="input" data-type="password">
+                                            </div>
+                                            <div class="group" style="color:white; padding-top:10px;">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" required>
+
+                                                    <label class="form-check-label" for="remember">
+                                                        I accept the Terms and Conditions. <br>
+                                                        <div id="gallery" data-toggle="modal" data-target="#exampleModal">
+                                                            Click here to view  
+                                                        <a href="#" data-target="#carouselExample" data-slide-to="0">(Terms and Conditions)</a>
+                                                        </div>    
+                                                        
+                                                    </label>
+                                                </div>
                                             </div>
                                             <div class="group">
                                                 <br>
@@ -166,6 +193,7 @@
                                                             </p>
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                             <br>
@@ -176,6 +204,38 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" >
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" >
+                            <div id="carouselExample" class="carousel slide" data-ride="">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <div class="row" >
+                                                <div class="col-md-12" style="text-align:justify; padding-left:50px; padding-right:50px;">
+                                                    <h3 style="text-align:left;" > General Terms and Conditions for Intranet Administration</h3>
+                                                    <p>The person in charge of the administration and updating of the contents of the Company’s intranet as well as in answering potential queries from customers and clients shall observe the following terms and conditions: </p> 
+                                                    <p>1. Ensure that all pictures and articles to be uploaded in the site are original and will not be subjected to any plagiarism/copyright lawsuits. Consequently, all contents uploaded in the site are owned by Blaine Group of Companies. In the event that the articles or pictures uploaded to the site are not owned by Blaine, the source of the same shall be cited.</p> 
+                                                    <p>2. There shall be no assignment of duties in the maintenance and administration of this site.  As such, access to the site as the person in charge of the maintenance and updating of the website shall be limited to those authorized by Blaine to perform the said activities.  Log in user name and password shall specifically be allocated to the person/s in charge in the maintenance of the website and shall be kept for themselves at all times.</p>
+                                                    <p>3. In the maintenance and administration of the company’s website, the person in charge shall make sure that all contents uploaded in the site and the manner they interact with its potential clients and customers in the said site shall not prejudice the interest of the company and its owners by conducting themselves with decorum and providing valuable information that would boost the reputation of the company and its products.  </p>
+                                                    <p>4. Compliance of RA 10173 or the Data Privacy Act of 2012 shall be adhered to at all times in any information derived from the performance of duties as the one in charge in the maintenance and handling of this site particularly data gathered from inquiring customers/clients.
+                                                        Breach of any of the above-enumerated terms could be a subject for disciplinary action and/or other legal remedies available to the Company in making sure its interest is protected.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+ 
 </html>
