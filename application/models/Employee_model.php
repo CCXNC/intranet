@@ -395,8 +395,6 @@ class Employee_model extends CI_Model {
 		$date = date('Y-m-d h:i:s');
 
 		$data_employee = array(
-			'id'                             => $id,
-			'picture'                        => $picture,
 			'first_name'                     => $first_name,
 			'middle_name'                    => $middle_name,
 			'last_name'                      => $last_name,
@@ -449,7 +447,6 @@ class Employee_model extends CI_Model {
 		else
 		{
 			$data_spouse = array(
-				'id'              => $spouse_id,
 				'name'            => $spouse_full_name,
 				'birthday'        => $spouse_birthday,
 				'age'             => $spouse_age,
@@ -473,7 +470,6 @@ class Employee_model extends CI_Model {
 			{
 				
 				$data_children = array(
-					'id'              => $children_id[$i],
 					'name'            => $fullname,
 					'birthday'        => $children_birthday[$i],
 					'age'             => $children_age[$i],
@@ -499,7 +495,6 @@ class Employee_model extends CI_Model {
 			foreach($school as $schoool)
 			{
 				$data_academe = array(
-					'id'			  => $children_id[$x],
 					'school'          => $schoool,
 					'course'          => $course[$x],
 					'year_graduated'  => $year_graduated[$x],
@@ -511,7 +506,7 @@ class Employee_model extends CI_Model {
 				/*print_r('<pre>');
 				print_r($data_academe);
 				print_r('</pre>');*/
-				$this->db->where('academe_info.id', $children_id[$i]);
+				$this->db->where('academe_info.id', $academe_id[$x]);
 				$this->db->where('academe_info.employee_number', $employee_number);
 				$this->db->update('academe_info', $data_academe);
 				$x++;
@@ -519,7 +514,6 @@ class Employee_model extends CI_Model {
 		}
 
 		$data_employment = array(
-			'id'                 => $employment_id,
 			'date_hired'         => $date_hired,
 			'date_probitionary'  => $date_probitionary,
 			'date_regular'       => $date_regular,

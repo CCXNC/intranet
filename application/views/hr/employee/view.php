@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>EMPLOYEE INFORMATION</h4></div>
+    <div class="card-header"><h4>EMPLOYEE INFORMATION<input type="submit" class="btn btn-info float-right" id="printButton" value="Print"></h4></div>
     <div class="card-body">
         <div class="card">
             <div class="card-header">Personal Information</div>
@@ -377,3 +377,13 @@
         </div>  
     </div>      
 </div>    
+<script>
+    $(document).ready(function(){
+        $('#printButton').click(function() {
+            $('#menuTab').css('display', 'none');
+            $('#show-sidebar').hide();
+            $('#printButton').hide();
+            window.print();
+        });
+    });
+</script>

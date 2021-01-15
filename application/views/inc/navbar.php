@@ -537,7 +537,7 @@
         });
     </script>
     <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light" style="background-color: #003153 !important;">
+    <nav class="navbar navbar-expand-md navbar-light bg-light" style="background-color: #003153 !important;" id="navhide">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -561,7 +561,7 @@
             </ul>
         </div>
     </nav>
-        <div class="page-wrapper chiller-theme toggled">
+        <div class="page-wrapper chiller-theme toggled" >
             <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
                 <i class="fas fa-bars"></i>
             </a>
