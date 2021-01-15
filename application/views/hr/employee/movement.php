@@ -8,6 +8,7 @@
             <div class="card">
                 <div class="card-header">Movement Information</div>
                 <div class="card-body">
+                <input type="text" class="form-control" name="employee_number" value="<?php echo $employee->emp_no; ?>" hidden>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -46,10 +47,10 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Department Movement From</label>
-                                <select class="form-control" name="movement_from">
+                                <select class="form-control" name="movement_from" id="dis">
                                     <?php if($departments) : ?>
                                         <?php foreach($departments as $department) : ?>
-                                            <option value="<?php echo $department->id; ?>"<?php echo $department->id == $employee->emp_department ? 'selected' : ' '; ?>><?php echo $department->name; ?></option>
+                                            <option readonly value="<?php echo $department->id . '|' . $department->name; ?>"<?php echo $department->id == $employee->emp_department ? 'selected' : ' '; ?>><?php echo $department->name; ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>  
                                 </select>
@@ -58,7 +59,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Movement To</label>
-                                <select class="form-control" name="movement_to">
+                                <select class="form-control" name="department">
                                     <option value="">Select Department</option>
                                     <?php if($departments) : ?>
                                         <?php foreach($departments as $department) : ?>
@@ -102,7 +103,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Date Transfer/Promote</label>
+                                <label>Date Transfer/Promotion</label>
                                 <input type="date" class="form-control" name="date_transfer">
                             </div>
                         </div>
@@ -140,6 +141,7 @@
     </form> 
 </div>  
 <script>
+    $('#dis').attr("disabled", true); 
     $("#probitionary").hide();
     $("#regular").hide(); 
     $('#mySelect').on('change', function() {

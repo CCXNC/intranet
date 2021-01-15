@@ -29,6 +29,7 @@ class Employee_model extends CI_Model {
 		$sss = $this->input->post('sss');
 		$philhealth = $this->input->post('philhealth');
 		$pagibig = $this->input->post('pagibig');
+		$emergency_relationship = $this->input->post('emergency_relationship');
 
 		//ACADEME INPUT
 		$school = $this->input->post('school');
@@ -46,6 +47,7 @@ class Employee_model extends CI_Model {
 		$superior = $this->input->post('superior');
 		$employee_status = $this->input->post('employee_status');
 		$year_of_service = $this->input->post('year_of_service');
+		$category = $this->input->post('category');
 
 		//PARENTS INPUT
 		$father_full_name = $this->input->post('father_full_name');
@@ -63,27 +65,28 @@ class Employee_model extends CI_Model {
 		$date = date('Y-m-d h:i:s');
 		
 		$data_employee = array(
-			'picture'                  => $picture,
-			'employee_number'          => $employee_number,
-			'first_name'               => $first_name,
-			'middle_name'              => $middle_name,
-			'last_name'                => $last_name,
-			'nick_name'                => $nickname,
-			'birthday'                 => $birthday,
-			'age'                      => $age,
-			'gender'                   => $gender,
-			'marital_status'           => $marital_status,
-			'contact_number'           => $contact_number,
-			'email_address'            => $email,
-			'emergency_contact_name'   => $emergency_name,
-			'emergency_contact_number' => $emergency_contact,
-			'address'                  => $address,
-			'sss_number'               => $sss,
-			'tin_number'               => $tin,
-			'pagibig_number'           => $pagibig,
-			'philhealth_number'        => $philhealth,
-			'created_at'               => $date,
-			'created_by'               => $this->session->userdata('username')
+			'picture'                        => $picture,
+			'employee_number'                => $employee_number,
+			'first_name'                     => $first_name,
+			'middle_name'                    => $middle_name,
+			'last_name'                      => $last_name,
+			'nick_name'                      => $nickname,
+			'birthday'                       => $birthday,
+			'age'                            => $age,
+			'gender'                         => $gender,
+			'marital_status'                 => $marital_status,
+			'contact_number'                 => $contact_number,
+			'email_address'                  => $email,
+			'emergency_contact_name'         => $emergency_name,
+			'emergency_contact_number'       => $emergency_contact,
+			'emergency_contact_relationship' => $emergency_relationship,
+			'address'                        => $address,
+			'sss_number'                     => $sss,
+			'tin_number'                     => $tin,
+			'pagibig_number'                 => $pagibig,
+			'philhealth_number'              => $philhealth,
+			'created_date'                     => $date,
+			'created_by'                     => $this->session->userdata('username')
 		);
 		
 		$this->db->insert('employees', $data_employee);
@@ -106,7 +109,7 @@ class Employee_model extends CI_Model {
 					'course'          => $course[$x],
 					'year_graduated'  => $year_graduated[$x],
 					'license'         => $license[$x],
-					'created_at'      => $date,
+					'created_date'    => $date,
 					'created_by'      => $this->session->userdata('username')
 				);
 		
@@ -123,7 +126,7 @@ class Employee_model extends CI_Model {
 			'employee_number' => $employee_number,
 			'father_name'     => $father_full_name,
 			'mother_name'     => $mother_full_name,
-			'created_at'      => $date,
+			'created_date'    => $date,
 			'created_by'      => $this->session->userdata('username')
 		);
 
@@ -144,7 +147,7 @@ class Employee_model extends CI_Model {
 				'birthday'        => $spouse_birthday,
 				'age'             => $spouse_age,
 				'occupation'      => $occupation,
-				'created_at'      => $date,
+				'created_date'    => $date,
 				'created_by'      => $this->session->userdata('username')
 			);
 
@@ -158,15 +161,17 @@ class Employee_model extends CI_Model {
 		$data_employment = array(
 			'employee_number'    => $employee_number,
 			'date_hired'         => $date_hired,
+			'date_probitionary'  => $date_hired,
 			'company'            => $company,
 			'position'           => $position,
+			'category'           => $category,
 			'work_group'         => $work_group,
 			'department'         => $department,
 			'immediate_superior' => $superior,
 			'employee_status'    => $employee_status,
 			'years_of_service'   => $year_of_service,
 			'rank'               => $rank,
-			'created_at'         => $date,
+			'created_date'         => $date,
 			'created_by'         => $this->session->userdata('username')
 		);
 
@@ -190,7 +195,7 @@ class Employee_model extends CI_Model {
 					'birthday'        => $children_birthday[$i],
 					'age'             => $children_age[$i],
 					'gender'          => $children_gender[$i],
-					'created_at'      => $date,
+					'created_date'    => $date,
 					'created_by'      => $this->session->userdata('username')
 				);
 
@@ -236,6 +241,9 @@ class Employee_model extends CI_Model {
 			employees.id as id,
 			employees.picture as picture,
 			employees.employee_number as emp_no,
+			employees.last_name as last_name,
+			employees.middle_name as middle_name,
+			employees.first_name as first_name, 
 			CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname,
 			employees.nick_name as nick_name,
 			employees.birthday as birthday,
@@ -244,7 +252,8 @@ class Employee_model extends CI_Model {
 			employees.contact_number as contact_number,
 			employees.email_address as email_address,
 			employees.emergency_contact_name as emergency_name,
-			employees.emergency_contact_number as contact_number,
+			employees.emergency_contact_number as emergency_contact_number,
+			employees.emergency_contact_relationship as emergency_contact_relationship,
 			employees.address as address,
 			employees.gender as gender,
 			employees.sss_number as sss,
@@ -260,20 +269,28 @@ class Employee_model extends CI_Model {
 			spouse_info.age as spouse_age,
 			spouse_info.occupation as spouse_occupation,
 
+			parents_info.id as parent_id,
+			employment_info.id as employment_id,
+			spouse_info.id as spouse_id,
+
 			employment_info.company as emp_company,
 			employment_info.rank as emp_rank,
 			employment_info.department as emp_department,
 			employment_info.work_group as emp_workgroup,
 			employment_info.employee_status as emp_status,
-			
-			
 			employment_info.date_hired as date_hired,
 			employment_info.date_regular as date_regular,
 			employment_info.date_probitionary as date_probitionary,
-			employment_info.department as department,
 			employment_info.position as position,
 			employment_info.immediate_superior as superior,
 			employment_info.years_of_service as years_of_service,
+			
+			employment_info.department as department_id,
+			employment_info.company as company_id,
+			employment_info.rank as rank_id,
+			employment_info.work_group as work_group_id,
+			employment_info.category as category_id,
+			employment_info.employee_status as employee_status_id,
 
 			employee_status.name as employee_status,
 			company.name as company_name,
@@ -301,6 +318,235 @@ class Employee_model extends CI_Model {
 		$query = $this->db->get();
 
 		return $query->row();
+	}
+
+	public function update_employee($id,$employee_number)
+	{
+		$this->db->trans_start();
+
+		//EMPLOYEE INPUT
+		$picture = $file_name = $_FILES['userfile']['name'];;
+		//$employee_number = $this->input->post('employee_number');
+		$first_name = $this->input->post('first_name');
+		$middle_name = $this->input->post('middle_name');
+		$last_name = $this->input->post('last_name');
+		$nickname = $this->input->post('nickname');
+		$gender = $this->input->post('gender');
+		$birthday = $this->input->post('birthday');
+		$age = $this->input->post('age');
+		$gender = $this->input->post('gender');
+		$religion = $this->input->post('religion');
+		$email = $this->input->post('email');
+		$contact_number = $this->input->post('contact_number');
+		$marital_status = $this->input->post('marital_status');
+		$address = $this->input->post('address');
+
+		$emergency_name = $this->input->post('emergency_name');
+		$emergency_contact = $this->input->post('emergency_contact');
+		$emergency_relationship = $this->input->post('emergency_relationship');
+
+		$tin = $this->input->post('tin');
+		$sss = $this->input->post('sss');
+		$philhealth = $this->input->post('philhealth');
+		$pagibig = $this->input->post('pagibig');
+		
+
+		//ACADEME INPUT
+		$school = $this->input->post('school');
+		$course = $this->input->post('course');
+		$year_graduated = $this->input->post('year_graduated');
+		$license = $this->input->post('license');
+
+		//EMPLOYMENT INPUT
+		$date_hired = $this->input->post('date_hired');
+		$date_probitionary = $this->input->post('date_probitionary');
+		$date_regular = $this->input->post('date_regular');
+		$company = $this->input->post('company');
+		$position = $this->input->post('position');
+		$rank = $this->input->post('rank');
+		$department = $this->input->post('department');
+		$work_group = $this->input->post('work_group');
+		$superior = $this->input->post('superior');
+		$employee_status = $this->input->post('employee_status');
+		$year_of_service = $this->input->post('year_of_service');
+		$category = $this->input->post('category');
+
+		//PARENTS INPUT
+		$father_full_name = $this->input->post('father_full_name');
+		$mother_full_name = $this->input->post('mother_full_name');
+		//SPOUSE INPUT
+		$spouse_full_name = $this->input->post('spouse_full_name');
+		$spouse_birthday = $this->input->post('spouse_birthday');
+		$spouse_age = $this->input->post('spouse_age');
+		$occupation = $this->input->post('occupation');
+		//CHILDREN INPUT
+		$children_birthday   = $this->input->post('children_birthday');
+		$children_age        = $this->input->post('children_age');
+		$children_gender     = $this->input->post('children_gender');
+
+		//IDS
+		$parent_id = $this->input->post('parent_id');
+		$spouse_id = $this->input->post('spouse_id');
+		$children_id = $this->input->post('children_id');
+		$academe_id = $this->input->post('academe_id');
+		$employment_id = $this->input->post('employment_id');
+
+		$i = 0;
+		$date = date('Y-m-d h:i:s');
+
+		$data_employee = array(
+			'id'                             => $id,
+			'picture'                        => $picture,
+			'first_name'                     => $first_name,
+			'middle_name'                    => $middle_name,
+			'last_name'                      => $last_name,
+			'nick_name'                      => $nickname,
+			'birthday'                       => $birthday,
+			'age'                            => $age,
+			'gender'                         => $gender,
+			'marital_status'                 => $marital_status,
+			'contact_number'                 => $contact_number,
+			'email_address'                  => $email,
+			'emergency_contact_name'         => $emergency_name,
+			'emergency_contact_number'       => $emergency_contact,
+			'emergency_contact_relationship' => $emergency_relationship,
+			'address'                        => $address,
+			'sss_number'                     => $sss,
+			'tin_number'                     => $tin,
+			'pagibig_number'                 => $pagibig,
+			'philhealth_number'              => $philhealth,
+			'updated_date'                   => $date,
+			'updated_by'                     => $this->session->userdata('username')
+		);
+		
+		/*print_r('<pre>');
+		print_r($data_employee);
+		print_r('</pre>');*/
+		$this->db->where('employees.id', $id);
+		$this->db->where('employees.employee_number', $employee_number);
+		$this->db->update('employees', $data_employee);
+
+		$data_parent = array(
+			'id' => $parent_id,
+			'father_name'     => $father_full_name,
+			'mother_name'     => $mother_full_name,
+			'updated_date'    => $date,
+			'updated_by'      => $this->session->userdata('username')
+		);
+
+		/*print_r('<pre>');
+		print_r($data_parent);
+		print_r('</pre>');*/
+		$this->db->where('parents_info.id', $parent_id);
+		$this->db->where('parents_info.employee_number', $employee_number);
+		$this->db->update('parents_info', $data_parent);
+
+
+		if($spouse_id == NULL) 
+		{
+
+		}
+		else
+		{
+			$data_spouse = array(
+				'id'              => $spouse_id,
+				'name'            => $spouse_full_name,
+				'birthday'        => $spouse_birthday,
+				'age'             => $spouse_age,
+				'occupation'      => $occupation,
+				'updated_date'    => $date,
+				'updated_by'      => $this->session->userdata('username')
+			);
+	
+			/*print_r('<pre>');
+			print_r($data_spouse);
+			print_r('</pre>');*/
+			$this->db->where('spouse_info.id', $spouse_id);
+			$this->db->where('spouse_info.employee_number', $employee_number);
+			$this->db->update('spouse_info', $data_spouse);
+		}
+
+		$children_full_name = $this->input->post('children_full_name');
+		if($children_id != NULL) 
+		{
+			foreach($children_full_name as $fullname)
+			{
+				
+				$data_children = array(
+					'id'              => $children_id[$i],
+					'name'            => $fullname,
+					'birthday'        => $children_birthday[$i],
+					'age'             => $children_age[$i],
+					'gender'          => $children_gender[$i],
+					'updated_date'    => $date,
+					'updated_by'      => $this->session->userdata('username')
+				);
+
+				/*print_r('<pre>');
+				print_r($data_children);
+				print_r('</pre>');*/
+				$this->db->where('children_info.id', $children_id[$i]);
+				$this->db->where('children_info.employee_number', $employee_number);
+				$this->db->update('children_info', $data_children);
+				$i++;
+				
+			}
+		}
+
+		$x = 0;
+		if($academe_id != NULL)
+		{
+			foreach($school as $schoool)
+			{
+				$data_academe = array(
+					'id'			  => $children_id[$x],
+					'school'          => $schoool,
+					'course'          => $course[$x],
+					'year_graduated'  => $year_graduated[$x],
+					'license'         => $license[$x],
+					'updated_date'    => $date,
+					'updated_by'      => $this->session->userdata('username')
+				);
+		
+				/*print_r('<pre>');
+				print_r($data_academe);
+				print_r('</pre>');*/
+				$this->db->where('academe_info.id', $children_id[$i]);
+				$this->db->where('academe_info.employee_number', $employee_number);
+				$this->db->update('academe_info', $data_academe);
+				$x++;
+			}
+		}
+
+		$data_employment = array(
+			'id'                 => $employment_id,
+			'date_hired'         => $date_hired,
+			'date_probitionary'  => $date_probitionary,
+			'date_regular'       => $date_regular,
+			'company'            => $company,
+			'position'           => $position,
+			'category'           => $category,
+			'work_group'         => $work_group,
+			'department'         => $department,
+			'immediate_superior' => $superior,
+			'employee_status'    => $employee_status,
+			'years_of_service'   => $year_of_service,
+			'rank'               => $rank,
+			'updated_date'       => $date,
+			'updated_by'         => $this->session->userdata('username')
+		);
+
+		/*print_r('<pre>');
+		print_r($data_employment);
+		print_r('</pre>');*/
+		$this->db->where('employment_info.id', $employment_id);
+		$this->db->where('employment_info.employee_number', $employee_number);
+		$this->db->update('employment_info', $data_employment);
+
+		$trans = $this->db->trans_complete();
+		return $trans;
+
+
 	}
 
 	public function get_academe_infos($employee_number)
@@ -353,6 +599,7 @@ class Employee_model extends CI_Model {
 
 	public function update_employee_movement($id,$employee_number)
 	{
+		$employee_number = $this->input->post('employee_number');
 		$employee_status = $this->input->post('employee_status');
 		$date_probitionary = $this->input->post('date_probitionary');
 		$date_regular = $this->input->post('date_regular');
@@ -363,15 +610,13 @@ class Employee_model extends CI_Model {
 		$work_group = $this->input->post('work_group');
 		$superior = $this->input->post('superior');
 		$movement_from = $this->input->post('movement_from');
-		$movement_to = $this->input->post('movement_to');
-		$movement_from = $this->input->post('movement_from');
 		$date_transfer = $this->input->post('date_transfer');
 		$remarks = $this->input->post('remarks');
 		$credit = $this->input->post('credit');
 		$datetime = date('Y-m-d h:i:s');
 
 		// GET RECENT DATA FROM EMPLOYMENT INFO 
-		$this->db->select('*');
+		/*$this->db->select('*');
 		$this->db->where('employment_info.employee_number', $employee_number);
 		$datas = $this->db->get('employment_info');
 		$emp_employee_number = $datas->row()->employee_number;
@@ -382,75 +627,49 @@ class Employee_model extends CI_Model {
 		$emp_position = $datas->row()->position;
 		$emp_superior = $datas->row()->immediate_superior;
 		$emp_rank = $datas->row()->rank;
-		$emp_employee_status = $datas->row()->employee_status;
+		$emp_employee_status = $datas->row()->employee_status;*/
 
 		$data_transfer = array(
-			'employee_number'    => $emp_employee_number,
-			'employee_status'    => $emp_employee_status,
-			'company'            => $emp_company,
-			'position'           => $emp_position,
-			'work_group'         => $emp_work_group,
-			'rank'               => $emp_rank,
-			'position'           => $emp_position,
-			'immediate_superior' => $emp_superior,
-			'movement_from'      => $movement_from,
-			'movement_to'        => $movement_to,
+			'employee_number'    => $employee_number,
+			'employee_status'    => $employee_status,
+			'company'            => $company,
+			'position'           => $position,
+			'work_group'         => $work_group,
+			'rank'               => $rank,
+			'position'           => $position,
+			'immediate_superior' => $superior,
+			'department'         => $department,
 			'date_transfer'      => $date_transfer,
 			'remarks'            => $remarks,
-			'created_at'         => $datetime,
+			'created_date'       => $datetime,
 			'created_by'         => $this->session->userdata('username')
-			);
+		);
 
 		$this->db->insert('transfer_logs', $data_transfer);
 		/*print_r('<pre>');
 		print_r($data_transfer);
 		print_r('</pre>');*/
 		
-		if($movement_to == NUll)
-		{
-			$data_employment = array(
-				'company'            => $company,
-				'department'         => $movement_from,
-				'rank'               => $rank,
-				'employee_status'    => $employee_status,
-				'work_group'         => $work_group,
-				'immediate_superior' => $superior,
-				'position'           => $position,
-				'date_regular'       => $date_regular,
-				'date_probitionary'  => $date_probitionary,
-				'updated_at'         => $datetime,
-				'updated_by'         => $this->session->userdata('username')
-			);
-	
-			$this->db->where('employee_number', $employee_number);
-			$this->db->update('employment_info', $data_employment);
-			/*print_r('<pre>');
-			print_r($data_employment);
-			print_r('</pre>');*/
-		}
-		else
-		{
-			$data_employment = array(
-				'company'            => $company,
-				'department'         => $movement_from,
-				'rank'               => $rank,
-				'employee_status'    => $employee_status,
-				'work_group'         => $work_group,
-				'immediate_superior' => $superior,
-				'position'           => $position,
-				'date_regular'       => $date_regular,
-				'date_probitionary'  => $date_probitionary,
-				'updated_at'         => $datetime,
-				'updated_by'         => $this->session->userdata('username')
-			);
-	
-			$this->db->where('employee_number', $employee_number);
-			$this->db->update('employment_info', $data_employment);
-			/*print_r('<pre>');
-			print_r($data_employment);
-			print_r('</pre>');*/
-		}
 		
+		$data_employment = array(
+			'company'            => $company,
+			'department'         => $department,
+			'rank'               => $rank,
+			'employee_status'    => $employee_status,
+			'work_group'         => $work_group,
+			'immediate_superior' => $superior,
+			'position'           => $position,
+			'date_regular'       => $date_regular,
+			'date_probitionary'  => $date_probitionary,
+			'updated_date'       => $datetime,
+			'updated_by'         => $this->session->userdata('username')
+		);
+
+		$this->db->where('employee_number', $employee_number);
+		$this->db->update('employment_info', $data_employment);
+		/*print_r('<pre>');
+		print_r($data_employment);
+		print_r('</pre>');*/
 
 	}
 
@@ -486,7 +705,7 @@ class Employee_model extends CI_Model {
 			'date_termination'  => $date_termination,
 			'date_clearance'    => $date_clearance,
 			'remarks'           => $remarks,
-			'updated_at'        => $datetime,
+			'updated_date'      => $datetime,
 			'updated_by'        => $this->session->userdata('username')
 
 		);
@@ -502,5 +721,136 @@ class Employee_model extends CI_Model {
 		$trans = $this->db->trans_complete();
 		return $trans;
 		
+	}
+
+	public function add_employee_info()
+	{
+		$this->db->trans_start();
+
+		//SPOUSE INPUT
+		$employee_number = $this->input->post('employee_number');
+		$spouse_full_name = $this->input->post('spouse_full_name');
+		$spouse_birthday = $this->input->post('spouse_birthday');
+		$spouse_age = $this->input->post('spouse_age');
+		$occupation = $this->input->post('occupation');
+		//CHILDREN INPUT
+		$children_birthday   = $this->input->post('children_birthday');
+		$children_age        = $this->input->post('children_age');
+		$children_gender     = $this->input->post('children_gender');
+		//ACADEME INPUT
+		$school = $this->input->post('school');
+		$course = $this->input->post('course');
+		$year_graduated = $this->input->post('year_graduated');
+		$license = $this->input->post('license');
+		$date = date('Y-m-d h:i:s');
+
+		if($spouse_full_name == NULL) 
+		{
+			
+		} 
+		else 
+		{
+			$data_spouse = array(
+				'employee_number' => $employee_number,
+				'name'            => $spouse_full_name,
+				'birthday'        => $spouse_birthday,
+				'age'             => $spouse_age,
+				'occupation'      => $occupation,
+				'created_date'    => $date,
+				'created_by'      => $this->session->userdata('username')
+			);
+
+			$this->db->insert('spouse_info', $data_spouse);
+			/*print_r('<pre>');
+			print_r($data_spouse);
+			print_r('</pre>');*/
+		}
+
+		$i = 0;
+		$children_full_name = $this->input->post('children_full_name');
+		foreach($children_full_name as $fullname)
+		{
+			if($fullname == NULL)
+			{
+
+			}
+			else
+			{
+				$data_children = array(
+					'employee_number' => $employee_number,
+					'name'            => $fullname,
+					'birthday'        => $children_birthday[$i],
+					'age'             => $children_age[$i],
+					'gender'          => $children_gender[$i],
+					'created_date'    => $date,
+					'created_by'      => $this->session->userdata('username')
+				);
+
+				/*print_r('<pre>');
+				print_r($data_children);
+				print_r('</pre>');*/
+				$this->db->insert('children_info', $data_children);
+				$i++;
+			}
+		}
+
+		$x = 0;
+		foreach($school as $schoool)
+		{
+			if($schoool == NULL)
+			{
+
+			}
+			else
+			{
+				$data_academe = array(
+					'employee_number' => $employee_number,
+					'school'          => $schoool,
+					'course'          => $course[$x],
+					'year_graduated'  => $year_graduated[$x],
+					'license'         => $license[$x],
+					'created_date'    => $date,
+					'created_by'      => $this->session->userdata('username')
+				);
+		
+				/*print_r('<pre>');
+				print_r($data_academe);
+				print_r('</pre>');*/
+				$this->db->insert('academe_info', $data_academe);
+				$x++;
+			}
+		}
+
+		$trans = $this->db->trans_complete();
+		return $trans;
+	}
+
+	public function get_transfer_logs($employee_number)
+	{
+		$this->db->select('
+			transfer_logs.position as position,
+			transfer_logs.immediate_superior as superior,
+			transfer_logs.date_transfer as date,
+			transfer_logs.remarks as remarks,
+
+			employee_status.name as employee_status,
+			department.name as department_name,
+			company.name as company_name,
+			rank.name as rank_name,
+			work_group.name as work_group
+		');
+
+		$this->db->from('transfer_logs');
+		$this->db->where('transfer_logs.employee_number', $employee_number);
+		$this->db->order_by('transfer_logs.date_transfer', 'DESC');
+		$this->db->join('employee_status', 'transfer_logs.employee_status = employee_status.id');
+		$this->db->join('company', 'transfer_logs.company = company.id');
+		$this->db->join('rank', 'transfer_logs.rank = rank.id');
+		$this->db->join('department', 'transfer_logs.department = department.id');
+		$this->db->join('work_group', 'transfer_logs.work_group = work_group.id');
+		
+		$query = $this->db->get();
+
+		return $query->result();
 	}
 }

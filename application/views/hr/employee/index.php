@@ -1,13 +1,10 @@
-<style>
-  
-</style>
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
 <div class="card">
     <div class="card-header"><h4>EMPLOYEE LIST
     <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal_00">
-        SEARCH
+        DOWNLOAD
     </button>
     <a href="<?php echo base_url(); ?>employee/do_upload" class="btn btn-info float-right" style="margin-right:10px;">ADD</a></h4> </div>
     <div class="card-body">
@@ -51,9 +48,9 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="<?php echo base_url(); ?>employee/view_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>"> View</a>
-                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="<?php echo base_url(); ?>employee/edit_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Edit</a>
                                             <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#">Add Info</a>
+                                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/add_info/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Add Info</a>
                                             <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_movement/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Movement</a>
                                             <div class="dropdown-divider"></div>

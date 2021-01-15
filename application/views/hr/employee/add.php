@@ -131,7 +131,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>*Email Address</label>
+                                    <label>*Personal Email Address</label>
                                     <input type="text" class="form-control"  name="email">
                                 </div>
                             </div>
@@ -265,16 +265,22 @@
                     <div class="card-header">Emergency Contact Person's Information</div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>*FullName</label>
                                     <input type="text" class="form-control" name="emergency_name" >
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>*Contact Number</label>
                                     <input type="text" class="form-control"  name="emergency_contact" >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>*Relationship</label>
+                                    <input type="text" class="form-control"  name="emergency_relationship" >
                                 </div>
                             </div>
                         </div>
@@ -350,49 +356,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>*Rank</label>
-                                    <select class="form-control" name="rank">
-                                        <option value="">Select Department</option>
-                                        <?php if($ranks) : ?>
-                                            <?php foreach($ranks as $rank) : ?>
-                                                <option value="<?php echo $rank->id; ?>"><?php echo $rank->name; ?></option>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>    
+                                    <label>*Category</label>
+                                    <select class="form-control" name="category">
+                                        <option value="">Select Category</option>
+                                        <option value="1">Strategic</option>    
+                                        <option value="2">Non Strategic</option>        
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>*Department</label>
-                                    <select class="form-control" name="department">
-                                        <option value="">Select Department</option>
-                                        <?php if($departments) : ?>
-                                            <?php foreach($departments as $department) : ?>
-                                                <option value="<?php echo $department->id; ?>"><?php echo $department->name; ?></option>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>    
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>*Work Group</label>
-                                    <select class="form-control" name="work_group">
-                                        <option value="">Select Work Group</option>
-                                        <?php if($groups) : ?>
-                                            <?php foreach($groups as $group) : ?>
-                                                <option value="<?php echo $group->id; ?>"><?php echo $group->name; ?></option>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>    
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>*Superior</label>
-                                    <input type="text" class="form-control"  name="superior">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -410,6 +379,54 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>*Department</label>
+                                    <select class="form-control" name="department">
+                                        <option value="">Select Department</option>
+                                        <?php if($departments) : ?>
+                                            <?php foreach($departments as $department) : ?>
+                                                <option value="<?php echo $department->id; ?>"><?php echo $department->name; ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>    
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>*Work Group</label>
+                                    <select class="form-control" name="work_group">
+                                        <option value="">Select Work Group</option>
+                                        <?php if($groups) : ?>
+                                            <?php foreach($groups as $group) : ?>
+                                                <option value="<?php echo $group->id; ?>"><?php echo $group->name; ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>    
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>*Rank</label>
+                                    <select class="form-control" name="rank">
+                                        <option value="">Select Rank</option>
+                                        <?php if($ranks) : ?>
+                                            <?php foreach($ranks as $rank) : ?>
+                                                <option value="<?php echo $rank->id; ?>"><?php echo $rank->name; ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>    
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>*Superior</label>
+                                    <input type="text" class="form-control"  name="superior">
+                                </div>
+                            </div>
+                                                
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Years of Service</label>
@@ -455,7 +472,7 @@
                 <br>
                 <center>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-success"  value="SUBMIT" >
+                        <input type="submit" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
                     </div>
                 </center>
                
