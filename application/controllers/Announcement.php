@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Announcement extends CI_Controller {
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set('Asia/Manila');
         if($this->session->userdata('logged_in') !== TRUE){
             redirect('Login');
         }
@@ -71,9 +72,30 @@ class Announcement extends CI_Controller {
     
     }
 
-    function edit() {
-        $data['main_content'] = 'hr/announcement/edit';
-        $this->load->view('inc/navbar', $data);
-    
+    function edit($id) {
+        $this->form_validation->set_rules('title', 'Title', 'required|trim');
+        $this->form_validation->set_rules('content', 'Content', 'required|trim');
+        $this->form_validation->set_rules('category', 'Category', 'required|trim');
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['main_content'] = 'hr/announcement/edit';
+            $data["announcement"] = $this->announcement_model->get_announcement($id);
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            $this->announcement_model->update_announcement($id);
+            $this->session->set_flashdata('success_msg', 'Announcement Successfully Updated!');
+            redirect('announcement/index');
+        }
+    }
+
+    function delete($id){
+        if($this->announcement_model->delete_announcement($id))
+        {
+            $this->session->set_flashdata('error_msg', 'Announcement Successfully Deleted!');
+            redirect('announcement/index');
+        }
+        
     }
 }

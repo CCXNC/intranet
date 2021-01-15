@@ -537,36 +537,30 @@
         });
     </script>
     <body>
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm stroke" style="background-color: #003153 !important;">
-            <div class="container">
-                <a class="navbar" href="">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
-                    <ul class="navbar-nav ml-auto fw">
-                        <!--<span class="navbar-text">
-                            <a href="<?php echo site_url('Login/logout');?>" class="nav-link logout" style="color: white">Logout</a>
-                        </span>-->
-                        <li class="nav-item dropdown">
-                            <a style="color:white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-user-circle"></i>
-                                <span>Username</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">My Profile</a>
-                                <a class="dropdown-item" href="#">Notification</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo site_url('Login/logout');?>">Logout</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <nav class="navbar navbar-expand-md navbar-light bg-light" style="background-color: #003153 !important;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a style="color:white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-circle"></i>
+                        <span>Username</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">Notification</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?php echo site_url('Login/logout');?>">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
         <div class="page-wrapper chiller-theme toggled">
             <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
                 <i class="fas fa-bars"></i>
@@ -575,7 +569,7 @@
                 <div class="sidebar-content">
                     <div class="sidebar-brand">
                         <a href="#">
-                            <img id="image" src="<?php echo base_url(); ?>assets/images/logo.png" style="width:60% " alt="">
+                            <img id="image" src="<?php echo base_url(); ?>assets/images/logo.png" style="width:60%; box-shadow: 0px 0px 5px #fff;" alt="">
                         </a>
                         <div id="close-sidebar">
                             <i class="fas fa-window-minimize"></i>
@@ -583,10 +577,6 @@
                     </div>
                     <div class="sidebar-menu">
                         <ul>
-                            <!--<li class="header-menu">
-                                <span>General</span>
-                            </li>-->
-                            
                             <!--HOMEPAGE-->
                             <li class="sidebar-dropdown">
                                 <a href="#">
@@ -692,7 +682,7 @@
                             <!--ENGINEERING-->
                             <li class="">
                                 <a href="#">
-                                    <i class="fa fa-question-circle"></i>
+                                    <i class="fa fa-cogs"></i>
                                     <span>Engineering</span>
                                 </a>
                                 <!--<div class="sidebar-submenu">

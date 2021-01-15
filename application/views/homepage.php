@@ -19,11 +19,12 @@
             <h4>ANNOUNCEMENTS</h4>
         </div>
         <div class="card-body">
-            <?php if($announcements) : ?>
-                <?php foreach($announcements as $announcement) : ?>
+            <?php if($announcement) : ?>
+                <?php foreach($announcement as $announcement) : ?>
                     <div class="card">
                         <div class="card-header">
                             <?php echo $announcement->title;  ?>
+                            <p style="font-size: 10px;float: right">Created at: <?php echo $announcement->created_date;  ?></p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -46,6 +47,10 @@
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
+    </div>
+    <div class="float-right">
+        <?php echo $this->pagination->create_links(); ?>
+        <br>
     </div>
 </section>
         

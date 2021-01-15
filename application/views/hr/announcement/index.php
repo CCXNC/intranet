@@ -1,6 +1,9 @@
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
+<?php if($this->session->flashdata('error_msg')) : ?>
+    <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
+<?php endif; ?>
 <div class="card">
     <div class="card-header"><h4>ANNOUNCEMENT LIST<a href="<?php echo base_url(); ?>announcement/do_upload" class="btn btn-info float-right">ADD</a></h4> </div>
     <div class="card-body">
@@ -30,8 +33,8 @@
                                         </button>
                                         <div class="dropdown-menu">
                                         <a class="dropdown-item" href="<?php echo base_url(); ?>announcement/view_announcement/<?php echo $announcement->id; ?>"> View</a>
-                                            <a class="dropdown-item" href="<?php echo base_url(); ?>announcement/edit">Edit</a>
-                                            <a class="dropdown-item" href="#">Delete</a>
+                                            <a class="dropdown-item" href="<?php echo base_url(); ?>announcement/edit/<?php echo $announcement->id; ?>">Edit</a>
+                                            <a onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>announcement/delete/<?php echo $announcement->id?>">Delete</a>
                                         </div>
                                     </div>
                                 </center>

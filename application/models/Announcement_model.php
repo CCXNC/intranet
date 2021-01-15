@@ -36,10 +36,8 @@ class Announcement_model extends CI_Model {
 	
 	public function get_announcements()
 	{
-		$this->db->select("*");
-		$this->db->from('announcement');
-	
-		$query = $this->db->get();
+		$this->db->where('is_active', 1);
+		$query = $this->db->get('announcement');
 
 		return $query->result();
 	}
@@ -57,5 +55,29 @@ class Announcement_model extends CI_Model {
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->row();
+	}
+
+	public function update_announcement($id)
+	{
+		$data = array (
+            'category' => $this->input->post('category'),
+            'title' => $this->input->post('title'),
+            'content' => $this->input->post('content')
+        );
+        $this->db->where('id', $id);
+		$query = $this->db->update('announcement', $data);
+		
+		return $query;
+	}
+
+	public function delete_announcement($id)
+	{
+		$data = array(
+			'is_active'  => 0
+		);
+		$this->db->where('id', $id);
+	   $query = $this->db->update('announcement', $data);
+	   
+	   return $query;
 	}
 }

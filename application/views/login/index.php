@@ -21,7 +21,7 @@
     
     .login-wrap{
         width:auto;
-        background:url(assets/images/image1.png) no-repeat center;
+        background:url(<?php echo base_url(); ?>assets/images/image1.png) no-repeat center;
         box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
     }
     .login-html{
@@ -121,7 +121,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm stroke" style="background-color: #003153 !important; height: 65px;">
         <div class="container">
             <a class="navbar" href="">
-                <img id="image" src="assets/images/logo.png" style="width:150px; position: absolute; left: 0" alt="">
+                <img id="image" src="<?php echo base_url(); ?>assets/images/logo.png" style="width:150px; position: absolute; left: 0; box-shadow: 0px 0px 5px #fff;" alt="">
             </a>
         </div>
     </nav>
@@ -172,8 +172,8 @@
                         <section>
                             <div class="container">
                             
-                                    <?php if($announcements) : ?>
-                                        <?php foreach($announcements as $announcement) : ?>
+                                    <?php if($announcement) : ?>
+                                        <?php foreach($announcement as $announcement) : ?>
                                             <div class="card">
                                                 <div class="card-header" style="background-color: #003153; color: white">
                                                     <?php echo $announcement->title;  ?>
@@ -189,7 +189,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <p class="announcement">
-                                                                <?php echo word_limiter($announcement->content,50); ?></a>
+                                                                <?php echo word_limiter($announcement->content,100); ?></a>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -201,6 +201,10 @@
                                     <?php endif; ?>
                             </div>
                         </section>
+                        <div class="float-right">
+                            <?php echo $this->pagination->create_links(); ?>
+                            <br>
+                        </div>
                     </div>
                 </div>
             </div>

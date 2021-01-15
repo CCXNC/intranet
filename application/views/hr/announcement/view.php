@@ -8,7 +8,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <center>
-                                        <img src="<?php echo base_url(); ?>assets/images/<?php echo $announcement->image; ?>" alt="" style="width: 80%"><br><br>
+                                        <img src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" alt="" style="width: 80%"><br><br>
                                     </center>
                                 </div>
                             </div>
