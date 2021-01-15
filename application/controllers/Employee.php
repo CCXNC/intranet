@@ -101,6 +101,7 @@ class Employee extends CI_Controller {
         $data['employee'] = $this->employee_model->get_employee($id);
         $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
         $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
+        $data['transfer'] = $this->employee_model->get_transfer_logs($employee_number);
         $data['main_content'] = 'hr/employee/view';
         $this->load->view('inc/navbar', $data);
     }
@@ -131,6 +132,33 @@ class Employee extends CI_Controller {
         }    
     }
 
+    public function edit_employee($id,$employee_number)
+    {
+        $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['employee'] = $this->employee_model->get_employee($id);
+            $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
+            $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
+            $data['departments'] = $this->employee_model->get_department();
+            $data['companies'] = $this->employee_model->get_company();
+            $data['ranks'] = $this->employee_model->get_rank();
+            $data['statuss'] = $this->employee_model->get_employee_status();
+            $data['groups'] = $this->employee_model->get_work_group();
+            $data['main_content'] = 'hr/employee/edit';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->employee_model->update_employee($id,$employee_number))
+            {
+                $this->session->set_flashdata('success_msg', 'Employment Information Successfully Updated!');
+                redirect('employee/index');
+            }
+        }    
+    }
+
     public function employee_movement($id,$employee_number)
     {
         $this->form_validation->set_rules('company', 'Company', 'required|trim');
@@ -148,7 +176,7 @@ class Employee extends CI_Controller {
         }
         else 
         {
-            if($this->employee_model->update_employee_movement($id,$employee_number));
+            if($this->employee_model->update_employee_movement($id,$employee_number))
             {
                 $this->session->set_flashdata('success_msg', 'Employment Information Successfully Updated!');
                 redirect('employee/index');
@@ -165,7 +193,6 @@ class Employee extends CI_Controller {
         $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
         $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
         $this->form_validation->set_rules('age', 'Age', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('marital_status', 'Marital Status', 'required|trim');
         $this->form_validation->set_rules('address', 'Address', 'required|trim');
         $this->form_validation->set_rules('father_full_name', 'Father Full Name', 'required|trim');
@@ -214,6 +241,24 @@ class Employee extends CI_Controller {
             redirect('employee/index');
         }
     
+    }
+
+    public function add_info($id,$employee_number)
+    {
+        $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
+      
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['employee'] = $this->employee_model->get_employee($id);
+            $data['main_content'] = 'hr/employee/add_info';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            $this->employee_model->add_employee_info();
+            $this->session->set_flashdata('success_msg', 'Employee Info Successfully Added!');
+            redirect('employee/index');
+        }    
     }
 
 }

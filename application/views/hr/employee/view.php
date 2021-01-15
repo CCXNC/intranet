@@ -7,7 +7,11 @@
                 
                     <div style="position:absolute;">
                         <div class="form-group">
-                            <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" width="150px" height="150px" alt="" style="margin-left:20px;"><br><br>
+                            <?php if($employee->picture != NULL) : ?>
+                                <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" width="150px" height="150px" alt="">
+                            <?php else : ?>
+                                <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="150px" height="150px" alt="">
+                            <?php endif; ?> 
                         </div>
                     </div>    
                 <div class="row">
@@ -308,8 +312,35 @@
                 </table>   
             </div>
         </div> 
+        <br>
         <div class="card">
-            <div class="card-header">Recent Movement / Promote
+            <div class="card-header">Emergency Contact Person's Information</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>*FullName</label>
+                            <div class="form-control"><?php echo $employee->emergency_name; ?></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>*Contact Number</label>
+                            <div class="form-control"><?php echo $employee->emergency_contact_number; ?></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>*Relationship</label>
+                            <div class="form-control"><?php echo $employee->emergency_contact_relationship; ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header">Recent Movement / Promotion
             </div>
             <div class="card-body">
                 <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -318,13 +349,28 @@
                             <th>Date</th>
                             <th>Status</th>
                             <th>Company</th> 
+                            <th>Department</th>
                             <th>Position</th>
-                            <th>Department Movement From</th>
-                            <th>Movement To</th>
+                            <th>Rank</th>
+                            <th>Work Group</th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php if($transfer) : ?>
+                            <?php foreach($transfer as $trans) : ?>
+                                <tr>
+                                    <td><?php echo date('F j, Y',strtotime($trans->date));  ?></td>
+                                    <td><?php echo $trans->employee_status;  ?></td>
+                                    <td><?php echo $trans->company_name; ?></td>
+                                    <td><?php echo $trans->department_name; ?></td>
+                                    <td><?php echo $trans->position; ?></td>
+                                    <td><?php echo $trans->rank_name; ?></td>
+                                    <td><?php echo $trans->work_group; ?></td>
+                                    <td><?php echo $trans->remarks; ?></td>
+                                </tr>
+                            <?php endforeach; ?> 
+                        <?php endif; ?>
                     </tbody>
                 </table>   
             </div>
