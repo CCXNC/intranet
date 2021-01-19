@@ -50,7 +50,7 @@
                                 <select class="form-control" name="movement_from" id="dis">
                                     <?php if($departments) : ?>
                                         <?php foreach($departments as $department) : ?>
-                                            <option readonly value="<?php echo $department->id . '|' . $department->name; ?>"<?php echo $department->id == $employee->emp_department ? 'selected' : ' '; ?>><?php echo $department->name; ?></option>
+                                            <option readonly value="<?php echo $department->id; ?>"<?php echo $department->id == $employee->emp_department ? 'selected' : ' '; ?>><?php echo $department->name; ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>  
                                 </select>
@@ -119,7 +119,7 @@
                         </div>
                         <div class="col-md-4" id="probitionary">
                             <div class="form-group">
-                                <label>Date Of Probitionary</label>
+                                <label>Date Of Probationary</label>
                                 <input type="date" class="form-control" name="date_probitionary">
                             </div>
                         </div>

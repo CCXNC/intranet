@@ -593,6 +593,8 @@ class Employee_model extends CI_Model {
 
 	public function update_employee_movement($id,$employee_number)
 	{
+		$this->db->trans_start();
+
 		$employee_number = $this->input->post('employee_number');
 		$employee_status = $this->input->post('employee_status');
 		$date_probitionary = $this->input->post('date_probitionary');
@@ -645,25 +647,54 @@ class Employee_model extends CI_Model {
 		print_r('</pre>');*/
 		
 		
-		$data_employment = array(
-			'company'            => $company,
-			'department'         => $department,
-			'rank'               => $rank,
-			'employee_status'    => $employee_status,
-			'work_group'         => $work_group,
-			'immediate_superior' => $superior,
-			'position'           => $position,
-			'date_regular'       => $date_regular,
-			'date_probitionary'  => $date_probitionary,
-			'updated_date'       => $datetime,
-			'updated_by'         => $this->session->userdata('username')
-		);
+		if($department == NULL) 
+		{
+			$data_employment = array(
+				'company'            => $company,
+				'department'         => $movement_from,
+				'rank'               => $rank,
+				'employee_status'    => $employee_status,
+				'work_group'         => $work_group,
+				'immediate_superior' => $superior,
+				'position'           => $position,
+				'date_regular'       => $date_regular,
+				'date_probitionary'  => $date_probitionary,
+				'updated_date'       => $datetime,
+				'updated_by'         => $this->session->userdata('username')
+			);
+	
+			$this->db->where('employee_number', $employee_number);
+			$this->db->update('employment_info', $data_employment);
+			/*print_r('<pre>');
+			print_r($data_employment);
+			print_r('</pre>');*/
+		}
+		else 
+		{
+			$data_employment = array(
+				'company'            => $company,
+				'department'         => $department,
+				'rank'               => $rank,
+				'employee_status'    => $employee_status,
+				'work_group'         => $work_group,
+				'immediate_superior' => $superior,
+				'position'           => $position,
+				'date_regular'       => $date_regular,
+				'date_probitionary'  => $date_probitionary,
+				'updated_date'       => $datetime,
+				'updated_by'         => $this->session->userdata('username')
+			);
+	
+			$this->db->where('employee_number', $employee_number);
+			$this->db->update('employment_info', $data_employment);
+			/*print_r('<pre>');
+			print_r($data_employment);
+			print_r('</pre>');*/
+		}
+		
 
-		$this->db->where('employee_number', $employee_number);
-		$this->db->update('employment_info', $data_employment);
-		/*print_r('<pre>');
-		print_r($data_employment);
-		print_r('</pre>');*/
+		$trans = $this->db->trans_complete();
+		return $trans;
 
 	}
 
