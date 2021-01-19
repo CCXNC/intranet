@@ -569,7 +569,7 @@
                 <div class="sidebar-content">
                     <div class="sidebar-brand">
                         <a href="#">
-                            <img id="image" src="<?php echo base_url(); ?>assets/images/logo.png" style="width:60%; box-shadow: 0px 0px 5px #fff;" alt="">
+                            <img id="image" src="<?php echo base_url(); ?>assets/images/glowlogo.png" style="width:60%;" alt="">
                         </a>
                         <div id="close-sidebar">
                             <i class="fas fa-window-minimize"></i>

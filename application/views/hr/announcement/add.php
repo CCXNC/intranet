@@ -16,6 +16,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <p>Image Type: jpg, png, jpeg</p>
                                 <input type='file' name='userfile' size='20' />
                             </div>
                         </div>
@@ -49,7 +50,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group" >
-                                <input type="submit" class="btn btn-success float-right"  value="SUBMIT" >
+                                <input type="submit" class="btn btn-success float-right" onclick="return confirm('Do you want to add data?');" value="SUBMIT" >
                             </div>
                         </div>
                     </div>
