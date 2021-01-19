@@ -1,3 +1,94 @@
+<style>
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+    }
+
+    table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: .35em;
+    }
+
+    table th,
+    table td {
+        padding: .625em;
+        text-align: center;
+    }
+
+    table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 950px) {
+        table {
+            border: 0;
+        }
+
+        table caption {
+            font-size: 1.3em;
+        }
+        
+        table thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+    
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+        
+        table td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+    
+        table td::before {
+            /*
+            * aria-label has no advantage, it won't be read inside a table
+            content: attr(aria-label);
+            */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+        img{
+            width: 50% !important;
+        }
+
+        .btnaction{
+            float: right;
+        }
+    }
+</style>
+
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
@@ -11,39 +102,37 @@
         <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
             <thead>
                 <tr>
-                    <th>Employee Picture</th>
-                    <th>Full Name</th>
-                    <th>Business Unit</th>
-                    <th>Department</th>
-                    <th>Position</th>
-                    <th>Date Hired</th>
-                    <th>Employee Status</th>
-                    <th>Action</th>
+                    <th scope="col">Employee Picture</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Business Unit</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Date Hired</th>
+                    <th scope="col">Employee Status</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if($employees) : ?> 
                     <?php foreach($employees as $employee) : ?>
                         <tr>
-                            <td>
-                                <center>
+                            <td data-label="Employee Picture">
                                     <?php if($employee->picture != NULL) : ?>
-                                        <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" width="120px" height="120px" alt="">
+                                        <img class="emppic" src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" style="width: 100%" alt="">
                                     <?php else : ?>
-                                        <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="120px" height="120px" alt="">
+                                        <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="width: 100%"  alt="">
                                     <?php endif; ?>
-                                </center>
                             </td>
-                            <td><?php echo $employee->fullname;  ?></td>
-                            <td><?php echo $employee->company;  ?></td>
-                            <td><?php echo $employee->department;  ?></td>
-                            <td><?php echo $employee->position;  ?></td>
-                            <td><?php echo date('F j, Y',strtotime($employee->date_hired));  ?></td>
-                            <td><?php echo $employee->employee_status;  ?></td>
-                            <td>
-                                <center>
+                            <td data-label="Full Name"><?php echo $employee->fullname;  ?></td>
+                            <td data-label="Business Unit"><?php echo $employee->company;  ?></td>
+                            <td data-label="Department"><?php echo $employee->department;  ?></td>
+                            <td data-label="Position"><?php echo $employee->position;  ?></td>
+                            <td data-label="Date Hired"><?php echo date('F j, Y',strtotime($employee->date_hired));  ?></td>
+                            <td data-label="Employee Status"><?php echo $employee->employee_status;  ?></td>
+                            <td data-label="Action">
+                                
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Action
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
@@ -57,7 +146,6 @@
                                                 <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_termination/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Termination</a>
                                         </div>
                                     </div>
-                                </center>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -68,58 +156,6 @@
             <?php echo $this->pagination->create_links(); ?>
         </div>
     </div>
-    <!--<div class="modal fade" id="exampleModal_00" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">SEARCH </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="<?php echo base_url(); ?>employee/index" method="post">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <select class="form-control" name="company">
-                                <option value="">Business Unit</option>
-                                <?php if($companies) : ?>
-                                    <?php foreach($companies as $company) : ?>
-                                        <option value="<?php echo $company->id; ?>"><?php echo $company->name; ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>  
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <select class="form-control" name="department">
-                                <option value="">Select Department</option>
-                                <?php if($departments) : ?>
-                                    <?php foreach($departments as $department) : ?>
-                                        <option value="<?php echo $department->id; ?>"><?php echo $department->name; ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>    
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <select class="form-control" name="employee_status">
-                                <option value="">Select Employee Status</option>
-                                <?php if($statuss) : ?>
-                                    <?php foreach($statuss as $status) : ?>
-                                        <option value="<?php echo $status->id; ?>"><?php echo $status->name; ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>  
-                            </select>
-                        </div>
-                    </div>
-                    <center><input type="submit" class="btn btn-info"  value="LOAD"> </center>
-                </form>
-            </div>
-        </div>
-    </div> -->
 </div>
 
         

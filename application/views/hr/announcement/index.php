@@ -14,18 +14,20 @@
                     <th>Category</th>
                     <th>Title</th>
                     <th>Content</th>
+                    <th>Date</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if($announcements) : ?>
-                    <?php foreach($announcements as $announcement) : ?>
+                <?php if($announcement) : ?>
+                    <?php foreach($announcement as $announcement) : ?>
                         <tr>
-                            <td><center><img src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" width="150px" height="50px" alt=""></center></td>
-                            <td><?php echo $announcement->category;  ?></td>
-                            <td><?php echo $announcement->title;  ?></td>
-                            <td><?php echo word_limiter($announcement->content,10); ?></td>
-                            <td>
+                            <td style="width: 10%"><img src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" style="width:100%" alt=""></td>
+                            <td style="width: 10%"><?php echo $announcement->category;  ?></td>
+                            <td style="width: 20%"><?php echo $announcement->title;  ?></td>
+                            <td style="width: 30%"><?php echo word_limiter($announcement->content,10); ?></td>
+                            <td style="width: 20%"><?php echo $announcement->created_date; ?></td>
+                            <td style="width: 10%">
                                 <center>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,6 +46,9 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        <div class="float-right">
+            <?php echo $this->pagination->create_links(); ?>
+        </div>
     </div>
 </div>
 

@@ -121,7 +121,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm stroke" style="background-color: #003153 !important; height: 65px;">
         <div class="container">
             <a class="navbar" href="">
-                <img id="image" src="<?php echo base_url(); ?>assets/images/logo.png" style="width:150px; position: absolute; left: 0; box-shadow: 0px 0px 5px #fff;" alt="">
+                <img id="image" src="<?php echo base_url(); ?>assets/images/glowlogo.png" style="width:150px; position: absolute; left: 0;" alt="">
             </a>
         </div>
     </nav>
