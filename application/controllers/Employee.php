@@ -135,6 +135,21 @@ class Employee extends CI_Controller {
     public function edit_employee($id,$employee_number)
     {
         $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
+        $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
+        $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
+        $this->form_validation->set_rules('marital_status', 'Marital Status', 'required|trim');
+        $this->form_validation->set_rules('address', 'Address', 'required|trim');
+        $this->form_validation->set_rules('father_full_name', 'Father Full Name', 'required|trim');
+        $this->form_validation->set_rules('mother_full_name', 'Mother Full Name', 'required|trim');
+        $this->form_validation->set_rules('emergency_name', 'Emergency Full Name', 'required|trim');
+        $this->form_validation->set_rules('emergency_contact', 'Emergency Contact', 'required|trim');
+        $this->form_validation->set_rules('date_hired', 'Date Hired', 'required|trim');
+        $this->form_validation->set_rules('company', 'Business Unit', 'required|trim');
+        $this->form_validation->set_rules('position', 'Position', 'required|trim');
+        $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
+        $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -192,7 +207,6 @@ class Employee extends CI_Controller {
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
         $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
         $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
-        $this->form_validation->set_rules('age', 'Age', 'required|trim');
         $this->form_validation->set_rules('marital_status', 'Marital Status', 'required|trim');
         $this->form_validation->set_rules('address', 'Address', 'required|trim');
         $this->form_validation->set_rules('father_full_name', 'Father Full Name', 'required|trim');
@@ -259,6 +273,46 @@ class Employee extends CI_Controller {
             $this->session->set_flashdata('success_msg', 'Employee Info Successfully Added!');
             redirect('employee/index');
         }    
+    }
+
+    public function delete_view_employee($id,$employee_number) 
+    {
+        $data['employee'] = $this->employee_model->get_employee($id);
+        $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
+        $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
+        $data['transfer'] = $this->employee_model->get_transfer_logs($employee_number);
+        $data['main_content'] = 'hr/employee/delete';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function delete_all_information($id,$parent_id,$spouse_id,$employment_id,$employee_number) 
+    {
+        if($this->employee_model->delete_all_information($id,$parent_id,$spouse_id,$employment_id,$employee_number))
+        {
+            $this->session->set_flashdata('error_msg', 'Employee Successfully Deleted!');
+            redirect('employee/index');
+        }
+        
+    }
+
+    public function delete_children_information($id,$employee_number) 
+    {
+        if($this->employee_model->delete_children_information($id,$employee_number))
+        {
+            $this->session->set_flashdata('error_msg', 'Children Info Successfully Deleted!');
+            redirect('employee/index');
+        }
+        
+    }
+
+    public function delete_academe_information($id,$employee_number) 
+    {
+        if($this->employee_model->delete_academe_information($id,$employee_number))
+        {
+            $this->session->set_flashdata('error_msg', 'Academe Info Successfully Deleted!');
+            redirect('employee/index');
+        }
+        
     }
 
 }

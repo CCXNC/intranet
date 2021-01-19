@@ -84,33 +84,11 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>*Age</label>
-                                <input type="number" class="form-control"  name="age" value="<?php echo $employee->age; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Religion</label>
-                                <input type="text" class="form-control"  name="religion">
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>*Personal Email Address</label>
-                                <input type="text" class="form-control"  name="email" value="<?php echo $employee->email_address; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
                                 <label>*Contact Number</label>
                                 <input type="text" class="form-control"  name="contact_number" value="<?php echo $employee->contact_number; ?>">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Marital Status</label>
                                 <select class="form-control" name="marital_status">
@@ -124,7 +102,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>*Personal Email Address</label>
+                                <input type="text" class="form-control"  name="email" value="<?php echo $employee->email_address; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>*Address</label>
                                 <input type="text" class="form-control"  name="address" value="<?php echo $employee->address; ?>">
@@ -170,19 +154,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Birthdate</label>
                                     <input type="date" class="form-control"  name="spouse_birthday" value="<?php echo $employee->spouse_birthday; ?>">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Age</label>
-                                    <input type="text" class="form-control"  name="spouse_age" value="<?php echo $employee->spouse_age; ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Occupation</label>
                                     <input type="text" class="form-control"  name="occupation" value="<?php echo $employee->spouse_occupation; ?>">
@@ -208,19 +186,13 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Birthdate</label>
                                             <input type="date" class="form-control"  name="children_birthday[]" value="<?php echo $children_info->birthday; ?>">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Age</label>
-                                            <input type="text" class="form-control"  name="children_age[]" value="<?php echo $children_info->age; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Gender</label>
                                             <select class="form-control" name="children_gender[]">

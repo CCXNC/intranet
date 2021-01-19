@@ -50,19 +50,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Birthdate</label>
                                     <input type="date" class="form-control"  name="spouse_birthday">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Age</label>
-                                    <input type="text" class="form-control"  name="spouse_age">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Occupation</label>
                                     <input type="text" class="form-control"  name="occupation">
@@ -84,19 +78,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Birthdate</label>
                                     <input type="date" class="form-control"  name="children_birthday[]">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Age</label>
-                                    <input type="text" class="form-control"  name="children_age[]">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Gender</label>
                                     <select class="form-control" name="children_gender[]">

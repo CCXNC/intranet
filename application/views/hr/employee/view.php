@@ -346,7 +346,8 @@
                 <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Date</th>
+                            <th>Date Log</th>
+                            <th>Date Movement/Promotion</th>
                             <th>Status</th>
                             <th>Company</th> 
                             <th>Department</th>
@@ -360,6 +361,7 @@
                         <?php if($transfer) : ?>
                             <?php foreach($transfer as $trans) : ?>
                                 <tr>
+                                    <td><?php echo date('F j, Y',strtotime($trans->date_created));  ?></td>
                                     <td><?php echo date('F j, Y',strtotime($trans->date));  ?></td>
                                     <td><?php echo $trans->employee_status;  ?></td>
                                     <td><?php echo $trans->company_name; ?></td>

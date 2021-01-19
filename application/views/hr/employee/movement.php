@@ -47,7 +47,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Department Movement From</label>
-                                <select class="form-control" name="movement_from" id="dis">
+                                <select class="form-control" name="movement_from">
                                     <?php if($departments) : ?>
                                         <?php foreach($departments as $department) : ?>
                                             <option readonly value="<?php echo $department->id; ?>"<?php echo $department->id == $employee->emp_department ? 'selected' : ' '; ?>><?php echo $department->name; ?></option>

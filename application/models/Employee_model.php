@@ -58,12 +58,21 @@ class Employee_model extends CI_Model {
 		$spouse_age = $this->input->post('spouse_age');
 		$occupation = $this->input->post('occupation');
 		//CHILDREN INPUT
+		$children_full_name = $this->input->post('children_full_name');
 		$children_birthday   = $this->input->post('children_birthday');
-		$children_age        = $this->input->post('children_age');
+		//$children_age        = $this->input->post('children_age');
 		$children_gender     = $this->input->post('children_gender');
+		
+	
+		
 		$i = 0;
 		$date = date('Y-m-d h:i:s');
 		
+		// AGE EMPLOYEE
+		$today = date("Y-m-d");
+		$diff = date_diff(date_create($birthday), date_create($today));
+		$ageEmployee = $diff->format('%y');
+
 		$data_employee = array(
 			'picture'                        => $picture,
 			'employee_number'                => $employee_number,
@@ -72,7 +81,7 @@ class Employee_model extends CI_Model {
 			'last_name'                      => $last_name,
 			'nick_name'                      => $nickname,
 			'birthday'                       => $birthday,
-			'age'                            => $age,
+			'age'                            => $ageEmployee,
 			'gender'                         => $gender,
 			'marital_status'                 => $marital_status,
 			'contact_number'                 => $contact_number,
@@ -141,11 +150,15 @@ class Employee_model extends CI_Model {
 		} 
 		else 
 		{
+			// AGE SPOUSE
+			$today = date("Y-m-d");
+			$diff = date_diff(date_create($spouse_birthday), date_create($today));
+			$ageSpouse = $diff->format('%y');
 			$data_spouse = array(
 				'employee_number' => $employee_number,
 				'name'            => $spouse_full_name,
 				'birthday'        => $spouse_birthday,
-				'age'             => $spouse_age,
+				'age'             => $ageSpouse,
 				'occupation'      => $occupation,
 				'created_date'    => $date,
 				'created_by'      => $this->session->userdata('username')
@@ -180,7 +193,7 @@ class Employee_model extends CI_Model {
 		print_r($data_employment);
 		print_r('</pre>');*/
 
-		$children_full_name = $this->input->post('children_full_name');
+		
 		foreach($children_full_name as $fullname)
 		{
 			if($fullname == NULL)
@@ -189,11 +202,16 @@ class Employee_model extends CI_Model {
 			}
 			else
 			{
+				// AGE CHILDREN
+				$today = date("Y-m-d");
+				$diff = date_diff(date_create($children_birthday[$i]), date_create($today));
+				$ageChildren = $diff->format('%y');
+
 				$data_children = array(
 					'employee_number' => $employee_number,
 					'name'            => $fullname,
 					'birthday'        => $children_birthday[$i],
-					'age'             => $children_age[$i],
+					'age'             => $ageChildren,
 					'gender'          => $children_gender[$i],
 					'created_date'    => $date,
 					'created_by'      => $this->session->userdata('username')
@@ -226,7 +244,7 @@ class Employee_model extends CI_Model {
 		");
 		$this->db->from('employees');
 		$this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
-		$this->db->join('employee_status', 'employment_info.employee_status = employee_status.id');
+		$this->db->join('employee_status', 'employment_info.employee_status = employee_status.id','left');
 		$this->db->order_by('employees.last_name', 'ASC');
 		$this->db->where('employees.is_active', 1);
 		
@@ -333,7 +351,7 @@ class Employee_model extends CI_Model {
 		$nickname = $this->input->post('nickname');
 		$gender = $this->input->post('gender');
 		$birthday = $this->input->post('birthday');
-		$age = $this->input->post('age');
+		//$age = $this->input->post('age');
 		$gender = $this->input->post('gender');
 		$religion = $this->input->post('religion');
 		$email = $this->input->post('email');
@@ -374,14 +392,16 @@ class Employee_model extends CI_Model {
 		//PARENTS INPUT
 		$father_full_name = $this->input->post('father_full_name');
 		$mother_full_name = $this->input->post('mother_full_name');
+
 		//SPOUSE INPUT
 		$spouse_full_name = $this->input->post('spouse_full_name');
 		$spouse_birthday = $this->input->post('spouse_birthday');
 		$spouse_age = $this->input->post('spouse_age');
 		$occupation = $this->input->post('occupation');
+
 		//CHILDREN INPUT
 		$children_birthday   = $this->input->post('children_birthday');
-		$children_age        = $this->input->post('children_age');
+		//$children_age        = $this->input->post('children_age');
 		$children_gender     = $this->input->post('children_gender');
 
 		//IDS
@@ -394,13 +414,18 @@ class Employee_model extends CI_Model {
 		$i = 0;
 		$date = date('Y-m-d h:i:s');
 
+		// AGE EMPLOYEE
+		$today = date("Y-m-d");
+		$diff = date_diff(date_create($birthday), date_create($today));
+		$ageEmployee = $diff->format('%y');
+
 		$data_employee = array(
 			'first_name'                     => $first_name,
 			'middle_name'                    => $middle_name,
 			'last_name'                      => $last_name,
 			'nick_name'                      => $nickname,
 			'birthday'                       => $birthday,
-			'age'                            => $age,
+			'age'                            => $ageEmployee,
 			'gender'                         => $gender,
 			'marital_status'                 => $marital_status,
 			'contact_number'                 => $contact_number,
@@ -446,10 +471,15 @@ class Employee_model extends CI_Model {
 		}
 		else
 		{
+			// AGE SPOUSE
+			$today = date("Y-m-d");
+			$diff = date_diff(date_create($spouse_birthday), date_create($today));
+			$ageSpouse = $diff->format('%y');
+
 			$data_spouse = array(
 				'name'            => $spouse_full_name,
 				'birthday'        => $spouse_birthday,
-				'age'             => $spouse_age,
+				'age'             => $ageSpouse,
 				'occupation'      => $occupation,
 				'updated_date'    => $date,
 				'updated_by'      => $this->session->userdata('username')
@@ -469,10 +499,15 @@ class Employee_model extends CI_Model {
 			foreach($children_full_name as $fullname)
 			{
 				
+				// AGE CHILDREN
+				$today = date("Y-m-d");
+				$diff = date_diff(date_create($children_birthday[$i]), date_create($today));
+				$ageChildren = $diff->format('%y');
+				
 				$data_children = array(
 					'name'            => $fullname,
 					'birthday'        => $children_birthday[$i],
-					'age'             => $children_age[$i],
+					'age'             => $ageChildren,
 					'gender'          => $children_gender[$i],
 					'updated_date'    => $date,
 					'updated_by'      => $this->session->userdata('username')
@@ -554,12 +589,10 @@ class Employee_model extends CI_Model {
 	public function get_children_infos($employee_number)
 	{
 		$this->db->where('employee_number', $employee_number);
-		$this->db->order_by('birthday', 'DESC');
+		$this->db->order_by('age', 'DESC');
 		$query = $this->db->get('children_info');
 		return $query->result();
 	}
-
-
 	
 	public function get_department()
 	{
@@ -625,30 +658,32 @@ class Employee_model extends CI_Model {
 		$emp_rank = $datas->row()->rank;
 		$emp_employee_status = $datas->row()->employee_status;*/
 
-		$data_transfer = array(
-			'employee_number'    => $employee_number,
-			'employee_status'    => $employee_status,
-			'company'            => $company,
-			'position'           => $position,
-			'work_group'         => $work_group,
-			'rank'               => $rank,
-			'position'           => $position,
-			'immediate_superior' => $superior,
-			'department'         => $department,
-			'date_transfer'      => $date_transfer,
-			'remarks'            => $remarks,
-			'created_date'       => $datetime,
-			'created_by'         => $this->session->userdata('username')
-		);
-
-		$this->db->insert('transfer_logs', $data_transfer);
-		/*print_r('<pre>');
-		print_r($data_transfer);
-		print_r('</pre>');*/
-		
 		
 		if($department == NULL) 
 		{
+
+			$data_transfer = array(
+				'employee_number'    => $employee_number,
+				'employee_status'    => $employee_status,
+				'company'            => $company,
+				'position'           => $position,
+				'work_group'         => $work_group,
+				'rank'               => $rank,
+				'position'           => $position,
+				'immediate_superior' => $superior,
+				'department'         => $movement_from,
+				'date_transfer'      => $date_transfer,
+				'remarks'            => $remarks,
+				'created_date'       => $datetime,
+				'created_by'         => $this->session->userdata('username')
+			);
+
+				$this->db->insert('transfer_logs', $data_transfer);
+				/*print_r('<pre>');
+				print_r($data_transfer);
+				print_r('</pre>');*/
+			
+		
 			$data_employment = array(
 				'company'            => $company,
 				'department'         => $movement_from,
@@ -663,6 +698,7 @@ class Employee_model extends CI_Model {
 				'updated_by'         => $this->session->userdata('username')
 			);
 	
+			$this->db->where('id', $id);
 			$this->db->where('employee_number', $employee_number);
 			$this->db->update('employment_info', $data_employment);
 			/*print_r('<pre>');
@@ -671,6 +707,27 @@ class Employee_model extends CI_Model {
 		}
 		else 
 		{
+			$data_transfer = array(
+				'employee_number'    => $employee_number,
+				'employee_status'    => $employee_status,
+				'company'            => $company,
+				'position'           => $position,
+				'work_group'         => $work_group,
+				'rank'               => $rank,
+				'position'           => $position,
+				'immediate_superior' => $superior,
+				'department'         => $department,
+				'date_transfer'      => $date_transfer,
+				'remarks'            => $remarks,
+				'created_date'       => $datetime,
+				'created_by'         => $this->session->userdata('username')
+			);
+
+				$this->db->insert('transfer_logs', $data_transfer);
+				/*print_r('<pre>');
+				print_r($data_transfer);
+				print_r('</pre>');*/
+
 			$data_employment = array(
 				'company'            => $company,
 				'department'         => $department,
@@ -685,6 +742,7 @@ class Employee_model extends CI_Model {
 				'updated_by'         => $this->session->userdata('username')
 			);
 	
+			$this->db->where('id', $id);
 			$this->db->where('employee_number', $employee_number);
 			$this->db->update('employment_info', $data_employment);
 			/*print_r('<pre>');
@@ -756,11 +814,11 @@ class Employee_model extends CI_Model {
 		$employee_number = $this->input->post('employee_number');
 		$spouse_full_name = $this->input->post('spouse_full_name');
 		$spouse_birthday = $this->input->post('spouse_birthday');
-		$spouse_age = $this->input->post('spouse_age');
+		//$spouse_age = $this->input->post('spouse_age');
 		$occupation = $this->input->post('occupation');
 		//CHILDREN INPUT
 		$children_birthday   = $this->input->post('children_birthday');
-		$children_age        = $this->input->post('children_age');
+		//$children_age        = $this->input->post('children_age');
 		$children_gender     = $this->input->post('children_gender');
 		//ACADEME INPUT
 		$school = $this->input->post('school');
@@ -775,11 +833,16 @@ class Employee_model extends CI_Model {
 		} 
 		else 
 		{
+			// AGE SPOUSE
+			$today = date("Y-m-d");
+			$diff = date_diff(date_create($spouse_birthday), date_create($today));
+			$ageSpouse = $diff->format('%y');
+
 			$data_spouse = array(
 				'employee_number' => $employee_number,
 				'name'            => $spouse_full_name,
 				'birthday'        => $spouse_birthday,
-				'age'             => $spouse_age,
+				'age'             => $ageSpouse,
 				'occupation'      => $occupation,
 				'created_date'    => $date,
 				'created_by'      => $this->session->userdata('username')
@@ -801,11 +864,16 @@ class Employee_model extends CI_Model {
 			}
 			else
 			{
+				// AGE CHILDREN
+				$today = date("Y-m-d");
+				$diff = date_diff(date_create($children_birthday[$i]), date_create($today));
+				$ageChildren = $diff->format('%y');
+
 				$data_children = array(
 					'employee_number' => $employee_number,
 					'name'            => $fullname,
 					'birthday'        => $children_birthday[$i],
-					'age'             => $children_age[$i],
+					'age'             => $ageChildren,
 					'gender'          => $children_gender[$i],
 					'created_date'    => $date,
 					'created_by'      => $this->session->userdata('username')
@@ -857,6 +925,7 @@ class Employee_model extends CI_Model {
 			transfer_logs.immediate_superior as superior,
 			transfer_logs.date_transfer as date,
 			transfer_logs.remarks as remarks,
+			transfer_logs.created_date as date_created,
 
 			employee_status.name as employee_status,
 			department.name as department_name,
@@ -867,7 +936,7 @@ class Employee_model extends CI_Model {
 
 		$this->db->from('transfer_logs');
 		$this->db->where('transfer_logs.employee_number', $employee_number);
-		$this->db->order_by('transfer_logs.date_transfer', 'DESC');
+		$this->db->order_by('transfer_logs.created_date', 'DESC');
 		$this->db->join('employee_status', 'transfer_logs.employee_status = employee_status.id');
 		$this->db->join('company', 'transfer_logs.company = company.id');
 		$this->db->join('rank', 'transfer_logs.rank = rank.id');
@@ -878,4 +947,76 @@ class Employee_model extends CI_Model {
 
 		return $query->result();
 	}
+
+	public function delete_all_information($id,$parent_id,$spouse_id,$employment_id,$employee_number)
+	{
+		/*$id = $this->input->post('id');
+		$parent_id = $this->input->post('parent_id');
+		$spouse_id = $this->input->post('spouse_id');
+		$employment_id = $this->input->post('employment_id');
+		$employee_number = $this->input->post('emp_no');*/
+	
+
+		/*$data = array(
+			'id'  => $id,
+			'parent_id' => $parent_id,
+			'spouse_id' => $spouse_id,
+			'employment_id' => $employment_id,
+			'employee_number' => $employee_number
+		);
+
+		print_r('<pre>');
+		print_r($data);
+		print_r('</pre>');*/
+
+
+		$this->db->trans_start();
+		
+		$this->db->where('id', $id);
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('employees');
+
+		$this->db->where('id', $parent_id);
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('parents_info');
+
+		$this->db->where('id', $spouse_id);
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('spouse_info');
+
+		$this->db->where('id', $employment_id);
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('employment_info');
+
+		$trans = $this->db->trans_complete();
+		return $trans;
+	}
+
+	public function delete_children_information($id,$employee_number)
+	{
+
+		$this->db->trans_start();
+		
+		$this->db->where('id', $id);
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('children_info');
+
+		$trans = $this->db->trans_complete();
+		return $trans;
+	}
+
+	public function delete_academe_information($id,$employee_number)
+	{
+
+		$this->db->trans_start();
+		
+		$this->db->where('id', $id);
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('academe_info');
+
+		$trans = $this->db->trans_complete();
+		return $trans;
+	}
+
+	
 }
