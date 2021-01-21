@@ -59,10 +59,13 @@ class Announcement_model extends CI_Model {
 
 	public function update_announcement($id)
 	{
+		$date = date('Y-m-d h:i:s');
 		$data = array (
-            'category' => $this->input->post('category'),
-            'title' => $this->input->post('title'),
-            'content' => $this->input->post('content')
+            'category' 			=> $this->input->post('category'),
+            'title' 			=> $this->input->post('title'),
+			'content' 			=> $this->input->post('content'),
+			'updated_date'    	=> $date,
+			'updated_by'      	=> $this->session->userdata('username')
         );
         $this->db->where('id', $id);
 		$query = $this->db->update('announcement', $data);

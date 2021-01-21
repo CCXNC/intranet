@@ -6,20 +6,15 @@
             <div class="card">
                 <div class="card-header">Personal Information</div>
                 <div class="card-body">
-                        <div style="position:absolute;">
-                            <div class="form-group">
-                                <?php if($employee->picture != NULL) : ?>
-                                    <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" width="150px" height="150px" alt="">
-                                <?php else : ?>
-                                    <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="150px" height="150px" alt="">
-                                <?php endif; ?>                             
-                            </div>
-                        </div>    
+                        <div class="form-group">
+                            <?php if($employee->picture != NULL) : ?>
+                                <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" width="150px" height="150px" alt="">
+                            <?php else : ?>
+                                <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="150px" height="150px" alt="">
+                            <?php endif; ?>                             
+                        </div> 
+                        <input type='file' name='userfile' size='20' />
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            </div>
-                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Employee Number</label>
@@ -38,21 +33,16 @@
                                 <input type="text" class="form-control"  name="middle_name" value="<?php echo $employee->middle_name; ?>">
                             </div>
                         </div>
-                        
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-
-                            </div>
-                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Last Name</label>
                                 <input type="text" class="form-control"  name="last_name" value="<?php echo $employee->last_name; ?>">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+                        
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Nickname</label>
@@ -69,13 +59,6 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type='file' name='userfile' size='20' />
-                            
-                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Birthdate</label>
@@ -88,6 +71,9 @@
                                 <input type="text" class="form-control"  name="contact_number" value="<?php echo $employee->contact_number; ?>">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Marital Status</label>
@@ -99,10 +85,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Personal Email Address</label>
                                 <input type="text" class="form-control"  name="email" value="<?php echo $employee->email_address; ?>">
