@@ -100,7 +100,7 @@
     <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal_00">
         DOWNLOAD
     </button>
-    <a href="<?php echo base_url(); ?>employee/do_upload" class="btn btn-info float-right" style="margin-right:10px;">ADD</a></h4> </div>
+    <a href="<?php echo base_url(); ?>employee/add" class="btn btn-info float-right" style="margin-right:10px;">ADD</a></h4> </div>
     <div class="card-body">
         <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
             <thead>

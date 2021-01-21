@@ -13,7 +13,7 @@
                                 <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="150px" height="150px" alt="">
                             <?php endif; ?>                             
                         </div> 
-                        <input type='file' name='userfile' size='20' />
+                        <input type='file' name='image' size='20' />
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -130,23 +130,30 @@
                     <?php if($employee->spouse_id != NULL) : ?>
                         <input type="text" class="form-control" name="spouse_id" value="<?php echo $employee->spouse_id; ?>" hidden>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="spouse_full_name" placeholder="Full Name" value="<?php echo $employee->spouse_name; ?>">
+                                    <label>Full Name</label>
+                                    <input type="text" class="form-control" name="spouse_full_name" value="<?php echo $employee->spouse_name; ?>">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Birthdate</label>
                                     <input type="date" class="form-control"  name="spouse_birthday" value="<?php echo $employee->spouse_birthday; ?>">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Occupation</label>
                                     <input type="text" class="form-control"  name="occupation" value="<?php echo $employee->spouse_occupation; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Employer</label>
+                                    <input type="text" class="form-control"  name="employer" value="<?php echo $employee->spouse_employer; ?>">
                                 </div>
                             </div>
                         </div> 

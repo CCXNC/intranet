@@ -37,7 +37,7 @@
     <div class="card-header"><h4>HR USER MANAGEMENT</h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>employee/do_upload" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header">Personal Information</div>
                 <div class="card-body">
@@ -104,7 +104,7 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <input type='file' name='userfile' size='20' />
+                            <input type='file' name='image' size='20' />
                             
                         </div>
                         <div class="col-md-3">
@@ -176,23 +176,30 @@
                 <div class="card-header">Spouse's Information</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="spouse_full_name" placeholder="Full Name">
+                                <label>FullName</label>
+                                <input type="text" class="form-control" name="spouse_full_name">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Birthdate</label>
                                 <input type="date" class="form-control"  name="spouse_birthday">
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Occupation</label>
                                 <input type="text" class="form-control"  name="occupation">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Employer</label>
+                                <input type="text" class="form-control"  name="employer">
                             </div>
                         </div>
                     </div> 

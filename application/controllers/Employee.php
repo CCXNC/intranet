@@ -106,30 +106,65 @@ class Employee extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function employee_termination($id,$employee_number)
+    function add() 
     {
+        $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
+		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
+        $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
+        $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
+        $this->form_validation->set_rules('marital_status', 'Marital Status', 'required|trim');
+        $this->form_validation->set_rules('address', 'Address', 'required|trim');
+        $this->form_validation->set_rules('father_full_name', 'Father Full Name', 'required|trim');
+        $this->form_validation->set_rules('mother_full_name', 'Mother Full Name', 'required|trim');
+        $this->form_validation->set_rules('emergency_name', 'Emergency Full Name', 'required|trim');
+        $this->form_validation->set_rules('emergency_contact', 'Emergency Contact', 'required|trim');
+        $this->form_validation->set_rules('date_hired', 'Date Hired', 'required|trim');
+        $this->form_validation->set_rules('company', 'Business Unit', 'required|trim');
+        $this->form_validation->set_rules('position', 'Position', 'required|trim');
+        $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
         $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
 
+        //$data = $imgData = array(); 
+        
         if($this->form_validation->run() == FALSE)
         {
-            $data['employee'] = $this->employee_model->get_employee($id);
+            $data['main_content'] = 'hr/employee/add';
             $data['departments'] = $this->employee_model->get_department();
             $data['companies'] = $this->employee_model->get_company();
             $data['ranks'] = $this->employee_model->get_rank();
             $data['statuss'] = $this->employee_model->get_employee_status();
             $data['groups'] = $this->employee_model->get_work_group();
-            $data['main_content'] = 'hr/employee/termination';
             $this->load->view('inc/navbar', $data);
         }
-        else 
+        else
         {
-            if($this->employee_model->update_employee_termination($id,$employee_number));
-            {
-                $this->session->set_flashdata('success_msg', 'Employment Information Successfully Updated!');
-                redirect('employee/index');
-            }
-            
-        }    
+            if(!empty($_FILES['image']['name'])){ 
+                $imageName = $_FILES['image']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/employee/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+                 
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+                 
+                // Upload file to server 
+                if($this->upload->do_upload('image')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+
+            $this->employee_model->add_employee();
+            $this->session->set_flashdata('success_msg', 'Employee Successfully Added!');
+            redirect('employee/index');
+        }
+    
     }
 
     public function edit_employee($id,$employee_number)
@@ -166,6 +201,38 @@ class Employee extends CI_Controller {
         }
         else
         {
+            // GET PREVIOUS DATA.
+            $employee = $this->employee_model->get_employee($id);
+            $prevImage = $employee->picture;
+
+            if(!empty($_FILES['image']['name'])){ 
+                $imageName = $_FILES['image']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/employee/';  
+                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+                 
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+
+                if(!empty($prevImage) && !empty($imageName)){ 
+                     // Remove old file from the server 
+                    @unlink('./uploads/employee/'.$prevImage);  
+
+                     // Upload file to server 
+                     if($this->upload->do_upload('image')){ 
+                        // Uploaded file data 
+                        $fileData = $this->upload->data(); 
+                        $imgData['file_name'] = $fileData['file_name']; 
+                    
+                    }else{ 
+                        $error = $this->upload->display_errors();  
+                    } 
+                } 
+                
+            } 
+
             if($this->employee_model->update_employee($id,$employee_number))
             {
                 $this->session->set_flashdata('success_msg', 'Employment Information Successfully Updated!');
@@ -173,6 +240,34 @@ class Employee extends CI_Controller {
             }
         }    
     }
+
+    public function employee_termination($id,$employee_number)
+    {
+        $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['employee'] = $this->employee_model->get_employee($id);
+            $data['departments'] = $this->employee_model->get_department();
+            $data['companies'] = $this->employee_model->get_company();
+            $data['ranks'] = $this->employee_model->get_rank();
+            $data['statuss'] = $this->employee_model->get_employee_status();
+            $data['groups'] = $this->employee_model->get_work_group();
+            $data['main_content'] = 'hr/employee/termination';
+            $this->load->view('inc/navbar', $data);
+        }
+        else 
+        {
+            if($this->employee_model->update_employee_termination($id,$employee_number));
+            {
+                $this->session->set_flashdata('success_msg', 'Employment Information Successfully Updated!');
+                redirect('employee/index');
+            }
+            
+        }    
+    }
+
+   
 
     public function employee_movement($id,$employee_number)
     {
@@ -200,62 +295,6 @@ class Employee extends CI_Controller {
         }    
     }
 
-    function do_upload() {
-
-        $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
-		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
-        $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
-        $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
-        $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
-        $this->form_validation->set_rules('marital_status', 'Marital Status', 'required|trim');
-        $this->form_validation->set_rules('address', 'Address', 'required|trim');
-        $this->form_validation->set_rules('father_full_name', 'Father Full Name', 'required|trim');
-        $this->form_validation->set_rules('mother_full_name', 'Mother Full Name', 'required|trim');
-        $this->form_validation->set_rules('emergency_name', 'Emergency Full Name', 'required|trim');
-        $this->form_validation->set_rules('emergency_contact', 'Emergency Contact', 'required|trim');
-        $this->form_validation->set_rules('date_hired', 'Date Hired', 'required|trim');
-        $this->form_validation->set_rules('company', 'Business Unit', 'required|trim');
-        $this->form_validation->set_rules('position', 'Position', 'required|trim');
-        $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
-        $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
-
-        $config = array(
-            'upload_path' => './uploads/images/',
-            'allowed_types' => "gif|jpg|png|jpeg|pdf|xls|xlsx",
-            'overwrite' => TRUE,
-            'max_size' => "100000000",
-            'max_height' => "768",
-            'max_width' => "1024"
-        );
-        $this->upload->initialize($config);
-        if($this->upload->do_upload())
-        {
-            $data = array('upload_data' => $this->upload->data());
-        }
-        else
-        {
-            $error = array('error' => $this->upload->display_errors());
-        }
-        
-        
-        if($this->form_validation->run() == FALSE)
-        {
-            $data['main_content'] = 'hr/employee/add';
-            $data['departments'] = $this->employee_model->get_department();
-            $data['companies'] = $this->employee_model->get_company();
-            $data['ranks'] = $this->employee_model->get_rank();
-            $data['statuss'] = $this->employee_model->get_employee_status();
-            $data['groups'] = $this->employee_model->get_work_group();
-            $this->load->view('inc/navbar', $data);
-        }
-        else
-        {
-            $this->employee_model->add_employee();
-            $this->session->set_flashdata('success_msg', 'Employee Successfully Added!');
-            redirect('employee/index');
-        }
-    
-    }
 
     public function add_info($id,$employee_number)
     {

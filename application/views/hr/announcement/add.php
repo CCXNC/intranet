@@ -2,7 +2,7 @@
     <div class="card-header"><h4>ADD ANNOUNCEMENT</h4></div>
         <div class="card-body">
             <div style="color:red"><?php echo validation_errors(); ?> </div>
-            <form method="post" action="<?php echo base_url(); ?>announcement/do_upload" enctype="multipart/form-data">
+            <form method="post" action="<?php echo base_url(); ?>announcement/add" enctype="multipart/form-data">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -17,7 +17,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <p>Image Type: jpg, png, jpeg</p>
-                                <input type='file' name='userfile' size='20' />
+                                <input type='file' name='image' size='20' />
                             </div>
                         </div>
                     </div>

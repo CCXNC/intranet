@@ -87,36 +87,11 @@ class Announcement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    function do_upload() {
-        /* printing arrays: comment until
-            {
-                $error = array('error' => $this->upload->display_errors());
-            } 
-        */
-        //$this->form_validation->set_rules('title', 'Title', 'required|trim');
+    function add() {
+
         $this->form_validation->set_rules('title', 'Title', 'required|trim');
-        //$this->form_validation->set_rules('content', 'Content', 'required|trim');
         $this->form_validation->set_rules('category', 'Category', 'required|trim');
 
-        $config = array(
-            'upload_path' => './uploads/announcement/',
-            'allowed_types' => "gif|jpg|png|jpeg|pdf|xls|xlsx",
-            'overwrite' => TRUE,
-            'max_size' => "100000000",
-            'max_height' => "100000",
-            'max_width' => "100000"
-        );
-        $this->upload->initialize($config);
-        if($this->upload->do_upload())
-        {
-            $data = array('upload_data' => $this->upload->data());
-        }
-        else
-        {
-            $error = array('error' => $this->upload->display_errors());
-        }
-        
-        
         if($this->form_validation->run() == FALSE)
         {
             $data['main_content'] = 'hr/announcement/add';
@@ -124,6 +99,28 @@ class Announcement extends CI_Controller {
         }
         else
         {
+
+            if(!empty($_FILES['image']['name'])){ 
+                $imageName = $_FILES['image']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/announcement/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+                 
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+                 
+                // Upload file to server 
+                if($this->upload->do_upload('image')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+
             $this->announcement_model->add_announcement();
             $this->session->set_flashdata('success_msg', 'Announcement Successfully Added!');
             redirect('announcement/index');
@@ -147,6 +144,59 @@ class Announcement extends CI_Controller {
         }
         else
         {
+
+            if(!empty($_FILES['image']['name'])){ 
+                $imageName = $_FILES['image']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/announcement/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+                 
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+                 
+                // Upload file to server 
+                if($this->upload->do_upload('image')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+           
+            // GET PREVIOUS DATA.
+           /* 
+            $announcement = $this->announcement_model->get_announcement($id);
+            $prevImage = $announcement->image;
+
+            if(!empty($_FILES['image']['name'])){ 
+                $imageName = $_FILES['image']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/announcement/';  
+                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+                 
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+
+                if($this->upload->do_upload('image')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                     
+                    // Remove old file from the server  
+                    if(!empty($prevImage)){ 
+                        @unlink('./uploads/announcement/'.$prevImage);  
+                    } 
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+
+            } */   
+
             $this->announcement_model->update_announcement($id);
             $this->session->set_flashdata('success_msg', 'Announcement Successfully Updated!');
             redirect('announcement/index');

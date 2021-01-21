@@ -6,9 +6,6 @@
             <div class="card">
                 <div class="card-header">Personal Information<input type="submit" class="btn btn-danger float-right" onclick="return confirm('Do you want to Delete Personal Information?');" value="Delete all Information" ></div>
                 <div class="card-body">
-                        <input type="text" name="id" value="<?php echo $employee->id; ?>">
-                        <input type="text" name="emp_no" value="<?php echo $employee->emp_no; ?>">
-                        <input type="text" name="fullname" value="<?php echo $employee->fullname; ?>">
                         <div style="position:absolute;">
                             <div class="form-group">
                                 <?php if($employee->picture != NULL) : ?>
@@ -167,9 +164,6 @@
             <div class="card">
                 <div class="card-header">Parent`s Information</div>  
                 <div class="card-body">
-                    <input type="text" name="parent_id" value="<?php echo $employee->parent_id; ?>">
-                    <input type="text" name="emp_no" value="<?php echo $employee->emp_no; ?>">
-                    <input type="text" name="father_name" value="<?php echo $employee->father_name; ?>">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -192,9 +186,6 @@
                 <div class="card-header">Spouse's Information</div>
                 <div class="card-body">
                 <?php if($employee->spouse_name != NULL) :  ?>
-                    <input type="text" name="spouse_id" value="<?php echo $employee->spouse_id; ?>">
-                    <input type="text" name="emp_no" value="<?php echo $employee->emp_no; ?>">
-                    <input type="text" name="spouse_name" value="<?php echo $employee->spouse_name; ?>">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -228,9 +219,6 @@
             <div class="card">
                 <div class="card-header">Employment Information</div>
                 <div class="card-body">
-                    <input type="text" name="employment_id" value="<?php echo $employee->employment_id; ?>">
-                    <input type="text" name="emp_no" value="<?php echo $employee->emp_no; ?>">
-                    <input type="text" name="date_hired" value="<?php echo $employee->date_hired; ?>">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">

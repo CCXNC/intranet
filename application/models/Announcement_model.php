@@ -9,7 +9,7 @@ class Announcement_model extends CI_Model {
 		//$this->db->trans_start();
 
 		//ANNOUNCEMENT INPUT
-		$image = $file_name = $_FILES['userfile']['name'];;
+		$image = $_FILES['image']['name'];
 		$category = $this->input->post('category');
 		$title = $this->input->post('title');
 		$content = $this->input->post('content');
@@ -44,33 +44,38 @@ class Announcement_model extends CI_Model {
 
 	public function get_announcement($id)
 	{
-		$this->db->select("
-			id,
-			image,
-			category,
-			title,
-			content
-		");
-		$this->db->from('announcement');
 		$this->db->where('id', $id);
-		$query = $this->db->get();
+		$query = $this->db->get('announcement');
+
 		return $query->row();
 	}
 
 	public function update_announcement($id)
 	{
+		$this->db->trans_start();
+
+		$image = $_FILES['image']['name']; 
+		//$picture = $_FILES['image']['name'];
 		$date = date('Y-m-d h:i:s');
+
 		$data = array (
-            'category' 			=> $this->input->post('category'),
-            'title' 			=> $this->input->post('title'),
+			'image'             => $image,
+			'category' 			=> $this->input->post('category'),
+			'title' 			=> $this->input->post('title'),
 			'content' 			=> $this->input->post('content'),
 			'updated_date'    	=> $date,
 			'updated_by'      	=> $this->session->userdata('username')
-        );
-        $this->db->where('id', $id);
-		$query = $this->db->update('announcement', $data);
+		);
+
+		/*print_r('<pre>');
+		print_r($data);
+		print_r('</pre>');*/
+
+		$this->db->where('id', $id);
+		$this->db->update('announcement', $data);
+		$trans = $this->db->trans_complete();
 		
-		return $query;
+		return $trans;
 	}
 
 	public function delete_announcement($id)

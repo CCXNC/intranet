@@ -8,7 +8,7 @@ class Employee_model extends CI_Model {
 		$this->db->trans_start();
 
 		//EMPLOYEE INPUT
-		$picture = $file_name = $_FILES['userfile']['name'];;
+		$picture = $_FILES['image']['name'];
 		$employee_number = $this->input->post('employee_number');
 		$first_name = $this->input->post('first_name');
 		$middle_name = $this->input->post('middle_name');
@@ -57,6 +57,8 @@ class Employee_model extends CI_Model {
 		$spouse_birthday = $this->input->post('spouse_birthday');
 		$spouse_age = $this->input->post('spouse_age');
 		$occupation = $this->input->post('occupation');
+		$employer = $this->input->post('employer');
+
 		//CHILDREN INPUT
 		$children_full_name = $this->input->post('children_full_name');
 		$children_birthday   = $this->input->post('children_birthday');
@@ -160,6 +162,7 @@ class Employee_model extends CI_Model {
 				'birthday'        => $spouse_birthday,
 				'age'             => $ageSpouse,
 				'occupation'      => $occupation,
+				'employer'        => $employer,
 				'created_date'    => $date,
 				'created_by'      => $this->session->userdata('username')
 			);
@@ -184,7 +187,7 @@ class Employee_model extends CI_Model {
 			'employee_status'    => $employee_status,
 			'years_of_service'   => $year_of_service,
 			'rank'               => $rank,
-			'created_date'         => $date,
+			'created_date'       => $date,
 			'created_by'         => $this->session->userdata('username')
 		);
 
@@ -286,6 +289,7 @@ class Employee_model extends CI_Model {
 			spouse_info.birthday as spouse_birthday,
 			spouse_info.age as spouse_age,
 			spouse_info.occupation as spouse_occupation,
+			spouse_info.employer as spouse_employer,
 
 			parents_info.id as parent_id,
 			employment_info.id as employment_id,
@@ -343,7 +347,7 @@ class Employee_model extends CI_Model {
 		$this->db->trans_start();
 
 		//EMPLOYEE INPUT
-		$picture = $file_name = $_FILES['userfile']['name'];;
+		$picture = $_FILES['image']['name'];
 		//$employee_number = $this->input->post('employee_number');
 		$first_name = $this->input->post('first_name');
 		$middle_name = $this->input->post('middle_name');
@@ -398,6 +402,7 @@ class Employee_model extends CI_Model {
 		$spouse_birthday = $this->input->post('spouse_birthday');
 		$spouse_age = $this->input->post('spouse_age');
 		$occupation = $this->input->post('occupation');
+		$employer = $this->input->post('employer');
 
 		//CHILDREN INPUT
 		$children_birthday   = $this->input->post('children_birthday');
@@ -419,35 +424,73 @@ class Employee_model extends CI_Model {
 		$diff = date_diff(date_create($birthday), date_create($today));
 		$ageEmployee = $diff->format('%y');
 
-		$data_employee = array(
-			'first_name'                     => $first_name,
-			'middle_name'                    => $middle_name,
-			'last_name'                      => $last_name,
-			'nick_name'                      => $nickname,
-			'birthday'                       => $birthday,
-			'age'                            => $ageEmployee,
-			'gender'                         => $gender,
-			'marital_status'                 => $marital_status,
-			'contact_number'                 => $contact_number,
-			'email_address'                  => $email,
-			'emergency_contact_name'         => $emergency_name,
-			'emergency_contact_number'       => $emergency_contact,
-			'emergency_contact_relationship' => $emergency_relationship,
-			'address'                        => $address,
-			'sss_number'                     => $sss,
-			'tin_number'                     => $tin,
-			'pagibig_number'                 => $pagibig,
-			'philhealth_number'              => $philhealth,
-			'updated_date'                   => $date,
-			'updated_by'                     => $this->session->userdata('username')
-		);
+		if($picture == NULL)
+		{
+			$data_employee = array(
+				
+				'first_name'                     => $first_name,
+				'middle_name'                    => $middle_name,
+				'last_name'                      => $last_name,
+				'nick_name'                      => $nickname,
+				'birthday'                       => $birthday,
+				'age'                            => $ageEmployee,
+				'gender'                         => $gender,
+				'marital_status'                 => $marital_status,
+				'contact_number'                 => $contact_number,
+				'email_address'                  => $email,
+				'emergency_contact_name'         => $emergency_name,
+				'emergency_contact_number'       => $emergency_contact,
+				'emergency_contact_relationship' => $emergency_relationship,
+				'address'                        => $address,
+				'sss_number'                     => $sss,
+				'tin_number'                     => $tin,
+				'pagibig_number'                 => $pagibig,
+				'philhealth_number'              => $philhealth,
+				'updated_date'                   => $date,
+				'updated_by'                     => $this->session->userdata('username')
+			);
+			
+			/*print_r('<pre>');
+			print_r($data_employee);
+			print_r('</pre>');*/
+			$this->db->where('employees.id', $id);
+			$this->db->where('employees.employee_number', $employee_number);
+			$this->db->update('employees', $data_employee);
+		}
+		else 
+		{
+			$data_employee = array(
+				'picture'                        => $picture,
+				'first_name'                     => $first_name,
+				'middle_name'                    => $middle_name,
+				'last_name'                      => $last_name,
+				'nick_name'                      => $nickname,
+				'birthday'                       => $birthday,
+				'age'                            => $ageEmployee,
+				'gender'                         => $gender,
+				'marital_status'                 => $marital_status,
+				'contact_number'                 => $contact_number,
+				'email_address'                  => $email,
+				'emergency_contact_name'         => $emergency_name,
+				'emergency_contact_number'       => $emergency_contact,
+				'emergency_contact_relationship' => $emergency_relationship,
+				'address'                        => $address,
+				'sss_number'                     => $sss,
+				'tin_number'                     => $tin,
+				'pagibig_number'                 => $pagibig,
+				'philhealth_number'              => $philhealth,
+				'updated_date'                   => $date,
+				'updated_by'                     => $this->session->userdata('username')
+			);
+			
+			/*print_r('<pre>');
+			print_r($data_employee);
+			print_r('</pre>');*/
+			$this->db->where('employees.id', $id);
+			$this->db->where('employees.employee_number', $employee_number);
+			$this->db->update('employees', $data_employee);
+		}
 		
-		/*print_r('<pre>');
-		print_r($data_employee);
-		print_r('</pre>');*/
-		$this->db->where('employees.id', $id);
-		$this->db->where('employees.employee_number', $employee_number);
-		$this->db->update('employees', $data_employee);
 
 		$data_parent = array(
 			'id' => $parent_id,
@@ -481,6 +524,7 @@ class Employee_model extends CI_Model {
 				'birthday'        => $spouse_birthday,
 				'age'             => $ageSpouse,
 				'occupation'      => $occupation,
+				'employer'        => $employer,
 				'updated_date'    => $date,
 				'updated_by'      => $this->session->userdata('username')
 			);

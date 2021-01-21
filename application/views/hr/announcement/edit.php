@@ -10,7 +10,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <center>
-                                    <img src="<?php echo base_url(); ?>assets/images/newsimage.png" alt="" style="width: 30%"><br><br>
+                                    <img src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image ?>" alt="" style="width: 30%"><br><br>
                                 </center>
                             </div>
                         </div>
@@ -19,7 +19,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <p>Image Type: jpg, png, jpeg</p>
-                                <input type='file' name='userfile' size='20' />
+                                <input type='file' name='image' size='20' />
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group" >
-                                <input type="submit" class="btn btn-success float-right" onclick="return confirm('Do you want to update data?');" value="SUBMIT" >
+                                <input type="submit" class="btn btn-success float-right" onclick="return confirm('Do you want to update data?');" value="Update" >
                             </div>
                         </div>
                     </div>

@@ -292,31 +292,41 @@
             <div class="card-body">
             <?php if($employee->spouse_name != NULL) :  ?>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Fullname</label>
                             <div class="form-control"><?php echo $employee->spouse_name; ?></div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Birthdate</label>
                             <div class="form-control"><?php echo date('F j, Y',strtotime($employee->spouse_birthday)); ?></div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Age</label>
                             <div class="form-control"><?php echo $employee->spouse_age; ?></div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                </div>   
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Occupation</label>
                             <div class="form-control"><?php echo $employee->spouse_occupation; ?></div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Employer</label>
+                            <div class="form-control"><?php echo $employee->spouse_employer; ?></div>
+                        </div>
+                    </div>
+                </div> 
+                   
+               
             <?php endif; ?>    
             </div>
         </div>

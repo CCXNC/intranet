@@ -95,7 +95,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card">
-    <div class="card-header"><h4>ANNOUNCEMENT LIST<a href="<?php echo base_url(); ?>announcement/do_upload" class="btn btn-info float-right">ADD</a></h4> </div>
+    <div class="card-header"><h4>ANNOUNCEMENT LIST<a href="<?php echo base_url(); ?>announcement/add" class="btn btn-info float-right">ADD</a></h4> </div>
     <div class="card-body">
         <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
             <thead>
