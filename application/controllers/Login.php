@@ -7,9 +7,14 @@ class Login extends CI_Controller {
         $this->load->model('Login_model');
     }
 
-	public function index()
+    function index() {
+        $data['announcements'] = $this->login_model->get_announcements();
+        $this->load->view('login/index', $data);
+    
+    }
+
+	/*public function index()
 	{
-        // Get record count
 	 	$this->load->library('pagination');
 
 	 	$total_rows = $this->db->count_all('announcement');
@@ -18,8 +23,6 @@ class Login extends CI_Controller {
 
         $this->db->order_by('created_date','desc');
 	 	$this->db->limit($limit, $start);
-	 	//$keyword    =   $this->input->post('keyword');
-	 	//$this->db->like('name', $keyword);
 
          $this->db->select("
             image,
@@ -69,9 +72,7 @@ class Login extends CI_Controller {
 	  
 	  	$this->pagination->initialize($config);	
         $this->load->view('login/index', $data);
-        /*$data['announcements'] = $this->login_model->get_announcements();
-        $this->load->view('login/index', $data);*/
-    }
+    }*/
     
     function auth() {
         $username = $this->input->post('username', TRUE);

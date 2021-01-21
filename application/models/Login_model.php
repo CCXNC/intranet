@@ -11,4 +11,13 @@ class Login_model extends CI_Model {
         $query = $this->db->get(); 
         return $query;
     }
+
+    public function get_announcements()
+	{
+        $this->db->where('is_active', 1);
+        $this->db->where('category', "loginpage");
+		$query = $this->db->get('announcement');
+
+		return $query->result();
+	}
 }

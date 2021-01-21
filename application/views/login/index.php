@@ -116,94 +116,6 @@
     .announcement {
         text-align: justify;
     }
-
-    #myImg {
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    #myImg:hover {
-        opacity: 0.7;
-    }
-
-    /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-    }
-
-    /* Modal Content (image) */
-    .modal-content {
-        margin: auto;
-        display: block;
-        width: 80%;
-        max-width: 700px;
-    }
-
-    /* Caption of Modal Image */
-    #caption {
-        margin: auto;
-        display: block;
-        width: 80%;
-        max-width: 700px;
-        text-align: center;
-        color: #ccc;
-        padding: 10px 0;
-        height: 150px;
-    }
-
-    /* Add Animation */
-    .modal-content, #caption {  
-        -webkit-animation-name: zoom;
-        -webkit-animation-duration: 0.6s;
-        animation-name: zoom;
-        animation-duration: 0.6s;
-    }
-
-    @-webkit-keyframes zoom {
-        from {-webkit-transform:scale(0)} 
-        to {-webkit-transform:scale(1)}
-    }
-
-    @keyframes zoom {
-        from {transform:scale(0)} 
-        to {transform:scale(1)}
-    }
-
-    /* The Close Button */
-    .close {
-        position: absolute;
-        top: 15px;
-        right: 35px;
-        color: #f1f1f1;
-        font-size: 40px;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #bbb;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    /* 100% Image Width on Smaller Screens */
-    @media only screen and (max-width: 700px){
-        .modal-content {
-            width: 100%;
-        }
-    }
 </style>
 
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm stroke" style="background-color: #003153 !important; height: 65px;">
@@ -260,7 +172,7 @@
                         <section>
                             <div class="container">
                             
-                                    <?php if($announcement) : ?>
+                                    <!--<?php if($announcement) : ?>
                                         <?php foreach($announcement as $announcement) : ?>
                                             <div class="card">
                                                 <div class="card-header" style="background-color: #003153; color: white">
@@ -270,7 +182,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <center>
-                                                            <h1><img id="myImg" src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" style="width: 80%" alt=""></h1>
+                                                            <h1><img class="d-block w-100" src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" alt="First slide"></h1>
                                                             </center>
                                                         </div>
                                                         <div id="myModal" class="modal">
@@ -291,13 +203,54 @@
                                             </div>
                                             <br>
                                         <?php endforeach; ?>
-                                    <?php endif; ?>
+                                    <?php endif; ?>-->
+                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <?php $active = true; ?>
+                                                <?php if($announcements) : ?>
+                                                    <?php foreach($announcements as $announcement) : ?>
+                                                        <div class="carousel-item <?php echo ($active == true)?"active":"" ?>">
+                                                            <div class="row">
+                                                                <div class="card">
+                                                                    <div class="card-header" style="background-color: #003153; color: white">
+                                                                        <?php echo $announcement->title;  ?>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <center>
+                                                                                <h1><img class="d-block w-100" src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" alt="First slide"></h1>
+                                                                                </center>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <p class="announcement">
+                                                                                    <?php echo word_limiter($announcement->content,100); ?></a>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                        </div>
+                                                    <?php $active = false; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
                             </div>
                         </section>
-                        <div class="float-right">
-                            <?php echo $this->pagination->create_links(); ?>
-                            <br>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -315,13 +268,60 @@
                                         <div class="carousel-item active">
                                             <div class="row" >
                                                 <div class="col-md-12" style="text-align:justify; padding-left:50px; padding-right:50px;">
-                                                    <h3 style="text-align:left;" > General Terms and Conditions for Intranet Administration</h3>
-                                                    <p>The person in charge of the administration and updating of the contents of the Company’s intranet as well as in answering potential queries from customers and clients shall observe the following terms and conditions: </p> 
-                                                    <p>1. Ensure that all pictures and articles to be uploaded in the site are original and will not be subjected to any plagiarism/copyright lawsuits. Consequently, all contents uploaded in the site are owned by Blaine Group of Companies. In the event that the articles or pictures uploaded to the site are not owned by Blaine, the source of the same shall be cited.</p> 
-                                                    <p>2. There shall be no assignment of duties in the maintenance and administration of this site.  As such, access to the site as the person in charge of the maintenance and updating of the website shall be limited to those authorized by Blaine to perform the said activities.  Log in user name and password shall specifically be allocated to the person/s in charge in the maintenance of the website and shall be kept for themselves at all times.</p>
-                                                    <p>3. In the maintenance and administration of the company’s website, the person in charge shall make sure that all contents uploaded in the site and the manner they interact with its potential clients and customers in the said site shall not prejudice the interest of the company and its owners by conducting themselves with decorum and providing valuable information that would boost the reputation of the company and its products.  </p>
-                                                    <p>4. Compliance of RA 10173 or the Data Privacy Act of 2012 shall be adhered to at all times in any information derived from the performance of duties as the one in charge in the maintenance and handling of this site particularly data gathered from inquiring customers/clients.
-                                                        Breach of any of the above-enumerated terms could be a subject for disciplinary action and/or other legal remedies available to the Company in making sure its interest is protected.</p>
+                                                    <h3 style="text-align:center;" > General Terms and Conditions for Intranet Administration</h3>
+                                                    <p>Introduction:
+                                                    <br>These System Standard Terms and Conditions written on this system shall manage your use of our system, Blaine Intranet accessible at http://www.blaineintranet/intranet/login/index. <br><br>
+                                                    These Terms will be applied fully and affect to your use of this system. By using this system, you agreed to accept all terms and conditions written in here. You must not use this system if you disagree with any of these system Standard Terms and Conditions. These Terms and Conditions have been generated with the help of the Terms And Conditions Template and the Terms and Conditions Generator. 
+                                                    People who are not employed by Blaine are not allowed to use this Website. 
+                                                    <br><br>
+                                                    Intellectual Property Rights: 
+                                                    <br>
+                                                    Other than the content you own, under these Terms, Blaine Corporation and/or its licensors own all the intellectual property rights and materials contained in this system. You are granted limited license only for purposes of viewing the material contained on this system.<br><br>
+                                                    Restrictions:
+                                                    <br>
+                                                    You are specifically restricted from all of the following:<br>
+
+                                                    - publishing any system material in any other media; <br>
+                                                    - selling, sublicensing and/or otherwise commercializing any system material; <br>
+                                                    - publicly performing and/or showing any system material;<br>
+                                                    - using this system in any way that is or may be damaging to this system and/or company;<br>
+                                                    - using this system in any way that impacts user access to this system;<br>
+                                                    - using this system contrary to applicable laws and regulations, or in any way may cause harm to the system, or to any person or business entity;<br>
+                                                    - engaging in any data mining, data harvesting, data extracting or any other similar activity in relation to this system;<br>
+                                                    - using this system to engage in any advertising or marketing.<br><br>
+                                                    Certain areas of this system are restricted from being access by you and Blaine Corporation may further restrict access by you to any areas of this system, at any time, in absolute discretion. Any user ID and password you may have for this system are confidential and you must maintain confidentiality as well.<br><br>
+
+                                                    Your Content<br>
+                                                    In these System Standard Terms and Conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this system. By displaying Your Content, you grant Blaine Corporation a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.<br><br>
+
+                                                    Your Content must be your own and must not be invading any third-party’s rights. Blaine Corporation reserves the right to remove any of Your Content from this Website at any time without notice.<br><br>
+
+                                                    Your Privacy<br>
+                                                    Please read Privacy Policy.<br><br>
+
+                                                    No warranties<br>
+                                                    This System is provided "as is," with all faults, and Blaine Corporation express no representations or warranties, of any kind related to this system or the materials contained on this system. Also, nothing contained on this system shall be interpreted as advising you.<br><br>
+
+                                                    Limitation of liability<br>
+                                                    In no event shall Blaine Corporation, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this system whether such liability is under contract.  Blaine Corporation, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this system.<br><br>
+
+                                                    Indemnification<br>
+                                                    You hereby indemnify to the fullest extent Blaine Corporation from and against any and/or all liabilities, costs, demands, causes of action, damages and expenses arising in any way related to your breach of any of the provisions of these Terms.<br><br>
+
+                                                    Severability<br>
+                                                    If any provision of these Terms is found to be invalid under any applicable law, such provisions shall be deleted without affecting the remaining provisions herein.<br><br>
+
+                                                    Variation of Terms<br>
+                                                    Blaine Corporation is permitted to revise these Terms at any time as it sees fit, and by using this system you are expected to review these Terms on a regular basis.<br><br>
+
+                                                    Assignment<br>
+                                                    The Blaine Corporation is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.<br><br>
+
+                                                    Entire Agreement<br>
+                                                    These Terms constitute the entire agreement between Blaine Corporation and you in relation to your use of this system, and supersede all prior agreements and understandings.<br><br>
+
+                                                    Governing Law & Jurisdiction<br>
+                                                    These Terms will be governed by and interpreted in accordance with the laws of the State of Ph, and you submit to the non-exclusive jurisdiction of the state and federal courts located in Ph for the resolution of any disputes.</p>
                                                 </div>
                                             </div>
                                         </div>
