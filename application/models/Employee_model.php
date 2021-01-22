@@ -68,7 +68,7 @@ class Employee_model extends CI_Model {
 	
 		
 		$i = 0;
-		$date = date('Y-m-d h:i:s');
+		$date = date('Y-m-d H:i:s');
 		
 		// AGE EMPLOYEE
 		$today = date("Y-m-d");
@@ -417,7 +417,7 @@ class Employee_model extends CI_Model {
 		$employment_id = $this->input->post('employment_id');
 
 		$i = 0;
-		$date = date('Y-m-d h:i:s');
+		$date = date('Y-m-d H:i:s');
 
 		// AGE EMPLOYEE
 		$today = date("Y-m-d");
@@ -686,7 +686,7 @@ class Employee_model extends CI_Model {
 		$date_transfer = $this->input->post('date_transfer');
 		$remarks = $this->input->post('remarks');
 		$credit = $this->input->post('credit');
-		$datetime = date('Y-m-d h:i:s');
+		$datetime = date('Y-m-d H:i:s');
 
 		// GET RECENT DATA FROM EMPLOYMENT INFO 
 		/*$this->db->select('*');
@@ -812,7 +812,7 @@ class Employee_model extends CI_Model {
 		$date_termination = $this->input->post('date_termination');
 		$date_clearance = $this->input->post('date_clearance');
 		$remarks = $this->input->post('remarks');
-		$datetime = date('Y-m-d h:i:s');
+		$datetime = date('Y-m-d H:i:s');
 
 		
 		$employee_data = array(
@@ -869,7 +869,7 @@ class Employee_model extends CI_Model {
 		$course = $this->input->post('course');
 		$year_graduated = $this->input->post('year_graduated');
 		$license = $this->input->post('license');
-		$date = date('Y-m-d h:i:s');
+		$date = date('Y-m-d H:i:s');
 
 		if($spouse_full_name == NULL) 
 		{
