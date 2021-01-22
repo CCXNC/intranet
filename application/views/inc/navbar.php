@@ -549,11 +549,11 @@
                 <li class="nav-item dropdown">
                     <a style="color:white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user-circle"></i>
-                        <span>Username</span>
+                        <span><?php echo $this->session->userdata('username'); ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">Notification</a>
+                        <a class="dropdown-item" href="<?php echo base_url(); ?>homepage/employee_profile/<?php echo $this->session->userdata('emp_id'); ?>/<?php echo $this->session->userdata('employee_number'); ?>">My Profile</a>
+                        <a class="dropdown-item" href="#">Notification</a> 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?php echo site_url('Login/logout');?>">Logout</a>
                     </div>
@@ -642,26 +642,30 @@
                                     </ul>
                                 </div>-->
                             </li>
-                            <!--HR-->
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-address-card"></i>
-                                    <span>HR</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>employee/index">201</a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>announcement/index">Announcement</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Timekeeping</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                            
+                            <?php if($this->session->userdata('access_level_id') == 1) : ?>
+                                <!--HR-->
+                                <li class="sidebar-dropdown">
+                                    <a href="#">
+                                        <i class="fa fa-address-card"></i>
+                                        <span>HR</span>
+                                    </a>
+                                    <div class="sidebar-submenu">
+                                        <ul>
+                                            <li>
+                                                <a href="<?php echo base_url(); ?>employee/index">201</a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo base_url(); ?>announcement/index">Announcement</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Timekeeping</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php endif; ?>
+                           
                             <!--SUPPLY CHAIN-->
                             <li class="">
                                 <a href="#">

@@ -10,6 +10,16 @@ class Homepage extends CI_Controller {
     }
 
 
+    public function employee_profile($id,$employee_number) 
+    {
+        $data['employee'] = $this->employee_model->get_employee($id);
+        $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
+        $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
+        $data['transfer'] = $this->employee_model->get_transfer_logs($employee_number);
+        $data['main_content'] = 'hr/employee/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
     function index() {
 
         // Get record count
