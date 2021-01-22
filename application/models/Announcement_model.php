@@ -14,7 +14,7 @@ class Announcement_model extends CI_Model {
 		$title = $this->input->post('title');
 		$content = $this->input->post('content');
 		$i = 0;
-		$date = date('Y-m-d h:i:s');
+		$date = date('Y-m-d H:i:s');
 		
 		$data_announcement = array(
 			'image'       	=> $image,
@@ -61,7 +61,7 @@ class Announcement_model extends CI_Model {
 		$content = $this->input->post('content');
 		
 		$i = 0;
-		$date = date('Y-m-d h:i:s');
+		$date = date('Y-m-d H:i:s');
 
 		if($image == NULL)
 		{
