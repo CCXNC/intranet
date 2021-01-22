@@ -166,7 +166,7 @@
             </div>    
         </div>
         <br>
-        <div class="card">
+        <div class="card" id="employmentMargin">
             <div class="card-header">Employment Information</div>
             <div class="card-body">
                 <div class="row">
@@ -234,7 +234,7 @@
             </div>
         </div>
         <br>
-        <div class="card">
+        <div class="card"  id="governmentMargin">
             <div class="card-header">Government Mandated IDs</div>
             <div class="card-body">
                 <div class="row">
@@ -266,7 +266,7 @@
             </div>
         </div>    
         <br>
-        <div class="card">
+        <div class="card" id="parentMargin">
             <div class="card-header">Parent`s Information</div>
             <div class="card-body">
                 <div class="row">
@@ -461,6 +461,9 @@
     $(document).ready(function(){
         $('#printButton').click(function() {
             $('#menuTab').css('display', 'none');
+            $("#parentMargin").css("margin-top", "200px");
+            $("#governmentMargin").css("margin-top", "50px");
+            $("#employmentMargin").css("margin-top", "50px");
             $('#show-sidebar').hide();
             $('#printButton').hide();
             window.print();

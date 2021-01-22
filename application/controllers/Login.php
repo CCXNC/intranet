@@ -75,25 +75,36 @@ class Login extends CI_Controller {
     }*/
     
     function auth() {
+
         $username = $this->input->post('username', TRUE);
         $password = $this->input->post('password', TRUE);
+
         $result = $this->Login_model->check_user($username, $password);
+
         if($result->num_rows() > 0) {
+
             $data = $result->row_array();
             $username = $data['username'];
             $employee_number = $data['employee_number'];
             $access_level_id = $data['access_level_id'];
+            $emp_id = $data['emp_id'];
+
             $sesdata = array(
                 'username' => $username,
                 'employee_number' => $employee_number,
                 'access_level_id' => $access_level_id,
-                'logged_in' => TRUE
+                'logged_in' => TRUE,
+                'emp_id' => $emp_id
             );
+
             $this->session->set_userdata($sesdata);
             redirect('homepage/index');
+            
         } else {
+
             echo "<script>alert('Incorrect Username or Password!');history.go(-1);</script>";
         }
+
         $this->load->view('login/index');
     }
 
