@@ -41,16 +41,11 @@
             <div class="card">
                 <div class="card-header">Personal Information</div>
                 <div class="card-body">
-                        <div style="position:absolute;">
-                            <div class="form-group">
-                                <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="150px" height="150px" alt="" style="margin-left:20px;"><br><br>
-                            </div>
-                        </div>    
+                    <div class="form-group">
+                        <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="150px" height="150px" alt="" style=""><br><br>
+                        <input type='file' name='image' size='20' />
+                    </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            </div>
-                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Employee Number</label>
@@ -69,21 +64,15 @@
                                 <input type="text" class="form-control"  name="middle_name">
                             </div>
                         </div>
-                        
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-
-                            </div>
-                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Last Name</label>
                                 <input type="text" class="form-control"  name="last_name">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Nickname</label>
@@ -99,13 +88,6 @@
                                     <option value="female">Female</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type='file' name='image' size='20' />
-                            
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
@@ -131,10 +113,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Personal Email Address</label>
                                 <input type="text" class="form-control"  name="email">

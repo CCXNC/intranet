@@ -16,8 +16,8 @@ class Announcement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     
     }*/
-    function index() {
-
+    function index() 
+    {
         // Get record count
 	 	$this->load->library('pagination');
 
@@ -30,7 +30,7 @@ class Announcement extends CI_Controller {
 	 	//$keyword    =   $this->input->post('keyword');
 	 	//$this->db->like('name', $keyword);
 
-         $this->db->select("
+        $this->db->select("
             id,
             image,
             category,
@@ -88,7 +88,6 @@ class Announcement extends CI_Controller {
     }
 
     function add() {
-
         $this->form_validation->set_rules('title', 'Title', 'required|trim');
         $this->form_validation->set_rules('category', 'Category', 'required|trim');
 
@@ -100,7 +99,8 @@ class Announcement extends CI_Controller {
         else
         {
 
-            if(!empty($_FILES['image']['name'])){ 
+            if(!empty($_FILES['image']['name']))
+            { 
                 $imageName = $_FILES['image']['name']; 
                  
                 // File upload configuration 
@@ -121,53 +121,33 @@ class Announcement extends CI_Controller {
                 } 
             } 
 
-            $this->announcement_model->add_announcement();
-            $this->session->set_flashdata('success_msg', 'Announcement Successfully Added!');
-            redirect('announcement/index');
+            if($this->announcement_model->add_announcement())
+            {
+                $this->session->set_flashdata('success_msg', 'Announcement Successfully Added!');
+                redirect('announcement/index');
+            }
+            
 
             //$this->session->set_flashdata('success_msg', 'Announcement Successfully Added!');
             //redirect('announcement/index');
         }
-        
-    
     }
 
-    function edit($id) {
+    public function edit($id)
+    {
         $this->form_validation->set_rules('title', 'Title', 'required|trim');
-        //$this->form_validation->set_rules('content', 'Content', 'required|trim');
         $this->form_validation->set_rules('category', 'Category', 'required|trim');
+
         if($this->form_validation->run() == FALSE)
         {
+            
+            $data['announcement'] = $this->announcement_model->get_announcement($id);
             $data['main_content'] = 'hr/announcement/edit';
-            $data["announcement"] = $this->announcement_model->get_announcement($id);
             $this->load->view('inc/navbar', $data);
         }
         else
         {
-
-            if(!empty($_FILES['image']['name'])){ 
-                $imageName = $_FILES['image']['name']; 
-                 
-                // File upload configuration 
-                $config['upload_path'] = './uploads/announcement/'; 
-                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-                 
-                // Load and initialize upload library 
-                $this->load->library('upload', $config); 
-                $this->upload->initialize($config); 
-                 
-                // Upload file to server 
-                if($this->upload->do_upload('image')){ 
-                    // Uploaded file data 
-                    $fileData = $this->upload->data(); 
-                    $imgData['file_name'] = $fileData['file_name']; 
-                }else{ 
-                    $error = $this->upload->display_errors();  
-                } 
-            } 
-           
             // GET PREVIOUS DATA.
-           /* 
             $announcement = $this->announcement_model->get_announcement($id);
             $prevImage = $announcement->image;
 
@@ -182,28 +162,33 @@ class Announcement extends CI_Controller {
                 $this->load->library('upload', $config); 
                 $this->upload->initialize($config); 
 
-                if($this->upload->do_upload('image')){ 
-                    // Uploaded file data 
-                    $fileData = $this->upload->data(); 
-                    $imgData['file_name'] = $fileData['file_name']; 
-                     
-                    // Remove old file from the server  
-                    if(!empty($prevImage)){ 
-                        @unlink('./uploads/announcement/'.$prevImage);  
+                if(!empty($prevImage) && !empty($imageName)){ 
+                     // Remove old file from the server 
+                    @unlink('./uploads/announcement/'.$prevImage);  
+
+                     // Upload file to server 
+                     if($this->upload->do_upload('image')){ 
+                        // Uploaded file data 
+                        $fileData = $this->upload->data(); 
+                        $imgData['file_name'] = $fileData['file_name']; 
+                    
+                    }else{ 
+                        $error = $this->upload->display_errors(); 
                     } 
-                }else{ 
-                    $error = $this->upload->display_errors();  
                 } 
+                
+            } 
 
-            } */   
-
-            $this->announcement_model->update_announcement($id);
-            $this->session->set_flashdata('success_msg', 'Announcement Successfully Updated!');
-            redirect('announcement/index');
-        }
+            if($this->announcement_model->update_announcement($id))
+            {
+                $this->session->set_flashdata('success_msg', 'Announcement Successfully Updated!');
+                redirect('announcement/index');
+            }
+        }    
     }
 
-    function delete($id){
+    function delete($id)
+    {
         if($this->announcement_model->delete_announcement($id))
         {
             $this->session->set_flashdata('error_msg', 'Announcement Successfully Deleted!');
