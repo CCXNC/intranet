@@ -52,7 +52,7 @@ class Employee extends CI_Controller {
         
 	  	$query = $this->db->get();
 	 	$data['employees'] = $query->result();
-	  	$config['base_url']   = 'http://localhost/blaineintranet/Employee/index';
+	  	$config['base_url']   = 'http://www.blaineintranet/Employee/index';
 	  	$config['total_rows'] = $total_rows;
 	  	$config['per_page']   = $limit;
 

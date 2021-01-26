@@ -53,7 +53,7 @@ class Homepage extends CI_Controller {
         
 	  	$query = $this->db->get();
 	 	$data['announcement'] = $query->result();
-	  	$config['base_url']   = 'http://localhost/blaineintranet/Homepage/index';
+	  	$config['base_url']   = 'http://www.blaineintranet/Homepage/index';
 	  	$config['total_rows'] = $total_rows;
 	  	$config['per_page']   = $limit;
 

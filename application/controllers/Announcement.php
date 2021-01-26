@@ -51,7 +51,7 @@ class Announcement extends CI_Controller {
         
 	  	$query = $this->db->get();
 	 	$data['announcement'] = $query->result();
-	  	$config['base_url']   = 'http://localhost/blaineintranet/Announcement/index';
+	  	$config['base_url']   = 'http://www.blaineintranet/Announcement/index';
 	  	$config['total_rows'] = $total_rows;
 	  	$config['per_page']   = $limit;
 
