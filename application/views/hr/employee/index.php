@@ -97,9 +97,7 @@
 <?php endif; ?>
 <div class="card">
     <div class="card-header"><h4>EMPLOYEE LIST
-    <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal_00">
-        DOWNLOAD
-    </button>
+    <a href="<?php echo base_url(); ?>employee/search_employeelist" class="btn btn-info float-right" style="margin-right:10px;">DOWNLOAD</a>
     <a href="<?php echo base_url(); ?>employee/add" class="btn btn-info float-right" style="margin-right:10px;">ADD</a></h4> </div>
     <div class="card-body">
         <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -144,6 +142,8 @@
                                             <a class="dropdown-item" href="<?php echo base_url(); ?>employee/delete_view_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Delete</a>
                                             <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="<?php echo base_url(); ?>employee/add_info/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Add Info</a>
+                                            <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_attachment/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Attachment</a>
                                             <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_movement/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Movement</a>
                                             <div class="dropdown-divider"></div>

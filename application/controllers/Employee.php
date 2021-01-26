@@ -106,6 +106,7 @@ class Employee extends CI_Controller {
         $data['employee'] = $this->employee_model->get_employee($id);
         $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
         $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
+        $data['attachments'] = $this->employee_model->get_attachments($employee_number);
         $data['transfer'] = $this->employee_model->get_transfer_logs($employee_number);
         $data['main_content'] = 'hr/employee/view';
         $this->load->view('inc/navbar', $data);
@@ -298,7 +299,6 @@ class Employee extends CI_Controller {
         }    
     }
 
-
     public function add_info($id,$employee_number)
     {
         $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
@@ -356,5 +356,107 @@ class Employee extends CI_Controller {
         }
         
     }
+
+    public function employee_attachment($id,$employee_number)
+    {
+        $this->form_validation->set_rules('attachment', 'Resume', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['employee'] = $this->employee_model->get_employee($id);
+            $data['main_content'] = 'hr/employee/attachment';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            
+            if(!empty($_FILES['resume']['name'])){ 
+                $imageName = $_FILES['resume']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/attachment/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
+                $config['max_size'] = '100000000'; 
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+                 
+                // Upload file to server 
+                if($this->upload->do_upload('resume')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+
+            if(!empty($_FILES['data1']['name'])){ 
+                $imageName = $_FILES['data1']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/attachment/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
+                $config['max_size'] = '100000000'; 
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+                 
+                // Upload file to server 
+                if($this->upload->do_upload('data1')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+
+            if(!empty($_FILES['data2']['name'])){ 
+                $imageName = $_FILES['data2']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/attachment/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
+                $config['max_size'] = '100000000'; 
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+                 
+                // Upload file to server 
+                if($this->upload->do_upload('data2')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+            
+            if($this->employee_model->attachment($employee_number))
+            {
+                $this->session->set_flashdata('success_msg', 'Employee Attachment Successfully Added!');
+                redirect('employee/index');
+            }
+            
+        }
+        
+      
+    }
+    
+    public function download_attachment()
+	{
+		$this->load->helper('download');
+		$data = file_get_contents(APPPATH . 'http://localhost/blaineintranet/uploads/attachment/'.$this->uri->segment(3)); // Read the file's contents
+		$name = $this->uri->segment(3);
+		force_download($name, $data);
+	}
+
 
 }

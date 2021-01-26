@@ -622,6 +622,13 @@ class Employee_model extends CI_Model {
 
 	}
 
+	public function get_attachments($employee_number)
+	{
+		$this->db->where('employee_number', $employee_number);
+		$this->db->order_by('created_date', 'DESC');
+		$query = $this->db->get('attachment');
+		return $query->result();	
+	}
 	public function get_academe_infos($employee_number)
 	{
 		$this->db->where('employee_number', $employee_number);
@@ -1062,5 +1069,62 @@ class Employee_model extends CI_Model {
 		return $trans;
 	}
 
+	public function attachment($employee_number)
+	{
+		$this->db->trans_start();
+
+		$attachment = $this->input->post('attachment');
+		$name1 = $this->input->post('attachment1');
+		$name2 = $this->input->post('attachment2');
+
+		$resume = $_FILES['resume']['name'];
+		$attachment1 = $_FILES['data1']['name'];
+		$attachment2 = $_FILES['data2']['name'];
+
+		$date = date('Y-m-d H:i:s');
+
+		$resume_data = array(
+			'employee_number' => $employee_number,
+			'name'            => $attachment,
+			'file'            => $resume,
+			'created_date'    => $date,
+			'created_by'      => $this->session->userdata('username')
+		);
+
+		$this->db->insert('attachment', $resume_data);
+
+		/* print_r('<pre>');
+		print_r($resume_data);
+		print_r('</pre>'); */
+
+		$data1 = array(
+			'employee_number' => $employee_number,
+			'name'            => $name1,
+			'file'            => $attachment1,
+			'created_date'    => $date,
+			'created_by'      => $this->session->userdata('username')
+		);
+
+		$this->db->insert('attachment', $data1);
+		/* print_r('<pre>');
+		print_r($data1);
+		print_r('</pre>'); */
+
+		$data2= array(
+			'employee_number' => $employee_number,
+			'name'            => $name2,
+			'file'            => $attachment2,
+			'created_date'    => $date,
+			'created_by'      => $this->session->userdata('username')
+		);
+
+		$this->db->insert('attachment', $data2);
+		/* print_r('<pre>');
+		print_r($data2);
+		print_r('</pre>'); */
+
+		$trans = $this->db->trans_complete();
+		return $trans;
+	}
 	
 }
