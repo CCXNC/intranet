@@ -16,7 +16,7 @@ class Homepage extends CI_Controller {
         $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
         $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
         $data['transfer'] = $this->employee_model->get_transfer_logs($employee_number);
-        $data['main_content'] = 'hr/employee/view';
+        $data['main_content'] = 'hr/employee/profile';
         $this->load->view('inc/navbar', $data);
     }
 

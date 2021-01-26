@@ -81,8 +81,9 @@
     }
 </style>
 <div class="card">
-    <div class="card-header"><h4>EMPLOYEE INFORMATION<input type="submit" class="btn btn-info float-right" id="printButton" value="Print"></h4></div>
+    <div class="card-header"><h4>EMPLOYEE </h4></div>
     <div class="card-body">
+        <div class="" style="color:blue;"> <i>Note: If you want to update your information please contact HR.</i></div><br>
         <div class="card">
             <div class="card-header">Personal Information</div>
             <div class="card-body">
@@ -455,47 +456,5 @@
                 </table>   
             </div>
         </div>  
-        <br>
-        <div class="card">
-            <div class="card-header">Attachments
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">File</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if($attachments) : ?>
-                            <?php foreach($attachments as $attachment) : ?>
-                                <tr>
-                                    <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->created_date));  ?></td>
-                                    <td data-label="Title"><?php echo $attachment->name; ?></td>
-                                    <td data-label="File">
-                                    <a href="<?php echo base_url(); ?>employee/download_attachment/<?php echo $attachment->file; ?>"><?php echo $attachment->file; ?></a></td>
-                                </tr>
-                            <?php endforeach; ?> 
-                        <?php endif; ?>
-                    </tbody>
-                </table>   
-            </div>
-        </div>    
     </div>      
 </div>    
-<script>
-    $(document).ready(function(){
-        $('#printButton').click(function() {
-            $('#menuTab').css('display', 'none');
-            $("#parentMargin").css("margin-top", "200px");
-            $("#governmentMargin").css("margin-top", "50px");
-            $("#employmentMargin").css("margin-top", "50px");
-            $('#show-sidebar').hide();
-            $('#printButton').hide();
-            window.print();
-        });
-        
-    });
-</script>
