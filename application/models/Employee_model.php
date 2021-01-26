@@ -1097,31 +1097,38 @@ class Employee_model extends CI_Model {
 		print_r($resume_data);
 		print_r('</pre>'); */
 
-		$data1 = array(
-			'employee_number' => $employee_number,
-			'name'            => $name1,
-			'file'            => $attachment1,
-			'created_date'    => $date,
-			'created_by'      => $this->session->userdata('username')
-		);
-
-		$this->db->insert('attachment', $data1);
-		/* print_r('<pre>');
-		print_r($data1);
-		print_r('</pre>'); */
-
-		$data2= array(
-			'employee_number' => $employee_number,
-			'name'            => $name2,
-			'file'            => $attachment2,
-			'created_date'    => $date,
-			'created_by'      => $this->session->userdata('username')
-		);
-
-		$this->db->insert('attachment', $data2);
-		/* print_r('<pre>');
-		print_r($data2);
-		print_r('</pre>'); */
+		if($name1 != NULL)
+		{
+			$data1 = array(
+				'employee_number' => $employee_number,
+				'name'            => $name1,
+				'file'            => $attachment1,
+				'created_date'    => $date,
+				'created_by'      => $this->session->userdata('username')
+			);
+	
+			$this->db->insert('attachment', $data1);
+			/* print_r('<pre>');
+			print_r($data1);
+			print_r('</pre>'); */
+		}
+		
+		if($name2 != NULL)
+		{
+			$data2= array(
+				'employee_number' => $employee_number,
+				'name'            => $name2,
+				'file'            => $attachment2,
+				'created_date'    => $date,
+				'created_by'      => $this->session->userdata('username')
+			);
+	
+			$this->db->insert('attachment', $data2);
+			/* print_r('<pre>');
+			print_r($data2);
+			print_r('</pre>'); */
+		}
+		
 
 		$trans = $this->db->trans_complete();
 		return $trans;
