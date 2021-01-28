@@ -79,6 +79,14 @@
             border-bottom: 0;
         }
     }
+
+    
+        @page {
+            margin-top: 70pt;
+            margin-bottom:100pt;
+        }
+
+
 </style>
 <div class="card">
     <div class="card-header"><h4>EMPLOYEE INFORMATION<input type="submit" class="btn btn-info float-right" id="printButton" value="Print"></h4></div>
@@ -489,9 +497,6 @@
     $(document).ready(function(){
         $('#printButton').click(function() {
             $('#menuTab').css('display', 'none');
-            $("#parentMargin").css("margin-top", "200px");
-            $("#governmentMargin").css("margin-top", "50px");
-            $("#employmentMargin").css("margin-top", "50px");
             $('#show-sidebar').hide();
             $('#printButton').hide();
             window.print();

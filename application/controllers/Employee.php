@@ -16,92 +16,25 @@ class Employee extends CI_Controller {
 
     function index() 
     {
-   
-        // Get record count
-	 	$this->load->library('pagination');
-
-	 	$total_rows = $this->db->count_all('employees');
-	 	$limit = 10;
-	 	$start = $this->uri->segment(3);
-
-	 	$this->db->order_by('employees.last_name','asc');
-	 	$this->db->limit($limit, $start);
-	 	//$keyword    =   $this->input->post('keyword');
-	 	//$this->db->like('name', $keyword);
-
-         $this->db->select("
-            employees.id as id,
-            employees.picture as picture,
-            employees.employee_number as emp_no,
-            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
-            employment_info.date_hired as date_hired,
-            employee_status.name as employee_status,
-            employment_info.position as position,
-
-            company.name as company,
-            department.name as department,
-
-        ");
-        $this->db->from('employees');
-        $this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
-        $this->db->join('employee_status', 'employment_info.employee_status = employee_status.id');
-        $this->db->join('company', 'employment_info.company = company.id');
-        $this->db->join('department', 'employment_info.department = department.id');
-        $this->db->order_by('employees.last_name', 'ASC');
-        $this->db->where('employees.is_active', 1);
-        
-	  	$query = $this->db->get();
-	 	$data['employees'] = $query->result();
-	  	$config['base_url']   = 'http://localhost/blaineintranet/Employee/index';
-	  	$config['total_rows'] = $total_rows;
-	  	$config['per_page']   = $limit;
-
-	  	$config['full_tag_open'] = '<div class="pagination">';
-        $config['full_tag_close'] = '</div>';
-            
-        $config['first_link'] = 'First Page';
-        $config['first_tag_open'] = '<span class="btn btn-light firstlink">';
-        $config['first_tag_close'] = '</span>';
-            
-        $config['last_link'] = 'Last Page';
-        $config['last_tag_open'] = '<li class=" btn btn-light lastlink">';
-        $config['last_tag_close'] = '</li>';
-            
-        $config['next_link'] = 'Next Page';
-        $config['next_tag_open'] = '<li class=" btn btn-light nextlink">';
-        $config['next_tag_close'] = '</li>';
-
-        $config['prev_link'] = 'Prev Page';
-        $config['prev_tag_open'] = '<span class="btn btn-light prevlink">';
-        $config['prev_tag_close'] = '</span>';
-
-        $config['cur_tag_open'] = '<li class="btn btn-light curlink">';
-        $config['cur_tag_close'] = '</li>';
-
-        $config['num_tag_open'] = '<li class="btn btn-light numlink">';
-        $config['num_tag_close'] = '</li>';
-	  
-	  	$this->pagination->initialize($config);	
+        $data['employees'] = $this->employee_model->get_employees();
         $data['main_content'] = 'hr/employee/index';
         $this->load->view('inc/navbar', $data);
-   
-        /*if($this->input->server('REQUEST_METHOD') == 'POST')
-		{ 
-            $data['employee_status'] = $this->input->post('employee_status');
-            $data['department'] = $this->input->post('department');
-		}
-		else 
-		{
-            $data['department'] = 'ALL';
-			$data['employee_status'] = 'ALL';
-        }*/
 
+        
         /*$data['employees'] = $this->employee_model->get_employees();
-        $data['main_content'] = 'hr/employee/index';
-        $this->load->view('inc/navbar', $data);*/
+        $this->load->view('hr/employee/index', $data);*/
+        
     }
 
-    public function view_employee($id,$employee_number) 
+    function resigned() 
+    {
+        $data['employees'] = $this->employee_model->get_resigned();
+        $data['main_content'] = 'hr/employee/resigned';
+        $this->load->view('inc/navbar', $data);
+        
+    }
+
+     public function view_employee($id,$employee_number) 
     {
         $data['employee'] = $this->employee_model->get_employee($id);
         $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
@@ -299,6 +232,7 @@ class Employee extends CI_Controller {
         }    
     }
 
+
     public function add_info($id,$employee_number)
     {
         $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
@@ -357,7 +291,7 @@ class Employee extends CI_Controller {
         
     }
 
-    public function employee_attachment($id,$employee_number)
+	public function employee_attachment($id,$employee_number)
     {
         $this->form_validation->set_rules('attachment', 'Resume', 'required|trim');
 
@@ -457,6 +391,5 @@ class Employee extends CI_Controller {
 		$name = $this->uri->segment(3);
 		force_download($name, $data);
 	}
-
 
 }
