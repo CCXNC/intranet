@@ -237,19 +237,52 @@ class Employee_model extends CI_Model {
 	public function get_employees()
 	{
 		$this->db->select("
-			employees.id as id,
-			employees.picture as picture,
-			employees.employee_number as emp_no,
-			CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
-			employment_info.date_hired as date_hired,
-			employment_info.department as department,
-			employee_status.name as employee_status
+		employees.id as id,
+            employees.picture as picture,
+            employees.employee_number as emp_no,
+            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
+            employment_info.date_hired as date_hired,
+            employee_status.name as employee_status,
+            employment_info.position as position,
+
+            company.name as company,
+            department.name as department,
 		");
 		$this->db->from('employees');
-		$this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
-		$this->db->join('employee_status', 'employment_info.employee_status = employee_status.id','left');
-		$this->db->order_by('employees.last_name', 'ASC');
-		$this->db->where('employees.is_active', 1);
+        $this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
+        $this->db->join('employee_status', 'employment_info.employee_status = employee_status.id');
+        $this->db->join('company', 'employment_info.company = company.id');
+        $this->db->join('department', 'employment_info.department = department.id');
+        $this->db->order_by('employees.last_name', 'ASC');
+        $this->db->where('employees.is_active', 1);
+		
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
+	public function get_resigned()
+	{
+		$this->db->select("
+		employees.id as id,
+            employees.picture as picture,
+            employees.employee_number as emp_no,
+            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
+			employment_info.date_hired as date_hired,
+			employment_info.date_termination as date_termination,
+            employee_status.name as employee_status,
+            employment_info.position as position,
+
+            company.name as company,
+            department.name as department,
+		");
+		$this->db->from('employees');
+        $this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
+        $this->db->join('employee_status', 'employment_info.employee_status = employee_status.id');
+        $this->db->join('company', 'employment_info.company = company.id');
+        $this->db->join('department', 'employment_info.department = department.id');
+        $this->db->order_by('employees.last_name', 'ASC');
+        $this->db->where('employees.is_active', 0);
 		
 		$query = $this->db->get();
 
@@ -629,6 +662,7 @@ class Employee_model extends CI_Model {
 		$query = $this->db->get('attachment');
 		return $query->result();	
 	}
+
 	public function get_academe_infos($employee_number)
 	{
 		$this->db->where('employee_number', $employee_number);
@@ -1111,7 +1145,6 @@ class Employee_model extends CI_Model {
 			/* print_r('<pre>');
 			print_r($data1);
 			print_r('</pre>'); */
-	
 		}
 		
 		if($name2 != NULL)
@@ -1134,5 +1167,6 @@ class Employee_model extends CI_Model {
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
+
 	
 }
