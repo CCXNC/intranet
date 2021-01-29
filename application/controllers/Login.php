@@ -5,6 +5,7 @@ class Login extends CI_Controller {
     public function __construct() {
         parent::__construct(); 
         $this->load->model('Login_model');
+        date_default_timezone_set('Asia/Manila');
     }
 
     function index() {
@@ -13,67 +14,6 @@ class Login extends CI_Controller {
     
     }
 
-	/*public function index()
-	{
-	 	$this->load->library('pagination');
-
-	 	$total_rows = $this->db->count_all('announcement');
-	 	$limit = 1;
-	 	$start = $this->uri->segment(3);
-
-        $this->db->order_by('created_date','desc');
-	 	$this->db->limit($limit, $start);
-
-         $this->db->select("
-            image,
-            category,
-            title,
-            content,
-            created_date,
-            is_active
-
-        ");
-        $this->db->from('announcement');
-        $this->db->order_by('created_date', 'DESC');
-        $this->db->where('category', "loginpage");
-        $this->db->where('is_active', 1);
-        
-        
-	  	$query = $this->db->get();
-	 	$data['announcement'] = $query->result();
-	  	$config['base_url']   = 'http://localhost/blaineintranet/login/index';
-	  	$config['total_rows'] = $total_rows;
-	  	$config['per_page']   = $limit;
-
-	  	$config['full_tag_open'] = '<div class="pagination">';
-        $config['full_tag_close'] = '</div>';
-            
-        $config['first_link'] = 'First Page';
-        $config['first_tag_open'] = '<span class="btn btn-light firstlink">';
-        $config['first_tag_close'] = '</span>';
-            
-        $config['last_link'] = 'Last Page';
-        $config['last_tag_open'] = '<li class=" btn btn-light lastlink">';
-        $config['last_tag_close'] = '</li>';
-            
-        $config['next_link'] = 'Next Page';
-        $config['next_tag_open'] = '<li class=" btn btn-light nextlink">';
-        $config['next_tag_close'] = '</li>';
-
-        $config['prev_link'] = 'Prev Page';
-        $config['prev_tag_open'] = '<span class="btn btn-light prevlink">';
-        $config['prev_tag_close'] = '</span>';
-
-        $config['cur_tag_open'] = '<li class="btn btn-light curlink">';
-        $config['cur_tag_close'] = '</li>';
-
-        $config['num_tag_open'] = '<li class="btn btn-light numlink">';
-        $config['num_tag_close'] = '</li>';
-	  
-	  	$this->pagination->initialize($config);	
-        $this->load->view('login/index', $data);
-    }*/
-    
     function auth() {
 
         $username = $this->input->post('username', TRUE);
@@ -98,6 +38,8 @@ class Login extends CI_Controller {
             );
 
             $this->session->set_userdata($sesdata);
+
+            $this->login_model->user_login();
             redirect('homepage/index');
             
         } else {
@@ -109,6 +51,7 @@ class Login extends CI_Controller {
     }
 
     function logout() {
+        $this->login_model->user_logout();
         $this->session->sess_destroy();
         redirect('login/index');
     }

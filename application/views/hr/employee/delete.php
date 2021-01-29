@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>EMPLOYEE INFORMATION</h4></div>
+    <div class="card-header"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <form method="post"action="<?php echo base_url(); ?>employee/delete_all_information/<?php echo $employee->id; ?>/<?php echo $employee->parent_id; ?>/<?php echo $employee->spouse_id; ?>/<?php echo $employee->employment_id; ?>/<?php echo $employee->emp_no; ?>">
             <!-- Personal Information -->

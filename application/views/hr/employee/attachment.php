@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">ADD ATTACHMENT</div>
+    <div class="card-header"><h4>ADD ATTACHMENT<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/employee_attachment/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>" enctype="multipart/form-data">

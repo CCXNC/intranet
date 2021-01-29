@@ -183,7 +183,8 @@ class Employee extends CI_Controller {
     public function employee_termination($id,$employee_number)
     {
         $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
-
+        $this->form_validation->set_rules('remarks', 'Remarks', 'required|trim');
+        
         if($this->form_validation->run() == FALSE)
         {
             $data['employee'] = $this->employee_model->get_employee($id);
@@ -209,6 +210,7 @@ class Employee extends CI_Controller {
     public function employee_movement($id,$employee_number)
     {
         $this->form_validation->set_rules('company', 'Company', 'required|trim');
+        $this->form_validation->set_rules('remarks', 'Remarks', 'required|trim');
 
         if($this->form_validation->run() == FALSE)
         {

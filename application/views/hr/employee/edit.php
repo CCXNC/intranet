@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT EMPLOYEE</h4></div>
+    <div class="card-header"><h4>EDIT EMPLOYEE<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/edit_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>" enctype="multipart/form-data">
@@ -275,7 +275,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Date Probitionary</label>
+                                <label>Date Probationary</label>
                                 <input type="date" class="form-control" name="date_probitionary" value="<?php echo $employee->date_probitionary; ?>">
                             </div>
                         </div>

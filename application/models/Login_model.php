@@ -27,5 +27,57 @@ class Login_model extends CI_Model {
 		$query = $this->db->get('announcement');
 
 		return $query->result();
-	}
+    }
+    
+    public function user_login()
+    {
+        $this->db->trans_start();
+
+        // CALL ACVITIY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE); 
+
+        $date = date('Y-m-d H:i:s');
+
+        $data = array(
+            'username' => $this->session->userdata('username'),
+            'pcname'   => gethostname(),
+            'type'     => 'Login',
+            'date'     => $date
+        );
+
+        $activity_log->insert('user_log', $data);
+        
+        $trans = $this->db->trans_complete();
+
+        return $trans;
+        /*print_r('<pre>');
+        print_r($data);
+        print_r('</pre>');*/
+    }
+
+    public function user_logout()
+    {
+        $this->db->trans_start();
+
+        // CALL ACVITIY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE); 
+
+        $date = date('Y-m-d H:i:s');
+
+        $data = array(
+            'username' => $this->session->userdata('username'),
+            'pcname'   => gethostname(),
+            'type'     => 'Logout',
+            'date'     => $date
+        );
+
+        $activity_log->insert('user_log', $data);
+        
+        $trans = $this->db->trans_complete();
+
+        return $trans;
+        /*print_r('<pre>');
+        print_r($data);
+        print_r('</pre>');*/
+    }
 }
