@@ -307,7 +307,9 @@ class Employee extends CI_Controller {
         {
             
             if(!empty($_FILES['resume']['name'])){ 
-                $imageName = $_FILES['resume']['name']; 
+                //$imageName = $_FILES['resume']['name']; 
+                $file_name = $_FILES["resume"]['name'];
+                //$newfile_name= preg_replace('/[^A-Za-z0-9]/', "", $file_name);
                  
                 // File upload configuration 
                 $config['upload_path'] = './uploads/attachment/'; 
@@ -324,6 +326,7 @@ class Employee extends CI_Controller {
                     // Uploaded file data 
                     $fileData = $this->upload->data(); 
                     $imgData['file_name'] = $fileData['file_name']; 
+                   
                 }else{ 
                     $error = $this->upload->display_errors();  
                 } 
@@ -386,12 +389,15 @@ class Employee extends CI_Controller {
       
     }
     
-    public function download_attachment()
+    public function download_attachment($attachment_file)
 	{
 		$this->load->helper('download');
-		$data = file_get_contents(APPPATH . 'http://localhost/blaineintranet/uploads/attachment/'.$this->uri->segment(3)); // Read the file's contents
+		$data = file_get_contents('uploads/attachment/'.$this->uri->segment(3)); // Read the file's contents
 		$name = $this->uri->segment(3);
-		force_download($name, $data);
-	}
+        force_download($name, $data);
+        //print_r($data);
+    }
+    
+   
 
 }
