@@ -576,6 +576,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="<?php echo base_url(); ?>homepage/employee_profile/<?php echo $this->session->userdata('emp_id'); ?>/<?php echo $this->session->userdata('employee_number'); ?>">My Profile</a>
+                        <a class="dropdown-item" href="<?php echo base_url(); ?>homepage/index_change_password">Change Password</a> 
                         <a class="dropdown-item" href="#">Notification</a> 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?php echo site_url('Login/logout');?>">Logout</a>

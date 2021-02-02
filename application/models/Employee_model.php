@@ -228,6 +228,18 @@ class Employee_model extends CI_Model {
 			}
 		}
 	
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "add_employee [entry_data:" . $employee_number . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
+			'entry_data' => $entry_data,
+			'entry_date' => $date
+		);
+		$activity_log->insert('hris_logs', $activity_data);
 		
 		$trans = $this->db->trans_complete();
 		return $trans;
@@ -852,7 +864,7 @@ class Employee_model extends CI_Model {
 		// CALL ACVITIY LOGS DATABASE
 		$activity_log = $this->load->database('activity_logs', TRUE); 
 
-		$entry_data = "update_employee_movement [entry_data:" . $employee_number . "]";
+		$entry_data = "employee_movement [entry_data:" . $employee_number . "]";
 
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),
@@ -915,7 +927,7 @@ class Employee_model extends CI_Model {
 		// CALL ACVITIY LOGS DATABASE
 		$activity_log = $this->load->database('activity_logs', TRUE); 
 
-		$entry_data = "update_employee_termination [entry_data:" . $employee_number . "]";
+		$entry_data = "employee_termination [entry_data:" . $employee_number . "]";
 
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),
@@ -1164,15 +1176,20 @@ class Employee_model extends CI_Model {
 		$name2 = $this->input->post('attachment2');
 
 		$resume = $_FILES['resume']['name'];
+		$attach1 = str_replace(' ', '_', $resume);
+
 		$attachment1 = $_FILES['data1']['name'];
+		$attach2 = str_replace(' ', '_', $attachment1);
+
 		$attachment2 = $_FILES['data2']['name'];
+		$attach3 = str_replace(' ', '_', $attachment2);
 
 		$date = date('Y-m-d H:i:s');
 
 		$resume_data = array(
 			'employee_number' => $employee_number,
 			'name'            => $attachment,
-			'file'            => $resume,
+			'file'            => $attach1,
 			'created_date'    => $date,
 			'created_by'      => $this->session->userdata('username')
 		);
@@ -1204,7 +1221,7 @@ class Employee_model extends CI_Model {
 			$data2= array(
 				'employee_number' => $employee_number,
 				'name'            => $name2,
-				'file'            => $attachment2,
+				'file'            => $attach2,
 				'created_date'    => $date,
 				'created_by'      => $this->session->userdata('username')
 			);
