@@ -650,7 +650,7 @@
                             </li>
                             <!--5s and ESH-->
                             <li class="">
-                                <a href="#">
+                                <a href="<?php echo base_url(); ?>fives/index">
                                     <i class="fa fa-folder-open"></i>
                                     <span>5S and ESH</span>
                                 </a>
@@ -741,22 +741,26 @@
                                 </div>-->
                             </li>
                             <!--IT-->
-                            <li class="">
-                                <a href="#">
-                                    <i class="fa fa-tv"></i>
-                                    <span>IT</span>
-                                </a>
-                                <!--<div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                        <a href="#">Add Movies</a>
-                                        </li>
-                                        <li>
-                                        <a href="#">View Movies</a>
-                                        </li>
-                                    </ul>
-                                </div>-->
-                            </li>
+                                <!--HR-->
+                                <li class="sidebar-dropdown">
+                                    <a href="#">
+                                        <i class="fa fa-address-card"></i>
+                                        <span>PRODUCTIVITY</span>
+                                    </a>
+                                    <div class="sidebar-submenu">
+                                        <ul>
+                                            <li>
+                                                <a>CIT</a>
+                                            </li>
+                                            <li>
+                                                <a>Software Developer</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">IT</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
                             <!--<li>
                                 <a href="#">
                                 <i class="fas fa-book"></i>
