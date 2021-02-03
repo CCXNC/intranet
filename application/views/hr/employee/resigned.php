@@ -25,9 +25,9 @@
                 <tr>
                     <td data-label="Employee Picture">
                         <?php if($employee->picture != NULL) : ?>
-                            <img class="emppic" src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" style="width: 100%" alt="">
+                            <center><img class="emppic" src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" style="width: 150px; height:150px; alt="></center>
                         <?php else : ?>
-                            <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="width: 100%"  alt="">
+                             <center><img src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="width: 150px; height:150px;"   alt=""></center>
                         <?php endif; ?>
                     </td>
                     <td data-label="Full Name"><?php echo $employee->fullname;  ?></td>
