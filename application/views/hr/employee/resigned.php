@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header"><h4>RESIGNED EMPLOYEE LIST</h4></div>
+<div class="card-header"><h4>RESIGNED EMPLOYEE LIST<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
 <br>
 <table id="" class="display" style="width:100%">
     <thead>

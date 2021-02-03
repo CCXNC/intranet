@@ -89,7 +89,7 @@
 
 </style>
 <div class="card">
-    <div class="card-header"><h4>EMPLOYEE INFORMATION<input type="submit" class="btn btn-info float-right" id="printButton" value="Print"></h4></div>
+    <div class="card-header"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" id="printButton" value="PRINT"></h4></div>
     <div class="card-body">
         <div class="card">
             <div class="card-header">Personal Information</div>
@@ -498,6 +498,7 @@
         $('#printButton').click(function() {
             $('#menuTab').css('display', 'none');
             $('#show-sidebar').hide();
+            $('#back').hide();
             $('#printButton').hide();
             window.print();
         });

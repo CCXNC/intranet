@@ -228,6 +228,18 @@ class Employee_model extends CI_Model {
 			}
 		}
 	
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "add_employee [entry_data:" . $employee_number . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
+			'entry_data' => $entry_data,
+			'entry_date' => $date
+		);
+		$activity_log->insert('hris_logs', $activity_data);
 		
 		$trans = $this->db->trans_complete();
 		return $trans;
@@ -245,7 +257,7 @@ class Employee_model extends CI_Model {
             employee_status.name as employee_status,
             employment_info.position as position,
 
-            company.name as company,
+            company.code as company,
             department.name as department,
 		");
 		$this->db->from('employees');
@@ -649,6 +661,20 @@ class Employee_model extends CI_Model {
 		$this->db->where('employment_info.employee_number', $employee_number);
 		$this->db->update('employment_info', $data_employment);
 
+		
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "update_employee [entry_data:" . $employee_number . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
+			'entry_data' => $entry_data,
+			'entry_date' => $date
+		);
+		$activity_log->insert('hris_logs', $activity_data);
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 
@@ -708,7 +734,7 @@ class Employee_model extends CI_Model {
 		$query = $this->db->get('work_group');
 		return $query->result();
 	}
-
+ 
 	public function update_employee_movement($id,$employee_number)
 	{
 		$this->db->trans_start();
@@ -834,6 +860,19 @@ class Employee_model extends CI_Model {
 			print_r($data_employment);
 			print_r('</pre>');*/
 		}
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "employee_movement [entry_data:" . $employee_number . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
+			'entry_data' => $entry_data,
+			'entry_date' => $datetime
+		);
+		$activity_log->insert('hris_logs', $activity_data);
 		
 
 		$trans = $this->db->trans_complete();
@@ -885,6 +924,18 @@ class Employee_model extends CI_Model {
 		print_r($data);
 		print_r('</pre>');*/
 
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "employee_termination [entry_data:" . $employee_number . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
+			'entry_data' => $entry_data,
+			'entry_date' => $datetime
+		);
+		$activity_log->insert('hris_logs', $activity_data);
 
 		$trans = $this->db->trans_complete();
 		return $trans;
@@ -999,6 +1050,19 @@ class Employee_model extends CI_Model {
 			}
 		}
 
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "add_info [entry_data:" . $employee_number . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
+			'entry_data' => $entry_data,
+			'entry_date' => $date
+		);
+		$activity_log->insert('hris_logs', $activity_data);
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
@@ -1112,15 +1176,20 @@ class Employee_model extends CI_Model {
 		$name2 = $this->input->post('attachment2');
 
 		$resume = $_FILES['resume']['name'];
+		$attach1 = str_replace(' ', '_', $resume);
+
 		$attachment1 = $_FILES['data1']['name'];
+		$attach2 = str_replace(' ', '_', $attachment1);
+
 		$attachment2 = $_FILES['data2']['name'];
+		$attach3 = str_replace(' ', '_', $attachment2);
 
 		$date = date('Y-m-d H:i:s');
 
 		$resume_data = array(
 			'employee_number' => $employee_number,
 			'name'            => $attachment,
-			'file'            => $resume,
+			'file'            => $attach1,
 			'created_date'    => $date,
 			'created_by'      => $this->session->userdata('username')
 		);
@@ -1152,7 +1221,7 @@ class Employee_model extends CI_Model {
 			$data2= array(
 				'employee_number' => $employee_number,
 				'name'            => $name2,
-				'file'            => $attachment2,
+				'file'            => $attach2,
 				'created_date'    => $date,
 				'created_by'      => $this->session->userdata('username')
 			);
@@ -1163,6 +1232,18 @@ class Employee_model extends CI_Model {
 			print_r('</pre>'); */
 		}
 		
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "attachment [entry_data:" . $employee_number . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
+			'entry_data' => $entry_data,
+			'entry_date' => $date
+		);
+		$activity_log->insert('hris_logs', $activity_data);
 
 		$trans = $this->db->trans_complete();
 		return $trans;
