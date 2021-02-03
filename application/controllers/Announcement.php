@@ -5,7 +5,6 @@ class Announcement extends CI_Controller {
     public function __construct() {
         parent::__construct();
         date_default_timezone_set('Asia/Manila');
-
         if($this->session->userdata('logged_in') !== TRUE){
             redirect('Login');
         }
@@ -160,7 +159,7 @@ class Announcement extends CI_Controller {
                 $imageName = $_FILES['image']['name']; 
                  
                 // File upload configuration 
-                $config['upload_path'] = './uploads/announcement/';  
+                $config['upload_path'] = './uploads/announcement/';   
                 $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
                  
                 // Load and initialize upload library 

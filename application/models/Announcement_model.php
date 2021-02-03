@@ -97,6 +97,19 @@ class Announcement_model extends CI_Model {
 			$this->db->update('announcement', $data);
 		}
 
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "update_announcement [entry_id:" . $id . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
+			'entry_data' => $entry_data,
+			'entry_date' => $date
+		);
+		$activity_log->insert('announcement_logs', $activity_data);
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
