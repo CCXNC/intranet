@@ -28,13 +28,17 @@ class Login extends CI_Controller {
             $employee_number = $data['employee_number'];
             $access_level_id = $data['access_level_id'];
             $emp_id = $data['emp_id'];
+            $company_id = $data['company_id'];
+            $department_id = $data['department_id'];
 
             $sesdata = array(
                 'username' => $username,
                 'employee_number' => $employee_number,
                 'access_level_id' => $access_level_id,
                 'logged_in' => TRUE,
-                'emp_id' => $emp_id
+                'emp_id' => $emp_id,
+                'company_id' => $company_id,
+                'department_id' => $department_id
             );
 
             $this->session->set_userdata($sesdata);

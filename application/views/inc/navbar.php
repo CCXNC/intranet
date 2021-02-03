@@ -650,21 +650,34 @@
                                 </div>-->
                             </li>
                             <!--5s and ESH-->
-                            <li class="">
-                                <a href="<?php echo base_url(); ?>fives/index">
-                                    <i class="fa fa-folder-open"></i>
-                                    <span>5S and ESH</span>
+                            <!--HOMEPAGE-->
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-home"></i>
+                                    <span>5S and EHS</span>
                                 </a>
-                                <!--<div class="sidebar-submenu">
+                                <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                            <a href="#">Add Movies</a>
+                                            <a href="">1S: Sort</a>
                                         </li>
                                         <li>
-                                            <a href="#">View Movies</a>
+                                            <a href="">2S: Set</a>
+                                        </li>
+                                        <li>
+                                            <a href="">3S: Shine</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>fives/standardize/index">4S: Standardize</a>
+                                        </li>
+                                        <li>
+                                            <a href="">5S: Sustain</a>
+                                        </li>
+                                        <li>
+                                            <a href="">EHS</a>
                                         </li>
                                     </ul>
-                                </div>-->
+                                </div>
                             </li>
                             
                             <?php if($this->session->userdata('access_level_id') == 1) : ?>
@@ -746,7 +759,7 @@
                                 <li class="sidebar-dropdown">
                                     <a href="#">
                                         <i class="fa fa-address-card"></i>
-                                        <span>PRODUCTIVITY</span>
+                                        <span>Productivity</span>
                                     </a>
                                     <div class="sidebar-submenu">
                                         <ul>
