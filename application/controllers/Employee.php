@@ -152,7 +152,7 @@ class Employee extends CI_Controller {
                 $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
                  
                 // Load and initialize upload library 
-                $this->load->library('upload', $config); 
+                $this->load->library('upload', $config);  
                 $this->upload->initialize($config); 
 
                 if(!empty($prevImage) && !empty($imageName)){ 
@@ -397,7 +397,5 @@ class Employee extends CI_Controller {
         force_download($name, $data);
         //print_r($data);
     }
-    
-   
 
 }

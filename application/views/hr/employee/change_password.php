@@ -5,7 +5,7 @@
             <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
         <?php endif; ?>
         
-        <form method="POST" action="<?php echo base_url(); ?>/homepage/change_password/<?php echo $this->session->userdata('emp_id'); ?>/<?php echo $this->session->userdata('employee_number'); ?>">
+        <form method="POST" action="<?php echo base_url(); ?>/user/change_password/<?php echo $this->session->userdata('emp_id'); ?>/<?php echo $this->session->userdata('employee_number'); ?>">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
