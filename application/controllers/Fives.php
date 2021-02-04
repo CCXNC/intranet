@@ -19,8 +19,8 @@ class Fives extends CI_Controller {
 
     function idea() 
     {
-        $data['idea'] = $this->fives_model->get_idea();
-        $data['main_content'] = 'fives/standardize/idea';
+        $data['idea'] = $this->fives_model->get_ideas();
+        $data['main_content'] = 'fives/standardize/idea/index';
         $this->load->view('inc/navbar', $data);
     }
 
@@ -30,7 +30,7 @@ class Fives extends CI_Controller {
 
         if($this->form_validation->run() == FALSE)
         {
-            $data['main_content'] = 'fives/standardize/idea_add';
+            $data['main_content'] = 'fives/standardize/idea/add';
             $this->load->view('inc/navbar', $data);
         }
         else
@@ -51,8 +51,8 @@ class Fives extends CI_Controller {
 
     public function idea_view($id) 
     {
-        $data['idea'] = $this->fives_model->get_ideas($id);
-        $data['main_content'] = 'fives/standardize/idea_view';
+        $data['idea'] = $this->fives_model->get_idea($id);
+        $data['main_content'] = 'fives/standardize/idea/view';
         $this->load->view('inc/navbar', $data);
     }
 
@@ -62,8 +62,8 @@ class Fives extends CI_Controller {
 
         if($this->form_validation->run() == FALSE)
         {
-            $data['idea'] = $this->fives_model->get_ideas($id);
-            $data['main_content'] = 'fives/standardize/idea_edit';
+            $data['idea'] = $this->fives_model->get_idea($id);
+            $data['main_content'] = 'fives/standardize/idea/edit';
             $this->load->view('inc/navbar', $data);
         }
         else
@@ -77,5 +77,15 @@ class Fives extends CI_Controller {
                 redirect('fives/idea');
             }
         }    
+    }
+
+    function idea_delete($id)
+    {
+        if($this->fives_model->delete_idea($id))
+        {
+            $this->session->set_flashdata('error_msg', 'Idea Successfully Deleted!');
+            redirect('fives/idea');
+        }
+        
     }
 }

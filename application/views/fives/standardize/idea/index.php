@@ -41,9 +41,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_view/<?php echo $ideas->id; ?>"> View</a>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_edit/<?php echo $ideas->id; ?>">Edit</a>
-                                <a class="dropdown-item" href="">Delete</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="">Attachment</a>
+                                <a onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_delete/<?php echo $ideas->id?>">Delete</a>
                                 <?php if($this->session->userdata('access_level_id') == 1) : ?>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="">Status</a>

@@ -24,8 +24,8 @@ class Fives_model extends CI_Model {
 			'created_by'    		=> $this->session->userdata('username')
 		);
 
-		$five_s = $this->load->database('five_s', TRUE); 
-		$query = $five_s->insert('idea', $data_idea);
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
+		$query = $blaine_five_s->insert('idea', $data_idea);
 
 		return $query;
 
@@ -36,15 +36,15 @@ class Fives_model extends CI_Model {
 
 			For testing print
 			Comment:
-			$five_s->insert('idea', $data_idea);
+			$blaine_five_s->insert('idea', $data_idea);
 			$trans = $this->db->trans_complete();
 			return $trans;
 		*/
 	}
 
-	public function get_idea()
+	public function get_ideas()
 	{
-		//$five_s = $this->load->database('five_s', TRUE); 
+		//$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
 
 		$this->db->select("
 			idea.id as id,
@@ -56,31 +56,41 @@ class Fives_model extends CI_Model {
 			idea.proposal as proposal,
 			idea.status as status
 		");
-		$this->db->from('five_s.idea');
+		$this->db->from('blaine_five_s.idea');
+		$this->db->where('blaine_five_s.idea.is_active', 1);
 		// DATABASE.TABLE.FIELD
-		$this->db->join('blaine_intranet.company', 'blaine_intranet.company.id = five_s.idea.company');
-		$this->db->join('blaine_intranet.department', 'blaine_intranet.department.id = five_s.idea.department');
+		$this->db->join('blaine_intranet.company', 'blaine_intranet.company.id = blaine_five_s.idea.company');
+		$this->db->join('blaine_intranet.department', 'blaine_intranet.department.id = blaine_five_s.idea.department');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function get_ideas($id)
+	public function get_idea($id)
 	{
-		$five_s = $this->load->database('five_s', TRUE); 
+		//$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
 		
 		$this->db->select("
-			submit_date,
-			control_number,
-			submit_by,
-			company,
-			department,
-			proposal,
-			status
+			idea.id as id,
+			idea.submit_date as submit_date,
+			idea.control_number as control_number,
+			idea.submit_by as submit_by,
+			company.name as company,
+			department.name as department,
+			idea.current as current,
+			idea.proposal as proposal,
+			idea.status as status
 		");
-		$five_s->from('idea');
-		$five_s->where('id', $id);
-		$query = $five_s->get();
+
+		$this->db->from('blaine_five_s.idea');
+		$this->db->join('blaine_intranet.company', 'blaine_intranet.company.id = blaine_five_s.idea.company');
+		$this->db->join('blaine_intranet.department', 'blaine_intranet.department.id = blaine_five_s.idea.department');
+		$query = $this->db->get();
 		return $query->row();
+		
+		//$blaine_five_s->from('idea');
+		//$blaine_five_s->where('id', $id);
+		//$query = $blaine_five_s->get();
+		//return $query->row();
 		
 	}
 
@@ -103,10 +113,23 @@ class Fives_model extends CI_Model {
 		/*print_r('<pre>');
 		print_r($data_parent);
 		print_r('</pre>');*/
-		$five_s = $this->load->database('five_s', TRUE); 
-		$five_s->where('id', $id);
-		$query = $five_s->update('idea', $data_idea);
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
+		$blaine_five_s->where('id', $id);
+		$query = $blaine_five_s->update('idea', $data_idea);
 
 		return $query;
+	}
+
+	public function delete_idea($id)
+	{
+		$data_idea = array(
+			'is_active'  => 0
+		);
+		 
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
+		$blaine_five_s->where('id', $id);
+		$query = $blaine_five_s->update('idea', $data_idea);
+	   
+	   	return $query;
 	}
 }

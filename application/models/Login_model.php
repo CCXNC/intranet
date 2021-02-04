@@ -27,7 +27,8 @@ class Login_model extends CI_Model {
 	{
         $this->db->where('is_active', 1);
         $this->db->where('category', "loginpage");
-		$query = $this->db->get('announcement');
+        $this->db->order_by('created_date', 'DESC');
+		$query = $this->db->get('announcement', 3);
 
 		return $query->result();
     }
