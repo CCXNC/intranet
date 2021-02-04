@@ -1,30 +1,31 @@
 <div class="card">
-    <div class="card-header"><h4>SHARE MY IDEA</h4></div>
+    <div class="card-header"><h4>SHARE MY IDEA </h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>fives/idea_add" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url(); ?>fives/status/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>" enctype="multipart/form-data">
             <div class="card">
-                <div class="card-header">My Idea</div>
+                <div class="card-header">STATUS FORM</div>
                 <div class="card-body">
+                    <input type="text" name="id" value="<?php echo $idea->id; ?>" hidden>
+                    <input type="text" name="control_number" value="<?php echo $idea->control_number; ?>" hidden>
                     <div class="row">
-                        <div class="col-md-3"> 
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label>Control Number</label>
-                                <input type="text" class="form-control" name="control_number">
+                                <label>Status</label>
+                                <select name="status" class="form-control">
+                                    <?php if($attach->status != 'Ongoing') : ?>
+                                        <option value="Ongoing">Ongoing</option>
+                                    <?php endif; ?>
+                                    <option value="Implemented">Implemented</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Current</label>
-                                <textarea type="text" class="form-control" name="current" rows="4" cols="50"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Proposal</label>
-                                <textarea type="text" class="form-control" name="proposal" rows="4" cols="50"></textarea>
+                                <label>Remarks</label>
+                                <textarea type="text" class="form-control" name="remarks" rows="4" cols="50"></textarea>
                             </div>
                         </div>
                     </div>

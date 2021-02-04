@@ -19,7 +19,7 @@ class Fives extends CI_Controller {
 
     function idea() 
     {
-        $data['idea'] = $this->fives_model->get_ideas();
+        $data['ideas'] = $this->fives_model->get_ideas();
         $data['main_content'] = 'fives/standardize/idea/index';
         $this->load->view('inc/navbar', $data);
     }
@@ -35,6 +35,30 @@ class Fives extends CI_Controller {
         }
         else
         {
+            if(!empty($_FILES['data1']['name'])){ 
+                $imageName = $_FILES['data1']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/idea_attachment/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
+                $config['max_size'] = '100000000'; 
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+                 
+                // Upload file to server 
+                if($this->upload->do_upload('data1')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                   
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+
             if($this->fives_model->add_idea())
             {
                 $this->session->set_flashdata('success_msg', 'Idea Successfully Added!');
@@ -56,7 +80,7 @@ class Fives extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function idea_edit($id)
+    public function idea_edit($id,$control_number)
     {
         $this->form_validation->set_rules('current', 'Current', 'required|trim');
 
@@ -68,10 +92,39 @@ class Fives extends CI_Controller {
         }
         else
         {
+
             // GET PREVIOUS DATA.
-            $idea = $this->fives_model->get_idea($id);
-            
-            if($this->fives_model->update_idea($id))
+            $attachment_file = $this->fives_model->get_idea($id);
+            $prevImage = $attachment_file->attachment;
+
+            if(!empty($_FILES['data1']['name'])){ 
+                $imageName = $_FILES['data1']['name']; 
+                
+                // File upload configuration 
+                $config['upload_path'] = './uploads/idea_attachment/';   
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
+                
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+
+                if(!empty($prevImage) || !empty($imageName)){ 
+                    // Remove old file from the server 
+                    @unlink('./uploads/idea_attachment/'.$prevImage);  
+
+                    // Upload file to server 
+                    if($this->upload->do_upload('data1')){ 
+                        // Uploaded file data 
+                        $fileData = $this->upload->data(); 
+                        $imgData['file_name'] = $fileData['file_name']; 
+                    
+                    }else{ 
+                        $error = $this->upload->display_errors(); 
+                    } 
+                } 
+            } 
+
+            if($this->fives_model->update_idea($id,$control_number))
             {
                 $this->session->set_flashdata('success_msg', 'Idea Successfully Updated!');
                 redirect('fives/idea');
@@ -88,4 +141,102 @@ class Fives extends CI_Controller {
         }
         
     }
+    public function status($id,$control_number,$status)
+    {
+        $this->form_validation->set_rules('status', 'Status', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['attach'] = $this->fives_model->get_status($control_number,$status);
+            $data['idea'] = $this->fives_model->get_idea($id);
+            $data['main_content'] = 'fives/standardize/idea/status';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if(!empty($_FILES['data1']['name'])){ 
+                $imageName = $_FILES['data1']['name']; 
+                 
+                // File upload configuration 
+                $config['upload_path'] = './uploads/idea_attachment/'; 
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
+                $config['max_size'] = '100000000'; 
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+                 
+                // Upload file to server 
+                if($this->upload->do_upload('data1')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                   
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+
+            if($this->fives_model->add_status($id,$control_number,$status))
+            {
+                $this->session->set_flashdata('success_msg', 'Status Successfully Updated!');
+                redirect('fives/idea');
+            }
+
+        }
+       
+    }
+
+    public function edit_status($control_number,$status)
+    {
+        $this->form_validation->set_rules('status', 'Status', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['idea'] = $this->fives_model->get_status($control_number,$status);
+            $data['main_content'] = 'fives/standardize/idea/edit_status';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            // GET PREVIOUS DATA.
+            $attachment_file = $this->fives_model->get_status($control_number,$status);
+            $prevImage = $attachment_file->file;
+
+            if(!empty($_FILES['data1']['name'])){ 
+                $imageName = $_FILES['data1']['name']; 
+                
+                // File upload configuration 
+                $config['upload_path'] = './uploads/idea_attachment/';   
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
+                
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+                $this->upload->initialize($config); 
+
+                if(!empty($prevImage) || !empty($imageName)){ 
+                    // Remove old file from the server 
+                    @unlink('./uploads/idea_attachment/'.$prevImage);  
+
+                    // Upload file to server 
+                    if($this->upload->do_upload('data1')){ 
+                        // Uploaded file data 
+                        $fileData = $this->upload->data(); 
+                        $imgData['file_name'] = $fileData['file_name']; 
+                    
+                    }else{ 
+                        $error = $this->upload->display_errors(); 
+                    } 
+                } 
+            } 
+
+            if($this->fives_model->update_status($control_number,$status))
+            {
+                $this->session->set_flashdata('success_msg', 'Edit Status Successfully Updated!');
+                redirect('fives/idea');
+            }
+        }
+    }    
+       
 }
