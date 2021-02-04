@@ -139,12 +139,12 @@ $db['blaine_forms'] = array(
 	'save_queries' => TRUE
 );
 
-$db['five_s'] = array(
+$db['blaine_five_s'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'five_s',
+	'database' => 'blaine_five_s',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

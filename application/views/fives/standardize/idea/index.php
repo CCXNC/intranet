@@ -23,31 +23,34 @@
         </tr>
     </thead>
     <tbody>
-        <?php if($idea) : ?> 
-            <?php foreach($idea as $ideas) : ?>
+        <?php if($ideas) : ?> 
+            <?php foreach($ideas as $idea) : ?>
                 <tr>
-                    <td data-label="Full Name"><?php echo $ideas->submit_date;  ?></td>
-                    <td data-label="Business Unit"><?php echo $ideas->control_number;?></td>
-                    <td data-label="Department"><?php echo $ideas->submit_by; ?></td>
-                    <td data-label="Position"><?php echo $ideas->company; ?></td>
-                    <td data-label="Date Hired"><?php echo $ideas->department; ?></td>
-                    <td data-label="Employee Status"><?php echo $ideas->proposal; ?></td>
-                    <td data-label="Employee Status"><?php echo $ideas->status; ?></td>
+                    <td data-label="Date"><?php echo $idea->submit_date;  ?></td>
+                    <td data-label="Business Unit"><?php echo $idea->control_number;?></td>
+                    <td data-label="Department"><?php echo $idea->submit_by; ?></td>
+                    <td data-label="Position"><?php echo $idea->company; ?></td>
+                    <td data-label="Date Hired"><?php echo $idea->department; ?></td>
+                    <td data-label="Employee Status"><?php echo $idea->proposal; ?></td>
+                    <td data-label="Employee Status" <?php echo $idea->status == "Implemented" ? 'style="background-color:green; color:white;"' : ''; ?>><?php echo $idea->status; ?></td>
                     <td data-label="Action">
                         <div class="btn-group">
                             <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_view/<?php echo $ideas->id; ?>"> View</a>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_edit/<?php echo $ideas->id; ?>">Edit</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_view/<?php echo $idea->id; ?>"> View</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_edit/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>">Edit</a>
                                 <a class="dropdown-item" href="">Delete</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="">Attachment</a>
-                                <?php if($this->session->userdata('access_level_id') == 1) : ?>
+                                <?php if($this->session->userdata('access_level_id') == 1 && $idea->status != "Implemented") : ?>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="">Status</a>
+                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/status/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Status</a>
+                                    
                                 <?php endif; ?>    
+                                <?php if($this->session->userdata('access_level_id') == 1 && $idea->status != 'Open') : ?>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_status/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Status</a>
+                                <?php endif; ?>  
                             </div>
                         </div>
                     </td>

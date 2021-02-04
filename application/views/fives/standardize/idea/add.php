@@ -7,7 +7,7 @@
                 <div class="card-header">My Idea</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3"> 
                             <div class="form-group">
                                 <label>Control Number</label>
                                 <input type="text" class="form-control" name="control_number">
@@ -28,7 +28,14 @@
                             </div>
                         </div>
                     </div>
-                </div>    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="attachment" placeholder="Attachment name"><br>
+                                <input type='file' name='data1' size='20' />
+                            </div>
+                        </div>
+                    </div>    
             </div>
             <br>
             <center>
