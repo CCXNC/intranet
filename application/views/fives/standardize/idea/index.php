@@ -31,8 +31,8 @@
                     <td data-label="Date"><?php echo $idea->submit_date;  ?></td>
                     <td data-label="Department"><?php echo $idea->submit_by; ?></td>
                     <td data-label="Date Hired"><?php echo $idea->department; ?></td>
-                    <td data-label="Date Hired"><?php echo $idea->current; ?></td>
-                    <td data-label="Proposal"><?php echo $idea->proposal; ?></td>
+                    <td data-label="Date Hired"><?php echo substr($idea->current,0,50); ?></td>
+                    <td data-label="Proposal"><?php echo substr($idea->proposal,0,50); ?></td>
                     <?php if($idea->status == "Open" ): ?>
                         <td data-label="Employee Status" style="background-color:#A8D9F8; "><?php echo $idea->status; ?></td>
                     <?php endif; ?>
@@ -61,8 +61,6 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_status/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Remarks</a>
                                 <?php endif; ?>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/implemented_add/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Implemented</a>
                             </div>
                         </div>
                     </td>

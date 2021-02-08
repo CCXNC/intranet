@@ -139,7 +139,7 @@ class Fives extends CI_Controller {
 
     public function status($id,$control_number,$status)
     {
-        $this->form_validation->set_rules('status', 'Status', 'required|trim');
+        $this->form_validation->set_rules('remarks', 'Remarks', 'required|trim');
 
         if($this->form_validation->run() == FALSE)
         {
