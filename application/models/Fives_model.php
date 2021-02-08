@@ -191,7 +191,18 @@ class Fives_model extends CI_Model {
 		$status = $this->input->post('status');
 		$date = date('Y-m-d H:i:s');
 		
-		if($status == "Ongoing")
+		if($status == "Open")
+		{
+			$data = array(
+				'status'         => $status,
+			);
+	
+			$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
+			$blaine_five_s->where('idea.id', $id);
+			$blaine_five_s->where('idea.control_number', $control_number);
+			$blaine_five_s->update('idea', $data);
+		}
+		elseif($status == "Ongoing")
 		{
 			$data = array(
 				'status'         => $status,
@@ -245,6 +256,7 @@ class Fives_model extends CI_Model {
 		$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
 		$blaine_five_s->where('idea_attachment.control_number', $control_number);
 		$blaine_five_s->where('idea_attachment.status', $status);
+		$blaine_five_s->order_by('idea_attachment.id', 'DESC');
 		$query = $blaine_five_s->get('idea_attachment');
 
 		return $query->row();

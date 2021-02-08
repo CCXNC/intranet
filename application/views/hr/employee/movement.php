@@ -154,6 +154,5 @@
             $("#probitionary").hide();
         }
     });
-   
   
 </script>  

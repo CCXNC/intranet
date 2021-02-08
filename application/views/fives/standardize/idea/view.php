@@ -122,22 +122,19 @@
                                 <th scope="col">Status</th>
                                 <th scope="col">File</th>
                                 <th scope="col">Remarks</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if($attachments) : ?>
                                 <?php foreach($attachments as $attachment) : ?>
-                                    <?php if($attachment->file != NULL) : ?>
                                         <tr>
                                             <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->created_date));  ?></td>
                                             <td data-label="Title"><?php echo $attachment->status; ?></td>
                                             <td data-label="File"><a href="<?php echo base_url(); ?>fives/download_attachment/<?php echo $attachment->file; ?>"><?php echo $attachment->file; ?></a></td>
                                             <td data-label="File"><?php echo $attachment->remarks; ?></td>
+                                            <td data-label="Action"><?php echo $attachment->created_by; ?></td>
                                         </tr>
-                                    <?php else : ?>
-                                       
-                                    <?php endif; ?>
-                                   
                                 <?php endforeach; ?> 
                             <?php endif; ?>
                         </tbody>
