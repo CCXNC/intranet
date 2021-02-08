@@ -26,7 +26,7 @@ class Fives extends CI_Controller {
 
     function idea_add() 
     {
-        $this->form_validation->set_rules('control_number', 'Control Number', 'required|trim');
+        $this->form_validation->set_rules('current', 'Current', 'required|trim');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -63,19 +63,14 @@ class Fives extends CI_Controller {
             {
                 $this->session->set_flashdata('success_msg', 'Idea Successfully Added!');
                 redirect('fives/idea');
-                /*
-                    For testing print
-                    comment: 
-                    $this->session->set_flashdata('success_msg', 'Idea Successfully Added!');
-                    redirect('fives/standardize/idea');
-                */
             }
         }
     }
 
-    public function idea_view($id) 
+    public function idea_view($id,$control_number) 
     {
         $data['idea'] = $this->fives_model->get_idea($id);
+        $data['attachments'] = $this->fives_model->get_all_attachments($control_number);
         $data['main_content'] = 'fives/standardize/idea/view';
         $this->load->view('inc/navbar', $data);
     }
@@ -237,6 +232,15 @@ class Fives extends CI_Controller {
                 redirect('fives/idea');
             }
         }
-    }    
+    } 
+    
+    public function download_attachment($attachment_file)
+	{
+		$this->load->helper('download');
+		$data = file_get_contents('uploads/idea_attachment/'.$this->uri->segment(3)); // Read the file's contents
+		$name = $this->uri->segment(3);
+        force_download($name, $data);
+        //print_r($data);
+    }
        
 }

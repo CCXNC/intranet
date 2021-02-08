@@ -92,6 +92,62 @@
     <div class="card-header"><h4>VIEW MY IDEA<a href="<?php echo base_url(); ?>fives/idea" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" id="printButton" value="PRINT"></h4></div>
     <div class="card-body">
         <div class="card">
+            <div class="card-header">My Idea</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Current</label>
+                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->current; ?></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Proposal</label>
+                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->proposal; ?></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header">Attachments</div>
+            <div class="card-body">
+                <div class="row">
+                    <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">File</th>
+                                <th scope="col">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if($attachments) : ?>
+                                <?php foreach($attachments as $attachment) : ?>
+                                    <?php if($attachment->file != NULL) : ?>
+                                        <tr>
+                                            <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->created_date));  ?></td>
+                                            <td data-label="Title"><?php echo $attachment->status; ?></td>
+                                            <td data-label="File"><a href="<?php echo base_url(); ?>fives/download_attachment/<?php echo $attachment->file; ?>"><?php echo $attachment->file; ?></a></td>
+                                            <td data-label="File"><?php echo $attachment->remarks; ?></td>
+                                        </tr>
+                                    <?php else : ?>
+                                       
+                                    <?php endif; ?>
+                                   
+                                <?php endforeach; ?> 
+                            <?php endif; ?>
+                        </tbody>
+                    </table>   
+                </div>
+            </div>
+        </div>
+        
+        <br><br>
+        <div class="card">
             <div class="card-header">User Information</div>
             <div class="card-body">
                 <div class="row">
@@ -136,53 +192,6 @@
                 </div>
             </div>    
         </div>
-        <br><br>
-        <div class="card">
-            <div class="card-header">My Idea</div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Current</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->current; ?></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Proposal</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->proposal; ?></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--<div class="card">
-            <div class="card-header">Attachments
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">File</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if($attachments) : ?>
-                            <?php foreach($attachments as $attachment) : ?>
-                                <tr>
-                                    <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->created_date));  ?></td>
-                                    <td data-label="Title"><?php echo $attachment->name; ?></td>
-                                    <td data-label="File">
-                                    <a href="<?php echo base_url(); ?>employee/download_attachment/<?php echo $attachment->file; ?>"><?php echo $attachment->file; ?></a></td>
-                                </tr>
-                            <?php endforeach; ?> 
-                        <?php endif; ?>
-                    </tbody>
-                </table>   
-            </div>
-        </div>  -->  
     </div>      
 </div>    
 <script>

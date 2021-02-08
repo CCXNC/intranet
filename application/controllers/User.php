@@ -17,7 +17,7 @@ class User extends CI_Controller {
      
     }
 
-    public function change_password($id,$employee_number)
+    public function change_password($employee_number)
     {
         $this->db->select('*');
 		$this->db->where('users.employee_number', $employee_number);
@@ -25,21 +25,32 @@ class User extends CI_Controller {
         $password = $datas->row()->password;
 
         $old_password = $this->input->post('old_password');
+        $new_password = $this->input->post('new_password');
+        $retype_password = $this->input->post('retype_password');
         $md5_password = md5($old_password);
         
         if($password != $md5_password)
         {
             $this->session->set_flashdata('error_msg', 'INCORRECT OLD PASSWORD!');
-            redirect('homepage/index_change_password');
+            redirect('user/index_change_password');
         }
         else
         {
-            if($this->user_model->change_password($employee_number))
+            if($new_password == $retype_password)
             {
-                //$this->session->set_flashdata('update_msg', 'Password Successfully Updated!');
-                $this->session->sess_destroy();
-                redirect('login/index');
+                if($this->user_model->change_password($employee_number))
+                {
+                    //$this->session->set_flashdata('update_msg', 'Password Successfully Updated!');
+                    $this->session->sess_destroy();
+                    redirect('login/index');
+                }
             }
+            else
+            {
+                $this->session->set_flashdata('error_msg', 'The password and re-type password do not match!');
+                redirect('user/index_change_password');
+            }
+           
         }
     }
 
@@ -47,7 +58,7 @@ class User extends CI_Controller {
     {
         if($this->user_model->reset_to_default_password($employee_number))
         {
-            $this->session->set_flashdata('success_msg', 'Reset Password Successfully Complete!');
+            $this->session->set_flashdata('success_msg', 'RESET PASSWORD SUCCESSFULLY UPDATED!');
             redirect('employee/index');
         }
     }
