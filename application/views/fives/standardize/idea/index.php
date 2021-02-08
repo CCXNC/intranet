@@ -55,11 +55,11 @@
                                 <?php endif; ?>       
                                 <?php if($this->session->userdata('access_level_id') == 1 && $idea->status != "Implemented") : ?>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/status/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Status</a>
+                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/status/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Status</a>
                                 <?php endif; ?>    
                                 <?php if($this->session->userdata('access_level_id') == 1 && $idea->status != 'Open') : ?>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_status/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Status</a>
+                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_status/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Remarks</a>
                                 <?php endif; ?>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="<?php echo base_url(); ?>fives/implemented_add/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Implemented</a>

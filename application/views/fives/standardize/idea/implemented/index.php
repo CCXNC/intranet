@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header"><h4>IMPLEMENTED 5S SHARE MY IDEA LIST
+<div class="card-header"><h4>5S CONTINUOUS IMPROVEMENT PROJECTS
     <a href="<?php echo base_url(); ?>fives/idea" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
     </h4> 
 </div>
