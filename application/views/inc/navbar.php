@@ -124,7 +124,7 @@
 
         @media screen and (min-width: 768px) {
             .page-wrapper.toggled .page-content {
-                padding-left: 300px;
+                padding-left: 220px;
             }
         }
 
@@ -145,7 +145,7 @@
         /*----------------sidebar-wrapper----------------*/
 
         .sidebar-wrapper {
-            width: 260px;
+            width: 220px; /*260px*/
             height: 100%;
             max-height: 100%;
             position: fixed;
@@ -274,7 +274,7 @@
 
         .sidebar-wrapper .sidebar-menu ul li a i {
             margin-right: 10px;
-            font-size: 17px;
+            font-size: 14px;
             width: 35px;
             height: 35px;
             line-height: 35px;
@@ -312,7 +312,7 @@
 
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li {
             padding-left: 25px;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {

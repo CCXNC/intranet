@@ -141,6 +141,7 @@ class Fives extends CI_Controller {
         }
         
     }
+
     public function status($id,$control_number,$status)
     {
         $this->form_validation->set_rules('status', 'Status', 'required|trim');
@@ -237,6 +238,21 @@ class Fives extends CI_Controller {
                 redirect('fives/idea');
             }
         }
-    }    
+    }
+    
+    public function implemented()
+    {
+        $data['ideas'] = $this->fives_model->get_implemented_ideas();
+        $data['main_content'] = 'fives/standardize/idea/implemented/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function implemented_add()
+    {
+        $data['ideas'] = $this->fives_model->add_implemented_ideas();
+        $data['main_content'] = 'fives/standardize/idea/implemented/add';
+        $this->load->view('inc/navbar', $data);
+
+    }
        
 }

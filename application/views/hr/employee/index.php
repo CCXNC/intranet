@@ -30,11 +30,11 @@
                     <td data-label="Employee Picture">
                         <?php if($employee->picture != NULL) : ?>
                             <center>
-                                <img class="emppic" src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" style="width: 150px; height: 150px;" alt="">
+                                <img class="emppic" src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee->picture; ?>" style="width: 100px; height: 100px;" alt="">
                             </center>
                         <?php else : ?>
                             <center>
-                                <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="width: 150px; height: 150px;"  alt="">
+                                <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="width: 100px; height: 100px;"  alt="">
                             </center>
                         <?php endif; ?>
                     </td>
@@ -115,11 +115,7 @@
                     extend: 'colvis',
                     text: 'Filter'
                 }
-            ],
-            columnDefs: [ {
-                targets: -1,
-                visible: false
-            } ]
+            ]
         } );
     } );
 </script>

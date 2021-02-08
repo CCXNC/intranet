@@ -56,7 +56,6 @@ class Fives_model extends CI_Model {
 
 	}
 
-
 	public function get_ideas()
 	{
 		//$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
@@ -68,6 +67,7 @@ class Fives_model extends CI_Model {
 			idea.submit_by as submit_by,
 			company.name as company,
 			department.name as department,
+			idea.current as current,
 			idea.proposal as proposal,
 			idea.status as status
 		");
@@ -293,5 +293,32 @@ class Fives_model extends CI_Model {
 		$query = $blaine_five_s->update('idea', $data_idea);
 	   
 	   	return $query;
+	}
+
+	public function get_implemented_ideas()
+	{
+		$this->db->select("
+			idea.id as id,
+			idea.submit_date as submit_date,
+			idea.control_number as control_number,
+			idea.submit_by as submit_by,
+			company.name as company,
+			department.name as department,
+			idea.current as current,
+			idea.proposal as proposal,
+			idea.status as status
+		");
+		$this->db->from('blaine_five_s.idea');
+		$this->db->where('blaine_five_s.idea.is_active', 1);
+		$this->db->where('blaine_five_s.idea.status', "Implemented");
+		// DATABASE.TABLE.FIELD
+		$this->db->join('blaine_intranet.company', 'blaine_intranet.company.id = blaine_five_s.idea.company');
+		$this->db->join('blaine_intranet.department', 'blaine_intranet.department.id = blaine_five_s.idea.department');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function add_implemented_ideas()
+	{
 	}
 }

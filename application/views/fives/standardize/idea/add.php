@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>SHARE MY IDEA</h4></div>
+    <div class="card-header"><h4>5S SHARE MY IDEA</h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>fives/idea_add" enctype="multipart/form-data">

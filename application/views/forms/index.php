@@ -31,8 +31,8 @@
                 <?php if($this->session->userdata('access_level_id') == 1) : ?>
                     <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->date)); ?></td>
                     <td data-label="Action">
-                        <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" class="btn btn-info " style="margin-right:10px;">EDIT</a>
-                        <a href="#" class="btn btn-danger " style="margin-right:10px;">DELETE</a>
+                        <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" class="btn btn-info " style="margin-right:10px; width: 100%">EDIT</a>
+                        <a href="#" class="btn btn-danger " style="margin-right:10px; width: 100%">DELETE</a>
                     </td>
                 <?php endif; ?>    
             </tr>        

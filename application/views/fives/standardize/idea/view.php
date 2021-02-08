@@ -89,7 +89,7 @@
 
 </style>
 <div class="card">
-    <div class="card-header"><h4>VIEW MY IDEA<a href="<?php echo base_url(); ?>fives/idea" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" id="printButton" value="PRINT"></h4></div>
+    <div class="card-header"><h4>VIEW 5S SHARE MY IDEA<a href="<?php echo base_url(); ?>fives/idea" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" id="printButton" value="PRINT"></h4></div>
     <div class="card-body">
         <div class="card">
             <div class="card-header">User Information</div>
