@@ -7,7 +7,7 @@ class User_model extends CI_Model {
     {
         $this->db->trans_start();
         $new_password = $this->input->post('new_password');
-        
+      
         $md5_password = md5($new_password);
 
         $data = array(

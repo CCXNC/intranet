@@ -26,7 +26,6 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="attachment" value="<?php echo $idea->name; ?>"><br>
                                 <p><?php echo $idea->file; ?></p>
                                 <input type='file' name='data1' size='20' />
                             </div>

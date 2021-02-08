@@ -8,15 +8,34 @@ class Fives_model extends CI_Model {
 		$this->db->trans_start();
 
 		$submit_date = $this->input->post('submit_date');
-		$control_number = $this->input->post('control_number');
+		//$control_number = $this->input->post('control_number');
 		$current = $this->input->post('current');
 		$proposal = $this->input->post('proposal');
+
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
+		$blaine_five_s->order_by('id','DESC');
+		$blaine_five_s->select('control_number');
+		$datas = $blaine_five_s->get('idea');
+		$control_number = $datas->row()->control_number;
+
+		// YEAR MONTH
+		$current_date = date('ym');
+
+		// SPLIT STRING IN ARRAY 0,1
+        $arr2 = str_split($control_number, 4);
+
+		// INCREMENT CONTRON NUMBER
+        $i = $arr2[1] + 1;
+		$i = str_pad($i, 3, '0', STR_PAD_LEFT);
+
+		// AUTO GENERATED CONTROL NUMBER
+        $crtl_number = $current_date . '' . $i;
 
 		$date = date('Y-m-d H:i:s');
 
 		$data_idea = array(
 			'submit_date'			=> $date,
-			'control_number'        => $control_number,
+			'control_number'        => $crtl_number,
 			'submit_by'       		=> $this->session->userdata('username'),
 			'company'       		=> $this->session->userdata('company_id'),
 			'department'       		=> $this->session->userdata('department_id'),
@@ -29,14 +48,12 @@ class Fives_model extends CI_Model {
 		$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
 		$blaine_five_s->insert('idea', $data_idea);
 
-		$attachment_name = $this->input->post('attachment');
 		$attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
 
 	
 		$data_attachment = array(
-			'control_number' => $control_number,
-			'name'           => $attachment_name,
+			'control_number' => $crtl_number,
 			'file'           => $attach1,
 			'status'         => 'Open',
 			'created_date'   => $date,
@@ -93,8 +110,7 @@ class Fives_model extends CI_Model {
 			idea.proposal as proposal,
 			idea.status as status,
 			idea_attachment.id as attachment_id,
-			idea_attachment.file as attachment,
-			idea_attachment.name as attachment_name
+			idea_attachment.file as attachment
 		");
 		$this->db->from('blaine_five_s.idea');
 		// DATABASE.TABLE.FIELD
@@ -129,8 +145,6 @@ class Fives_model extends CI_Model {
 		$blaine_five_s->where('idea.id', $id);
 		$blaine_five_s->update('idea', $data_idea);
 
-
-		$attachment_name = $this->input->post('attachment');
 		$attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
 		$attachment_id = $this->input->post('attachment_id');
@@ -139,7 +153,6 @@ class Fives_model extends CI_Model {
 		if($attach1 != NULL)
 		{	
 			$data_attachment = array(
-				'name'           => $attachment_name,
 				'file'           => $attach1,
 				'created_date'   => $date,
 				'created_by'     => $this->session->userdata('username') 
@@ -154,7 +167,6 @@ class Fives_model extends CI_Model {
 		else
 		{
 			$data_attachment = array(
-				'name'           => $attachment_name,
 				'created_date'   => $date,
 				'created_by'     => $this->session->userdata('username') 
 			);
@@ -208,14 +220,12 @@ class Fives_model extends CI_Model {
 		
 
 		$remarks = $this->input->post('remarks');
-		$attachment_name = $this->input->post('attachment');
 		$attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
 
 	
 		$data_attachment = array(
 			'control_number' => $control_number,
-			'name'           => $attachment_name,
 			'file'           => $attach1,
 			'status'         => $status,
 			'remarks'        => $remarks,
@@ -243,7 +253,6 @@ class Fives_model extends CI_Model {
 	public function update_status($control_number,$status)
 	{
 		$remarks = $this->input->post('remarks');
-		$attachment_name = $this->input->post('attachment');
 		$attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
 		$date = date('Y-m-d H:i:s');
@@ -252,7 +261,6 @@ class Fives_model extends CI_Model {
 		{
 			$data = array(
 				'remarks'      => $remarks,
-				'name'         => $attachment_name,
 				'file'         => $attach1,
 				'updated_date' => $date,
 				'updated_by'   => $this->session->userdata('username')
@@ -267,7 +275,6 @@ class Fives_model extends CI_Model {
 		{
 			$data = array(
 				'remarks'      => $remarks,
-				'name'         => $attachment_name,
 				'updated_date' => $date,
 				'updated_by'   => $this->session->userdata('username')
 			);
@@ -321,4 +328,13 @@ class Fives_model extends CI_Model {
 	public function add_implemented_ideas()
 	{
 	}
+	public function get_all_attachments($control_number)
+	{
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
+		$blaine_five_s->where('control_number', $control_number);
+		$query= $blaine_five_s->get('idea_attachment');
+
+		return $query->result();
+	}
+
 }

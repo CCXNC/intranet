@@ -4,14 +4,14 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header"><h4>Blaine Form List
-<?php if($this->session->userdata('access_level_id') == 1) : ?><a href="#" class="btn btn-info float-right"  data-toggle="modal" data-target="#exampleModal" style="margin-right:10px;">ADD</a> <?php endif; ?>
+<div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine Form List
+<?php if($this->session->userdata('access_level_id') == 1) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
     </h4> 
 </div>
 <br>
 <table id="" class="display" style="width:100%">
     <thead>
-        <tr>
+        <tr style="background-color:#D4F1F4;">
             <th scope="col">Name</th>
             <th scope="col">Attachment</th>
             <th scope="col">Category</th>
@@ -56,7 +56,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="attachment1" placeholder="Attachment name" required><br>
+                            <input type="text" class="form-control" name="attachment1" placeholder="Attachment name" style="text-transform:uppercase" required><br>
                             <select class="form-control" name="category" required>
                                 <option value="">Select Category</option>
                                 <option value="Template">TEMPLATE</option>
