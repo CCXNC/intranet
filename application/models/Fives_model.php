@@ -344,6 +344,7 @@ class Fives_model extends CI_Model {
 	{
 		$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
 		$blaine_five_s->where('control_number', $control_number);
+		$blaine_five_s->order_by('id','DESC');
 		$query= $blaine_five_s->get('idea_attachment');
 
 		return $query->result();
