@@ -89,7 +89,7 @@
 
 </style>
 <div class="card">
-    <div class="card-header"  style="background-color:#1C4670; color:white;"><h4>VIEW 5S SHARE MY IDEA<a href="<?php echo base_url(); ?>fives/idea" id="back"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a><input type="submit" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" id="printButton" value="PRINT"></h4></div>
+    <div class="card-header" style="background-color:#1C4670; color:white;"><h4>VIEW 5S SHARE IMPLEMENTED IDEA<a href="<?php echo base_url(); ?>fives/implemented" id="back"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a><input type="submit"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" id="printButton" value="PRINT"></h4></div>
     <div class="card-body">
         <div class="card">
             <div class="card-header" style="background-color:#1C4670; color:white;">My Idea</div>
@@ -97,14 +97,32 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Current</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->current; ?></textarea>
+                            <label>Before</label>
+                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->before; ?></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Proposal</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->proposal; ?></textarea>
+                            <label>After</label>
+                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->after; ?></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Impact</label>
+                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->impact; ?></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>CATEGORY:</label>
+                            <h5><?php echo $idea->classification; ?></h5>
+                        </div>
+                        <div class="form-group">
+                            <label>5S CHAMPION :</label>
+                            <h5><?php echo $idea->implemented_by; ?></h5>
                         </div>
                     </div>
                 </div>

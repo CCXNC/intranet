@@ -1,9 +1,9 @@
 <div class="card">
-    <div class="card-header"><h4>SHARE MY IDEA </h4></div>
+    <div class="card-header" style="background-color:#1C4670; color:white;"><h4>SHARE MY IDEA <a href="<?php echo base_url(); ?>fives/idea" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
             <div class="card">
-                <div class="card-header">STATUS FORM</div>
+                <div class="card-header" style="background-color:#1C4670; color:white;">STATUS FORM</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
@@ -56,22 +56,22 @@
                         </div> 
                         <center>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                <input type="submit" class="btn" style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
                             </div>
                         </center>
                     </form>  
-                    <form method="post" action="<?php echo base_url(); ?>fives/idea_add" enctype="multipart/form-data" id="implemented">
+                    <form method="post" action="<?php echo base_url(); ?>fives/implemented_add/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>" enctype="multipart/form-data" id="implemented">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Current</label>
-                                    <textarea type="text" class="form-control" name="current" rows="4" cols="50"></textarea>
+                                    <label>Before</label>
+                                    <textarea type="text" class="form-control" name="current" rows="4" cols="50" required="required"></textarea >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Proposal</label>
-                                    <textarea type="text" class="form-control" name="proposal" rows="4" cols="50"></textarea>
+                                    <label>After</label>
+                                    <textarea type="text" class="form-control" name="proposal" rows="4" cols="50" required="required"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Impact</label>
-                                    <textarea type="text" class="form-control" name="impact" rows="4" cols="50"></textarea>
+                                    <textarea type="text" class="form-control" name="impact" rows="4" cols="50" required="required"></textarea>
                                     <br>
                                     <input type='file' name='data1' size='20' />
                                 </div>
@@ -88,21 +88,21 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                    <input type="checkbox" name="classification[]" value="Quality">
                                     <label for="vehicle1">Quality</label><br>
-                                    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                    <input type="checkbox" name="classification[]" value="Safety">
                                     <label for="vehicle2">Safety</label><br>
-                                    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                    <input type="checkbox" name="classification[]" value="Cost Saving">
                                     <label for="vehicle3">Cost Saving</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                <input type="checkbox"  name="classification[]" value="Process Efficiency">
                                     <label for="vehicle3">Process Efficiency</label><br>
-                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                    <input type="checkbox" name="classification[]" value="System Creation/Tool">
                                     <label for="vehicle1">System Creation/Tool</label><br>
-                                    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                    <input type="checkbox" name="classification[]" value="Customer Satisfaction">
                                     <label for="vehicle2">Customer Satisfaction</label>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                         <br>
                         <center>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                <input type="submit" class="btn" style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
                             </div>
                         </center>
                     </form> 
