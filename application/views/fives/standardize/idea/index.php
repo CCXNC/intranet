@@ -5,7 +5,9 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header" style="background-color:#1C4670; color:white;"><h4>5S SHARE MY IDEA LIST
-    <a href="<?php echo base_url(); ?>fives/implemented" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">IMPLEMENTED</a>
+    <?php if($this->session->userdata('access_level_id') == 1) : ?>
+        <a href="<?php echo base_url(); ?>fives/implemented" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">IMPLEMENTED</a>
+    <?php endif; ?>    
     <a href="<?php echo base_url(); ?>fives/idea_add" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
     </h4> 
 </div>
@@ -49,7 +51,7 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>"> View</a>
-                                <?php if($this->session->userdata('username') == $idea->submit_by) : ?>
+                                <?php if($this->session->userdata('username') == $idea->submit_by && $idea->status != "Implemented") : ?>
                                     <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_edit/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>">Edit</a>
                                     <a onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_delete/<?php echo $idea->id?>">Delete</a>
                                 <?php endif; ?>       
@@ -57,7 +59,7 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="<?php echo base_url(); ?>fives/status/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Status</a>
                                 <?php endif; ?>    
-                                <?php if($this->session->userdata('access_level_id') == 1 && $idea->status != 'Open') : ?>
+                                <?php if($this->session->userdata('access_level_id') == 1 && $idea->status != 'Open' && $idea->status != 'Implemented') : ?>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_status/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Remarks</a>
                                 <?php endif; ?>
