@@ -696,7 +696,7 @@
                                                 <a href="<?php echo base_url(); ?>announcement/index">Announcement</a>
                                             </li>
                                             <li>
-                                                <a href="#">Timekeeping</a>
+                                                <a href="<?php echo base_url(); ?>timekeeping/index">Timekeeping</a>
                                             </li>
                                         </ul>
                                     </div>
