@@ -57,7 +57,7 @@
                 <br>
                 <center>
                     <div class="form-group">
-                        <input type="submit" class="btn"  style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                        <input type="submit" class="btn"  style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to update data?');" value="Update" >
                     </div>
                 </center>
             </div>
