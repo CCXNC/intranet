@@ -124,7 +124,7 @@
 
         @media screen and (min-width: 768px) {
             .page-wrapper.toggled .page-content {
-                padding-left: 300px;
+                padding-left: 220px;
             }
         }
 
@@ -145,7 +145,7 @@
         /*----------------sidebar-wrapper----------------*/
 
         .sidebar-wrapper {
-            width: 260px;
+            width: 220px; /*260px*/
             height: 100%;
             max-height: 100%;
             position: fixed;
@@ -274,7 +274,7 @@
 
         .sidebar-wrapper .sidebar-menu ul li a i {
             margin-right: 10px;
-            font-size: 17px;
+            font-size: 14px;
             width: 35px;
             height: 35px;
             line-height: 35px;
@@ -312,7 +312,7 @@
 
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li {
             padding-left: 25px;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
@@ -576,7 +576,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="<?php echo base_url(); ?>homepage/employee_profile/<?php echo $this->session->userdata('emp_id'); ?>/<?php echo $this->session->userdata('employee_number'); ?>">My Profile</a>
-                        <a class="dropdown-item" href="<?php echo base_url(); ?>homepage/index_change_password">Change Password</a> 
+                        <a class="dropdown-item" href="<?php echo base_url(); ?>user/index_change_password">Change Password</a> 
                         <a class="dropdown-item" href="#">Notification</a> 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?php echo site_url('Login/logout');?>">Logout</a>
@@ -634,7 +634,7 @@
                             </li>
                             <!--BLAINE FORMS-->
                             <li class="">
-                                <a href="#">
+                                <a href="<?php echo base_url(); ?>forms/index">
                                     <i class="fa fa-clipboard"></i>
                                     <span>Blaine Forms</span>
                                 </a>
@@ -650,21 +650,34 @@
                                 </div>-->
                             </li>
                             <!--5s and ESH-->
-                            <li class="">
+                            <!--HOMEPAGE-->
+                            <li class="sidebar-dropdown">
                                 <a href="#">
-                                    <i class="fa fa-folder-open"></i>
-                                    <span>5S and ESH</span>
+                                    <i class="fa fa-home"></i>
+                                    <span>5S and EHS</span>
                                 </a>
-                                <!--<div class="sidebar-submenu">
+                                <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                            <a href="#">Add Movies</a>
+                                            <a href="">1S: Sort</a>
                                         </li>
                                         <li>
-                                            <a href="#">View Movies</a>
+                                            <a href="">2S: Set</a>
+                                        </li>
+                                        <li>
+                                            <a href="">3S: Shine</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>fives/standardize/index">4S: Standardize</a>
+                                        </li>
+                                        <li>
+                                            <a href="">5S: Sustain</a>
+                                        </li>
+                                        <li>
+                                            <a href="">EHS</a>
                                         </li>
                                     </ul>
-                                </div>-->
+                                </div>
                             </li>
                             
                             <?php if($this->session->userdata('access_level_id') == 1) : ?>
@@ -683,7 +696,7 @@
                                                 <a href="<?php echo base_url(); ?>announcement/index">Announcement</a>
                                             </li>
                                             <li>
-                                                <a href="#">Timekeeping</a>
+                                                <a href="<?php echo base_url(); ?>timekeeping/index">Timekeeping</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -742,22 +755,26 @@
                                 </div>-->
                             </li>
                             <!--IT-->
-                            <li class="">
-                                <a href="#">
-                                    <i class="fa fa-tv"></i>
-                                    <span>IT</span>
-                                </a>
-                                <!--<div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                        <a href="#">Add Movies</a>
-                                        </li>
-                                        <li>
-                                        <a href="#">View Movies</a>
-                                        </li>
-                                    </ul>
-                                </div>-->
-                            </li>
+                                <!--HR-->
+                                <li class="sidebar-dropdown">
+                                    <a href="#">
+                                        <i class="fa fa-address-card"></i>
+                                        <span>Productivity</span>
+                                    </a>
+                                    <div class="sidebar-submenu">
+                                        <ul>
+                                            <li>
+                                                <a>CIT</a>
+                                            </li>
+                                            <li>
+                                                <a>Software Developer</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">IT</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
                             <!--<li>
                                 <a href="#">
                                 <i class="fas fa-book"></i>

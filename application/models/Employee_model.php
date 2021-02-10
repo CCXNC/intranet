@@ -8,7 +8,8 @@ class Employee_model extends CI_Model {
 		$this->db->trans_start();
 
 		//EMPLOYEE INPUT
-		$picture = $_FILES['image']['name'];
+		$picture1 = $_FILES['image']['name'];
+		$picture = str_replace(' ', '_', $picture1);
 		$employee_number = $this->input->post('employee_number');
 		$first_name = $this->input->post('first_name');
 		$middle_name = $this->input->post('middle_name');
@@ -392,7 +393,8 @@ class Employee_model extends CI_Model {
 		$this->db->trans_start();
 
 		//EMPLOYEE INPUT
-		$picture = $_FILES['image']['name'];
+		$picture1 = $_FILES['image']['name'];
+		$picture = str_replace(' ', '_', $picture1);
 		//$employee_number = $this->input->post('employee_number');
 		$first_name = $this->input->post('first_name');
 		$middle_name = $this->input->post('middle_name');
@@ -665,7 +667,7 @@ class Employee_model extends CI_Model {
 		// CALL ACVITIY LOGS DATABASE
 		$activity_log = $this->load->database('activity_logs', TRUE); 
 
-		$entry_data = "update_employee [entry_data:" . $employee_number . "]";
+		$entry_data = "update_employee [entry_id:" . $employee_number . "]";
 
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),
@@ -864,7 +866,7 @@ class Employee_model extends CI_Model {
 		// CALL ACVITIY LOGS DATABASE
 		$activity_log = $this->load->database('activity_logs', TRUE); 
 
-		$entry_data = "employee_movement [entry_data:" . $employee_number . "]";
+		$entry_data = "employee_movement [entry_id:" . $employee_number . "]";
 
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),
@@ -927,7 +929,7 @@ class Employee_model extends CI_Model {
 		// CALL ACVITIY LOGS DATABASE
 		$activity_log = $this->load->database('activity_logs', TRUE); 
 
-		$entry_data = "employee_termination [entry_data:" . $employee_number . "]";
+		$entry_data = "employee_termination [entry_id:" . $employee_number . "]";
 
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),
@@ -1053,7 +1055,7 @@ class Employee_model extends CI_Model {
 		// CALL ACVITIY LOGS DATABASE
 		$activity_log = $this->load->database('activity_logs', TRUE); 
 
-		$entry_data = "add_info [entry_data:" . $employee_number . "]";
+		$entry_data = "add_info [entry_id:" . $employee_number . "]";
 
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),
@@ -1235,7 +1237,7 @@ class Employee_model extends CI_Model {
 		// CALL ACVITIY LOGS DATABASE
 		$activity_log = $this->load->database('activity_logs', TRUE); 
 
-		$entry_data = "attachment [entry_data:" . $employee_number . "]";
+		$entry_data = "attachment [entry_id:" . $employee_number . "]";
 
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),

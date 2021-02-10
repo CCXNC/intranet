@@ -5,19 +5,30 @@
             <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
         <?php endif; ?>
         
-        <form method="POST" action="<?php echo base_url(); ?>/homepage/change_password/<?php echo $this->session->userdata('emp_id'); ?>/<?php echo $this->session->userdata('employee_number'); ?>">
+        <form method="POST" action="<?php echo base_url(); ?>/user/change_password/<?php echo $this->session->userdata('employee_number'); ?>">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>OLD PASSWORD</label>
                         <input type="text" class="form-control"  name="old_password" required>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>NEW PASSWORD</label>
                         <div class="input-group" id="show_hide_password">
                             <input class="form-control" type="password" name="new_password" required>
+                            <div class="input-group-addon" style="margin-left:5px; margin-top:5px;">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>	
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>RE-TYPE PASSWORD</label>
+                        <div class="input-group" id="show_hide_password">
+                            <input class="form-control" type="password" name="retype_password" required>
                             <div class="input-group-addon" style="margin-left:5px; margin-top:5px;">
                                 <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                             </div>

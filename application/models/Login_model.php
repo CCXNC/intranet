@@ -10,10 +10,13 @@ class Login_model extends CI_Model {
             users.username as username,
             users.password as password,
             users.access_level_id as access_level_id,
-            employees.id as emp_id
+            employees.id as emp_id,
+            employment_info.company as company_id,
+            employment_info.department as department_id,
         "); 
         $this->db->from('users');
         $this->db->join('employees', 'employees.employee_number = users.employee_number','left');
+        $this->db->join('employment_info', 'employment_info.employee_number = users.employee_number','left');
         $this->db->where(' users.username', $username);
         $this->db->where('users.password', md5($password));
         $query = $this->db->get(); 
@@ -24,7 +27,8 @@ class Login_model extends CI_Model {
 	{
         $this->db->where('is_active', 1);
         $this->db->where('category', "loginpage");
-		$query = $this->db->get('announcement');
+        $this->db->order_by('created_date', 'DESC');
+		$query = $this->db->get('announcement', 3);
 
 		return $query->result();
     }
@@ -79,24 +83,6 @@ class Login_model extends CI_Model {
         /*print_r('<pre>');
         print_r($data);
         print_r('</pre>');*/
-    }
-
-    public function change_password($employee_number)
-    {
-        $this->db->trans_start();
-        $new_password = $this->input->post('new_password');
-        
-        $md5_password = md5($new_password);
-
-        $data = array(
-            'password' => $md5_password
-        );
-
-        $this->db->where('employee_number', $employee_number);
-        $this->db->update('users',$data);
-
-        $trans = $this->db->trans_complete();
-		return $trans;
     }
 
 }
