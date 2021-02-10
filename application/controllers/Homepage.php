@@ -14,6 +14,7 @@ class Homepage extends CI_Controller {
     {
         $data['employee'] = $this->employee_model->get_employee($id);
         $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
+        $data['attachments'] = $this->employee_model->get_attachments($employee_number);
         $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
         $data['transfer'] = $this->employee_model->get_transfer_logs($employee_number);
         $data['main_content'] = 'hr/employee/profile';

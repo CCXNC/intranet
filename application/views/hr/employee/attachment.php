@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="attachment" value="Resume"><br>
+                        <input type="text" class="form-control" name="attachment" placeholder="Attachment name" required><br>
                         <input type='file' name='resume' size='20' required />
                     </div>
                 </div>
