@@ -1088,11 +1088,11 @@ class Employee_model extends CI_Model {
 		$this->db->from('transfer_logs');
 		$this->db->where('transfer_logs.employee_number', $employee_number);
 		$this->db->order_by('transfer_logs.created_date', 'DESC');
-		$this->db->join('employee_status', 'transfer_logs.employee_status = employee_status.id');
-		$this->db->join('company', 'transfer_logs.company = company.id');
-		$this->db->join('rank', 'transfer_logs.rank = rank.id');
-		$this->db->join('department', 'transfer_logs.department = department.id');
-		$this->db->join('work_group', 'transfer_logs.work_group = work_group.id');
+		$this->db->join('employee_status', 'transfer_logs.employee_status = employee_status.id','left');
+		$this->db->join('company', 'transfer_logs.company = company.id','left');
+		$this->db->join('rank', 'transfer_logs.rank = rank.id','left');
+		$this->db->join('department', 'transfer_logs.department = department.id','left');
+		$this->db->join('work_group', 'transfer_logs.work_group = work_group.id','left');
 		
 		$query = $this->db->get();
 
