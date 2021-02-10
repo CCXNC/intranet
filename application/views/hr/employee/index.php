@@ -61,8 +61,8 @@
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_movement/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Movement</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_termination/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Termination</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>user/reset_password/<?php echo $employee->emp_no; ?>" onclick="return confirm('Do you want to reset password?');">Reset Password</a>
+                                <!--<div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>user/reset_password/<?php echo $employee->emp_no; ?>" onclick="return confirm('Do you want to reset password?');">Reset Password</a>-->
                             </div>
                         </div>
                     </td>
