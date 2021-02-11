@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>OLD PASSWORD</label>
+                        <label>OLD PASSWORD*</label>
                         <input type="text" class="form-control"  name="old_password" required>
                     </div>
                 </div>

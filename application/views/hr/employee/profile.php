@@ -441,7 +441,7 @@
                             <?php foreach($transfer as $trans) : ?>
                                 <tr>
                                     <td data-label="Date Log"><?php echo date('F j, Y',strtotime($trans->date_created));  ?></td>
-                                    <td data-label="Date Movement/Promotion"><?php echo date('F j, Y',strtotime($trans->date));  ?></td>
+                                    <td data-label="Date Movement/Promotion"><?php if($trans->date != NULL) : ?><?php echo date('F j, Y',strtotime($trans->date));  ?><?php endif; ?></td>
                                     <td data-label="Status"><?php echo $trans->employee_status;  ?></td>
                                     <td data-label="Company"><?php echo $trans->company_name; ?></td>
                                     <td data-label="Department"><?php echo $trans->department_name; ?></td>
@@ -456,5 +456,33 @@
                 </table>   
             </div>
         </div>  
+        <br>
+        <div class="card">
+            <div class="card-header">Attachments
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">File</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if($attachments) : ?>
+                            <?php foreach($attachments as $attachment) : ?>
+                                <tr>
+                                    <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->created_date));  ?></td>
+                                    <td data-label="Title"><?php echo $attachment->name; ?></td>
+                                    <td data-label="File">
+                                    <a href="<?php echo base_url(); ?>employee/download_attachment/<?php echo $attachment->file; ?>"><?php echo $attachment->file; ?></a></td>
+                                </tr>
+                            <?php endforeach; ?> 
+                        <?php endif; ?>
+                    </tbody>
+                </table>   
+            </div>
+        </div>
     </div>      
 </div>    

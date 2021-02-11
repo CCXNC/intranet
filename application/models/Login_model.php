@@ -44,7 +44,7 @@ class Login_model extends CI_Model {
 
         $data = array(
             'username' => $this->session->userdata('username'),
-            'pcname'   => gethostname(),
+            'pcname'   => $_SERVER['REMOTE_ADDR'],
             'type'     => 'Login',
             'date'     => $date
         );
@@ -70,7 +70,7 @@ class Login_model extends CI_Model {
 
         $data = array(
             'username' => $this->session->userdata('username'),
-            'pcname'   => gethostname(),
+            'pcname'   => $_SERVER['REMOTE_ADDR'],
             'type'     => 'Logout',
             'date'     => $date
         );
