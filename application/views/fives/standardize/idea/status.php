@@ -98,7 +98,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <input type="checkbox"  name="classification[]" value="Process Efficiency">
+                                    <input type="checkbox"  name="classification[]" value="Process Efficiency">
                                     <label for="vehicle3">Process Efficiency</label><br>
                                     <input type="checkbox" name="classification[]" value="System Creation/Tool">
                                     <label for="vehicle1">System Creation/Tool</label><br>

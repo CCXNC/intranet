@@ -18,6 +18,7 @@
             <th scope="col">Control No.</th>
             <th scope="col">Date</th>
             <th scope="col">Submitted By</th>
+            <th scope="col">Proposed By</th>
             <th scope="col">Department</th>
             <th scope="col">Current</th>
             <th scope="col">Proposal</th>
@@ -30,8 +31,9 @@
             <?php foreach($ideas as $idea) : ?>
                 <tr>
                     <td data-label="Business Unit"><a href="<?php echo base_url(); ?>fives/idea_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>"><?php echo $idea->control_number; ?></a></td>
-                    <td data-label="Date"><?php echo $idea->submit_date;  ?></td>
+                    <td data-label="Date"><?php echo date('F j, Y', strtotime($idea->submit_date));  ?></td>
                     <td data-label="Department"><?php echo $idea->submit_by; ?></td>
+                    <td data-label="Department"><?php echo $idea->propose_by; ?></td>
                     <td data-label="Date Hired"><?php echo $idea->department; ?></td>
                     <td data-label="Date Hired"><?php echo substr($idea->current,0,50); ?></td>
                     <td data-label="Proposal"><?php echo substr($idea->proposal,0,50); ?></td>
