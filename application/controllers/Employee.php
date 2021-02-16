@@ -45,7 +45,7 @@ class Employee extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    function add() 
+    function add()  
     {
         $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
@@ -99,9 +99,12 @@ class Employee extends CI_Controller {
                 } 
             } 
 
-            $this->employee_model->add_employee();
-            $this->session->set_flashdata('success_msg', 'Employee Successfully Added!');
-            redirect('employee/index');
+            if($this->employee_model->add_employee())
+            {
+                $this->session->set_flashdata('success_msg', 'Employee Successfully Added!');
+                redirect('schedule/index');
+            }
+          
         }
     
     }
@@ -183,6 +186,8 @@ class Employee extends CI_Controller {
     public function employee_termination($id,$employee_number)
     {
         $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
+        $this->form_validation->set_rules('date_termination', 'Date Termination', 'required|trim');
+        $this->form_validation->set_rules('date_clearance', 'Date Clearance', 'required|trim');
         $this->form_validation->set_rules('remarks', 'Remarks', 'required|trim');
         
         if($this->form_validation->run() == FALSE)
@@ -207,8 +212,14 @@ class Employee extends CI_Controller {
         }    
     }
 
-    public function employee_movement($id,$employee_number)
-    {
+    public function employee_movement($id,$employee_number) 
+    {    
+        $this->form_validation->set_rules('work_group', 'Work Group', 'required|trim');
+        $this->form_validation->set_rules('superior', 'Superior', 'required|trim');
+        $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
+        $this->form_validation->set_rules('date_transfer', 'Date Transfer', 'required|trim');
+        $this->form_validation->set_rules('position', 'Position', 'required|trim');
+        $this->form_validation->set_rules('movement_from', 'Movement From', 'required|trim');
         $this->form_validation->set_rules('company', 'Company', 'required|trim');
         $this->form_validation->set_rules('remarks', 'Remarks', 'required|trim');
 
@@ -230,7 +241,7 @@ class Employee extends CI_Controller {
                 $this->session->set_flashdata('success_msg', 'Employment Information Successfully Updated!');
                 redirect('employee/index');
             }
-            
+             
         }    
     }
 
@@ -305,7 +316,6 @@ class Employee extends CI_Controller {
         }
         else
         {
-            
             if(!empty($_FILES['resume']['name'])){ 
                 //$imageName = $_FILES['resume']['name']; 
                 $file_name = $_FILES["resume"]['name'];

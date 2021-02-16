@@ -104,7 +104,7 @@ class Announcement_model extends CI_Model {
 
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),
-			'pcname'     => gethostname(),
+			'pcname'     => $_SERVER['REMOTE_ADDR'],
 			'entry_data' => $entry_data,
 			'entry_date' => $date
 		);

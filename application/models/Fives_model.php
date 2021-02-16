@@ -7,11 +7,17 @@ class Fives_model extends CI_Model {
     {
 		$this->db->trans_start();
 
+		$data = $this->input->post('employee');
+		$explod_data = explode('|', $data);
+		$fullname = $explod_data[0];
+		$department_id = $explod_data[1];
+		$company_id = $explod_data[2];
 		$submit_date = $this->input->post('submit_date');
 		//$control_number = $this->input->post('control_number');
 		$current = $this->input->post('current');
 		$proposal = $this->input->post('proposal');
 
+		//GET PREVIOUS CONTROL NUMBER
 		$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
 		$blaine_five_s->order_by('id','DESC');
 		$blaine_five_s->select('control_number');
@@ -37,8 +43,9 @@ class Fives_model extends CI_Model {
 			'submit_date'			=> $date,
 			'control_number'        => $crtl_number,
 			'submit_by'       		=> $this->session->userdata('username'),
-			'company'       		=> $this->session->userdata('company_id'),
-			'department'       		=> $this->session->userdata('department_id'),
+			'propose_by'            => $fullname,
+			'company'       		=> $company_id,
+			'department'       		=> $department_id,
 			'current'       		=> $current,
 			'proposal'       		=> $proposal,
 			'created_date'  		=> $date,
@@ -82,6 +89,7 @@ class Fives_model extends CI_Model {
             idea.submit_date as submit_date,
 			idea.control_number as control_number,
 			idea.submit_by as submit_by,
+			idea.propose_by as propose_by,
 			company.name as company,
 			department.name as department,
 			idea.current as current,
@@ -104,6 +112,7 @@ class Fives_model extends CI_Model {
             idea.submit_date as submit_date,
 			idea.control_number as control_number,
 			idea.submit_by as submit_by,
+			idea.propose_by as propose_by,
 			company.name as company,
 			department.name as department,
 			idea.current as current,
@@ -326,6 +335,7 @@ class Fives_model extends CI_Model {
 			idea.id as id,
 			idea.control_number as control_number,
 			idea.submit_by as submit_by,
+			idea.propose_by as propose_by,
 			company.name as company,
 			department.name as department,
 			implemented_idea.id as implemented_id,
