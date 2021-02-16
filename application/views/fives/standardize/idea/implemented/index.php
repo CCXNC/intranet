@@ -15,6 +15,7 @@
             <th scope="col">Control No.</th>
             <th scope="col">Date</th>
             <th scope="col">Submitted By</th>
+            <th scope="col">Proposed By</th>
             <th scope="col">Before</th>
             <th scope="col">After</th>
             <th scope="col">Impact</th>
@@ -28,7 +29,8 @@
                 <tr>
                     <td data-label="Business Unit"><a href="<?php echo base_url(); ?>fives/idea_implemented_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number;?>"><?php echo $idea->control_number;?></a></td>
                     <td data-label="Date"><?php echo date('F j, Y',strtotime($idea->created_date));  ?></td>
-                    <td data-label="Department"><?php echo $idea->submit_by; ?></td>
+                    <td data-label="Submitted By"><?php echo $idea->submit_by; ?></td>
+                    <td data-label="Proposed_by"><?php echo $idea->propose_by; ?></td>
                     <td data-label="Before"><?php echo substr($idea->current,0,50); ?></td>
                     <td data-label="After"><?php echo substr($idea->proposal,0,50); ?></td>
                     <td data-label="Impact"><?php echo substr($idea->impact,0,50); ?></td>
@@ -52,6 +54,7 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
             buttons: [
                 {

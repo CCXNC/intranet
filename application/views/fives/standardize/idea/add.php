@@ -26,7 +26,21 @@
                                 <input type='file' name='data1' size='20' />
                             </div>
                         </div>
-                    </div>    
+                    </div>  
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Proposed By</label>
+                                <select name="employee" id="" class="form-control col-md-6">
+                                    <?php if($employees) : ?>
+                                    <?php foreach($employees as $employee) : ?>
+                                    <option value="<?php echo $employee->fullname . '|' . $employee->department_id . '|' . $employee->company_id; ?>"<?php echo $this->session->userdata('employee_number') == $employee->emp_no ? 'selected' : ''; ?>><?php echo $employee->fullname; ?></option>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>  
             </div>
             <br>
             <center>

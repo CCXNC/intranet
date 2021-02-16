@@ -226,7 +226,7 @@
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <p class="announcement">
-                                                                                    <?php echo word_limiter($announcement->content,100); ?></a>
+                                                                                    <textarea class="form-control" name="content" rows="4" cols="50" readonly><?php echo $announcement->content; ?></textarea>
                                                                                 </p>
                                                                             </div>
                                                                         </div>
@@ -269,15 +269,15 @@
                                             <div class="row" >
                                                 <div class="col-md-12" style="text-align:justify; padding-left:50px; padding-right:50px;">
                                                     <h3 style="text-align:center;" > General Terms and Conditions for Intranet Administration</h3>
-                                                    <p>Introduction:
+                                                    <p><b>Introduction:</b>
                                                     <br>These System Standard Terms and Conditions written on this system shall manage your use of our system, Blaine Intranet accessible at http://www.blaineintranet/intranet/login/index. <br><br>
                                                     These Terms will be applied fully and affect to your use of this system. By using this system, you agreed to accept all terms and conditions written in here. You must not use this system if you disagree with any of these system Standard Terms and Conditions. These Terms and Conditions have been generated with the help of the Terms And Conditions Template and the Terms and Conditions Generator. 
                                                     People who are not employed by Blaine are not allowed to use this Website. 
                                                     <br><br>
-                                                    Intellectual Property Rights: 
+                                                    <b>Intellectual Property Rights: </b>
                                                     <br>
                                                     Other than the content you own, under these Terms, Blaine Corporation and/or its licensors own all the intellectual property rights and materials contained in this system. You are granted limited license only for purposes of viewing the material contained on this system.<br><br>
-                                                    Restrictions:
+                                                    <b>Restrictions:</b>
                                                     <br>
                                                     You are specifically restricted from all of the following:<br>
 
@@ -291,36 +291,36 @@
                                                     - using this system to engage in any advertising or marketing.<br><br>
                                                     Certain areas of this system are restricted from being access by you and Blaine Corporation may further restrict access by you to any areas of this system, at any time, in absolute discretion. Any user ID and password you may have for this system are confidential and you must maintain confidentiality as well.<br><br>
 
-                                                    Your Content<br>
+                                                    <b>Your Content</b><br>
                                                     In these System Standard Terms and Conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this system. By displaying Your Content, you grant Blaine Corporation a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.<br><br>
 
                                                     Your Content must be your own and must not be invading any third-party’s rights. Blaine Corporation reserves the right to remove any of Your Content from this Website at any time without notice.<br><br>
 
-                                                    Your Privacy<br>
+                                                    <b>Your Privacy</b><br>
                                                     Please read Privacy Policy.<br><br>
 
-                                                    No warranties<br>
+                                                    <b>No warranties</b><br>
                                                     This System is provided "as is," with all faults, and Blaine Corporation express no representations or warranties, of any kind related to this system or the materials contained on this system. Also, nothing contained on this system shall be interpreted as advising you.<br><br>
 
-                                                    Limitation of liability<br>
+                                                    <b>Limitation of liability</b><br>
                                                     In no event shall Blaine Corporation, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this system whether such liability is under contract.  Blaine Corporation, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this system.<br><br>
 
-                                                    Indemnification<br>
+                                                    <b>Indemnification</b><br>
                                                     You hereby indemnify to the fullest extent Blaine Corporation from and against any and/or all liabilities, costs, demands, causes of action, damages and expenses arising in any way related to your breach of any of the provisions of these Terms.<br><br>
 
-                                                    Severability<br>
+                                                    <b>Severability</b><br>
                                                     If any provision of these Terms is found to be invalid under any applicable law, such provisions shall be deleted without affecting the remaining provisions herein.<br><br>
 
-                                                    Variation of Terms<br>
+                                                    <b>Variation of Terms</b><br>
                                                     Blaine Corporation is permitted to revise these Terms at any time as it sees fit, and by using this system you are expected to review these Terms on a regular basis.<br><br>
 
-                                                    Assignment<br>
+                                                    <b>Assignment</b><br>
                                                     The Blaine Corporation is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.<br><br>
 
-                                                    Entire Agreement<br>
+                                                    <b>Entire Agreement</b><br>
                                                     These Terms constitute the entire agreement between Blaine Corporation and you in relation to your use of this system, and supersede all prior agreements and understandings.<br><br>
 
-                                                    Governing Law & Jurisdiction<br>
+                                                    <b>Governing Law & Jurisdiction</b><br>
                                                     These Terms will be governed by and interpreted in accordance with the laws of the State of Ph, and you submit to the non-exclusive jurisdiction of the state and federal courts located in Ph for the resolution of any disputes.</p>
                                                 </div>
                                             </div>

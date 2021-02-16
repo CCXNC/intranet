@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Timekeeping_model extends CI_Model {
+class Calendar_model extends CI_Model {
 
     public function get_calendars_list()
 	{
@@ -13,14 +13,14 @@ class Timekeeping_model extends CI_Model {
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 
         $blaine_timekeeping->select("
-            calendar.id as id,
-            calendar.date as date,
-            calendar.type as type,
-            calendar.description as description
+            holiday_calendar.id as id,
+            holiday_calendar.type as type,
+            holiday_calendar.description as description,
+            holiday_calendar.start as start,
+            holiday_calendar.end as end
         ");
 
-        $blaine_timekeeping->from('calendar');
-        $blaine_timekeeping->where('calendar.is_active', 1);
+        $blaine_timekeeping->from('holiday_calendar');
 
         $query = $blaine_timekeeping->get();
         return $query->result();
@@ -32,14 +32,16 @@ class Timekeeping_model extends CI_Model {
         $this->db->trans_start();
 
         //HOLIDAY INPUT
-        $date = $this->input->post('date');
+        $start = $this->input->post('start');
+        $end = $this->input->post('end');
         $type = $this->input->post('type');
         $description = $this->input->post('description');
 
         $created_date = date('Y-m-d H:i:s');
 
         $data_calendar = array(
-            'date'          => $date,
+            'start'         => $start,
+            'end'           => $end,
             'type'          => $type,
             'description'   => $description,
             'created_date'  => $created_date,
@@ -48,7 +50,7 @@ class Timekeeping_model extends CI_Model {
 
         // DATABASE CONNECTION TO TIMEKEEPING
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-        $blaine_timekeeping->insert('calendar', $data_calendar);
+        $blaine_timekeeping->insert('holiday_calendar', $data_calendar);
 
         /*print_r('<pre>');
 		print_r($data_calendar);
@@ -63,7 +65,7 @@ class Timekeeping_model extends CI_Model {
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 
         $blaine_timekeeping->where('id', $id);
-        $query = $blaine_timekeeping->get('calendar');
+        $query = $blaine_timekeeping->get('holiday_calendar');
 
         return $query->row();
     }
@@ -72,14 +74,16 @@ class Timekeeping_model extends CI_Model {
     {
         $this->db->trans_start();
 
-        $date = $this->input->post('date');
+        $start = $this->input->post('start');
+        $end = $this->input->post('end');
         $type = $this->input->post('type');
         $description = $this->input->post('description');
 
         $updated_date = date('Y-m-d H:i:s');
 
         $data_calendar = array(
-            'date'          => $date,
+            'start'         => $start,
+            'end'           => $end,
             'type'          => $type,
             'description'   => $description,
             'updated_date'  => $updated_date,
@@ -89,7 +93,7 @@ class Timekeeping_model extends CI_Model {
         //DATABASE CONNECTION
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
         $blaine_timekeeping->where('id', $id);
-        $blaine_timekeeping->update('calendar', $data_calendar);
+        $blaine_timekeeping->update('holiday_calendar', $data_calendar);
 
         $trans = $this->db->trans_complete();
         return $trans;
@@ -98,14 +102,51 @@ class Timekeeping_model extends CI_Model {
 
     public function delete_calendar_list($id)
     {
-        $data_calendar = array(
-            'is_active' => 0
-        );
 
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
         $blaine_timekeeping->where('id', $id);
-        $query = $blaine_timekeeping->update('calendar', $data_calendar);
+        $query = $blaine_timekeeping->delete('holiday_calendar');
 
         return $query;
+
+    }
+
+    public function get_events($start, $end) 
+    {
+        return $this->db
+            ->where("blaine_timekeeping.holiday_calendar.start >=", $start)
+            ->where("blaine_timekeeping.holiday_calendar.end <=", $end)
+            ->get("blaine_timekeeping.holiday_calendar");
+    }
+
+    public function add_event($data) 
+    {
+        //$this->db->insert("calendar_events", $data);
+
+        // DATABASE CONNECTION TO TIMEKEEPING
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->insert('holiday_calendar', $data);
+
+        /*print_r('<pre>');
+		print_r($data_calendar);
+		print_r('</pre>');*/
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+    }
+
+    public function get_event($id) 
+    {
+        return $this->db->where("blaine_timekeeping.holiday_calendar.id", $id)->get("blaine_timekeeping.holiday_calendar");
+    }
+
+    public function update_event($id, $data) 
+    {
+        $this->db->where("blaine_timekeeping.holiday_calendar.id", $id)->update("blaine_timekeeping.holiday_calendar", $data);
+    }
+
+    public function delete_event($id) 
+    {
+        $this->db->where("blaine_timekeeping.holiday_calendar.id", $id)->delete("blaine_timekeeping.holiday_calendar");
     }
 }

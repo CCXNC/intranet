@@ -9,8 +9,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>OLD PASSWORD*</label>
-                        <input type="text" class="form-control"  name="old_password" required>
+                        <label>OLD PASSWORD</label>
+                        <div class="input-group" id="show_hide_password">
+                            <input class="form-control" type="password" name="old_password" required>
+                            <div class="input-group-addon" style="margin-left:5px; margin-top:5px;">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">

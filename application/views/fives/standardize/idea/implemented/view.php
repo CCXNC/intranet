@@ -186,12 +186,18 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Company</label>
-                            <div class="form-control"><?php echo $idea->company; ?></div>
+                            <label>Proposed By</label>
+                            <div class="form-control"><?php echo $idea->propose_by; ?></div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Company</label>
+                            <div class="form-control"><?php echo $idea->company; ?></div>
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Department</label>
