@@ -30,7 +30,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Content</label>
-                            <div class="form-control"><?php echo $announcement->content; ?></div>
+                            <textarea class="form-control" name="content" rows="6" cols="50" readonly><?php echo $announcement->content; ?></textarea>
                         </div>
                     </div>
                 </div>

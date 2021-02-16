@@ -4,16 +4,19 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header"><h4>CALENDAR OF HOLIDAYS
-<a href="<?php echo base_url(); ?>timekeeping/add_calendar_list" class="btn btn-info float-right">ADD</a>
+<div class="card-header">
+    <h4>CALENDAR OF HOLIDAYS
+        <a href="<?php echo base_url(); ?>calendar/add_calendar_list" class="btn btn-info float-right" >ADD</a>
+        <a href="<?php echo base_url(); ?>calendar/holiday_calendar" class="btn btn-info float-right" style="margin-right:10px;">CALENDAR</a>
     </h4> 
 </div>
 <br>
 <table id="" class="display" style="width:100%">
     <thead>
         <tr style="">
-            <th scope="col">Type</th>
             <th scope="col">Date</th>
+           <!-- <th scope="col">End Date</th>-->
+            <th scope="col">Type</th>
             <th scope="col">Description</th>
             <th scope="col">Action</th>
         </tr>
@@ -22,18 +25,19 @@
         <?php if($calendars) : ?> 
             <?php foreach($calendars as $calendar) : ?>
                 <tr>
-                    <td data-label="Date"><?php echo $calendar->type;  ?></td>
-                    <td data-label="Department"><?php echo $calendar->date; ?></td>
-                    <td data-label="Date Hired"><?php echo word_limiter($calendar->description, 10); ?></td>
+                    <td data-label="Start Date"><?php echo date('F j, Y', strtotime($calendar->start));  ?></td>
+                    <!--<td data-label="End Date"><?php echo $calendar->end;  ?></td>-->
+                    <td data-label="Type"><?php echo $calendar->type; ?></td>
+                    <td data-label="Description"><?php echo word_limiter($calendar->description, 10); ?></td>
                     <td data-label="Action">
                         <div class="btn-group">
                             <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>timekeeping/view_calendar_list/<?php echo $calendar->id; ?>"> View</a>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>timekeeping/edit_calendar_list/<?php echo $calendar->id?>">Edit</a>
-                                <a onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>timekeeping/delete_calendar_list/<?php echo $calendar->id?>">Delete</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>calendar/view_calendar_list/<?php echo $calendar->id; ?>"> View</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>calendar/edit_calendar_list/<?php echo $calendar->id?>">Edit</a>
+                                <a onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>calendar/delete_calendar_list/<?php echo $calendar->id?>">Delete</a>
                             </div>
                         </div>
                     </td>

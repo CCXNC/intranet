@@ -2,15 +2,21 @@
     <div class="card-header"><h4>ADD HOLIDAY</h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>timekeeping/add_calendar_list" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url(); ?>calendar/add_calendar_list" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header">Holiday Information</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Date</label>
-                                <input type="date" class="form-control" name="date">
+                                <label>Start Date</label>
+                                <input type="date" class="form-control" name="start">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="date" class="form-control" name="end">
                             </div>
                         </div>
                     </div>
@@ -18,7 +24,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Type</label>
-                                <input type="text" class="form-control" name="type">
+                                <select class="form-control" name="type">
+                                    <option value="">Select Type</option>
+                                    <option value="Special Holiday">Special Holiday</option>
+                                    <option value="Legal Holiday">Legal Holiday</option>
+                                    <option value="Economic Holiday">Economic Holiday</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -5,6 +5,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header"><h4>EMPLOYEE LIST
+    <a href="<?php echo base_url(); ?>employee/reports" class="btn btn-info float-right" style="margin-right:10px;">REPORTS</a>
     <a href="<?php echo base_url(); ?>employee/resigned" class="btn btn-info float-right" style="margin-right:10px;">RESIGNED</a>
     <a href="<?php echo base_url(); ?>employee/add" class="btn btn-info float-right" style="margin-right:10px;">ADD</a>
     </h4> 

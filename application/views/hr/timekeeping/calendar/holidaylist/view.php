@@ -89,7 +89,7 @@
 
 </style>
 <div class="card">
-    <div class="card-header"><h4>VIEW HOLIDAY<a href="<?php echo base_url(); ?>timekeeping/calendar_list" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" id="printButton" value="PRINT"></h4></div>
+    <div class="card-header"><h4>VIEW HOLIDAY<a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" id="printButton" value="PRINT"></h4></div>
     <div class="card-body">
         <div class="card">
             <div class="card-header">Holiday Information</div>
@@ -97,8 +97,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Date</label>
-                            <input class="form-control" name="date" value="<?php echo $calendar->date; ?>" readonly></input>
+                            <label>Start Date</label>
+                            <input class="form-control" name="start" value="<?php echo $calendar->start; ?>" readonly></input>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input class="form-control" name="end" value="<?php echo $calendar->end; ?>" readonly></input>
                         </div>
                     </div>
                 </div>

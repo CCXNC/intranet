@@ -2,7 +2,7 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <a style="width: 50%" href="<?php echo base_url(); ?>timekeeping/calendar_list" class="btn btn-primary btn-md float-left">HOLIDAY CALENDAR LIST</a>
+                <a style="width: 50%" href="<?php echo base_url(); ?>calendar/calendar_list" class="btn btn-primary btn-md float-left">HOLIDAY CALENDAR LIST</a>
                 <i style="" class="fa fa-calendar fa-2x float-right"></i>
             </div>
         </div>

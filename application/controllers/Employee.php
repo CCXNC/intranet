@@ -398,4 +398,10 @@ class Employee extends CI_Controller {
         //print_r($data);
     }
 
+    public function reports()
+    {
+        $data['employees'] = $this->employee_model->get_reports();
+        $data['main_content'] = 'hr/employee/reports';
+        $this->load->view('inc/navbar', $data);
+    }
 }

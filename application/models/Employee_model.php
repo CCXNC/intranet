@@ -1251,5 +1251,67 @@ class Employee_model extends CI_Model {
 		return $trans;
 	}
 
-	
+	public function get_reports()
+	{
+		$this->db->select("
+			employees.id as id,
+            employees.employee_number as emp_no,
+            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
+			employees.birthday as birthday,
+			employees.age as age,
+			employees.gender as gender,
+			employees.marital_status as marital_status,
+			employees.contact_number as contact_number,
+			employees.email_address as email_address,
+			employees.emergency_contact_name as emergency_contact_name,
+			employees.emergency_contact_number as emergency_contact_number,
+			employees.emergency_contact_relationship as emergency_contact_relationship,
+			employees.address as address,
+			employees.sss_number as sss_number,
+			employees.tin_number as tin_number,
+			employees.pagibig_number as pagibig_number,
+			employees.philhealth_number as philhealth_number,
+
+            employment_info.date_hired as date_hired,
+			employment_info.position as position,
+            employee_status.name as employee_status,
+            employment_info.position as position,
+			employment_info.immediate_superior as superior,
+			rank.name as rank,
+			work_group.name as work_group,
+            company.code as company,
+            department.name as department,
+
+			parents_info.father_name as father_name,
+			parents_info.mother_name as mother_name,
+
+			spouse_info.name as sps_name,
+			spouse_info.birthday as sps_bday,
+			spouse_info.age as sps_age,
+			spouse_info.occupation as sps_occupation,
+			spouse_info.employer as sps_employer,
+
+			academe_info.school as school,
+			academe_info.year_graduated as year_graduated,
+			academe_info.course as course,
+			academe_info.license as license
+
+		");
+		$this->db->from('employees');
+        $this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number', 'left');
+        $this->db->join('employee_status', 'employment_info.employee_status = employee_status.id', 'left');
+		$this->db->join('rank', 'employment_info.rank = rank.id', 'left');
+		$this->db->join('work_group', 'employment_info.work_group = work_group.id', 'left');
+        $this->db->join('company', 'employment_info.company = company.id', 'left');
+        $this->db->join('department', 'employment_info.department = department.id', 'left');
+		$this->db->join('parents_info', 'parents_info.employee_number = employees.employee_number', 'left');
+		$this->db->join('spouse_info', 'spouse_info.employee_number = employees.employee_number', 'left');
+		$this->db->join('academe_info', 'academe_info.employee_number = employees.employee_number', 'left');
+        $this->db->order_by('employees.last_name', 'ASC');
+        $this->db->where('employees.is_active', 1);
+		
+		$query = $this->db->get();
+
+		return $query->result();
+	}
 }
