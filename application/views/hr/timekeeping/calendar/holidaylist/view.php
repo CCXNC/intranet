@@ -97,14 +97,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Start Date</label>
+                            <label>Date</label>
                             <input class="form-control" name="start" value="<?php echo $calendar->start; ?>" readonly></input>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>End Date</label>
-                            <input class="form-control" name="end" value="<?php echo $calendar->end; ?>" readonly></input>
                         </div>
                     </div>
                 </div>

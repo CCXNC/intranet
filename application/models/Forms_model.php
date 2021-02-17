@@ -40,6 +40,7 @@ class Forms_model extends CI_Model {
     {
 		
 		$blaine_forms = $this->load->database('blaine_forms', TRUE); 
+		$blaine_forms->where('is_active', 1);
         $query = $blaine_forms->get('forms');
 
         return $query->result();
@@ -108,6 +109,37 @@ class Forms_model extends CI_Model {
 		$activity_data = array(
 			'username'   => $this->session->userdata('username'),
 			'pcname'     => $_SERVER['REMOTE_ADDR'],
+			'entry_data' => $entry_data,
+			'entry_date' => $date
+		);
+		$activity_log->insert('forms_logs', $activity_data);
+
+		$trans = $this->db->trans_complete();
+		return $trans;
+	}
+
+	public function delete_form($id)
+	{
+		$this->db->trans_start();
+		
+		$date = date('Y-m-d H:i:s');
+		$data = array(
+			'is_active' => 0
+		);
+
+		// CONNECTION TO BLAINE FORMS DATABASE.
+		$blaine_forms = $this->load->database('blaine_forms', TRUE); 
+		$blaine_forms->where('id', $id);
+		$blaine_forms->update('forms', $data);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+
+		$entry_data = "delete_forms [entry_id:" . $id . "]";
+
+		$activity_data = array(
+			'username'   => $this->session->userdata('username'),
+			'pcname'     => gethostname(),
 			'entry_data' => $entry_data,
 			'entry_date' => $date
 		);

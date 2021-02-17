@@ -9,14 +9,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Start Date</label>
+                                <label>Date</label>
                                 <input type="date" class="form-control" name="start" value="<?php echo date('Y-m-d', strtotime($calendar->start)); ?>" required><br>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>End Date</label>
-                                <input type="date" class="form-control" name="end" value="<?php echo date('Y-m-d', strtotime($calendar->end)); ?>" required><br>
                             </div>
                         </div>
                     </div>

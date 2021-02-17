@@ -32,7 +32,7 @@
                     <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->date)); ?></td>
                     <td data-label="Action">
                         <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" class="btn btn-info " style="margin-right:10px; width: 100%">EDIT</a>
-                        <a href="#" class="btn btn-danger " style="margin-right:10px; width: 100%">DELETE</a>
+                        <a href="<?php echo base_url(); ?>forms/delete_form/<?php echo $attachment->id; ?>" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-danger " style="margin-right:10px; width: 100%">DELETE</a>
                     </td>
                 <?php endif; ?>    
             </tr>        
