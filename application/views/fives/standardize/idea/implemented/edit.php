@@ -7,6 +7,7 @@
                 <div class="card-header" style="background-color:#1C4670; color:white;">My Idea</div>
                 <div class="card-body">
                     <div class="row">
+                        <input type="text" name="control_number" value="<?php echo $idea->control_number; ?>" hidden>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Current</label>

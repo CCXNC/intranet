@@ -446,6 +446,7 @@ class Fives_model extends CI_Model {
 
 	public function update_implemented_idea($id)
 	{
+		$control_number = $this->input->post('control_number');
 		$before = $this->input->post('current');
 		$after = $this->input->post('proposal');
 		$impact = $this->input->post('impact');
@@ -469,6 +470,15 @@ class Fives_model extends CI_Model {
 			$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
 			$blaine_five_s->where('id', $id);
 			$query = $blaine_five_s->update('implemented_idea', $data);
+
+			$data = array(
+				'file' => $attach1
+			);
+
+			$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
+			$blaine_five_s->where('idea_attachment.control_number', $control_number);
+			$blaine_five_s->where('idea_attachment.status', "Implemented");
+			$query = $blaine_five_s->update('idea_attachment', $data);
 		}
 		else
 		{
