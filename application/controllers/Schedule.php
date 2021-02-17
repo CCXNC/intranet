@@ -25,7 +25,6 @@ class Schedule extends CI_Controller {
     public function add_schedule()
     {
         $this->form_validation->set_rules('employee_number', 'Employee Number', 'trim|required');
-        $this->form_validation->set_rules('employee_number', 'Employee Number', 'trim|required');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -63,6 +62,57 @@ class Schedule extends CI_Controller {
                 redirect('schedule/index');
             }
         }
+    }
+
+    public function edit_schedule($id)
+    {
+        $this->form_validation->set_rules('time_in', 'Time In', 'trim|required');
+        $this->form_validation->set_rules('time_out', 'Time Out', 'trim|required');
+        $this->form_validation->set_rules('grace_period', 'Grace Period', 'trim|required');
+        $this->form_validation->set_rules('effective_date', 'Effective Date', 'trim|required');
+
+        if($this->form_validation->run() ==  FALSE)
+        {
+            $data['schedule'] = $this->schedule_model->get_employee_schedule($id);
+            $data['main_content'] = 'hr/timekeeping/schedule/edit';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->schedule_model->update_employee_schedule($id))
+            {
+                $this->session->set_flashdata('success_msg','EMPLOYEE SCHEDULE SUCCESSFULLY UPDATED!');
+                redirect('schedule/index');
+            }
+        }
+    }
+
+    public function edit_biometric($employee_number)
+    {
+        $this->form_validation->set_rules('biometric_id', 'Biometric ID', 'trim|required');
+
+        if($this->form_validation->run() ==  FALSE)
+        {
+            $data['bio'] = $this->schedule_model->get_employee_biometric($employee_number);
+            $data['main_content'] = 'hr/timekeeping/schedule/edit_biometric';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->schedule_model->update_employee_biometric($employee_number))
+            {
+                $this->session->set_flashdata('success_msg','EMPLOYEE BIOMETRIC SUCCESSFULLY UPDATED!');
+                redirect('schedule/index');
+            }
+        }
+       
+    }
+
+    public function view_schedule($id)
+    {
+        $data['schedule'] = $this->schedule_model->get_employee_schedule($id);
+        $data['main_content'] = 'hr/timekeeping/schedule/view';
+        $this->load->view('inc/navbar', $data);
     }
 
 }    
