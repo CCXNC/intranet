@@ -88,18 +88,12 @@ class Calendar extends CI_Controller {
     {
         // Our Start and End Dates
         $start = $this->input->get('start');
-        $end = $this->input->get('end');
 
         $startdt = new DateTime('now'); // setup a local datetime
         $startdt->setTimestamp($start); // Set the date based on timestamp
         $format = $startdt->format('Y-m-d'); //$created_date = date('Y-m-d H:i:s');
 
-        $enddt = new DateTime('now'); // setup a local datetime
-        $enddt->setTimestamp($end); // Set the date based on timestamp
-        $format2 = $enddt->format('Y-m-d');
-
-        $events = $this->calendar_model->get_events($format, 
-            $format2);
+        $events = $this->calendar_model->get_events($format);
 
         $data_events = array();
 
@@ -108,9 +102,9 @@ class Calendar extends CI_Controller {
             $data_events[] = array(
                 "id"            => $r->id,
                 "type"          => $r->type,
-                "description"   => $r->description,
-                "end"           => $r->end,
-                "start"         => $r->start
+                "description"   => $r->description, //change description to title to print in calendar
+                "start"         => $r->start,
+                "title"         => $r->description
             );
         }
 
@@ -124,7 +118,6 @@ class Calendar extends CI_Controller {
         $name = $this->input->post("name");
         $desc = $this->input->post("description");
         $start_date = $this->input->post("start_date");
-        $end_date = $this->input->post("end_date");
 
         $created_date = date('Y-m-d H:i:s');
 
@@ -150,7 +143,6 @@ class Calendar extends CI_Controller {
             "type"          => $name,
             "description"   => $desc,
             "start"         => $start_date,
-            "end"           => $end_date,
             'created_date'  => $created_date,
             'created_by'    => $this->session->userdata('username')
             )
@@ -174,7 +166,6 @@ class Calendar extends CI_Controller {
         $name = $this->input->post("name");
         $desc = $this->input->post("description");
         $start_date = $this->input->post("start_date");
-        $end_date = $this->input->post("end_date");
         $delete = intval($this->input->post("delete"));
 
         //$stdate = date('Y-m-d\TH:i:s', strtotime($start_date));
@@ -208,7 +199,6 @@ class Calendar extends CI_Controller {
                 "type"          => $name,
                 "description"   => $desc,
                 "start"         => $start_date,
-                "end"           => $end_date,
                 'updated_date'  => $updated_date,
                 'updated_by'    => $this->session->userdata('username')
                 )

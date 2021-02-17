@@ -58,15 +58,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="p-in" class="col-md-4 label-heading">Start Date</label>
+                            <label for="p-in" class="col-md-4 label-heading">Date</label>
                             <div class="col-md-8">
                                 <input type="date" class="form-control" name="start_date">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="p-in" class="col-md-4 label-heading">End Date</label>
-                            <div class="col-md-8">
-                                <input type="date" class="form-control" name="end_date">
                             </div>
                         </div>
                     </div>
@@ -107,15 +101,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="p-in" class="col-md-4 label-heading">Start Date</label>
+                            <label for="p-in" class="col-md-4 label-heading">Date</label>
                             <div class="col-md-8">
-                                <input type="date" class="form-control" name="start_date" id="start_date">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="p-in" class="col-md-4 label-heading">End Date</label>
-                            <div class="col-md-8">
-                                <input type="date" class="form-control" name="end_date" id="end_date">
+                                <input type="text" class="form-control" name="start_date" id="start_date">
                             </div>
                         </div>
                         <div class="form-group">
@@ -146,8 +134,7 @@
                                     dataType: 'json',
                                     data: {
                                         // our hypothetical feed requires UNIX timestamps
-                                        start: start.unix(),
-                                        end: end.unix()
+                                        start: start.unix()
                                     },
                                     success: function(msg) {
                                         var events = msg.events;
@@ -165,12 +152,7 @@
                     eventClick: function(event, jsEvent, view) {
                         $('#name').val(event.type);
                         $('#description').val(event.description);
-                        $('#start_date').val(moment(event.start).format('Y-m-d'));
-                        if(event.end) {
-                            $('#end_date').val(moment(event.end).format('Y-m-d'));
-                        } else {
-                            $('#end_date').val(moment(event.end).format('Y-m-d'));
-                        }
+                        $('#start_date').val(moment(event.start).format('YYYY-MM-DD'));
                         $('#event_id').val(event.id);
                         $('#editModal').modal();
                     },

@@ -16,8 +16,7 @@ class Calendar_model extends CI_Model {
             holiday_calendar.id as id,
             holiday_calendar.type as type,
             holiday_calendar.description as description,
-            holiday_calendar.start as start,
-            holiday_calendar.end as end
+            holiday_calendar.start as start
         ");
 
         $blaine_timekeeping->from('holiday_calendar');
@@ -33,7 +32,6 @@ class Calendar_model extends CI_Model {
 
         //HOLIDAY INPUT
         $start = $this->input->post('start');
-        $end = $this->input->post('end');
         $type = $this->input->post('type');
         $description = $this->input->post('description');
 
@@ -41,7 +39,6 @@ class Calendar_model extends CI_Model {
 
         $data_calendar = array(
             'start'         => $start,
-            'end'           => $end,
             'type'          => $type,
             'description'   => $description,
             'created_date'  => $created_date,
@@ -75,7 +72,6 @@ class Calendar_model extends CI_Model {
         $this->db->trans_start();
 
         $start = $this->input->post('start');
-        $end = $this->input->post('end');
         $type = $this->input->post('type');
         $description = $this->input->post('description');
 
@@ -83,7 +79,6 @@ class Calendar_model extends CI_Model {
 
         $data_calendar = array(
             'start'         => $start,
-            'end'           => $end,
             'type'          => $type,
             'description'   => $description,
             'updated_date'  => $updated_date,
@@ -111,12 +106,9 @@ class Calendar_model extends CI_Model {
 
     }
 
-    public function get_events($start, $end) 
+    public function get_events() 
     {
-        return $this->db
-            ->where("blaine_timekeeping.holiday_calendar.start >=", $start)
-            ->where("blaine_timekeeping.holiday_calendar.end <=", $end)
-            ->get("blaine_timekeeping.holiday_calendar");
+        return $this->db->get("blaine_timekeeping.holiday_calendar");
     }
 
     public function add_event($data) 

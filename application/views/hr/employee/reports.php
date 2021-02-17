@@ -6,111 +6,111 @@
 <b>Filter Column: </b>
 <div class="row">
     <div class="col-md-4">
-        <input id="empno" class="toggle-vis" type="checkbox" checked data-column="0">
+        <input id="empno" class="toggle-vis" type="checkbox"   data-column="0">
         <label for="empno">Employee Number</label>
         <br>
-        <input id="fname" class="toggle-vis" type="checkbox" checked data-column="1">
+        <input id="fname" class="toggle-vis" type="checkbox"   data-column="1">
         <label for="fname">Full Name</label>
         <br>
-        <input id="bday" class="toggle-vis" type="checkbox" data-column="2" checked>
+        <input id="bday" class="toggle-vis" type="checkbox" data-column="2"  >
         <label for="bday">Birthday</label>
         <br>
-        <input id="age" class="toggle-vis" type="checkbox" data-column="3" checked>
+        <input id="age" class="toggle-vis" type="checkbox" data-column="3"  >
         <label for="age">Age</label>
         <br>
-        <input id="gender" class="toggle-vis" type="checkbox" data-column="4" checked>
+        <input id="gender" class="toggle-vis" type="checkbox" data-column="4"  >
         <label for="gender">Gender</label>
         <br>
-        <input id="mstatus" class="toggle-vis" type="checkbox" data-column="5" checked>
+        <input id="mstatus" class="toggle-vis" type="checkbox" data-column="5"  >
         <label for="mstatus">Marital Status</label>
         <br>
-        <input id="cnumber" class="toggle-vis" type="checkbox" data-column="6" checked>
+        <input id="cnumber" class="toggle-vis" type="checkbox" data-column="6"  >
         <label for="cnumber">Contact Number</label>
         <br>
-        <input id="eadd" class="toggle-vis" type="checkbox" data-column="7" checked>
+        <input id="eadd" class="toggle-vis" type="checkbox" data-column="7"  >
         <label for="eadd">Email Address</label>
         <br>
-        <input id="ecname" class="toggle-vis" type="checkbox" data-column="8" checked>
+        <input id="ecname" class="toggle-vis" type="checkbox" data-column="8"  >
         <label for="ecname">Emergency Contact Name</label>
         <br>
-        <input id="ecnumber" class="toggle-vis" type="checkbox" data-column="9" checked>
+        <input id="ecnumber" class="toggle-vis" type="checkbox" data-column="9"  >
         <label for="ecnumber">Emergency Contact Number</label>
         <br>
-        <input id="ecrel" class="toggle-vis" type="checkbox" data-column="10" checked>
+        <input id="ecrel" class="toggle-vis" type="checkbox" data-column="10"  >
         <label for="ecrel">Emergency Contact Relationship</label>
         <br>
-        <input id="add" class="toggle-vis" type="checkbox" data-column="11" checked>
+        <input id="add" class="toggle-vis" type="checkbox" data-column="11"  >
         <label for="add">Address</label>
     </div>
     <div class="col-md-4">
-        <input id="sss" class="toggle-vis" type="checkbox" data-column="12" checked>
+        <input id="sss" class="toggle-vis" type="checkbox" data-column="12"  >
         <label for="sss">SSS</label>
         <br>
-        <input id="tin" class="toggle-vis" type="checkbox" data-column="13" checked>
+        <input id="tin" class="toggle-vis" type="checkbox" data-column="13"  >
         <label for="tin">TIN</label>
         <br>
-        <input id="pagibig" class="toggle-vis" type="checkbox" data-column="14" checked>
+        <input id="pagibig" class="toggle-vis" type="checkbox" data-column="14"  >
         <label for="pagibig">Pagibig</label>
         <br>
-        <input id="philhealth" class="toggle-vis" type="checkbox" data-column="15" checked>
+        <input id="philhealth" class="toggle-vis" type="checkbox" data-column="15"  >
         <label for="philhealth">Philhealth</label>
         <br>
-        <input id="datehired" class="toggle-vis" type="checkbox" data-column="16" checked>
+        <input id="datehired" class="toggle-vis" type="checkbox" data-column="16"  >
         <label for="datehired">Date Hired</label>
         <br>
-        <input id="businessunit" class="toggle-vis" type="checkbox" data-column="17" checked>
+        <input id="businessunit" class="toggle-vis" type="checkbox" data-column="17"  >
         <label for="businessunit">Business Unit</label>
         <br>
-        <input id="position" class="toggle-vis" type="checkbox" data-column="18" checked>
+        <input id="position" class="toggle-vis" type="checkbox" data-column="18"  >
         <label for="position">Position</label>
         <br>
-        <input id="rank" class="toggle-vis" type="checkbox" data-column="19" checked>
+        <input id="rank" class="toggle-vis" type="checkbox" data-column="19"  >
         <label for="rank">Rank</label>
         <br>
-        <input id="department" class="toggle-vis" type="checkbox" data-column="20" checked>
+        <input id="department" class="toggle-vis" type="checkbox" data-column="20"  >
         <label for="department">Department</label>
         <br>
-        <input id="workgroup" class="toggle-vis" type="checkbox" data-column="21" checked>
+        <input id="workgroup" class="toggle-vis" type="checkbox" data-column="21"  >
         <label for="workgroup">Work Group</label>
         <br>
-        <input id="superior" class="toggle-vis" type="checkbox" data-column="22" checked>
+        <input id="superior" class="toggle-vis" type="checkbox" data-column="22"  >
         <label for="superior">Superior</label>
         <br>
-        <input id="employeestatus" class="toggle-vis" type="checkbox" data-column="23" checked>
+        <input id="employeestatus" class="toggle-vis" type="checkbox" data-column="23"  >
         <label for="employeestatus">Employee Status</label>
     </div>
     <div class="col-md-4">
-        <input id="fathername" class="toggle-vis" type="checkbox" data-column="24" checked>
+        <input id="fathername" class="toggle-vis" type="checkbox" data-column="24"  >
         <label for="fathername">Father Name</label>
         <br>
-        <input id="mothername" class="toggle-vis" type="checkbox" data-column="25" checked>
+        <input id="mothername" class="toggle-vis" type="checkbox" data-column="25"  >
         <label for="mothername">Mother Name</label>
         <br>
-        <input id="spousename" class="toggle-vis" type="checkbox" data-column="26" checked>
+        <input id="spousename" class="toggle-vis" type="checkbox" data-column="26"  >
         <label for="spousename">Spouse Name</label>
         <br>
-        <input id="spousebirthday" class="toggle-vis" type="checkbox" data-column="27" checked>
+        <input id="spousebirthday" class="toggle-vis" type="checkbox" data-column="27"  >
         <label for="spousebirthday">Spouse Birthday</label>
         <br>
-        <input id="spouseage" class="toggle-vis" type="checkbox" data-column="28" checked>
+        <input id="spouseage" class="toggle-vis" type="checkbox" data-column="28"  >
         <label for="spouseage">Spouse Age</label>
         <br>
-        <input id="spouseoccupation" class="toggle-vis" type="checkbox" data-column="29" checked>
+        <input id="spouseoccupation" class="toggle-vis" type="checkbox" data-column="29"  >
         <label for="spouseoccupation">Spouse Occupation</label>
         <br>
-        <input id="spousemployer" class="toggle-vis" type="checkbox" data-column="30" checked>
+        <input id="spousemployer" class="toggle-vis" type="checkbox" data-column="30"  >
         <label for="spouseemployer">Spouse Employer</label>
         <br>
-        <input id="school" class="toggle-vis" type="checkbox" data-column="31" checked>
+        <input id="school" class="toggle-vis" type="checkbox" data-column="31"  >
         <label for="school">School</label>
         <br>
-        <input id="year_graduated" class="toggle-vis" type="checkbox" data-column="32" checked>
+        <input id="year_graduated" class="toggle-vis" type="checkbox" data-column="32"  >
         <label for="year_graduated">Year Graduated</label>
         <br>
-        <input id="course" class="toggle-vis" type="checkbox" data-column="33" checked>
+        <input id="course" class="toggle-vis" type="checkbox" data-column="33"  >
         <label for="course">Course</label>
         <br>
-        <input id="license" class="toggle-vis" type="checkbox" data-column="34" checked>
+        <input id="license" class="toggle-vis" type="checkbox" data-column="34"  >
         <label for="license">License</label>
     </div>
 </div>
@@ -118,49 +118,48 @@
 
 
 
-<table id="employee">
-  <thead>
-    <tr>
-        <th>Employee Number</th>
-        <th>Full Name</th>
-        <th>Birthday</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Marital Status</th>
-        <th>Contact Number</th>
-        <th>Email Address</th>
-        <th>Emergency Contact Name</th>
-        <th>Emergency Contact Number</th>
-        <th>Emergency Contact Relationship</th>
-        <th>Address</th>
-        <th>SSS</th>
-        <th>TIN</th>
-        <th>Pagibig</th>
-        <th>Philhealth</th>
-        <th>Date Hired</th>
-        <th>Business Unit</th>
-        <th>Position</th>
-        <th>Rank</th>  
-        <th>Department</th>
-        <th>Work Group</th>
-        <th>Superior</th>
-        <th>Employee Status</th>
-        <th>Father Name</th>
-        <th>Mother Name</th>
-        <th>Spouse Name</th>
-        <th>Spouse Birthday</th>
-        <th>Spouse Age</th>
-        <th>Spouse Occupation</th>
-        <th>Spouse Employer</th>
-        <th>School</th>
-        <th>Year Graduated</th>
-        <th>Course</th>
-        <th>License</th>
-    </tr>
-    
-  </thead>
-  <tbody>
-  <?php if($employees) : ?> 
+<table id="employee" width="100%">
+    <thead>
+        <tr>
+            <th>Employee Number</th>
+            <th>Full Name</th>
+            <th>Birthday</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Marital Status</th>
+            <th>Contact Number</th>
+            <th>Email Address</th>
+            <th>Emergency Contact Name</th>
+            <th>Emergency Contact Number</th>
+            <th>Emergency Contact Relationship</th>
+            <th>Address</th>
+            <th>SSS</th>
+            <th>TIN</th>
+            <th>Pagibig</th>
+            <th>Philhealth</th>
+            <th>Date Hired</th>
+            <th>Business Unit</th>
+            <th>Position</th>
+            <th>Rank</th>  
+            <th>Department</th>
+            <th>Work Group</th>
+            <th>Superior</th>
+            <th>Employee Status</th>
+            <th>Father Name</th>
+            <th>Mother Name</th>
+            <th>Spouse Name</th>
+            <th>Spouse Birthday</th>
+            <th>Spouse Age</th>
+            <th>Spouse Occupation</th>
+            <th>Spouse Employer</th>
+            <th>School</th>
+            <th>Year Graduated</th>
+            <th>Course</th>
+            <th>License</th>
+        </tr>  
+    </thead>
+    <tbody>
+        <?php if($employees) : ?> 
             <?php foreach($employees as $employee) : ?>
                 <tr>
                     <td><?php echo $employee->emp_no?></td>
@@ -207,7 +206,7 @@
 <script>
     $(document).ready(function() {
         var employee = $('#employee').DataTable({
-            //"scrollY": "200px",
+            "scrollX": true,
             dom: 'Brtip',
             buttons: [
                 {
@@ -225,6 +224,19 @@
                     exportOptions: {
                         columns: ':visible'
                     }
+                },
+                {
+                    extend: 'colvisGroup',
+                    text: 'Hide All',
+                    hide: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
+                            11, 12, 13, 14, 15, 16, 17, 18, 19, 
+                            20, 21, 22, 23, 24, 25, 26, 27, 28,
+                            29, 30, 31, 32, 33, 34 ]
+                },
+                {
+                    extend: 'colvisGroup',
+                    text: 'Show All',
+                    show: ':hidden'
                 }
             ],
             columns: [
