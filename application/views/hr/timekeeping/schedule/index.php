@@ -36,9 +36,11 @@
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>schedule/view_schedule/<?php echo $schedule->id; ?>">View</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Edit Biometric</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>schedule/edit_schedule/<?php echo $schedule->id; ?>">Edit Schedule</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>schedule/edit_biometric/<?php echo $schedule->employee_number; ?>">Edit Biometric</a>
                             </div>
                         </div>
                     </td>
