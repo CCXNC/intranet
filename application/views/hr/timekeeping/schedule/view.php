@@ -18,7 +18,6 @@
                             <th scope="col">DAYS</th>
                             <th scope="col">TIME</th>
                             <th scope="col">GRACE PERIOD</th>
-                            
                         </tr>
                     </thead>
                     <tbody>
