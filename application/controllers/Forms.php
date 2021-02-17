@@ -113,6 +113,15 @@ class Forms extends CI_Controller {
         }
       
     }
+
+    public function delete_form($id)
+    {
+        if($this->forms_model->delete_form($id))
+        {
+            $this->session->set_flashdata('error_msg', 'Blaine Form Successfully Deleted!');
+                redirect('forms/index');
+        }
+    }
     public function download_attachment($attachment_file)
 	{
 		$this->load->helper('download');

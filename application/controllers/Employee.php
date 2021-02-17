@@ -274,9 +274,9 @@ class Employee extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function delete_all_information($id,$parent_id,$spouse_id,$employment_id,$employee_number) 
+    public function delete_all_information($id,$employee_number) 
     {
-        if($this->employee_model->delete_all_information($id,$parent_id,$spouse_id,$employment_id,$employee_number))
+        if($this->employee_model->delete_all_information($id,$employee_number))
         {
             $this->session->set_flashdata('error_msg', 'Employee Successfully Deleted!');
             redirect('employee/index');

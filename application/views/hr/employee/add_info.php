@@ -43,23 +43,30 @@
                     <div class="card-body">
                         <input type="text" class="form-control" name="employee_number" value="<?php echo $employee->emp_no; ?>" hidden>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="spouse_full_name" placeholder="Full Name">
+                                    <label>Fullname</label>    
+                                    <input type="text" class="form-control" name="spouse_full_name">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Birthdate</label>
                                     <input type="date" class="form-control"  name="spouse_birthday">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Occupation</label>
                                     <input type="text" class="form-control"  name="occupation">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Employer</label>
+                                    <input type="text" class="form-control"  name="employer">
                                 </div>
                             </div>
                         </div> 
