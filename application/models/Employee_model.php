@@ -975,6 +975,7 @@ class Employee_model extends CI_Model {
 		$spouse_birthday = $this->input->post('spouse_birthday');
 		//$spouse_age = $this->input->post('spouse_age');
 		$occupation = $this->input->post('occupation');
+		$employer = $this->input->post('employer');
 		//CHILDREN INPUT
 		$children_birthday   = $this->input->post('children_birthday');
 		//$children_age        = $this->input->post('children_age');
@@ -1003,6 +1004,7 @@ class Employee_model extends CI_Model {
 				'birthday'        => $spouse_birthday,
 				'age'             => $ageSpouse,
 				'occupation'      => $occupation,
+				'employer'        => $employer,
 				'created_date'    => $date,
 				'created_by'      => $this->session->userdata('username')
 			);
@@ -1118,47 +1120,39 @@ class Employee_model extends CI_Model {
 		$query = $this->db->get();
 
 		return $query->result();
-	}
+	} 
 
-	public function delete_all_information($id,$parent_id,$spouse_id,$employment_id,$employee_number)
+	public function delete_all_information($id,$employee_number)
 	{
-		/*$id = $this->input->post('id');
-		$parent_id = $this->input->post('parent_id');
-		$spouse_id = $this->input->post('spouse_id');
-		$employment_id = $this->input->post('employment_id');
-		$employee_number = $this->input->post('emp_no');*/
-	
-
-		/*$data = array(
-			'id'  => $id,
-			'parent_id' => $parent_id,
-			'spouse_id' => $spouse_id,
-			'employment_id' => $employment_id,
-			'employee_number' => $employee_number
-		);
-
-		print_r('<pre>');
-		print_r($data);
-		print_r('</pre>');*/
-
-
 		$this->db->trans_start();
 		
 		$this->db->where('id', $id);
 		$this->db->where('employee_number', $employee_number);
 		$this->db->delete('employees');
 
-		$this->db->where('id', $parent_id);
+		//$this->db->where('id', $parent_id);
 		$this->db->where('employee_number', $employee_number);
 		$this->db->delete('parents_info');
 
-		$this->db->where('id', $spouse_id);
+		//$this->db->where('id', $spouse_id);
 		$this->db->where('employee_number', $employee_number);
 		$this->db->delete('spouse_info');
 
-		$this->db->where('id', $employment_id);
+		//$this->db->where('id', $employment_id);
 		$this->db->where('employee_number', $employee_number);
 		$this->db->delete('employment_info');
+
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('children_info');
+
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('academe_info');
+
+		$this->db->where('blaine_timekeeping.employee_biometric.employee_number', $employee_number);
+		$this->db->delete('blaine_timekeeping.employee_biometric');
+
+		$this->db->where('blaine_timekeeping.schedules.employee_number', $employee_number);
+		$this->db->delete('blaine_timekeeping.schedules');
 
 		$trans = $this->db->trans_complete();
 		return $trans;

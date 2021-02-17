@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
-        <form method="post"action="<?php echo base_url(); ?>employee/delete_all_information/<?php echo $employee->id; ?>/<?php echo $employee->parent_id; ?>/<?php echo $employee->spouse_id; ?>/<?php echo $employee->employment_id; ?>/<?php echo $employee->emp_no; ?>">
+        <form method="post"action="<?php echo base_url(); ?>employee/delete_all_information/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">
             <!-- Personal Information -->
             <div class="card">
                 <div class="card-header">Personal Information<input type="submit" class="btn btn-danger float-right" onclick="return confirm('Do you want to Delete Personal Information?');" value="Delete all Information" ></div>
@@ -26,7 +26,7 @@
                                 <div class="form-control"><?php echo $employee->emp_no; ?></div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4"> 
                             <div class="form-group">
                                 <label>FullName</label>
                             
