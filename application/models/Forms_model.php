@@ -7,7 +7,6 @@ class Forms_model extends CI_Model {
 	{
 		$this->db->trans_start();
 		$attachment_name = strtoupper($this->input->post('attachment1'));
-		//$attachment_name = $this->input->post('attachment1');
         $category = $this->input->post('category');
         
 		$attachment1 = $_FILES['data1']['name'];
@@ -62,7 +61,6 @@ class Forms_model extends CI_Model {
 		$this->db->trans_start();
 		
 		$attachment_name = strtoupper($this->input->post('attachment1'));
-		//$attachment_name = $this->input->post('attachment1');
         $category = $this->input->post('category');
         
 		$attachment1 = $_FILES['data1']['name'];

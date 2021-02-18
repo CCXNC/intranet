@@ -775,6 +775,13 @@
                                         </ul>
                                     </div>
                                 </li>
+
+                                <li class="sidebar">
+                                    <a href="<?php echo base_url(); ?>feedback/index">
+                                        <i class="fa fa-clipboard"></i>
+                                        <span>Feedback Form</span>
+                                    </a>
+                                </li>
                             <!--<li>
                                 <a href="#">
                                 <i class="fas fa-book"></i>

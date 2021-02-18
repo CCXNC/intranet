@@ -28,7 +28,7 @@
                 <td data-label="Name"><?php echo $attachment->name;  ?></td>
                 <td data-label="Attachment"><a href="<?php echo base_url(); ?>forms/download_attachment/<?php echo $attachment->attachment; ?>"><?php echo $attachment->attachment; ?></a></td></td>
                 <td data-label="Category"><?php echo $attachment->category;  ?></td>               
-                <?php if($this->session->userdata('access_level_id') == 1) : ?>
+                <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 10 || $this->session->userdata('department_id') == 25) : ?>
                     <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->date)); ?></td>
                     <td data-label="Action">
                         <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" class="btn btn-info " style="margin-right:10px; width: 100%">EDIT</a>

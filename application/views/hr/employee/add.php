@@ -55,19 +55,19 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>*First Name</label>
-                                <input type="text" class="form-control" name="first_name">
+                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Middle Name</label>
-                                <input type="text" class="form-control"  name="middle_name">
+                                <input type="text" class="form-control"  name="middle_name" style="text-transform:uppercase">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>*Last Name</label>
-                                <input type="text" class="form-control"  name="last_name">
+                                <input type="text" class="form-control"  name="last_name" style="text-transform:uppercase">
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Nickname</label>
-                                <input type="text" class="form-control"  name="nickname">
+                                <input type="text" class="form-control"  name="nickname" style="text-transform:uppercase">
                             </div>
                         </div>
                         <div class="col-md-3">
