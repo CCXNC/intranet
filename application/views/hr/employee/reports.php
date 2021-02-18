@@ -1,3 +1,41 @@
+<style>
+input[type="checkbox"]{
+    -webkit-appearance: initial;
+    appearance: initial;
+    background: white;
+    width: 12px;
+    height: 12px;
+    border: solid black 1px;
+    position: relative;
+}
+input[type="checkbox"]:checked {
+    background: red;
+}
+input[type="checkbox"]:checked:after {
+    /* Heres your symbol replacement */
+    content: "X";
+    color: white;
+    /* The following positions my tick in the center, 
+     * but you could just overlay the entire box
+     * with a full after element with a background if you want to */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    /*
+     * If you want to fully change the check appearance, use the following:
+     * content: " ";
+     * width: 100%;
+     * height: 100%;
+     * background: blue;
+     * top: 0;
+     * left: 0;
+     */
+}
+</style>
 <div class="card-header"><h4>EMPLOYEE LIST REPORTS
     <a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
     </h4> 
@@ -206,7 +244,14 @@
 <script>
     $(document).ready(function() {
         var employee = $('#employee').DataTable({
-            "scrollX": true,
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('table.display', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('table.display'));
+            },
+            //"scrollX": true,
             dom: 'Brtip',
             buttons: [
                 {

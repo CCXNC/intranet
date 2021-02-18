@@ -11,7 +11,7 @@
     </h4> 
 </div>
 <br>
-<table id="" class="display" style="width:100%">
+<table id="" class="display" width="100%">
     <thead>
         <tr style="">
             <th scope="col">Date</th>
@@ -49,6 +49,14 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('table.display', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('table.display'));
+            },
+           // "scrollX": true,
             dom: 'Blfrtip',
             buttons: [
                 {

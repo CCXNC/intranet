@@ -154,13 +154,12 @@
                                                             Click here to view  
                                                         <a href="#" data-target="#carouselExample" data-slide-to="0">(Terms and Conditions)</a>
                                                         </div>    
-                                                        
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="group">
-                                                <br>
                                                 <input type="submit" class="button" value="Sign In">
+                                                <label for="" style="font-size: 12px; color: white"><i>Note: Please submit a ticket for reset password</i></label>
                                             </div>
                                         </div>
                                     </div>
