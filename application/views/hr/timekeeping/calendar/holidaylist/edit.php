@@ -22,7 +22,6 @@
                                     <option value="">Select Type</option>
                                     <option value="Special Holiday"<?php echo $calendar->type == 'Special Holiday' ? 'selected' : ''; ?>>Special Holiday</option>
                                     <option value="Legal Holiday"<?php echo $calendar->type == 'Legal Holiday' ? 'selected' : ''; ?>>Legal Holiday</option>
-                                    <option value="Economic Holiday"<?php echo $calendar->type == 'Economic Holiday' ? 'selected' : ''; ?>>Economic Holiday</option>
                                 </select>
                             </div>
                         </div>

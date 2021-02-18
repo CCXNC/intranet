@@ -14,8 +14,8 @@
         <tr style="background-color:#D4F1F4;">
             <th scope="col">Control No.</th>
             <th scope="col">Date</th>
-            <th scope="col">Submitted By</th>
-            <th scope="col">Proposed By</th>
+            <th scope="col">Encoded By</th>
+            <th scope="col">Idea Owner</th>
             <th scope="col">Before</th>
             <th scope="col">After</th>
             <th scope="col">Impact</th>
@@ -54,7 +54,14 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
-            "scrollX": true,
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('table.display', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('table.display'));
+            },
+            //"scrollX": true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
             buttons: [

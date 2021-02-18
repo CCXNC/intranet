@@ -98,13 +98,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Current</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->current; ?></textarea>
+                            <textarea readonly class="form-control" name="content" rows="4" cols="50"><?php echo $idea->current; ?></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Proposal</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->proposal; ?></textarea>
+                            <textarea readonly class="form-control" name="content" rows="4" cols="50"><?php echo $idea->proposal; ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -162,13 +162,13 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Submitted By</label>
+                            <label>Encoded By</label>
                             <div class="form-control"><?php echo $idea->submit_by; ?></div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Propose By</label>
+                            <label>Idea Owner</label>
                             <div class="form-control"><?php echo $idea->propose_by; ?></div>
                         </div>
                     </div>

@@ -22,7 +22,6 @@
                                     <option value="">Select Type</option>
                                     <option value="Special Holiday">Special Holiday</option>
                                     <option value="Legal Holiday">Legal Holiday</option>
-                                    <option value="Economic Holiday">Economic Holiday</option>
                                 </select>
                             </div>
                         </div>

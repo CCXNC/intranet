@@ -124,10 +124,18 @@ class Forms extends CI_Controller {
     }
     public function download_attachment($attachment_file)
 	{
-		$this->load->helper('download');
+    	$this->load->helper('download');
 		$data = file_get_contents('uploads/blaine_forms/'.$this->uri->segment(3)); // Read the file's contents
 		$name = $this->uri->segment(3);
         force_download($name, $data);
         //print_r($data);
+
+       // $data = file_get_contents('uploads/blaine_forms/'.$this->uri->segment(3));
+       // $name = $this->uri->segment(3);
+       // header("Content-type: application/pdf");
+       // header("Content-length: " . filesize($data, $name));
+
+       // readfile($data, $name);
+
     }
 }     

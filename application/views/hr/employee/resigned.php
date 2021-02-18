@@ -6,7 +6,7 @@
 <?php endif; ?>
 <div class="card-header"><h4>RESIGNED EMPLOYEE LIST<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
 <br>
-<table id="" class="display" style="width:100%">
+<table id="" class="display" width="100%">
     <thead>
         <tr>
             <th scope="col">Employee Picture</th>
@@ -49,6 +49,14 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('table.display', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('table.display'));
+            },
+            "scrollX": true,
             dom: 'Blfrtip',
             buttons: [
                 {

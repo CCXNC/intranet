@@ -9,7 +9,7 @@
     </h4> 
 </div>
 <br>
-<table id="" class="display" style="width:100%">
+<table id="" class="display" width="100%">
     <thead>
         <tr style="background-color:#D4F1F4;">
             <th scope="col">Name</th>
@@ -79,7 +79,14 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('.display').DataTable( {
-            "scrollX" : true,
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('table.display', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('table.display'));
+            },
+            //"scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         } );
     } );
