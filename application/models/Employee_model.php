@@ -11,10 +11,10 @@ class Employee_model extends CI_Model {
 		$picture1 = $_FILES['image']['name'];
 		$picture = str_replace(' ', '_', $picture1);
 		$employee_number = $this->input->post('employee_number');
-		$first_name = $this->input->post('first_name');
-		$middle_name = $this->input->post('middle_name');
-		$last_name = $this->input->post('last_name');
-		$nickname = $this->input->post('nickname');
+		$first_name = strtoupper($this->input->post('first_name'));
+		$middle_name = strtoupper($this->input->post('middle_name'));
+		$last_name = strtoupper($this->input->post('last_name'));
+		$nickname = strtoupper($this->input->post('nickname'));
 		$gender = $this->input->post('gender');
 		$birthday = $this->input->post('birthday');
 		$age = $this->input->post('age');
