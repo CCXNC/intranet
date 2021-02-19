@@ -16,6 +16,7 @@
             <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">Name</th><?php endif; ?>
             <th scope="col">Type</th>
             <th>Remarks</th>
+            <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">No. Comment</th><?php endif; ?>
             <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">Status</th><?php endif; ?>
             <th scope="col">Action</th>
         </tr>
@@ -28,25 +29,29 @@
                     <?php if($this->session->userdata('department_id') == 25) : ?><td data-label="Name"><?php echo $feedback->fullname;  ?></td><?php endif; ?>
                     <td data-label="Category"><?php echo $feedback->category;  ?></td>
                     <td data-label="Category"><?php echo substr($feedback->comment,0,150);  ?></td>
+                    <?php if($this->session->userdata('department_id') == 25) : ?><td data-label="Name"><?php echo $feedback->number_comment;  ?></td><?php endif; ?>
                     <?php if($this->session->userdata('department_id') == 25) : ?>
                         <?php if($feedback->is_open == 1 ): ?>
-                            <td data-label="" style="background-color:#A8D9F8; "><?php echo 'OPEN'; ?></td>
+                            <td data-label="" style="background-color:#FEDE00; "><?php echo 'OPEN'; ?></td>
                         <?php endif; ?>
                         <?php if($feedback->is_open == 2 ): ?>
-                            <td data-label="" style="background-color:#FEDE00; "><?php echo 'HOLD'; ?></td>
+                            <td data-label="" style="background-color:#BBBBBB; "><?php echo 'HOLD'; ?></td>
                         <?php endif; ?>
                         <?php if($feedback->is_open == 0 ): ?>
                             <td data-label="" style="background-color:#7CF3A0; "><?php echo 'CLOSE'; ?></td>
                         <?php endif; ?>
                     <?php endif; ?>
-                    <td data-label="Action">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>feedback/view/<?php echo $feedback->id; ?>">VIEW</a>
-                                <?php if($this->session->userdata('department_id') == 25) : ?>
+                    <?php if($this->session->userdata('department_id') != 25) : ?>
+                        <td><a class="btn btn-info" href="<?php echo base_url(); ?>feedback/view/<?php echo $feedback->id; ?>">VIEW</a></td>
+                    <?php endif; ?>
+                    <?php if($this->session->userdata('department_id') == 25) : ?>
+                        <td data-label="Action">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="<?php echo base_url(); ?>feedback/view/<?php echo $feedback->id; ?>">VIEW</a>
                                     <?php if($feedback->is_open != 2 && $feedback->is_open != 0): ?>
                                         <div class="dropdown-divider"></div>
                                         <a onclick="return confirm('Are you sure you want to hold the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/hold_feedback/<?php echo $feedback->id; ?>">HOLD</a>
@@ -55,10 +60,10 @@
                                         <div class="dropdown-divider"></div>
                                         <a onclick="return confirm('Are you sure you want to close the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/close_feedback/<?php echo $feedback->id; ?>">CLOSE</a>
                                     <?php endif; ?>
-                                <?php endif; ?>
+                                </div>
                             </div>
-                        </div>
-                    </td>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

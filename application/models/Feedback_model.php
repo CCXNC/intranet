@@ -14,11 +14,13 @@ class Feedback_model extends CI_Model {
                 feedback.employee_number as employee_number,
                 feedback.category as category,
                 feedback.created_date as date,
-                feedback.comment as comment
+                feedback.comment as comment,
+                feedback.number_comment as number_comment
             ");
 
             $this->db->from('blaine_feedback.feedback');
             $this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_feedback.feedback.employee_number');
+            
             $query= $this->db->get();
 
             return $query->result();
@@ -49,6 +51,7 @@ class Feedback_model extends CI_Model {
         $this->db->select("
             feedback.id as id,
             feedback.category as category,
+            feedback.number_comment as number_comment
         ");
 
         $this->db->from('blaine_feedback.feedback');
@@ -88,6 +91,7 @@ class Feedback_model extends CI_Model {
             'employee_number' => $this->session->userdata('employee_number'),
             'category'        => $category,
             'comment'         => $remarks,
+            'number_comment'  => 1,
             'created_date'    => $date,
             'created_by'      => $this->session->userdata('username')
         );
@@ -119,12 +123,16 @@ class Feedback_model extends CI_Model {
 
     public function add_comment()
     {
+        $this->db->trans_start();
         $feedback_id = $this->input->post('feedback_id');
         $remarks = $this->input->post('remarks');
         $attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
         $date = date('Y-m-d H:i:s');
+        $number_comment = $this->input->post('number_comment');
         
+        $plus_comment = $number_comment + 1;
+
         $data = array(
             'feedback_id'     => $feedback_id,
             'employee_number' => $this->session->userdata('employee_number'),
@@ -135,8 +143,18 @@ class Feedback_model extends CI_Model {
         );
 
         $blaine_feedback = $this->load->database('blaine_feedback', TRUE);
-        $query = $blaine_feedback->insert('comment_list', $data);
-        return $query;
+        $blaine_feedback->insert('comment_list', $data);
+
+        $data_comment = array(
+            'number_comment' => $plus_comment
+        );
+        
+        $blaine_feedback = $this->load->database('blaine_feedback', TRUE);
+        $blaine_feedback->where('feedback.id', $feedback_id);
+        $blaine_feedback->update('feedback', $data_comment);
+
+        $trans = $this->db->trans_complete();
+        return $trans;
     }
 
     public function update_to_hold_feedback($id)

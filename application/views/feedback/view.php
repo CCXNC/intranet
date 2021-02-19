@@ -27,7 +27,7 @@
                             <tr>
                                 <td data-label="Date"><?php echo date('F j, Y | h:i A', strtotime($comment->date)); ?></td>
                                 <td data-label="Name"><?php echo $comment->fullname; ?></td>
-                                <td data-label="Date"><?php echo $comment->comment; ?></td>
+                                <td data-label="Date" style="text-align:justify;"><?php echo $comment->comment; ?></td>
                                 <td data-label="Date"><a href="<?php echo base_url(); ?>feedback/download_attachment/<?php echo $comment->file; ?>"><?php echo $comment->file; ?></a></td>
                             </tr>
                         <?php endforeach; ?>
@@ -50,6 +50,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <input type="text" name="feedback_id" value="<?php echo $feedback->id; ?>" hidden>
+                                                <input type="text" name="number_comment" value="<?php echo $feedback->number_comment; ?>" hidden>
                                                 <textarea name="remarks" placeholder="COMMENT" class="form-control" cols="30" rows="10" required></textarea><br>
                                                 <input type='file' name='data1' size='20' />
                                             </div>
@@ -59,7 +60,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to submit data?');">Submit</button>
                                 </div>
                                 </form>
                         </div>
@@ -71,6 +72,8 @@
 </div>
 <script type="text/javascript">  
     $(document).ready(function() {
+        "columnDefs": [
+        ],
         $('.display').DataTable( {
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
