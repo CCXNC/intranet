@@ -11,6 +11,13 @@
     <a href="<?php echo base_url(); ?>fives/idea_add" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
     </h4> 
 </div>
+<!--<h4 class="card-header d-flex justify-content-between align-items-center">
+    5S SHARE MY IDEA LIST
+    <?php if($this->session->userdata('access_level_id') == 1) : ?>
+        <button type="button" class="btn btn-sm btn-primary" href="<?php echo base_url(); ?>fives/implemented">IMPLEMENTED</button>
+    <?php endif; ?>   
+</h4>-->
+
 <br>
 <table id="" class="display" style="width:100%">
     <thead>
@@ -83,7 +90,7 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-           // "scrollX" : true,
+            "scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
             buttons: [
