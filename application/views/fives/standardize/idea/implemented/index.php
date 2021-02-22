@@ -41,7 +41,7 @@
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_implemented_idea/<?php echo $idea->implemented_id; ?>">Edit</a>
+                                <?php if($idea->submit_by == $this->session->userdata('username')) : ?><a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_implemented_idea/<?php echo $idea->implemented_id; ?>">Edit</a><?php endif; ?>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_implemented_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number;?>">View</a>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
-            "scrollX": true,
+            //"scrollX": true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
             buttons: [

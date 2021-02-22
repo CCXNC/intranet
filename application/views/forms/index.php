@@ -79,7 +79,7 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('.display').DataTable( {
-            "scrollX" : true,
+           // "scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         } );
     } );
