@@ -98,13 +98,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Before</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->before; ?></textarea>
+                            <textarea readonly class="form-control" name="content" rows="4" cols="50"><?php echo $idea->before; ?></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>After</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->after; ?></textarea>
+                            <textarea readonly class="form-control" name="content" rows="4" cols="50"><?php echo $idea->after; ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Impact</label>
-                            <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $idea->impact; ?></textarea>
+                            <textarea readonly class="form-control" name="content" rows="4" cols="50"><?php echo $idea->impact; ?></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -180,13 +180,13 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Submitted By</label>
+                            <label>Encoded By</label>
                             <div class="form-control"><?php echo $idea->submit_by; ?></div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Proposed By</label>
+                            <label>Idea Owner</label>
                             <div class="form-control"><?php echo $idea->propose_by; ?></div>
                         </div>
                     </div>

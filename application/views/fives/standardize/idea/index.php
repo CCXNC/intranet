@@ -11,14 +11,21 @@
     <a href="<?php echo base_url(); ?>fives/idea_add" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
     </h4> 
 </div>
+<!--<h4 class="card-header d-flex justify-content-between align-items-center">
+    5S SHARE MY IDEA LIST
+    <?php if($this->session->userdata('access_level_id') == 1) : ?>
+        <button type="button" class="btn btn-sm btn-primary" href="<?php echo base_url(); ?>fives/implemented">IMPLEMENTED</button>
+    <?php endif; ?>   
+</h4>-->
+
 <br>
 <table id="" class="display" style="width:100%">
     <thead>
         <tr style="background-color:#D4F1F4;">
             <th scope="col">Control No.</th>
             <th scope="col">Date</th>
-            <th scope="col">Submitted By</th>
-            <th scope="col">Proposed By</th>
+            <th scope="col">Encoded By</th>
+            <th scope="col">Idea Owner</th>
             <th scope="col">Department</th>
             <th scope="col">Current</th>
             <th scope="col">Proposal</th>
@@ -35,8 +42,8 @@
                     <td data-label="Department"><?php echo $idea->submit_by; ?></td>
                     <td data-label="Department"><?php echo $idea->propose_by; ?></td>
                     <td data-label="Date Hired"><?php echo $idea->department; ?></td>
-                    <td data-label="Date Hired"><?php echo substr($idea->current,0,50); ?></td>
-                    <td data-label="Proposal"><?php echo substr($idea->proposal,0,50); ?></td>
+                    <td data-label="Date Hired"><?php echo substr($idea->current,0,50) . '...'; ?></td>
+                    <td data-label="Proposal"><?php echo substr($idea->proposal,0,50) . '...'; ?></td>
                     <?php if($idea->status == "Open" ): ?>
                         <td data-label="Employee Status" style="background-color:#A8D9F8; "><?php echo $idea->status; ?></td>
                     <?php endif; ?>
@@ -76,7 +83,14 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
-           // "scrollX" : true,
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('table.display', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('table.display'));
+            },
+            "scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
             buttons: [

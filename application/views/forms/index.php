@@ -9,7 +9,7 @@
     </h4> 
 </div>
 <br>
-<table id="" class="display" style="width:100%">
+<table id="" class="display" width="100%">
     <thead>
         <tr style="background-color:#D4F1F4;">
             <th scope="col">Name</th>
@@ -28,7 +28,7 @@
                 <td data-label="Name"><?php echo $attachment->name;  ?></td>
                 <td data-label="Attachment"><a href="<?php echo base_url(); ?>forms/download_attachment/<?php echo $attachment->attachment; ?>"><?php echo $attachment->attachment; ?></a></td></td>
                 <td data-label="Category"><?php echo $attachment->category;  ?></td>               
-                <?php if($this->session->userdata('access_level_id') == 1) : ?>
+                <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 10 || $this->session->userdata('department_id') == 25) : ?>
                     <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->date)); ?></td>
                     <td data-label="Action">
                         <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" class="btn btn-info " style="margin-right:10px; width: 100%">EDIT</a>
@@ -79,7 +79,14 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('.display').DataTable( {
-           // "scrollX" : true,
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('table.display', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('table.display'));
+            },
+            "scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         } );
     } );
