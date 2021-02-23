@@ -10,7 +10,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card" style="width: 50rem;"> 
-    <div class="card-header"><h4>ADD EMPLOYEE SCHEDULE</h4></div>
+    <div class="card-header"><h4>ADD EMPLOYEE SCHEDULE<a href="<?php echo base_url(); ?>schedule/index" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <form method="post" action="<?php echo base_url(); ?>schedule/add_schedule" enctype="multipart/form-data">           
             <div class="form-group">

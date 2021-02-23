@@ -251,7 +251,7 @@ input[type="checkbox"]:checked:after {
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-            //"scrollX": true,
+            "scrollX": true,
             dom: 'Brtip',
             buttons: [
                 {

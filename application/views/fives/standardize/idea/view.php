@@ -89,7 +89,23 @@
 
 </style>
 <div class="card">
-    <div class="card-header"  style="background-color:#1C4670; color:white;"><h4>VIEW 5S SHARE MY IDEA<a href="<?php echo base_url(); ?>fives/idea" id="back"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a><input type="submit" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" id="printButton" value="PRINT"></h4></div>
+    <div class="card-header"  style="background-color:#1C4670; color:white;">
+        <h4>VIEW 5S SHARE MY IDEA
+            <a href="<?php echo base_url(); ?>fives/idea" id="back"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a>
+            <input type="submit" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" id="printButton" value="PRINT">
+        </h4>
+    </div>
+    <!--<div class="card-header container-fluid"  style="background-color:#1C4670; color:white;">
+        <div class="row">
+            <div class="col-md-9">
+                <h3 class="">VIEW 5S SHARE MY IDEA LIST</h3>
+            </div>
+            <div class="col-md-3 float-right" style="">
+                <button class="btn btn-md btn-dark" style="border:1px solid #ccc;" id="printButton">PRINT</button>
+                <button class="btn btn-md btn-dark" style="border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/idea'" id="back">BACK</button>
+            </div>
+        </div>
+    </div>-->
     <div class="card-body">
         <div class="card">
             <div class="card-header" style="background-color:#1C4670; color:white;">My Idea</div>

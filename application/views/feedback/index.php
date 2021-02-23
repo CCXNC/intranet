@@ -110,6 +110,7 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('.display').DataTable( {
+            "scrollX" : true,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('table.display', JSON.stringify(oData));
