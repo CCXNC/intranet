@@ -26,6 +26,7 @@
                                 <input type="text" name="attachment_id" value="<?php echo $idea->attachment_id; ?>" hidden>
                                 <p><?php echo $idea->attachment; ?></p>
                                 <input type='file' name='data1' size='20' />
+                                <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif | docx | xls | xlsx | pdf</i></p>
                             </div>
                         </div>
                     </div>    

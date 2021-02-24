@@ -63,6 +63,7 @@
                                 <option value="Forms">FORMS</option>
                             </select><br>
                             <input type='file' name='data1' size='20' required/>
+                            <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif | docx | xls | xlsx | pdf</i></p>
                         </div>
                     </div>
                 </div>

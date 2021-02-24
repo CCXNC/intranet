@@ -21,9 +21,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <input type='file' name='data1' size='20' />
+                                <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif | docx | xls | xlsx | pdf</i></p>
                             </div>
                         </div>
                     </div>  

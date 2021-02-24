@@ -44,6 +44,7 @@
                     <div class="form-group">
                         <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="150px" height="150px" alt="" style=""><br><br>
                         <input type='file' name='image' size='20' />
+                        <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif</i></p>
                     </div>
                     <div class="row">
                         <div class="col-md-3">

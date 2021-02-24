@@ -14,6 +14,7 @@
                         </select><br>
                         <p><?php echo $attachment->attachment; ?></p>
                         <input type='file' name='data1' size='20'/>
+                        <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif | docx | xls | xlsx | pdf</i></p>
                     </div>
                 </div>
             </div>

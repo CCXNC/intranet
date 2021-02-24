@@ -16,6 +16,7 @@
                                 </center>                           
                             </div> 
                             <input type='file' name='image' size='20' />
+                            <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif</i></p>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">

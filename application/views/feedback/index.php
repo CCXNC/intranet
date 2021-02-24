@@ -94,6 +94,7 @@
                             </select><br>
                             <textarea name="remarks" placeholder="COMMENT" class="form-control" cols="30" rows="10" required></textarea><br>
                             <input type='file' name='data1' size='20' />
+                            <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif | docx | xls | xlsx | pdf</i></p>
                         </div>
                     </div>
                 </div>

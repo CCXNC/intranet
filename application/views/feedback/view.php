@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header"><h5>Feedback List<a href="<?php echo base_url(); ?>feedback/index" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModal" style="margin-right:10px;">ADD COMMENT</a></h5></div>
             <div class="card-body">
-                <table class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
+                <table class="display" style="width:100%">
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DATE</th>
@@ -53,6 +53,7 @@
                                                 <input type="text" name="number_comment" value="<?php echo $feedback->number_comment; ?>" hidden>
                                                 <textarea name="remarks" placeholder="COMMENT" class="form-control" cols="30" rows="10" required></textarea><br>
                                                 <input type='file' name='data1' size='20' />
+                                                <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif | docx | xls | xlsx | pdf</i></p>
                                             </div>
                                         </div>
                                     </div>
@@ -70,7 +71,7 @@
         </div> 
     </div>
 </div>
-<script type="text/javascript">  
+<!--<script type="text/javascript">  
     $(document).ready(function() {
         "columnDefs": [
         ],
@@ -82,6 +83,26 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": false,
+            "bInfo": false,
+            "bAutoWidth": false
+        } );
+    } );
+</script>-->
+<script type="text/javascript">  
+    $(document).ready(function() {
+        $('.display').DataTable( {
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('table.display', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('table.display'));
+            },
+            //"scrollX": true,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": false,
