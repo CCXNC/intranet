@@ -5,11 +5,23 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header"><h4>EMPLOYEE LIST
-    <a href="<?php echo base_url(); ?>employee/reports" class="btn btn-info float-right" style="margin-right:10px;">REPORTS</a>
+    <a href="<?php echo base_url(); ?>employee/reports" class="btn btn-info float-right" style="">REPORTS</a>
     <a href="<?php echo base_url(); ?>employee/resigned" class="btn btn-info float-right" style="margin-right:10px;">RESIGNED</a>
     <a href="<?php echo base_url(); ?>employee/add" class="btn btn-info float-right" style="margin-right:10px;">ADD</a>
     </h4> 
 </div>
+<!--<div class="card-header container-fluid"  style="background-color:#1C4670; color:white;">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="">EMPLOYEE LIST</h3>
+        </div>
+        <div class="col-md-4 float-right">
+            <button class="btn btn-md btn-dark" style="border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/implemented'">REPORTS</button>
+            <button class="btn btn-md btn-dark" style="margin-left: .3em; border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/implemented'">RESIGNED</button>
+            <button class="btn btn-md btn-dark" style="margin-left: .3em; border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/idea_add'">ADD</button>
+        </div>
+    </div>
+</div>-->
 <br>
 <table id="" class="display" width="100%">
     <thead>
@@ -82,7 +94,7 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-            //"scrollX": true,
+            "scrollX": true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
             buttons: [

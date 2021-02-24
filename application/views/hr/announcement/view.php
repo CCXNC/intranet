@@ -1,6 +1,6 @@
 
 <div class="card">
-    <div class="card-header"><h4>VIEW ANNOUNCEMENT</h4></div>
+    <div class="card-header"><h4>VIEW ANNOUNCEMENT<a href="<?php echo base_url(); ?>announcement/index" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
         <div class="card-body">
             <div class="card-body">
                 <div class="row">

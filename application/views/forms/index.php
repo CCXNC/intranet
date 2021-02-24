@@ -5,7 +5,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine Form List
-<?php if($this->session->userdata('access_level_id') == 1) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
+<?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
     </h4> 
 </div>
 <br>
@@ -15,7 +15,7 @@
             <th scope="col">Name</th>
             <th scope="col">Attachment</th>
             <th scope="col">Category</th>
-            <?php if($this->session->userdata('access_level_id') == 1) : ?>
+            <?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?>
                 <th scope="col">Date</th>
                 <th scope="col">Action</th>
             <?php endif; ?>

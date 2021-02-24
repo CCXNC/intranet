@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT ANNOUNCEMENT</h4></div>
+    <div class="card-header"><h4>EDIT ANNOUNCEMENT<a href="<?php echo base_url(); ?>announcement/index" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
         <div class="card-body">
             <div style="color:red"><?php echo validation_errors(); ?> </div>
                 <form method="post" action="<?php echo base_url(); ?>announcement/edit/<?php echo $announcement->id; ?>" enctype="multipart/form-data">

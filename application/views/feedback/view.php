@@ -92,7 +92,7 @@
     } );
 </script>-->
 <script type="text/javascript">  
-    $(document).ready(function() {
+     $(document).ready(function() {
         $('.display').DataTable( {
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
@@ -101,13 +101,12 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-            //"scrollX": true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": false,
             "bInfo": false,
             "bAutoWidth": false
-        } );
+        });
     } );
 </script>

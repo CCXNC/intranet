@@ -11,13 +11,17 @@
     <a href="<?php echo base_url(); ?>fives/idea_add" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
     </h4> 
 </div>
-<!--<h4 class="card-header d-flex justify-content-between align-items-center">
-    5S SHARE MY IDEA LIST
-    <?php if($this->session->userdata('access_level_id') == 1) : ?>
-        <button type="button" class="btn btn-sm btn-primary" href="<?php echo base_url(); ?>fives/implemented">IMPLEMENTED</button>
-    <?php endif; ?>   
-</h4>-->
-
+<!--<div class="card-header container-fluid"  style="background-color:#1C4670; color:white;">
+    <div class="row">
+        <div class="col-md-9">
+            <h3 class="">5S SHARE MY IDEA LIST</h3>
+        </div>
+        <div class="col-md-3 float-right">
+            <button class="btn btn-md btn-dark" style="border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/implemented'">IMPLEMENTED</button>
+            <button class="btn btn-md btn-dark" style="margin-left: .3em; border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/idea_add'">ADD</button>
+        </div>
+    </div>
+</div>-->
 <br>
 <table id="" class="display" style="width:100%">
     <thead>
