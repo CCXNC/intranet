@@ -34,9 +34,9 @@ class Employee extends CI_Controller {
         
     }
  
-     public function view_employee($employee_number) 
+     public function view_employee($id,$employee_number) 
     {
-        $data['employee'] = $this->employee_model->get_employee($employee_number);
+        $data['employee'] = $this->employee_model->get_employee($id);
         $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
         $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
         $data['attachments'] = $this->employee_model->get_attachments($employee_number);

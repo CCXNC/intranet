@@ -23,23 +23,23 @@
             <?php if($attendances) : ?>
             <?php foreach($attendances as $attendance) : ?>
                 <tr>
-                    <td> <input type="text" name="biometric_id[]" value="<?php echo $attendance->biometric_id; ?>"><?php echo $attendance->biometric_id; ?></td>
-                    <td> <input type="text" name="employee_number[]" value="<?php echo $attendance->employee_number; ?>"><?php echo $attendance->fullname; ?></td>
+                    <td> <input type="text" name="biometric_id[]" value="<?php echo $attendance->biometric_id; ?>" hidden><?php echo $attendance->biometric_id; ?></td>
+                    <td> <input type="text" name="employee_number[]" value="<?php echo $attendance->employee_number; ?>" hidden><?php echo $attendance->fullname; ?></td>
                     <td>
                         <?php $explod_date = explode(' ', $attendance->date_time); echo $explod_date[0]; ?>
-                        <input type="text" name="date[]" value="<?php echo $explod_date[0]; ?>">
+                        <input type="text" name="date[]" value="<?php echo $explod_date[0]; ?>" hidden>
                     </td>
                     <td> 
                         <?php $explod_date = explode(' ', $attendance->date_time); echo $explod_date[1]; ?>
-                        <input type="text" name="time[]" value="<?php echo $explod_date[1]; ?>">
+                        <input type="text" name="time[]" value="<?php echo $explod_date[1]; ?>" hidden>
                     </td>
                     <td>
                         <?php if($attendance->status == 1010) : ?>
                             <?php echo 'IN'; ?>
-                            <input type="text" name="status[]" value="<?php echo 'IN'; ?>">
+                            <input type="text" name="status[]" value="<?php echo 'IN'; ?>" hidden>
                         <?php else: ?>
                             <?php echo 'OUT'; ?>
-                            <input type="text" name="status[]" value="<?php echo 'OUT'; ?>">
+                            <input type="text" name="status[]" value="<?php echo 'OUT'; ?>" hidden>
                         <?php endif; ?>
                     </td>
                 </tr>

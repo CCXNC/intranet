@@ -68,7 +68,7 @@ class Csv_import_model extends CI_Model
 		$date_in = $this->input->post('date_in');
 		$date_out = $this->input->post('date_out');
 
-		$last_entry_date = date('2021-01-26');
+		/*$last_entry_date = date('2021-01-26');
 		print_r('<pre>');
 		print_r($last_entry_date);
 		print_r('</pre>');
@@ -79,7 +79,7 @@ class Csv_import_model extends CI_Model
 
 		print_r('<pre>');
 		print_r($date_out);
-		print_r('</pre>');
+		print_r('</pre>');*/
 
 		for($i=0; $count_rows > $i; $i++)
 		{
@@ -123,34 +123,24 @@ class Csv_import_model extends CI_Model
 			
 		}
 		
-	$trans = $this->db->trans_complete();
-	return $trans;
+		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+		$blaine_timekeeping->where('id !=', NULL);
+		$blaine_timekeeping->delete('attendance_logs');
+
+		$this->db->query("
+			DELETE tbl1 FROM blaine_timekeeping.attendance_in tbl1 INNER JOIN
+			blaine_timekeeping.attendance_in tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
+		");
+
+		$this->db->query("
+			DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
+			blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
+		");
+
+		$trans = $this->db->trans_complete();
+		return $trans;
 		
 
 	}
 
-	public function get_attendances()
-	{
-	$query = $this->db->query("
-		SELECT attendance_in.date as date, attendance_in.id as in_id, attendance_out.id as out_id, attendance_in.time as time_in, attendance_out.time as time_out , CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname
-		FROM blaine_timekeeping.attendance_in
-			LEFT JOIN blaine_timekeeping.attendance_out
-			ON blaine_timekeeping.attendance_in.biometric_id = blaine_timekeeping.attendance_out.biometric_id AND blaine_timekeeping.attendance_in.date = blaine_timekeeping.attendance_out.date 
-			LEFT JOIN blaine_intranet.employees
-			ON blaine_timekeeping.attendance_in.employee_number = blaine_intranet.employees.employee_number
-			WHERE attendance_out.id IN (
-				SELECT MAX(attendance_out.id)
-				FROM blaine_timekeeping.attendance_out
-				WHERE status='OUT'
-				GROUP BY attendance_out.biometric_id, DATE(date)
-			)
-			OR attendance_in.id IN (
-				SELECT MIN(attendance_in.id)
-				FROM blaine_timekeeping.attendance_in
-				WHERE status='IN'
-				GROUP BY attendance_in.biometric_id, DATE(date)
-			) GROUP BY DATE(attendance_in.date) ASC, attendance_in.biometric_id")->result();
-
-	return $query;	
-	}
 }

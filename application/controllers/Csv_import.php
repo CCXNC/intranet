@@ -7,6 +7,15 @@ class Csv_import extends CI_Controller {
 		parent::__construct();
 		$this->load->model('csv_import_model');
 		$this->load->library('csvimport');
+
+		date_default_timezone_set('Asia/Manila');
+        if($this->session->userdata('logged_in') !== TRUE){
+            redirect('Login');
+        }
+
+        if($this->session->userdata('access_level_id') == 3){
+            redirect('homepage');
+        }
 	}
 
 	function index()
@@ -41,7 +50,11 @@ class Csv_import extends CI_Controller {
 
 	public function add_employees_attendance()
 	{
-		$this->csv_import_model->add_employees_attendance();
+		if($this->csv_import_model->add_employees_attendance())
+		{
+			$this->session->set_flashdata('success_msg', 'Attendance Successfully Added!');
+            redirect('attendance/index_attendance');
+		}
 	}
 
 	public function index_attendance()
