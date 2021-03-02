@@ -42,6 +42,7 @@ class Csv_import extends CI_Controller {
 	public function view()
 	{
 		$data['attendances'] = $this->csv_import_model->get_attendance_logs();
+		$data['raw_attendances'] = $this->csv_import_model->get_raw_attendance_logs();
 		//$data['in'] = $this->csv_import_model->get_last_in();
 		//$data['out'] = $this->csv_import_model->get_last_out();
 		$data['main_content'] = 'hr/timekeeping/csv/view';
@@ -52,8 +53,8 @@ class Csv_import extends CI_Controller {
 	{
 		if($this->csv_import_model->add_employees_attendance())
 		{
-			$this->session->set_flashdata('success_msg', 'Attendance Successfully Added!');
-            redirect('attendance/index_attendance');
+			$this->session->set_flashdata('success_msg', 'Attendance Successfully Process!');
+			redirect('attendance/index_attendance');
 		}
 	}
 
@@ -62,6 +63,15 @@ class Csv_import extends CI_Controller {
 		$data['employees'] = $this->csv_import_model->get_attendances();
 		$data['main_content'] = 'hr/timekeeping/reports/index';
 		$this->load->view('inc/navbar', $data);
+	}
+
+	public function delete_temp_attendance()
+	{
+		if($this->csv_import_model->delete_attendance_logs())
+		{
+			$this->session->set_flashdata('error_msg', 'Attendance Successfully Deleted!');
+			redirect('csv_import/index');
+		}
 	}
 	
 		

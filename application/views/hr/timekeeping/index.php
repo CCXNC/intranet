@@ -21,7 +21,7 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <a style="width: 50%" href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-primary btn-md float-left">REPORTS</a>
+                <a style="width: 50%" href="<?php echo base_url(); ?>attendance/index" class="btn btn-primary btn-md float-left">REPORTS</a>
                 <i style="" class="fa fa-file-alt fa-2x float-right"></i>
             </div>
         </div>
@@ -29,7 +29,7 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <a style="width: 50%" href="<?php echo base_url(); ?>csv_import/index" class="btn btn-primary btn-md float-left">RAW DATA</a>
+                <a style="width: 50%" href="<?php echo base_url(); ?>csv_import/index" class="btn btn-primary btn-md float-left">CSV UPLOADER</a>
                 <i style="" class="fa fa-chart-bar fa-2x float-right"></i>
             </div>
         </div>

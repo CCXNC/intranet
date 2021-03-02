@@ -11,17 +11,22 @@
 	}
 </style>
 	<div class="container box">
+	
 		<h3 align="center">UPLOAD EMPLOYEE ATTENDANCE</h3>
 		<br />
 		<center>
+			
 			<form method="post" id="import_csv" enctype="multipart/form-data">
+				<?php if($this->session->flashdata('error_msg')) : ?>
+					<p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
+				<?php endif; ?>
 				<div class="form-group">
 					<label>Select CSV File</label>
 					<input type="file" name="csv_file" id="csv_file" required accept=".csv" />
 				</div>
 				<br />
 				<button type="submit" name="import_csv" class="btn btn-info" id="import_csv_btn">Import</button>
-                <a href="<?php echo base_url(); ?>csv_import/view" class="btn btn-info">View</a>
+                <a href="<?php echo base_url(); ?>csv_import/view" class="btn btn-info">View Data</a>
 			</form>
 		</center>
 	</div>
