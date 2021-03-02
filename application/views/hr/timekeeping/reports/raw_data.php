@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-    <div class="card-header"><h4>EMPLOYEE ATTENDANCE LIST</h4> 
+    <div class="card-header"><h4>RAW ATTENDANCE LIST</h4> 
     </div>
     <br>
     <table id="" class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
@@ -12,21 +12,21 @@
             <tr style="background-color:#D4F1F4;">
                 <th scope="col">NAME</th>
                 <th scope="col">DATE</th>
-                <th scope="col">TIME IN</th>
-                <th scope="col">TIME OUT</th>
+                <th scope="col">TIME</th>
+                <th scope="col">STATUS</th>
             </tr>
         </thead>
         <tbody>
-           <?php if($employees) : ?>
-            <?php foreach($employees as $employee) : ?>
+            <?php if($datas) : ?>
+                <?php foreach($datas as $data) : ?>
                     <tr>
-                        <td><?php echo $employee->fullname; ?></td>
-                        <td><?php if($employee->date == NULL){ echo 'NO DATE'; } else{ echo $employee->date; } ?></td>
-                        <td><?php if($employee->time_in == NULL){ echo 'NO IN'; } else{ echo $employee->time_in; } ?></td>
-                        <td><?php if($employee->time_out == NULL){ echo 'NO OUT'; } else{ echo $employee->time_out; }  ?></td>
+                        <td><?php echo $data->fullname; ?></td>
+                        <td><?php echo $data->date; ?></td>
+                        <td><?php echo $data->time; ?></td>
+                        <td><?php echo $data->status; ?></td>
                     </tr>
-            <?php endforeach; ?>
-           <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>  
     <script type="text/javascript">  
