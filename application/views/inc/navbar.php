@@ -416,7 +416,7 @@
         /*------------------scroll bar---------------------*/
 
         ::-webkit-scrollbar {
-            width: 5px;
+            width: 10px;
             height: 7px;
         }
         ::-webkit-scrollbar-button {
