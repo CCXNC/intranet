@@ -20,8 +20,8 @@
             </tr>
         </thead>
         <tbody>
-           <?php if($employees) : ?>
-            <?php foreach($employees as $employee) : ?>
+            <?php if($employees) : ?>
+                <?php foreach($employees as $employee) : ?>
                     <tr>
                         <td><?php echo  $employee->fullname; ?></td>
                         <td>
@@ -42,62 +42,86 @@
                             <?php 
                                 if($employee->in_generate == NULL && $employee->out_generate == NULL) { 
                                     echo  'N/A'; 
-                                } elseif($employee->in_generate != NULL && $employee->out_generate == NULL) { 
-                                    echo '(IN)' . ' ' . $employee->in_generate; 
-                                } elseif($employee->out_generate != NULL && $employee->in_generate == NULL) { 
-                                    echo '(OUT)' . ' ' . $employee->out_generate; 
-                                } elseif($employee->in_generate != NULL && $employee->out_generate != NULL) {
+                                } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == NULL) { 
+                                    echo '(IN-' . ' ' . $employee->in_generate . ')'; 
+                                } elseif($employee->out_generate == "SYSTEM" && $employee->in_generate == NULL) { 
+                                    echo '(OUT-' . ' ' . $employee->out_generate . ')'; 
+                                }  elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'SYSTEM') {
                                     echo 'SYSTEM';
+                                } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'SYSTEM') {
+                                    echo '(IN-' . ' ' . $employee->in_generate . ')' . ' | ' . '(OUT-' . ' ' . $employee->out_generate . ')';  
+                                } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'MANUAL') {
+                                    echo '(IN-' . ' ' . $employee->in_generate . ')' . ' | ' . '(OUT-' . ' ' . $employee->out_generate . ')';  
+                                } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'MANUAL') {
+                                    echo 'MANUAL';  
                                 }
                             ?>
                         </td>
                         <td data-label="Action">
-                            <?php if($employee->in_generate == NULL || $employee->out_generate == NULL) : ?>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                            <?php if($employee->in_generate == "SYSTEM" && $employee->out_generate == 'MANUAL') : ?>
+                                <?php echo strtoupper($employee->out_generated); ?>
+                            <?php elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'SYSTEM') : ?>  
+                                <?php echo strtoupper($employee->in_generated); ?>
+                            <?php elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'MANUAL') : ?>  
+                                <?php echo strtoupper($employee->in_generated); ?>    
+                            <?php elseif($employee->in_generate != "SYSTEM" || $employee->out_generate != 'SYSTEM') : ?>   
+                                <button type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
                                     ADD 
                                 </button>
-                            <?php endif; ?>    
+                            <?php endif; ?>
                         </td>
                     </tr>
-            <?php endforeach; ?>
-           <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>  
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">MANUAL ATTENDANCE FORM</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="#" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <select class="form-control" name="category" required>
-                                            <option value="">Select Category</option>
-                                            <option value="IN/OUT">IN/OUT</option>
-                                            <option value="IN">IN</option>
-                                            <option value="OUT">OUT</option>
-                                        </select><br>
-                                        <input type="time" class="form-control" name="time">
+    <?php if($employees) : ?>
+        <?php foreach($employees as $employee) : ?>
+            <div class="modal fade" id="exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">MANUAL ATTENDANCE FORM</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="<?php echo base_url(); ?>attendance/add_manual_attendance" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="fullname" value="<?php echo $employee->fullname; ?>" readonly><br>
+                                                <label for="">TIME IN</label>
+                                                <?php if($employee->time_in != NULL) : ?>
+                                                    <input type="text" name="process" value="1" hidden>
+                                                    <input  type="time" class="form-control "  name="time_in" value="<?php echo $employee->time_in; ?>" readonly><br>
+                                                <?php else : ?>
+                                                    <input  type="time" class="form-control " name="time_in" required="required"><br>
+                                                <?php endif; ?>   
+                                                <label for="">TIME OUT</label>
+                                                <input type="time" class="form-control" name="time_out" value="<?php echo $employee->time_out; ?>" required="required">
+
+                                                <input type="text" name="employee_number" value="<?php echo $employee->employee_number; ?>" hidden><br>
+                                                <input type="text" name="biometric_id" value="<?php echo $employee->biometric_id; ?>"hidden ><br>
+                                                <input type="text" name="date" value="<?php echo $employee->temp_date; ?>"hidden ><br>
+                                               
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        <?php endforeach; ?>
+    <?php endif; ?>            
     <script type="text/javascript">  
         $(document).ready(function() {
             $('.display').DataTable( {
@@ -115,4 +139,5 @@
                 "bAutoWidth": false
             } );
         } );
+       
     </script>

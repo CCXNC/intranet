@@ -51,8 +51,6 @@ class Attendance extends CI_Controller {
        
     }
 
-
-
 	public function view_attendance()
 	{
         //$start_date = $this->input->post('start_date');
@@ -61,6 +59,15 @@ class Attendance extends CI_Controller {
 		$data['employees'] = $this->attendance_model->get_employees_attendance();
 		$data['main_content'] = 'hr/timekeeping/reports/attendance/view';
 		$this->load->view('inc/navbar', $data);
+	}
+
+	public function add_manual_attendance()
+	{
+		if($this->attendance_model->add_manual_attendance())
+		{
+			$this->session->set_flashdata('success_msg', 'Attendance Successfully Added!');
+			redirect('attendance/view_attendance');
+		}
 	}
 	
 		

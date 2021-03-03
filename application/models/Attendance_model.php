@@ -13,13 +13,18 @@ class Attendance_model extends CI_Model
 			attendance_out.id as out_id, 	
 			temp_date.date as temp_date,
 			attendance_in.generate as in_generate,
-			attendance_out.generate as out_generate
+			attendance_out.generate as out_generate,
+			employee_biometric.biometric_number as biometric_id,
+			attendance_in.generated_by as in_generated,
+			attendance_out.generated_by as out_generated
 		");
 		$this->db->from('blaine_timekeeping.temp_date');
 		$this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.is_active = blaine_timekeeping.temp_date.batch');
 		$this->db->join('blaine_timekeeping.attendance_in', 'blaine_timekeeping.attendance_in.employee_number = blaine_intranet.employees.employee_number AND blaine_timekeeping.temp_date.date = blaine_timekeeping.attendance_in.date','left');
+		//$this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_in.employee_number = blaine_intranet.employees.employee_number AND blaine_timekeeping.temp_date.date = blaine_timekeeping.attendance_out.date','left');
 		$this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_in.biometric_id = blaine_timekeeping.attendance_out.biometric_id AND blaine_timekeeping.attendance_in.date = blaine_timekeeping.attendance_out.date AND blaine_timekeeping.temp_date.date = blaine_timekeeping.attendance_out.date','left');
-        $this->db->order_by('employees.last_name','ASC');
+        $this->db->join('blaine_timekeeping.employee_biometric', 'blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number', 'left');
+		$this->db->order_by('employees.last_name','ASC');
 		$this->db->order_by('attendance_in.date','ASC');
 		$query = $this->db->get();
 		
@@ -82,6 +87,65 @@ class Attendance_model extends CI_Model
 
 		$trans = $this->db->trans_complete();
 
+		return $trans;
+	}
+
+	public function add_manual_attendance()
+	{
+		$this->db->trans_start();
+
+		$employee_number = $this->input->post('employee_number');
+		$fullname = $this->input->post('fullname');
+		$biometric_id = $this->input->post('biometric_id');
+		$date = $this->input->post('date');
+		$time_in = $this->input->post('time_in');
+		$time_out = $this->input->post('time_out');
+		$process =  $this->input->post('process');
+
+		if($process != 1)
+		{
+			$data_in = array(
+				'biometric_id'    => $biometric_id,
+				'employee_number' => $employee_number,
+				'date'            => $date,
+				'time'            => $time_in,
+				'status'          => 'IN',
+				'generate'        => 'MANUAL',
+				'generated_by'    => $this->session->userdata('username'),
+				'generated_date'  => date('Y-m-d H:i:s')
+			);
+
+			$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+			$blaine_timekeeping->insert('attendance_in', $data_in);
+			/*print_r('<pre>');
+			print_r($data_in);
+			print_r('</pre>');*/	
+		}
+		
+		
+		$data_out = array(
+			'biometric_id'    => $biometric_id,
+			'employee_number' => $employee_number,
+			'date'            => $date,
+			'time'            => $time_out,
+			'status'          => 'OUT',
+			'generate'        => 'MANUAL',
+			'generated_by'    => $this->session->userdata('username'),
+			'generated_date'  => date('Y-m-d H:i:s')
+		);
+
+		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+		$blaine_timekeeping->insert('attendance_out', $data_out);
+		/*print_r('<pre>');
+		print_r($data_out);
+		print_r('</pre>');*/	
+
+		$this->db->query("
+			DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
+			blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
+		");
+		
+		$trans = $this->db->trans_complete();
 		return $trans;
 	}
 }
