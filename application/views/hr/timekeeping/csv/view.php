@@ -66,8 +66,6 @@
 </form>    
     <script type="text/javascript">  
         $(document).ready(function() {
-            "columnDefs": [
-            ],
             $('.display').DataTable( {
                 "bStateSave": true,
                 "fnStateSave": function (oSettings, oData) {

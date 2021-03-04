@@ -24,10 +24,18 @@ class Attendance extends CI_Controller {
 		$this->load->view('inc/navbar', $data); 
     }
 
+	public function index_raw_data()
+	{
+		$data['main_content'] = 'hr/timekeeping/reports/raw_data/index';
+		$this->load->view('inc/navbar', $data); 
+	}
 	public function raw_data()
 	{
-		$data['datas'] = $this->attendance_model->get_raw_datas();
-		$data['main_content'] = 'hr/timekeeping/reports/raw_data';
+		$start_date = $this->input->post('start_date');
+		$end_date = $this->input->post('end_date');
+
+		$data['datas'] = $this->attendance_model->get_raw_datas($start_date,$end_date);
+		$data['main_content'] = 'hr/timekeeping/reports/raw_data/view';
 		$this->load->view('inc/navbar', $data);
 	}
 
@@ -51,8 +59,6 @@ class Attendance extends CI_Controller {
        
     }
 
-
-
 	public function view_attendance()
 	{
         //$start_date = $this->input->post('start_date');
@@ -61,6 +67,15 @@ class Attendance extends CI_Controller {
 		$data['employees'] = $this->attendance_model->get_employees_attendance();
 		$data['main_content'] = 'hr/timekeeping/reports/attendance/view';
 		$this->load->view('inc/navbar', $data);
+	}
+
+	public function add_manual_attendance()
+	{
+		if($this->attendance_model->add_manual_attendance())
+		{
+			$this->session->set_flashdata('success_msg', 'Attendance Successfully Added!');
+			redirect('attendance/view_attendance');
+		}
 	}
 	
 		
