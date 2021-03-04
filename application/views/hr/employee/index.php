@@ -141,3 +141,55 @@
         } );
     } );
 </script>
+
+<!--<script type="text/javascript">
+$(document).ready(function() {
+    $('table.display').DataTable( {
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        dom: 'Bf',
+        buttons: [
+                {
+                    extend: 'excel',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'copy',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    text: 'Filter'
+                }
+            ]
+    } );
+} );
+</script>-->

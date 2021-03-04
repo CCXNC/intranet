@@ -20,7 +20,8 @@
                                 <label>Type</label>
                                 <select class="form-control" name="type">
                                     <option value="">Select Type</option>
-                                    <option value="Special Holiday"<?php echo $calendar->type == 'Special Holiday' ? 'selected' : ''; ?>>Special Holiday</option>
+                                    <option value="Special Working Holiday"<?php echo $calendar->type == 'Special Working Holiday' ? 'selected' : ''; ?>>Special Working Holiday</option>
+                                    <option value="Special Nonworking Holiday"<?php echo $calendar->type == 'Special Nonworking Holiday' ? 'selected' : ''; ?>>Special Nonworking Holiday</option>
                                     <option value="Legal Holiday"<?php echo $calendar->type == 'Legal Holiday' ? 'selected' : ''; ?>>Legal Holiday</option>
                                 </select>
                             </div>
