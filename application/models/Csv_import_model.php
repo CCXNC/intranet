@@ -55,6 +55,20 @@ class Csv_import_model extends CI_Model
 		return $query;
 	}
 
+	public function get_raw_attendance_logs()
+	{
+		$query = $this->db->query("
+			SELECT attendance_logs.biometric_id as biometric_id, attendance_logs.date_time as date_time, attendance_logs.status as status , CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname, employee_biometric.employee_number as employee_number
+			FROM blaine_timekeeping.attendance_logs
+				LEFT JOIN blaine_timekeeping.employee_biometric
+				ON blaine_timekeeping.attendance_logs.biometric_id = blaine_timekeeping.employee_biometric.biometric_number
+				LEFT JOIN blaine_intranet.employees
+				ON blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number
+				")->result();
+
+		return $query;
+	}
+
 	public function add_employees_attendance()
 	{
 		$this->db->trans_start();
@@ -68,7 +82,8 @@ class Csv_import_model extends CI_Model
 		$date_in = $this->input->post('date_in');
 		$date_out = $this->input->post('date_out');
 
-		$last_entry_date = date('2021-01-26');
+		
+		/*$last_entry_date = date('2021-01-26');
 		print_r('<pre>');
 		print_r($last_entry_date);
 		print_r('</pre>');
@@ -79,7 +94,7 @@ class Csv_import_model extends CI_Model
 
 		print_r('<pre>');
 		print_r($date_out);
-		print_r('</pre>');
+		print_r('</pre>');*/
 
 		for($i=0; $count_rows > $i; $i++)
 		{
@@ -122,35 +137,64 @@ class Csv_import_model extends CI_Model
 			}
 			
 		}
+
+		$raw_biometric_id = $this->input->post('raw_biometric_id');
+		$raw_count_rows = count($raw_biometric_id);
+		$raw_employee_number = $this->input->post('raw_employee_number');
+		$raw_date = $this->input->post('raw_date');
+		$raw_time = $this->input->post('raw_time');
+		$raw_status = $this->input->post('raw_status');
+		for($i=0; $raw_count_rows > $i; $i++)
+		{
+			$raw_data = array(
+				'biometric_id'    => $raw_biometric_id[$i],
+				'employee_number' => $raw_employee_number[$i],
+				'date'            => $raw_date[$i],
+				'time'            => $raw_time[$i],
+				'status'          => $raw_status[$i]
+			);
+
+			$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+			$blaine_timekeeping->insert('raw_data', $raw_data);
+			/*print_r('<pre>');
+			print_r('----------------------------------------------<br>');
+			print_r($raw_data);
+			print_r('</pre>');*/
+		}
+
 		
-	$trans = $this->db->trans_complete();
-	return $trans;
+		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+		$blaine_timekeeping->where('id !=', NULL);
+		$blaine_timekeeping->delete('attendance_logs');
+
+		$this->db->query("
+			DELETE tbl1 FROM blaine_timekeeping.raw_data tbl1 INNER JOIN
+			blaine_timekeeping.raw_data tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date AND tbl1.time = tbl2.time
+		");
+
+		$this->db->query("
+			DELETE tbl1 FROM blaine_timekeeping.attendance_in tbl1 INNER JOIN
+			blaine_timekeeping.attendance_in tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
+		");
+
+		$this->db->query("
+			DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
+			blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
+		");
+
+		$trans = $this->db->trans_complete();
+		return $trans;
 		
 
 	}
 
-	public function get_attendances()
+	public function delete_attendance_logs()
 	{
-	$query = $this->db->query("
-		SELECT attendance_in.date as date, attendance_in.id as in_id, attendance_out.id as out_id, attendance_in.time as time_in, attendance_out.time as time_out , CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname
-		FROM blaine_timekeeping.attendance_in
-			LEFT JOIN blaine_timekeeping.attendance_out
-			ON blaine_timekeeping.attendance_in.biometric_id = blaine_timekeeping.attendance_out.biometric_id AND blaine_timekeeping.attendance_in.date = blaine_timekeeping.attendance_out.date 
-			LEFT JOIN blaine_intranet.employees
-			ON blaine_timekeeping.attendance_in.employee_number = blaine_intranet.employees.employee_number
-			WHERE attendance_out.id IN (
-				SELECT MAX(attendance_out.id)
-				FROM blaine_timekeeping.attendance_out
-				WHERE status='OUT'
-				GROUP BY attendance_out.biometric_id, DATE(date)
-			)
-			OR attendance_in.id IN (
-				SELECT MIN(attendance_in.id)
-				FROM blaine_timekeeping.attendance_in
-				WHERE status='IN'
-				GROUP BY attendance_in.biometric_id, DATE(date)
-			) GROUP BY DATE(attendance_in.date) ASC, attendance_in.biometric_id")->result();
+		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+		$blaine_timekeeping->where('id !=', NULL);
+		$query = $blaine_timekeeping->delete('attendance_logs');
 
-	return $query;	
+		return $query;
 	}
+
 }
