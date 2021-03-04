@@ -103,9 +103,9 @@
                                                 <label for="">TIME OUT</label>
                                                 <input type="time" class="form-control" name="time_out" value="<?php echo $employee->time_out; ?>" required="required">
 
-                                                <input type="text" name="employee_number" value="<?php echo $employee->employee_number; ?>" hidden><br>
-                                                <input type="text" name="biometric_id" value="<?php echo $employee->biometric_id; ?>"hidden ><br>
-                                                <input type="text" name="date" value="<?php echo $employee->temp_date; ?>"hidden ><br>
+                                                <input type="text" name="employee_number" value="<?php echo $employee->employee_number; ?>" hidden>
+                                                <input type="text" name="biometric_id" value="<?php echo $employee->biometric_id; ?>" hidden>
+                                                <input type="text" name="date" value="<?php echo $employee->temp_date; ?>" hidden>
                                                
                                             </div>
                                         </div>
@@ -122,22 +122,54 @@
             </div>
         <?php endforeach; ?>
     <?php endif; ?>            
-    <script type="text/javascript">  
+    <script type="text/javascript">
         $(document).ready(function() {
-            $('.display').DataTable( {
-                "bStateSave": true,
-                "fnStateSave": function (oSettings, oData) {
-                    localStorage.setItem('table.display', JSON.stringify(oData));
-                },
-                "fnStateLoad": function (oSettings) {
-                    return JSON.parse(localStorage.getItem('table.display'));
-                },
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bInfo": false,
-                "bAutoWidth": false
+            $('table.display').DataTable( {
+                "paging":   false,
+                "ordering": false,
+                "info":     false,
+                dom: 'Bf',
+                buttons: [
+                        {
+                            extend: 'excel',
+                            title: '',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            title: '',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            title: '',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            title: '',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'copy',
+                            title: '',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'colvis',
+                            text: 'Filter'
+                        }
+                    ]
             } );
         } );
-       
     </script>

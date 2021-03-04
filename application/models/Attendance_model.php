@@ -32,18 +32,32 @@ class Attendance_model extends CI_Model
 	return $query->result();	
 	}
 
-	public function get_raw_datas()
+	public function get_raw_datas($start_date,$end_date)
 	{
-		$query = $this->db->query("
+		$this->db->select("
+			raw_data.biometric_id as biometric_id, 
+			raw_data.date as date, raw_data.time as time, 
+			raw_data.status as status , 
+			CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname, 
+			employee_biometric.employee_number as employee_number
+		");
+		$this->db->from('blaine_timekeeping.raw_data');
+		$this->db->join('blaine_timekeeping.employee_biometric','blaine_timekeeping.raw_data.biometric_id = blaine_timekeeping.employee_biometric.biometric_number','left');
+		$this->db->join('blaine_intranet.employees','blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number','left');
+		$this->db->where('raw_data.date >=', $start_date);
+		$this->db->where('raw_data.date <=', $end_date);
+		$query = $this->db->get();
+		/*$query = $this->db->query("
 			SELECT raw_data.biometric_id as biometric_id, raw_data.date as date, raw_data.time as time, raw_data.status as status , CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname, employee_biometric.employee_number as employee_number
 			FROM blaine_timekeeping.raw_data
 				LEFT JOIN blaine_timekeeping.employee_biometric
 				ON blaine_timekeeping.raw_data.biometric_id = blaine_timekeeping.employee_biometric.biometric_number
 				LEFT JOIN blaine_intranet.employees
 				ON blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number
-				")->result();
+				WHERE raw_data.date >= $start_date AND raw_data.date <= $end_date
+				")->result();*/
 
-		return $query;
+		return $query->result();
 	}
 
 	public function generate_dates()
@@ -148,6 +162,8 @@ class Attendance_model extends CI_Model
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
+
+	
 }
 
 /*$query = $this->db->query("

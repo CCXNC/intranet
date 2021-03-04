@@ -24,10 +24,18 @@ class Attendance extends CI_Controller {
 		$this->load->view('inc/navbar', $data); 
     }
 
+	public function index_raw_data()
+	{
+		$data['main_content'] = 'hr/timekeeping/reports/raw_data/index';
+		$this->load->view('inc/navbar', $data); 
+	}
 	public function raw_data()
 	{
-		$data['datas'] = $this->attendance_model->get_raw_datas();
-		$data['main_content'] = 'hr/timekeeping/reports/raw_data';
+		$start_date = $this->input->post('start_date');
+		$end_date = $this->input->post('end_date');
+
+		$data['datas'] = $this->attendance_model->get_raw_datas($start_date,$end_date);
+		$data['main_content'] = 'hr/timekeeping/reports/raw_data/view';
 		$this->load->view('inc/navbar', $data);
 	}
 
