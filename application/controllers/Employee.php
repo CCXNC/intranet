@@ -34,9 +34,9 @@ class Employee extends CI_Controller {
         
     }
  
-     public function view_employee($employee_number) 
+     public function view_employee($id,$employee_number) 
     {
-        $data['employee'] = $this->employee_model->get_employee($employee_number);
+        $data['employee'] = $this->employee_model->get_employee($id);
         $data['academe_infos'] = $this->employee_model->get_academe_infos($employee_number);
         $data['children_infos'] = $this->employee_model->get_children_infos($employee_number);
         $data['attachments'] = $this->employee_model->get_attachments($employee_number);
@@ -112,7 +112,7 @@ class Employee extends CI_Controller {
     public function edit_employee($id,$employee_number)
     {
         $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
-        $this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
+        /*$this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
         $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
         $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
@@ -126,7 +126,7 @@ class Employee extends CI_Controller {
         $this->form_validation->set_rules('company', 'Business Unit', 'required|trim');
         $this->form_validation->set_rules('position', 'Position', 'required|trim');
         $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
-        $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
+        $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');*/
 
         if($this->form_validation->run() == FALSE)
         {
@@ -243,7 +243,7 @@ class Employee extends CI_Controller {
             }
              
         }    
-    }
+    } 
 
 
     public function add_info($id,$employee_number)

@@ -1093,7 +1093,7 @@ class Employee_model extends CI_Model {
 	}
 
 	public function get_transfer_logs($employee_number)
-	{
+	{ 
 		$this->db->select('
 			transfer_logs.position as position,
 			transfer_logs.immediate_superior as superior,

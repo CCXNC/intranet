@@ -448,7 +448,7 @@
                             <?php foreach($transfer as $trans) : ?>
                                 <tr>
                                     <td data-label="Date Log"><?php echo date('F j, Y',strtotime($trans->date_created));  ?></td>
-                                    <td data-label="Date Movement/Promotion"><?php if($trans->date != NULL) : ?><?php echo date('F j, Y',strtotime($trans->date));  ?></td><?php endif; ?>
+                                    <td data-label="Date Movement/Promotion"><?php if($trans->date != NULL) : ?><?php echo date('F j, Y',strtotime($trans->date));  ?><?php endif; ?></td>
                                     <td data-label="Status"><?php echo $trans->employee_status;  ?></td>
                                     <td data-label="Company"><?php echo $trans->company_name; ?></td>
                                     <td data-label="Department"><?php echo $trans->department_name; ?></td>
@@ -460,6 +460,7 @@
                             <?php endforeach; ?> 
                         <?php endif; ?>
                     </tbody>
+                </table>   
                 </table>   
             </div>
         </div>  
