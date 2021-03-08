@@ -112,7 +112,7 @@ class Employee extends CI_Controller {
     public function edit_employee($id,$employee_number)
     {
         $this->form_validation->set_rules('employee_number', 'Employee Number', 'required|trim');
-        $this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
+        /*$this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
         $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
         $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
@@ -126,7 +126,7 @@ class Employee extends CI_Controller {
         $this->form_validation->set_rules('company', 'Business Unit', 'required|trim');
         $this->form_validation->set_rules('position', 'Position', 'required|trim');
         $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
-        $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
+        $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');*/
 
         if($this->form_validation->run() == FALSE)
         {

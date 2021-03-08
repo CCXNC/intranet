@@ -45,7 +45,8 @@
                             <div class="col-md-8 ui-front">
                                <select class="form-control" name="name">
                                     <option value="">Select Type</option>
-                                    <option value="Special Holiday">Special Holiday</option>
+                                    <option value="Special Working Holiday">Special Working Holiday</option>
+                                    <option value="Special Nonworking Holiday">Special Nonworking Holiday</option>
                                     <option value="Legal Holiday">Legal Holiday</option>
                                 </select>
                             </div>
@@ -86,7 +87,8 @@
                                 <div class="col-md-8 ui-front">
                                     <select class="form-control" name="name" value="" id="name">
                                         <option value="">Select Type</option>
-                                        <option value="Special Holiday">Special Holiday</option>
+                                        <option value="Special Working Holiday">Special Working Holiday</option>
+                                        <option value="Special Nonworking Holiday">Special Nonworking Holiday</option>
                                         <option value="Legal Holiday">Legal Holiday</option>
                                     </select>
                                 </div>

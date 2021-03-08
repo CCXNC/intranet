@@ -15,6 +15,7 @@
             <th scope="col">Date</th>
             <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">Name</th><?php endif; ?>
             <th scope="col">Type</th>
+            <th scope="col">Title</th>
             <th>Remarks</th>
             <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">No. Comment</th><?php endif; ?>
             <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">Status</th><?php endif; ?>
@@ -28,6 +29,7 @@
                     <td data-label="Date"><?php echo date('F j, Y | h:i A', strtotime($feedback->date));  ?></td>
                     <?php if($this->session->userdata('department_id') == 25) : ?><td data-label="Name"><?php echo $feedback->fullname;  ?></td><?php endif; ?>
                     <td data-label="Category"><?php echo $feedback->category;  ?></td>
+                    <td data-label="Title"><?php echo $feedback->title;?></td>
                     <td data-label="Category"><?php echo substr($feedback->comment,0,150);  ?></td>
                     <?php if($this->session->userdata('department_id') == 25) : ?><td data-label="Name"><?php echo $feedback->number_comment;  ?></td><?php endif; ?>
                     <?php if($this->session->userdata('department_id') == 25) : ?>
@@ -92,6 +94,7 @@
                                 <option value="BLAINE 5S">BLAINE 5S</option>
                                 <option value="OTHERS">OTHERS</option>
                             </select><br>
+                            <input type="text" class="form-control" name="title" placeholder="TITLE"><br>
                             <textarea name="remarks" placeholder="COMMENT" class="form-control" cols="30" rows="10" required></textarea><br>
                             <input type='file' name='data1' size='20' />
                         </div>
