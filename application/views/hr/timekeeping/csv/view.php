@@ -4,10 +4,18 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<form method="post" action="<?php echo base_url();?>csv_import/add_employees_attendance" enctype="multipart/form-data">  
+<form method="post" action="<?php echo base_url(); ?>csv_import/add_employees_attendance" id="import_csv" enctype="multipart/form-data">  
+    <div class="col-md-12">
+        <div id="progressbar" style="border:1px solid #ccc; border-radius: 5px; "></div>
+        <!-- Progress information -->
+        <div id="information" ></div>
+    </div>
+    <div>
+        <iframe id="loadarea" style="display:none;"></iframe><br />
+    </div>
     <div class="card-header"><h4>EMPLOYEE ATTENDANCE LIST
         <a href="<?php echo base_url(); ?>csv_import/delete_temp_attendance" onclick="return confirm('Do you want to delete data?');" class="btn btn-danger float-right" style="border:1px solid #ccc; margin-right:10px;">DELETE</a>
-       <input type="submit" onclick="return confirm('Do you want to process data?');" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" value="PROCESS"></h4> 
+       <input id="button1" type="submit" onclick="return confirm('Do you want to process data?');" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" value="PROCESS"></h4> 
     </div>
     <br>
     <table id="" class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
@@ -50,7 +58,7 @@
     </table>
     <?php if($raw_attendances) : ?>
         <?php foreach($raw_attendances as $raw_attendance) : ?>
-            <br><input type="text" name="raw_biometric_id[]" value="<?php echo $raw_attendance->biometric_id; ?>" hidden>
+            <input type="text" name="raw_biometric_id[]" value="<?php echo $raw_attendance->biometric_id; ?>" hidden>
             <input type="text" name="raw_employee_number[]" value="<?php echo $raw_attendance->employee_number; ?>" hidden>
             <?php $explod_date = explode(' ', $raw_attendance->date_time); ?>
             <input type="text" name="raw_date[]" value="<?php echo $explod_date[0]; ?>" hidden>
@@ -79,6 +87,31 @@
                 "bFilter": true,
                 "bInfo": false,
                 "bAutoWidth": false
-            } );
-        } );
+            });
+
+           /* $('#import_csv').on('submit', function(event){
+                event.preventDefault();
+                document.getElementById('loadarea').src = '<?php echo base_url(); ?>csv_import/add_employees_attendance';
+                $.ajax({
+                    url:"<?php echo base_url(); ?>csv_import/add_employees_attendance",
+                    method:"POST",
+                    data:new FormData(this),
+                    contentType:false,
+                    cache:false,
+                    processData:false,
+                    beforeSend:function(){
+                        $('#import_csv_btn').html('Importing...');
+                    },
+                    success:function(data)
+                    {
+                        $('#import_csv')[0].reset();
+                        $('#import_csv_btn').attr('disabled', false);
+                        $('#import_csv_btn').html('Import Done');
+                        load_data();
+                    }
+                })
+            });*/
+
+        });
+      
     </script>

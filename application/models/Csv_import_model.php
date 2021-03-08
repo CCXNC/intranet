@@ -95,6 +95,7 @@ class Csv_import_model extends CI_Model
 		print_r('<pre>');
 		print_r($date_out);
 		print_r('</pre>');*/
+		
 
 		for($i=0; $count_rows > $i; $i++)
 		{
@@ -162,6 +163,7 @@ class Csv_import_model extends CI_Model
 			print_r('</pre>');*/
 		}
 
+		
 		
 		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 		$blaine_timekeeping->where('id !=', NULL);
