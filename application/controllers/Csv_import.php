@@ -26,6 +26,7 @@ class Csv_import extends CI_Controller {
 
 	function import()
 	{
+	
 		$file_data = $this->csvimport->get_array($_FILES["csv_file"]["tmp_name"]);
 		foreach($file_data as $row)
 		{
@@ -34,8 +35,31 @@ class Csv_import extends CI_Controller {
 				'date_time'			=>	$row["Date/Time"],
 				'status'			=>	$row["Cat1"]. '' .$row["Cat2"] . '' .$row["Cat3"] . '' .$row["Cat4"],
 			);
-
+			
 		}
+		/*ini_set('max_execution_time', 0); // to get unlimited php script execution time
+
+		$test = count($file_data);
+		if(empty($_SESSION['i'])){
+			$_SESSION['i'] = 0;
+		}
+
+		$total = 100;
+		for($i=$_SESSION['i'];$i<=$total;$i++)
+		{
+			$_SESSION['i'] = $i;
+			$percent = intval($i/$total * 100)."%";   
+			
+			sleep(1); // Here call your time taking function like sending bulk sms etc.
+
+			echo '<script>
+			parent.document.getElementById("progressbar").innerHTML="<div style=\"width:'.$percent.';background:linear-gradient(to bottom, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); ;height:35px;\">&nbsp;</div>";
+			parent.document.getElementById("information").innerHTML="<div style=\"text-align:center; font-weight:bold\">'.$percent.' is processed.</div>";</script>';
+
+			ob_flush(); 
+			flush(); 
+			
+		}*/
 		$this->csv_import_model->insert($data);
 	}
 
@@ -55,6 +79,29 @@ class Csv_import extends CI_Controller {
 		{
 			$this->session->set_flashdata('success_msg', 'Attendance Successfully Process!');
 			redirect('attendance/index_attendance');
+
+			/*ini_set('max_execution_time', 0); // to get unlimited php script execution time
+
+			if(empty($_SESSION['i'])){
+				$_SESSION['i'] = 0;
+			}
+
+			$total = 100;
+			for($i=$_SESSION['i'];$i<=$total;$i++)
+			{
+				$_SESSION['i'] = $i;
+				$percent = intval($i/$total * 100)."%";   
+				
+				sleep(1); // Here call your time taking function like sending bulk sms etc.
+
+				echo '<script>
+				parent.document.getElementById("progressbar").innerHTML="<div style=\"width:'.$percent.';background:linear-gradient(to bottom, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); ;height:35px;\">&nbsp;</div>";
+				parent.document.getElementById("information").innerHTML="<div style=\"text-align:center; font-weight:bold\">'.$percent.' is processed.</div>";</script>';
+
+				//ob_flush(); 
+				flush();
+				
+			} */
 		}
 	}
 
