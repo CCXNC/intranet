@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT EMPLOYEE<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4>EDIT EMPLOYEE<a href="<?php echo base_url(); ?>employee/index" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/edit_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>" enctype="multipart/form-data">
@@ -424,7 +424,7 @@
             <br>
             <center>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success" onclick="return confirm('Do you want to update data?');" value="UPDATE" >
+                    <input type="submit" title="Update Employee Information" class="btn btn-success" onclick="return confirm('Do you want to update data?');" value="UPDATE" >
                 </div>
             </center>
             

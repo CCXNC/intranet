@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT BLAINE FORMS<a href="<?php echo base_url(); ?>forms/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4>EDIT BLAINE FORMS<a href="<?php echo base_url(); ?>forms/index" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <center>
         <form method="post" action="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" enctype="multipart/form-data">
@@ -24,7 +24,7 @@
                         
                     </div>
             <br>
-            <button type="submit" class="btn btn-info" onclick="return confirm('Do you want to update data?');">Update</button>
+            <button type="submit" title="Update Form" class="btn btn-info" onclick="return confirm('Do you want to update data?');">Update</button>
         </form>
     </center>
        

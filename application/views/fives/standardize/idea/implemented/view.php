@@ -89,7 +89,7 @@
 
 </style>
 <div class="card">
-    <div class="card-header" style="background-color:#1C4670; color:white;"><h4>VIEW 5S SHARE IMPLEMENTED IDEA<a href="<?php echo base_url(); ?>fives/implemented" id="back"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a><input type="submit"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" id="printButton" value="PRINT"></h4></div>
+    <div class="card-header" style="background-color:#1C4670; color:white;"><h4>VIEW 5S SHARE IMPLEMENTED IDEA<a href="<?php echo base_url(); ?>fives/implemented" id="back" title="Go Back" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a><input type="submit"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" id="printButton" title="Print Idea" value="PRINT"></h4></div>
     <div class="card-body">
         <div class="card">
             <div class="card-header" style="background-color:#1C4670; color:white;">My Idea</div>

@@ -37,7 +37,7 @@ input[type="checkbox"]:checked:after {
 }
 </style>
 <div class="card-header"><h4>EMPLOYEE LIST REPORTS
-    <a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
+    <a href="<?php echo base_url(); ?>employee/index" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
     </h4> 
 </div>
 <br>

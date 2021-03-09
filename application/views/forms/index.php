@@ -5,7 +5,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine Form List
-<?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
+<?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?><a href="#" title="Add Form" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
     </h4> 
 </div>
 <br>
@@ -31,8 +31,8 @@
                 <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 10 || $this->session->userdata('department_id') == 25) : ?>
                     <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->date)); ?></td>
                     <td data-label="Action">
-                        <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" class="btn btn-info " style="margin-right:10px; width: 100%">EDIT</a>
-                        <a href="<?php echo base_url(); ?>forms/delete_form/<?php echo $attachment->id; ?>" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-danger " style="margin-right:10px; width: 100%">DELETE</a>
+                        <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" title="Edit Form" class="btn btn-info " style="margin-right:10px; width: 100%">EDIT</a>
+                        <a href="<?php echo base_url(); ?>forms/delete_form/<?php echo $attachment->id; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-danger " style="margin-right:10px; width: 100%">DELETE</a>
                     </td>
                 <?php endif; ?>    
             </tr>        
@@ -69,8 +69,8 @@
                 <br>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" title="Close Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" title="Submit Form" class="btn btn-primary">Submit</button>
             </div>
             </form>
     </div>
