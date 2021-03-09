@@ -26,18 +26,7 @@
 				</div>
 				<br />
 				<button type="submit" name="import_csv" class="btn btn-info" id="import_csv_btn">Import</button>
-                <a href="<?php echo base_url(); ?>csv_import/view" class="btn btn-info">View Data</a>
-
-				<div class="col-md-12">
-					<p>&nbsp;</p>
-					<div id="progressbar" style="border:1px solid #ccc; border-radius: 5px; "></div>
-			
-					<!-- Progress information -->
-					<br>
-					<div id="information" ></div>
-				</div>
-					<iframe id="loadarea" style="display:none;"></iframe><br />
-				</div>
+                <a href="<?php echo base_url(); ?>csv_import/view" class="btn btn-info">View Data</a><br><br>
 			</form>
 		</center>
 	</div>
