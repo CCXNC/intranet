@@ -4,18 +4,20 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
+<style>
+.modal-backdrop {
+     background-color: rgba(0,0,0,.0001) !important;
+}
+
+.modal-content {
+    border-color: white;
+    border: none;
+}
+</style>
 <form method="post" action="<?php echo base_url(); ?>csv_import/add_employees_attendance" id="import_csv" enctype="multipart/form-data">  
-    <div class="col-md-12">
-        <div id="progressbar" style="border:1px solid #ccc; border-radius: 5px; "></div>
-        <!-- Progress information -->
-        <div id="information" ></div>
-    </div>
-    <div>
-        <iframe id="loadarea" style="display:none;"></iframe><br />
-    </div>
     <div class="card-header"><h4>EMPLOYEE ATTENDANCE LIST
         <a href="<?php echo base_url(); ?>csv_import/delete_temp_attendance" onclick="return confirm('Do you want to delete data?');" class="btn btn-danger float-right" style="border:1px solid #ccc; margin-right:10px;">DELETE</a>
-       <input id="button1" type="submit" onclick="return confirm('Do you want to process data?');" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" value="PROCESS"></h4> 
+       <input id="button1" type="submit" data-toggle="modal" data-target="#smallModal" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" value="PROCESS"></h4> 
     </div>
     <br>
     <table id="" class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
@@ -71,7 +73,19 @@
             <?php endif; ?>
         <?php endforeach;?>
     <?php endif; ?>
-</form>    
+</form>   
+<!-- Modal -->
+<div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content rounded-0">
+      <div class="modal-body">
+        <center>
+        <h3> <i class="fa fa-spinner fa-spin" style="font-size:200px"></i></h3>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
     <script type="text/javascript">  
         $(document).ready(function() {
             $('.display').DataTable( {
@@ -87,6 +101,11 @@
                 "bFilter": true,
                 "bInfo": false,
                 "bAutoWidth": false
+            });
+
+            $("#smallModal").modal({
+                show:false,
+                backdrop:'static'
             });
 
            /* $('#import_csv').on('submit', function(event){

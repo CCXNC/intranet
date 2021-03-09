@@ -16,7 +16,9 @@ class Attendance_model extends CI_Model
 			attendance_out.generate as out_generate,
 			employee_biometric.biometric_number as biometric_id,
 			attendance_in.generated_by as in_generated,
-			attendance_out.generated_by as out_generated
+			attendance_out.generated_by as out_generated,
+			ob.date_ob as date_ob,
+			ob.employee_number as ob_employee_number
 		");
 		$this->db->from('blaine_timekeeping.temp_date');
 		$this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.is_active = blaine_timekeeping.temp_date.batch');
@@ -24,6 +26,7 @@ class Attendance_model extends CI_Model
 		//$this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_in.employee_number = blaine_intranet.employees.employee_number AND blaine_timekeeping.temp_date.date = blaine_timekeeping.attendance_out.date','left');
 		$this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_in.biometric_id = blaine_timekeeping.attendance_out.biometric_id AND blaine_timekeeping.attendance_in.date = blaine_timekeeping.attendance_out.date AND blaine_timekeeping.temp_date.date = blaine_timekeeping.attendance_out.date','left');
         $this->db->join('blaine_timekeeping.employee_biometric', 'blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number', 'left');
+		$this->db->join('blaine_timekeeping.ob','blaine_timekeeping.ob.date_ob = blaine_timekeeping.temp_date.date AND blaine_timekeeping.ob.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->order_by('employees.last_name','ASC');
 		$this->db->order_by('attendance_in.date','ASC');
 		$query = $this->db->get();

@@ -16,6 +16,7 @@
                 <th scope="col">TIME IN</th>
                 <th scope="col">TIME OUT</th>
                 <th scope="col">PROCESS</th>
+                <th scope="col">REMARKS</th>
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
@@ -36,12 +37,48 @@
                             } 
                         ?>
                         </td>
-                        <td <?php echo $employee->time_in == NULL ? 'style="background-color:#fa1e0e;color:white;"' : ''; ?>><?php if($employee->time_in == NULL){ echo 'NO IN'; } else{ echo $employee->time_in; } ?></td>
-                        <td <?php echo $employee->time_out == NULL ? 'style="background-color:#fa1e0e;color:white;"' : ''; ?>><?php if($employee->time_out == NULL){ echo 'NO OUT'; } else{ echo $employee->time_out; }  ?></td>
-                        <td <?php echo $employee->in_generate == NULL && $employee->out_generate == NULL ? 'style="background-color:#fa1e0e;color:white;"' : ''; ?>>
+                        <td>
+                            <?php 
+                                if($employee->time_in == NULL) { 
+                                    if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) {
+                                        echo ''; 
+                                    } 
+                                    else
+                                    {
+                                        echo '<p class="" style="text-align:center;padding:10px;background-color:#fa1e0e;color:white;">NO IN</p>'; 
+                                    }
+                                }
+                               else { 
+                                    echo $employee->time_in; 
+                                } 
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if($employee->time_out == NULL) { 
+                                    if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) {
+                                        echo ''; 
+                                    } 
+                                    else
+                                    {
+                                        echo '<p class="" style="text-align:center;padding:10px;background-color:#fa1e0e;color:white;">NO OUT</p>'; 
+                                    }
+                                }
+                               else { 
+                                    echo $employee->time_out; 
+                                } 
+                            ?>
+                        </td>
+                        <td>
                             <?php 
                                 if($employee->in_generate == NULL && $employee->out_generate == NULL) { 
-                                    echo  'N/A'; 
+                                    if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) {
+                                        echo ''; 
+                                    } 
+                                    else
+                                    {
+                                        echo  '<p class="" style="text-align:center;padding:10px;background-color:#fa1e0e;color:white;">N/A</p>'; 
+                                    }
                                 } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == NULL) { 
                                     echo '(IN-' . ' ' . $employee->in_generate . ')'; 
                                 } elseif($employee->out_generate == "SYSTEM" && $employee->in_generate == NULL) { 
@@ -57,6 +94,11 @@
                                 }
                             ?>
                         </td>
+                        <td>
+                            <?php if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) : ?>
+                                <?php echo '<p class="" style="text-align:center;padding:10px;background-color:#007730;color:white;">OB</p>' ?>
+                            <?php endif; ?>    
+                        </td>
                         <td data-label="Action">
                             <?php if($employee->in_generate == "SYSTEM" && $employee->out_generate == 'MANUAL') : ?>
                                 <?php echo strtoupper($employee->out_generated); ?>
@@ -65,9 +107,12 @@
                             <?php elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'MANUAL') : ?>  
                                 <?php echo strtoupper($employee->in_generated); ?>    
                             <?php elseif($employee->in_generate != "SYSTEM" || $employee->out_generate != 'SYSTEM') : ?>   
-                                <button type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
-                                    ADD 
-                                </button>
+                                <?php  if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) : ?>
+                                <?php else: ?>
+                                    <button type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
+                                        ADD 
+                                    </button>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </td>
                     </tr>

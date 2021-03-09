@@ -37,7 +37,7 @@ class Csv_import extends CI_Controller {
 			);
 			
 		}
-		ini_set('max_execution_time', 0); // to get unlimited php script execution time
+		/*ini_set('max_execution_time', 0); // to get unlimited php script execution time
 
 		$test = count($file_data);
 		if(empty($_SESSION['i'])){
@@ -59,7 +59,7 @@ class Csv_import extends CI_Controller {
 			ob_flush(); 
 			flush(); 
 			
-		}
+		}*/
 		$this->csv_import_model->insert($data);
 	}
 
