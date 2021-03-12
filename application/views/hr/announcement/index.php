@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-    <div class="card-header"><h4>ANNOUNCEMENT LIST<a href="<?php echo base_url(); ?>announcement/add" class="btn btn-info float-right">ADD</a></h4> </div>
+    <div class="card-header"><h4>ANNOUNCEMENT LIST<a href="<?php echo base_url(); ?>announcement/add" title="Add Announcement" class="btn btn-info float-right">ADD</a></h4> </div>
     <br>
     <table id="" class="display" style="width:100%">
         <thead>
@@ -28,13 +28,13 @@
                         <td data-label="Date"><?php echo $announcement->created_date; ?></td>
                         <td data-label="Action">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" title="View Actions" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>announcement/view_announcement/<?php echo $announcement->id; ?>"> View</a>
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>announcement/edit/<?php echo $announcement->id; ?>">Edit</a>
-                                    <a onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>announcement/delete/<?php echo $announcement->id?>">Delete</a>
+                                    <a class="dropdown-item" title="View Announcement" href="<?php echo base_url(); ?>announcement/view_announcement/<?php echo $announcement->id; ?>"> View</a>
+                                    <a class="dropdown-item" title="Edit Announcement" href="<?php echo base_url(); ?>announcement/edit/<?php echo $announcement->id; ?>">Edit</a>
+                                    <a onclick="return confirm('Are you sure you want to delete data?');" title="Delete Announcement" class="dropdown-item" href="<?php echo base_url(); ?>announcement/delete/<?php echo $announcement->id?>">Delete</a>
                                 </div>
                             </div>
                         </td>

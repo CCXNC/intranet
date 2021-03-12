@@ -35,7 +35,7 @@ $(document).ready(function(){
 
 	$('#import_csv').on('submit', function(event){
 		event.preventDefault();
-		document.getElementById('loadarea').src = '<?php echo base_url(); ?>csv_import/import';
+		//document.getElementById('loadarea').src = '<?php echo base_url(); ?>csv_import/import';
 		$.ajax({
 			url:"<?php echo base_url(); ?>csv_import/import",
 			method:"POST",

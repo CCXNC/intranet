@@ -1,4 +1,4 @@
-<div class="card-header"><h4>LEAVE OF ABSENCE LIST<a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+<div class="card-header"><h4>LEAVE OF ABSENCE LIST<a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
 <br>
 <table id="" class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
     <thead>

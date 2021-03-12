@@ -1,10 +1,10 @@
 <div class="card">
-    <div class="card-header"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <form method="post"action="<?php echo base_url(); ?>employee/delete_all_information/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">
             <!-- Personal Information -->
             <div class="card">
-                <div class="card-header">Personal Information<input type="submit" class="btn btn-danger float-right" onclick="return confirm('Do you want to Delete Personal Information?');" value="Delete all Information" ></div>
+                <div class="card-header">Personal Information<input type="submit" class="btn btn-danger float-right" onclick="return confirm('Do you want to Delete Personal Information?');" title="Delete All Employee Information" value="Delete all Information" ></div>
                 <div class="card-body">
                         <div style="position:absolute;">
                             <div class="form-group">
@@ -309,7 +309,7 @@
                                         <td><?php echo date('F j, Y',strtotime($children_info->birthday));  ?></td>
                                         <td><?php echo $children_info->gender;  ?></td>
                                         <form method="post" action="<?php echo base_url(); ?>employee/delete_children_information/<?php echo $children_info->id; ?>/<?php echo $children_info->employee_number; ?>">
-                                            <td><input type="submit" class="btn btn-danger" onclick="return confirm('Do you want to Delete Employment Information?');" value="Delete" ></div>
+                                            <td><input type="submit" title="Delete Children Information" class="btn btn-danger" onclick="return confirm('Do you want to Delete Employment Information?');" value="Delete" ></div>
                                         </form>
                                     </tr>
                                 <?php endforeach; ?>
@@ -345,7 +345,7 @@
                                     <td><?php echo $academe_info->course;  ?></td>
                                     <td><?php echo $academe_info->license;  ?></td>
                                     <form method="post" action="<?php echo base_url(); ?>employee/delete_academe_information/<?php echo $academe_info->id; ?>/<?php echo $academe_info->employee_number; ?>">
-                                        <td><input type="submit" class="btn btn-danger" onclick="return confirm('Do you want to Delete Academe Information?');" value="Delete" ></div>
+                                        <td><input type="submit" title="Delete Academe Information" class="btn btn-danger" onclick="return confirm('Do you want to Delete Academe Information?');" value="Delete" ></div>
                                     </form>
                                 </tr>
                             <?php endforeach; ?>

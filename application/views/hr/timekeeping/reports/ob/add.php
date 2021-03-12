@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>OB FORM<a href="<?php echo base_url(); ?>reports/index_ob" title="Go Back to Menu" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4>OB FORM<a href="<?php echo base_url(); ?>reports/index_ob" title="Go Back" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
     <form method="post" action="<?php echo base_url(); ?>reports/add_ob" enctype="multipart/form-data"> 

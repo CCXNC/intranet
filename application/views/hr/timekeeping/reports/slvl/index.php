@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header" ><h4>LEAVE OF ABSENCE LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" ><h4>LEAVE OF ABSENCE LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
     <form method="post" action="" enctype="multipart/form-data"> 
@@ -18,7 +18,7 @@
                 </div>
             </div><br>
         <center>
-            <input type="submit" class="btn btn-info" name="SUBMIT">
+            <input type="submit" title="Submit Date" class="btn btn-info" name="SUBMIT">
         </center>
     </form>  
 </div>

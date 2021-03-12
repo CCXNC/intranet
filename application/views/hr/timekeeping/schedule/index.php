@@ -5,8 +5,8 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header"><h4>EMPLOYEE SCHEDULE LIST
-    <a href="<?php echo base_url(); ?>schedule/add_schedule" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">BIOMETRIC</a>
-    <a href="<?php echo base_url(); ?>schedule/add_schedule" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
+    <a href="<?php echo base_url(); ?>schedule/add_schedule" class="btn btn-dark float-right" data-toggle="modal" title="Add Biometric Information" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">BIOMETRIC</a>
+    <a href="<?php echo base_url(); ?>schedule/add_schedule" class="btn btn-dark float-right" title="Add Employee Schedule" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
     </h4> 
 </div>
 <br>
@@ -32,15 +32,15 @@
                     <td data-label="Grace Period"><?php echo $schedule->grace_period . ' Minutes'; ?></td>
                     <td data-label="Action">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>schedule/view_schedule/<?php echo $schedule->id; ?>">View</a>
+                                <a class="dropdown-item" title="View Employee Schedule" href="<?php echo base_url(); ?>schedule/view_schedule/<?php echo $schedule->id; ?>">View</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>schedule/edit_schedule/<?php echo $schedule->id; ?>">Edit Schedule</a>
+                                <a class="dropdown-item" title="Edit Employee Schedule" href="<?php echo base_url(); ?>schedule/edit_schedule/<?php echo $schedule->id; ?>">Edit Schedule</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>schedule/edit_biometric/<?php echo $schedule->employee_number; ?>">Edit Biometric</a>
+                                <a class="dropdown-item" title="Edit Employee Biometric" href="<?php echo base_url(); ?>schedule/edit_biometric/<?php echo $schedule->employee_number; ?>">Edit Biometric</a>
                             </div>
                         </div>
                     </td>
@@ -83,8 +83,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" onclick="return confirm('Do you want to submit data?');">Submit</button>
+                    <button type="button" title="Close Biometric Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" title="Submit Biometric Form" class="btn btn-primary" onclick="return confirm('Do you want to submit data?');">Submit</button>
                 </div>
             </form>
     </div>

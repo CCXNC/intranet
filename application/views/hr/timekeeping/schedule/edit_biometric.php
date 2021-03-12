@@ -4,7 +4,7 @@
     }
 </style>
 <div class="card" style="width: 30rem;"> 
-    <div class="card-header"><h4>EDIT EMPLOYEE BIOMETRIC<a href="<?php echo base_url(); ?>schedule/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4>EDIT EMPLOYEE BIOMETRIC<a href="<?php echo base_url(); ?>schedule/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <form method="post" action="<?php echo base_url(); ?>schedule/edit_biometric/<?php echo $bio->employee_number; ?>" enctype="multipart/form-data">           
     <div class="form-group">
@@ -20,7 +20,7 @@
             <br>
             <div class="form-group">
                 <center>
-                    <input type="submit" class="btn btn-info" onclick="return confirm('Do you want to update data?');" value="UPDATE">
+                    <input type="submit" title="Update Employee Biometric" class="btn btn-info" onclick="return confirm('Do you want to update data?');" value="UPDATE">
                 </center>
             </div>  
                        

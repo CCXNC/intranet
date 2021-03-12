@@ -7,10 +7,10 @@
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
 <div class="card"> 
-    <div class="card-header"><h4><?php echo $feedback->category; ?><a href="<?php echo base_url(); ?>feedback/index" class="btn btn-dark float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4><?php echo $feedback->category; ?><a href="<?php echo base_url(); ?>feedback/index" class="btn btn-dark float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div class="card">
-            <div class="card-header"><h5>Feedback List<a href="<?php echo base_url(); ?>feedback/index" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModal" style="margin-right:10px;">ADD COMMENT</a></h5></div>
+            <div class="card-header"><h5>Feedback List<a href="<?php echo base_url(); ?>feedback/index" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModal" title="Add Comment" style="margin-right:10px;">ADD COMMENT</a></h5></div>
             <div class="card-body">
                 <table class="display" style="width:100%">
                     <thead>
@@ -40,7 +40,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">COMMENT FORM</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button title="Close Comment Form" type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -59,8 +59,8 @@
                                     <br>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to submit data?');">Submit</button>
+                                    <button type="button" title="Close Comment Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" title="Submit Comment Form" class="btn btn-primary" onclick="return confirm('Are you sure you want to submit data?');">Submit</button>
                                 </div>
                                 </form>
                         </div>

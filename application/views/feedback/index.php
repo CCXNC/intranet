@@ -5,7 +5,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine Feedback List
-<?php if($this->session->userdata('access_level_id') == 1) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
+<?php if($this->session->userdata('access_level_id') == 1) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" title="Add Feedback" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
     </h4> 
 </div>
 <br>
@@ -49,18 +49,18 @@
                     <?php if($this->session->userdata('department_id') == 25) : ?>
                         <td data-label="Action">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>feedback/view/<?php echo $feedback->id; ?>">VIEW</a>
+                                    <a title="View Feedback" class="dropdown-item" href="<?php echo base_url(); ?>feedback/view/<?php echo $feedback->id; ?>">VIEW</a>
                                     <?php if($feedback->is_open != 2 && $feedback->is_open != 0): ?>
                                         <div class="dropdown-divider"></div>
-                                        <a onclick="return confirm('Are you sure you want to hold the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/hold_feedback/<?php echo $feedback->id; ?>">HOLD</a>
+                                        <a title="Hold Feedback" onclick="return confirm('Are you sure you want to hold the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/hold_feedback/<?php echo $feedback->id; ?>">HOLD</a>
                                     <?php endif; ?>
                                     <?php if($feedback->is_open != 0 ): ?>
                                         <div class="dropdown-divider"></div>
-                                        <a onclick="return confirm('Are you sure you want to close the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/close_feedback/<?php echo $feedback->id; ?>">CLOSE</a>
+                                        <a title="Close Feedback" onclick="return confirm('Are you sure you want to close the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/close_feedback/<?php echo $feedback->id; ?>">CLOSE</a>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -103,8 +103,8 @@
                 <br>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" title="Close Feedback Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" title="Submit Feedback Form" class="btn btn-primary">Submit</button>
             </div>
             </form>
     </div>

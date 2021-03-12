@@ -15,7 +15,7 @@
             <h4>
                 <div class="card-header">
                     <h4>
-                        <a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
+                        <a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a>
                         </h4>
                 </div>
             </h4>
@@ -65,8 +65,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Event">
+                        <button type="button" title="Close" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" title="Add Event" class="btn btn-primary" value="Add Event">
                         <?php echo form_close() ?>
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                         <input type="hidden" name="eventid" id="event_id" value="0" />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Update Event">
+                        <button type="button" title="Close" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" title="Update Event" class="btn btn-primary" value="Update Event">
                         <?php echo form_close() ?>
                     </div>
                 </div>
