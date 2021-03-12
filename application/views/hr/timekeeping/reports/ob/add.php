@@ -7,14 +7,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="">Employee Name</label>
-                        <select name="employee" class="form-control col-md-12">  
-                            <option value="">SELECT EMPLOYEE</option>
-                            <?php if($employees) : ?>
-                            <?php foreach($employees as $employee) : ?>
-                                <option value="<?php echo $employee->emp_no . '|' . $employee->department_id; ?>"><?php echo $employee->fullname; ?></option>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
-                        </select>
+                    <select name="employee" class="form-control col-md-12">  
+                        <option value="">SELECT EMPLOYEE</option>
+                        <?php if($employees) : ?>
+                        <?php foreach($employees as $employee) : ?>
+                            <option value="<?php echo $employee->emp_no . '|' . $employee->department_id; ?>"><?php echo $employee->fullname; ?></option>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
                 </div>
             </div>
             <div class="col-md-6">

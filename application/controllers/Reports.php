@@ -101,19 +101,126 @@ class Reports extends CI_Controller {
     }
     public function index_slvl()
     {
+        if($this->input->server('REQUEST_METHOD') == 'POST')
+		{
+			$data['start_date'] = $this->input->post('start_date');
+			$data['end_date'] = $this->input->post('end_date');
+            $data['leaves'] = $this->report_model->get_employees_leave($data['start_date'], $data['end_date']);
+		}
+		else                                      
+		{                                       
+			$data['start_date'] = date('Y-m-d');                         
+			$data['end_date'] = date('Y-m-d');     
+            $data['leaves'] = $this->report_model->get_employees_leaves();
+		}    
+       
         $data['main_content'] = 'hr/timekeeping/reports/slvl/index';
         $this->load->view('inc/navbar', $data);
     }
 
     public function add_slvl()
     {
-        $data['main_content'] = 'hr/timekeeping/reports/slvl/add';
+        $this->form_validation->set_rules('employee', 'Employee Fullname', 'trim|required');
+        $this->form_validation->set_rules('type', 'Type', 'trim|required');
+        $this->form_validation->set_rules('start_date', 'Date of leave (Start)', 'trim|required');
+        $this->form_validation->set_rules('end_date', 'Date of leave (End)', 'trim|required');
+        $this->form_validation->set_rules('day', 'Day', 'trim|required');
+        $this->form_validation->set_rules('address_leave', 'Address While On Leave', 'trim|required');
+        $this->form_validation->set_rules('reason', 'Reason', 'trim|required');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['employees'] = $this->employee_model->get_employees();
+            $data['main_content'] = 'hr/timekeeping/reports/slvl/add';
+            $this->load->view('inc/navbar', $data);
+        }   
+        else 
+        {
+            if($this->report_model->add_slvl())
+            {
+                $this->session->set_flashdata('success_msg', 'LEAVE SUCCESSFULLY ADDED!');
+                redirect('reports/index_slvl');
+            }
+        } 
+    }
+
+    public function view_slvl($id)
+    {
+        $data['leave'] = $this->report_model->get_employee_leave($id);
+        $data['main_content'] = 'hr/timekeeping/reports/slvl/view';
         $this->load->view('inc/navbar', $data);
     }
 
-    public function view_slvl()
+    public function edit_employee_slvl($id)
     {
-        $data['main_content'] = 'hr/timekeeping/reports/slvl/view';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('type', 'Type', 'trim|required');
+        $this->form_validation->set_rules('leave_date', 'Effective Date of leave', 'trim|required');
+        $this->form_validation->set_rules('day', 'Day', 'trim|required');
+        $this->form_validation->set_rules('address_leave', 'Address While On Leave', 'trim|required');
+        $this->form_validation->set_rules('reason', 'Reason', 'trim|required');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['leave'] = $this->report_model->get_employee_leave($id);
+            $data['main_content'] = 'hr/timekeeping/reports/slvl/edit';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->report_model->update_employee_leave($id))
+            {
+                $this->session->set_flashdata('success_msg', 'LEAVE SUCCESSFULLY UPDATED!');
+                redirect('reports/index_slvl');
+            }
+        }    
+    }
+
+    public function delete_employee_slvl($id)
+    {
+        if($this->report_model->delete_employee_leave($id))
+        {
+            $this->session->set_flashdata('error_msg', 'LEAVE SUCCESSFULLY DELETED!');
+            redirect('reports/index_slvl');
+        }
+    }
+
+    public function process_ob()
+    {
+        foreach($this->input->post('ob') as $ob)
+		{
+			$explode_data = explode('|', $ob);
+
+			$data = array(  
+				'process_by' 	=> $this->session->userdata('username'),
+				'process_date' => date('Y-m-d H:i:s'),
+				'status'        => '1'
+			);
+
+            $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+            $blaine_timekeeping->where('id', $explode_data[0]);
+			$blaine_timekeeping->update('ob', $data);
+		}
+        $this->session->set_flashdata('success_msg', 'OB SUCCESSFULLY PROCESS!');
+		redirect('reports/index_ob');
+    }
+
+    public function process_slvl()
+    {
+        foreach($this->input->post('leave') as $leave)
+		{
+			$explode_data = explode('|', $leave);
+
+			$data = array(  
+				'process_by' 	=> $this->session->userdata('username'),
+				'process_date' => date('Y-m-d H:i:s'),
+				'status'        => '1'
+			);
+
+            $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+            $blaine_timekeeping->where('id', $explode_data[0]);
+			$blaine_timekeeping->update('slvl', $data);
+		}
+        $this->session->set_flashdata('success_msg', 'LEAVE SUCCESSFULLY PROCESS!');
+		redirect('reports/index_slvl');
     }
 }

@@ -6,7 +6,7 @@
 <?php endif; ?> 
 <div class="card-header"><h4>OFFICIAL BUSINESS LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ob" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a> </h4></div>
 <br>
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" id="ob" enctype="multipart/form-data">
     <div class="row">
         &nbsp;&nbsp;&nbsp;<div class="form-group">
             <label for="">START DATE</label>
@@ -22,11 +22,10 @@
         </div> &nbsp;
         <div class="form-group">
             <label for="">&nbsp;</label>
-            <input class="form-control btn btn-dark" id="afp" type="submit" value="PROCESS">
+            <input class="form-control btn btn-success" id="process" type="submit" value="PROCESS">
         </div>
-       
     </div>    
-    <table id="" class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
+    <table id="" class="display" style="width:100%">
         <thead>
             <tr style="background-color:#D4F1F4;">
                 <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
@@ -35,6 +34,7 @@
                 <th scope="col">DATE OB</th>
                 <th scope="col">DESTINATION</th>
                 <th scope="col">PURPOSE</th>
+                <th scope="col">STATUS</th>
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
@@ -42,13 +42,15 @@
             <?php if($obs) : ?>
             <?php foreach($obs as $ob) : ?>
                 <tr>
-                    <td><center><input type="checkbox" name="employee[]" value=""> </center></td>
+                    <td><center> <?php if($ob->status != 1) : ?> <input type="checkbox" name="ob[]" value="<?php echo $ob->id . '|' . $ob->fullname; ?>"> <?php endif; ?> </center></td>
                     <td><?php echo $ob->fullname; ?></td>
                     <td><?php echo $ob->department; ?></td>
                     <td><?php echo date('F j, Y', strtotime($ob->date_ob)); ?></td>
-                    <td><?php echo substr($ob->destination,0,50); ?></td>
+                    <td><?php echo substr($ob->destination,0,30); ?></td>
                     <td><?php echo substr($ob->purpose,0,50); ?></td>
+                    <td><?php if($ob->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
                     <td data-label="Action">
+                        <?php if($ob->status != 1) : ?>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
@@ -59,7 +61,10 @@
                                     <a class="dropdown-item" onclick="return confirm('Do you want to delete data?');" href="<?php echo base_url(); ?>reports/delete_employee_ob/<?php echo $ob->id; ?>">Delete</a>
                                 </div>
                             </div>
-                        </td>
+                        <?php else : ?>
+                            <a class="btn btn-info btn-sm " href="<?php echo base_url(); ?>reports/view_employee_ob/<?php echo $ob->id; ?>">VIEW</a>
+                        <?php endif; ?>    
+                    </td>
                 </tr>
             <?php endforeach; ?>
             <?php endif; ?>
@@ -119,5 +124,15 @@
         $("#checkAll").click(function(){
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
+
+        $('#process').click(function() {
+			var a = confirm("Are you sure you want to Approved Data?");
+			if (a == true) {
+				$('#ob').attr('action', 'process_ob');
+				$('#ob').submit();
+			} else {
+				return false;
+			} 
+		});
     } );
 </script>
