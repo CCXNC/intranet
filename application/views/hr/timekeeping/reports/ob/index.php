@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-<div class="card-header"><h4>OFFICIAL BUSINESS LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ob" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a> </h4></div>
+<div class="card-header"><h4>OFFICIAL BUSINESS LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ob" class="btn btn-dark float-right" title="Add OB" style="border:1px solid #ccc; margin-right:10px;">ADD</a> </h4></div>
 <br>
 <form method="POST" id="ob" enctype="multipart/form-data">
     <div class="row">
@@ -18,7 +18,7 @@
         </div> &nbsp;
         <div class="form-group">
             <label for="">&nbsp;</label>
-            <input type="submit" value="SUBMIT" class="form-control btn btn-dark">
+            <input type="submit" title="Submit Date" value="SUBMIT" class="form-control btn btn-dark">
         </div> &nbsp;
         <div class="form-group">
             <label for="">&nbsp;</label>
@@ -52,13 +52,13 @@
                     <td data-label="Action">
                         <?php if($ob->status != 1) : ?>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>reports/view_employee_ob/<?php echo $ob->id; ?>">View</a>
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>reports/edit_employee_ob/<?php echo $ob->id; ?>">Edit</a>
-                                    <a class="dropdown-item" onclick="return confirm('Do you want to delete data?');" href="<?php echo base_url(); ?>reports/delete_employee_ob/<?php echo $ob->id; ?>">Delete</a>
+                                    <a class="dropdown-item" title="View OB" href="<?php echo base_url(); ?>reports/view_employee_ob/<?php echo $ob->id; ?>">View</a>
+                                    <a class="dropdown-item" title="Edit OB" href="<?php echo base_url(); ?>reports/edit_employee_ob/<?php echo $ob->id; ?>">Edit</a>
+                                    <a class="dropdown-item" title="Delete OB" onclick="return confirm('Do you want to delete data?');" href="<?php echo base_url(); ?>reports/delete_employee_ob/<?php echo $ob->id; ?>">Delete</a>
                                 </div>
                             </div>
                         <?php else : ?>

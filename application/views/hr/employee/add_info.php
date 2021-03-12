@@ -34,7 +34,7 @@
 </script>
 
     <div class="card">
-        <div class="card-header"><h4><?php echo $employee->fullname; ?><a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+        <div class="card-header"><h4><?php echo $employee->fullname; ?><a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
         <div class="card-body">
             <div style="color:red"><?php echo validation_errors(); ?> </div>
             <form method="post" action="<?php echo base_url(); ?>employee/add_info/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>" enctype="multipart/form-data">
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div>   
-                        <input class="btn btn-success" type="button" name="add" id="cadd" value="ADD">
+                        <input class="btn btn-success" title="Add Children's Information" type="button" name="add" id="cadd" value="ADD">
                         <br>
                     </div>
                 </div>
@@ -136,14 +136,14 @@
                                 </div>
                             </div>
                         </div>
-                        <input class="btn btn-success" type="button" name="add" id="add" value="ADD">
+                        <input class="btn btn-success" title="Add Academe Information" type="button" name="add" id="add" value="ADD">
                         <br>
                     </div>
                 </div>
                 <br>
                 <center>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                        <input type="submit" title="Submit Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
                     </div>
                 </center>
                

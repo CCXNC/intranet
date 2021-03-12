@@ -6,8 +6,8 @@
 <?php endif; ?>
 <div class="card-header">
     <h4>CALENDAR OF HOLIDAYS
-        <a href="<?php echo base_url(); ?>calendar/add_calendar_list" class="btn btn-info float-right" >ADD</a>
-        <a href="<?php echo base_url(); ?>calendar/holiday_calendar" class="btn btn-info float-right" style="margin-right:10px;">CALENDAR</a>
+        <a href="<?php echo base_url(); ?>calendar/add_calendar_list" title="Add Holiday" class="btn btn-info float-right" >ADD</a>
+        <a href="<?php echo base_url(); ?>calendar/holiday_calendar" title="View Holiday Calendar" class="btn btn-info float-right" style="margin-right:10px;">CALENDAR</a>
     </h4> 
 </div>
 <br>
@@ -31,13 +31,13 @@
                     <td data-label="Description"><?php echo word_limiter($calendar->description, 10); ?></td>
                     <td data-label="Action">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>calendar/view_calendar_list/<?php echo $calendar->id; ?>"> View</a>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>calendar/edit_calendar_list/<?php echo $calendar->id?>">Edit</a>
-                                <a onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>calendar/delete_calendar_list/<?php echo $calendar->id?>">Delete</a>
+                                <a title="View Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/view_calendar_list/<?php echo $calendar->id; ?>"> View</a>
+                                <a title="Edit Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/edit_calendar_list/<?php echo $calendar->id?>">Edit</a>
+                                <a title="Delete Holiday" onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>calendar/delete_calendar_list/<?php echo $calendar->id?>">Delete</a>
                             </div>
                         </div>
                     </td>

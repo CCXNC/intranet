@@ -33,7 +33,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-    <div class="card-header"><h4>EMPLOYEE ATTENDANCE LIST <a href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
+    <div class="card-header"><h4>EMPLOYEE ATTENDANCE LIST <a href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
     </div>
     <br>
     <table id="" class="table table-striped table-bordered dt-responsive nowrap display" style="width:100%">
@@ -180,7 +180,7 @@
                                 <?php elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave): ?> 
                                     <?php echo strtoupper($employee->leave_process_by); ?>   
                                 <?php else: ?>
-                                    <button type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
+                                    <button title="Add Manual Attendance" type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
                                         ADD 
                                     </button>
                                 <?php endif; ?>
@@ -229,8 +229,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
+                                    <button type="button" title="Close Manual Attendance Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" title="Submit Manual Attendance Form" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
                                 </div>
                             </form>
                         </div>
