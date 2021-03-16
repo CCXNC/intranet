@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="">Employee Name</label>
+                    <label class="">*Employee Name</label>
                     <select name="employee" class="form-control col-md-12">  
                         <option value="">SELECT EMPLOYEE</option>
                         <?php if($employees) : ?>
@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Type</label>
+                    <label for="">*Type</label>
                     <select class="form-control" name="type">
                         <option value="">Select Leave Type</option>
                         <option value="VL|VL">Vacation with Pay</option>
@@ -33,19 +33,19 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Effective Date of Leave (START)</label>
+                    <label for="">*Effective Date of Leave (START)</label>
                     <input type="date" class="form-control" name="start_date">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">&nbsp; (END)</label>
+                    <label for="">&nbsp;*(END)</label>
                     <input type="date" class="form-control" name="end_date">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Day</label>
+                    <label for="">*Day</label>
                     <select class="form-control" name="day">
                         <option value="">Select Day Type</option>
                         <option value="WD">WHOLEDAY</option>
@@ -56,13 +56,13 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Address While On Leave</label>
+                    <label for="">*Address While On Leave</label>
                     <input type="text" class="form-control" name="address_leave">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="">Reason/s</label>
+                    <label for="">*Reason/s</label>
                     <textarea class="form-control" name="reason" id="" cols="30" rows="5"></textarea>
                 </div>
             </div>
