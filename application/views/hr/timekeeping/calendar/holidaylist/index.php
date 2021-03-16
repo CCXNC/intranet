@@ -4,10 +4,10 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header">
+<div class="card-header" style="background-color: #478C5C; border: #478C5C; color: white">
     <h4>CALENDAR OF HOLIDAYS
-        <a href="<?php echo base_url(); ?>calendar/add_calendar_list" title="Add Holiday" class="btn btn-info float-right" >ADD</a>
-        <a href="<?php echo base_url(); ?>calendar/holiday_calendar" title="View Holiday Calendar" class="btn btn-info float-right" style="margin-right:10px;">CALENDAR</a>
+        <a href="<?php echo base_url(); ?>calendar/add_calendar_list" title="Add Holiday" class="btn btn-dark float-right" >ADD</a>
+        <a href="<?php echo base_url(); ?>calendar/holiday_calendar" title="View Holiday Calendar" class="btn btn-dark float-right" style="margin-right:10px;">CALENDAR</a>
     </h4> 
 </div>
 <br>

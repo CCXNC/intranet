@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header"><h4>EMPLOYEE SCHEDULE LIST
+<div class="card-header" style="background-color: #0C2D48; border: #0C2D48; color: white"><h4>EMPLOYEE SCHEDULE LIST
     <a href="<?php echo base_url(); ?>schedule/add_schedule" class="btn btn-dark float-right" data-toggle="modal" title="Add Biometric Information" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">BIOMETRIC</a>
     <a href="<?php echo base_url(); ?>schedule/add_schedule" class="btn btn-dark float-right" title="Add Employee Schedule" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
     </h4> 

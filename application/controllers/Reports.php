@@ -224,9 +224,39 @@ class Reports extends CI_Controller {
 		redirect('reports/index_slvl');
     }
 
-    public function index_individual_attendance()
+    public function index_ot()
     {
-        $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/index';
+        $data['main_content'] = 'hr/timekeeping/reports/overtime/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function add_ot()
+    {
+        $data['main_content'] = 'hr/timekeeping/reports/overtime/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function view_employee_ot()
+    {
+        $data['main_content'] = 'hr/timekeeping/reports/overtime/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function index_ut()
+    {
+        $data['main_content'] = 'hr/timekeeping/reports/undertime/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function add_ut()
+    {
+        $data['main_content'] = 'hr/timekeeping/reports/undertime/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function view_employee_ut()
+    {
+        $data['main_content'] = 'hr/timekeeping/reports/undertime/view';
         $this->load->view('inc/navbar', $data);
     }
 }

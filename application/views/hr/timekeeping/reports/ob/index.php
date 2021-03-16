@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-<div class="card-header"><h4>OFFICIAL BUSINESS LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ob" class="btn btn-dark float-right" title="Add OB" style="border:1px solid #ccc; margin-right:10px;">ADD</a> </h4></div>
+<div class="card-header" style="background-color: #38C172; color: white"><h4>OFFICIAL BUSINESS LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ob" class="btn btn-dark float-right" title="Add OB" style="border:1px solid #ccc; margin-right:10px;">ADD</a> </h4></div>
 <br>
 <form method="POST" id="ob" enctype="multipart/form-data">
     <div class="row">
@@ -22,7 +22,7 @@
         </div> &nbsp;
         <div class="form-group">
             <label for="">&nbsp;</label>
-            <input class="form-control btn btn-success" id="process" type="submit" value="PROCESS">
+            <input class="form-control btn btn-success" id="process" type="submit" value="APPROVAL">
         </div>
     </div>    
     <table id="" class="display" style="width:100%">

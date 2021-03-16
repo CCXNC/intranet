@@ -79,6 +79,23 @@
             }
         }
 
+        .notification {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: 3px;
+            right: 108px;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+        }
+
         body {
             font-size: 1rem;
         }
@@ -570,9 +587,10 @@
                 
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown notification">
                     <a style="color:white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user-circle"></i>
+                        <span class="badge">0</span>
                         <span><?php echo $this->session->userdata('username'); ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

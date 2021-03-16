@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="">Employee Name</label>
+                    <label class="">*Employee Name</label>
                     <select name="employee" class="form-control col-md-12">  
                         <option value="">SELECT EMPLOYEE</option>
                         <?php if($employees) : ?>
@@ -19,25 +19,25 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for=""> Date of OB</label>
+                    <label for="">*Date of OB</label>
                     <input type="date" class="form-control" name="date_of_ob">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="">Destination</label>
+                    <label for="">*Destination</label>
                     <input type="text" class="form-control" name="destination">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="">Purpose</label>
+                    <label for="">*Purpose</label>
                     <textarea class="form-control" name="purpose" id="" cols="30" rows="4"></textarea>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Transport</label>
+                    <label for="">*Transport</label>
                     <select class="form-control" name="transport">
                         <option value="">Select Type</option>
                         <option value="Company Car">Company Car</option>

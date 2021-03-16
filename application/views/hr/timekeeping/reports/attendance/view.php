@@ -33,7 +33,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-    <div class="card-header"><h4>EMPLOYEE ATTENDANCE LIST <a href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
+    <div class="card-header" style="background-color: #007BFF; border: #007BFF; color: white"><h4>ATTENDANCE LIST <a href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
     </div>
     <br>
     <table id="" class="display" style="width:100%">
