@@ -11,7 +11,7 @@ class Login_model extends CI_Model {
             users.password as password,
             users.access_level_id as access_level_id, 
             employees.id as emp_id,
-            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) as fullname,
+            CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) as fullname,
             employment_info.company as company_id,
             employment_info.department as department_id,
         "); 
@@ -45,12 +45,13 @@ class Login_model extends CI_Model {
 
         $data = array(
             'username' => $this->session->userdata('username'),
-            'pcname'   => $_SERVER['REMOTE_ADDR'],
-            'type'     => 'Login',
+            'activity' => "User logged in",
+            'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+            'type'     => 'OTHERS',
             'date'     => $date
         );
 
-        $activity_log->insert('user_log', $data);
+        $activity_log->insert('blaine_logs', $data);
         
         $trans = $this->db->trans_complete();
 
@@ -71,12 +72,13 @@ class Login_model extends CI_Model {
 
         $data = array(
             'username' => $this->session->userdata('username'),
-            'pcname'   => $_SERVER['REMOTE_ADDR'],
-            'type'     => 'Logout',
+            'activity' => "User logged out",
+            'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+            'type'     => 'OTHERS',
             'date'     => $date
         );
 
-        $activity_log->insert('user_log', $data);
+        $activity_log->insert('blaine_logs', $data);
         
         $trans = $this->db->trans_complete();
 

@@ -25,7 +25,7 @@
                         <td data-label="Category"><?php echo $announcement->category;  ?></td>
                         <td data-label="Title"><?php echo $announcement->title;  ?></td>
                         <td data-label="Content"><?php echo word_limiter($announcement->content,10); ?></td>
-                        <td data-label="Date"><?php echo $announcement->created_date; ?></td>
+                        <td data-label="Date"><?php echo date('F j Y', strtotime($announcement->created_date)); ?></td>
                         <td data-label="Action">
                             <div class="btn-group">
                                 <button type="button" title="View Actions" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

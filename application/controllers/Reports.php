@@ -223,4 +223,10 @@ class Reports extends CI_Controller {
         $this->session->set_flashdata('success_msg', 'LEAVE SUCCESSFULLY PROCESS!');
 		redirect('reports/index_slvl');
     }
+
+    public function index_individual_attendance()
+    {
+        $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/index';
+        $this->load->view('inc/navbar', $data);
+    }
 }

@@ -26,9 +26,20 @@ class Announcement_model extends CI_Model {
 		);
 		
 		$this->db->insert('announcement', $data_announcement);
-		/*print_r('<pre>');
-		print_r($data_announcement);
-		print_r('</pre>');*/
+
+		
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'activity' => "Announcement added:" . ' title:' . $title,
+			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+			'type'     => 'ANNOUNCEMENT',
+			'date'     => $date
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
 		
 		$trans = $this->db->trans_complete();
 		return $trans;
@@ -46,7 +57,6 @@ class Announcement_model extends CI_Model {
 	{
 		$this->db->where('id', $id);
 		$query = $this->db->get('announcement');
-
 		return $query->row();
 	}
 
@@ -54,15 +64,49 @@ class Announcement_model extends CI_Model {
 	{
 		$this->db->trans_start();
 
-		//EMPLOYEE INPUT
+		//DATA
 		$image = $_FILES['image']['name'];
 		$title = $this->input->post('title');
 		$category = $this->input->post('category');
 		$content = $this->input->post('content');
-		
 		$i = 0;
 		$date = date('Y-m-d H:i:s');
 
+		// GET OLD DATA BEFORE UPDATE
+		$this->db->select('*');
+		$this->db->where('id', $id);
+		$datas = $this->db->get('announcement');
+		$announcement_id = $datas->row()->id;
+		$announcement_image = $datas->row()->image;
+		$announcement_category = $datas->row()->category;
+		$announcement_title = $datas->row()->title;
+		$announcement_content = $datas->row()->content;
+
+		$entry_data = array(
+			'id'            => $announcement_id,
+			'image'       	=> $announcement_image,
+			'category'		=> $announcement_category,
+			'title'         => $announcement_title,
+			'content'       => $announcement_content,
+		);
+
+		// CONVERT TO JSON ENCODE
+		$json_data =json_encode($entry_data);
+
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'activity' => "Announcement updated:" . ' id:' . $id  . ' title:'. $title,
+			'datas'    => $json_data,
+			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+			'type'     => 'ANNOUNCEMENT',
+			'date'     => $date
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
+		// PROCESS FOR UPDATE ANNOUNCEMENT
 		if($image == NULL)
 		{
 			$data = array(
@@ -73,9 +117,6 @@ class Announcement_model extends CI_Model {
 				'updated_by'    => $this->session->userdata('username')
 			);
 			
-			/*print_r('<pre>');
-			print_r($data_employee);
-			print_r('</pre>');*/
 			$this->db->where('id', $id);
 			$this->db->update('announcement', $data);
 		}
@@ -90,25 +131,9 @@ class Announcement_model extends CI_Model {
 				'updated_by'    => $this->session->userdata('username')
 			);
 			
-			/*print_r('<pre>');
-			print_r($data_employee);
-			print_r('</pre>');*/
 			$this->db->where('id', $id);
 			$this->db->update('announcement', $data);
 		}
-
-		// CALL ACVITIY LOGS DATABASE
-		$activity_log = $this->load->database('activity_logs', TRUE); 
-
-		$entry_data = "update_announcement [entry_id:" . $id . "]";
-
-		$activity_data = array(
-			'username'   => $this->session->userdata('username'),
-			'pcname'     => $_SERVER['REMOTE_ADDR'],
-			'entry_data' => $entry_data,
-			'entry_date' => $date
-		);
-		$activity_log->insert('announcement_logs', $activity_data);
 
 		$trans = $this->db->trans_complete();
 		return $trans;
@@ -116,12 +141,50 @@ class Announcement_model extends CI_Model {
 
 	public function delete_announcement($id)
 	{
+		$this->db->trans_start();
+
+		// GET OLD DATA BEFORE UPDATE
+		$this->db->select('*');
+		$this->db->where('id', $id);
+		$datas = $this->db->get('announcement');
+		$announcement_id = $datas->row()->id;
+		$announcement_image = $datas->row()->image;
+		$announcement_category = $datas->row()->category;
+		$announcement_title = $datas->row()->title;
+		$announcement_content = $datas->row()->content;
+
+		$entry_data = array(
+			'id'            => $announcement_id,
+			'image'       	=> $announcement_image,
+			'category'		=> $announcement_category,
+			'title'         => $announcement_title,
+			'content'       => $announcement_content,
+		);
+
+		// CONVERT TO JSON ENCODE
+		$json_data =json_encode($entry_data);
+
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'activity' => "Announcement deleted:" . ' id:' . $announcement_id  . ' title:'. $announcement_title,
+			'datas'    => $json_data,
+			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+			'type'     => 'ANNOUNCEMENT',
+			'date'     => date('Y-m-d H:i:s')
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
+		// PROCESS FOR DELETE ANNOUNCEMENT
 		$data = array(
 			'is_active'  => 0
 		);
 		$this->db->where('id', $id);
-	   	$query = $this->db->update('announcement', $data);
-	   
-	   	return $query;
+	   	$this->db->update('announcement', $data);
+		
+		$trans = $this->db->trans_complete();
+	   	return $trans;
 	}
 }
