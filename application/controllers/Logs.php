@@ -7,6 +7,10 @@ class Logs extends CI_Controller {
         if($this->session->userdata('logged_in') !== TRUE){
             redirect('Login');
         }
+
+        if($this->session->userdata('access_level_id') == 3){
+            redirect('homepage');
+        }
     }
 
     public function index_logs()
