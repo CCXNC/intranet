@@ -5,7 +5,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header" style="background-color:#1C4670; color:white;"><h4>5S CONTINUOUS IMPROVEMENT PROJECTS
-    <a href="<?php echo base_url(); ?>fives/idea" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a>
+    <a href="<?php echo base_url(); ?>fives/idea" title="Go Back" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a>
     </h4> 
 </div>
 <br>
@@ -37,12 +37,17 @@
                     <td data-label="Impact"><?php echo $idea->classification; ?></td>
                     <td data-label="Action">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" title="View Actions" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
+<<<<<<< HEAD
                                 <?php if($idea->submit_by == $this->session->userdata('username')) : ?><a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_implemented_idea/<?php echo $idea->implemented_id; ?>">Edit</a><?php endif; ?>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_implemented_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number;?>">View</a>
+=======
+                                <a class="dropdown-item" title="Edit Idea" href="<?php echo base_url(); ?>fives/edit_implemented_idea/<?php echo $idea->implemented_id; ?>">Edit</a>
+                                <a class="dropdown-item" title="View Idea" href="<?php echo base_url(); ?>fives/idea_implemented_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number;?>">View</a>
+>>>>>>> master
                             </div>
                         </div>
                     </td>

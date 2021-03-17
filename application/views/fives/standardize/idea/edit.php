@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header" style="background-color:#1C4670; color:white;"><h4>EDIT 5S SHARE MY IDEA<a href="<?php echo base_url(); ?>fives/idea" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" title="Go Back" style="background-color:#1C4670; color:white;"><h4>EDIT 5S SHARE MY IDEA<a href="<?php echo base_url(); ?>fives/idea" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>fives/idea_edit/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>" enctype="multipart/form-data">
@@ -35,7 +35,7 @@
             <br>
             <center>
                 <div class="form-group">
-                    <input type="submit" class="btn" style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to update data?');" value="UPDATE" >
+                    <input type="submit" title="Update Idea" class="btn" style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to update data?');" value="UPDATE" >
                 </div>
             </center>    
         </form>

@@ -91,8 +91,8 @@
 <div class="card">
     <div class="card-header"  style="background-color:#1C4670; color:white;">
         <h4>VIEW 5S SHARE MY IDEA
-            <a href="<?php echo base_url(); ?>fives/idea" id="back"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a>
-            <input type="submit" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;" id="printButton" value="PRINT">
+            <a href="<?php echo base_url(); ?>fives/idea" id="back" title="Go Back"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a>
+            <input type="submit" class="btn btn-dark float-right" title="Print Idea" style="border:1px solid #ccc; margin-right:10px;" id="printButton" value="PRINT">
         </h4>
     </div>
     <!--<div class="card-header container-fluid"  style="background-color:#1C4670; color:white;">

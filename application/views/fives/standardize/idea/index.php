@@ -17,8 +17,8 @@
             <h3 class="">5S SHARE MY IDEA LIST</h3>
         </div>
         <div class="col-md-3 float-right">
-            <button class="btn btn-md btn-dark" style="border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/implemented'">IMPLEMENTED</button>
-            <button class="btn btn-md btn-dark" style="margin-left: .3em; border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/idea_add'">ADD</button>
+            <button class="btn btn-md btn-dark" title="View Implemented Ideas" style="border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/implemented'">IMPLEMENTED</button>
+            <button class="btn btn-md btn-dark" title="Add Idea" style="margin-left: .3em; border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/idea_add'">ADD</button>
         </div>
     </div>
 </div>-->
@@ -59,18 +59,18 @@
                     <?php endif; ?>
                     <td data-label="Action">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>"> View</a>
+                                <a class="dropdown-item" title="View Idea" href="<?php echo base_url(); ?>fives/idea_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>"> View</a>
                                 <?php if($this->session->userdata('username') == $idea->submit_by && $idea->status != "Implemented") : ?>
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_edit/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>">Edit</a>
-                                    <a onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_delete/<?php echo $idea->id?>">Delete</a>
+                                    <a class="dropdown-item" title="Edit Idea" href="<?php echo base_url(); ?>fives/idea_edit/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>">Edit</a>
+                                    <a onclick="return confirm('Are you sure you want to delete data?');" title="Delete Idea" class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_delete/<?php echo $idea->id?>">Delete</a>
                                 <?php endif; ?>       
                                 <?php if($this->session->userdata('access_level_id') == 1 && $idea->status != "Implemented") : ?>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>fives/status/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Status</a>
+                                    <a class="dropdown-item" title="Edit Idea Status" href="<?php echo base_url(); ?>fives/status/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>/<?php echo $idea->status; ?>">Edit Status</a>
                                 <?php endif; ?>    
                                 <?php if($this->session->userdata('access_level_id') == 1 && $idea->status != 'Open' && $idea->status != 'Implemented') : ?>
                                     <div class="dropdown-divider"></div>

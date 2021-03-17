@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>ADD ANNOUNCEMENT<a href="<?php echo base_url(); ?>announcement/index" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4>ADD ANNOUNCEMENT<a href="<?php echo base_url(); ?>announcement/index" title="Go Back" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
         <div class="card-body">
             <div style="color:red"><?php echo validation_errors(); ?> </div>
             <form method="post" action="<?php echo base_url(); ?>announcement/add" enctype="multipart/form-data">
@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group" >
-                                <input type="submit" class="btn btn-success float-right" onclick="return confirm('Do you want to add data?');" value="SUBMIT" >
+                                <input type="submit" title="Submit Announcement" class="btn btn-success float-right" onclick="return confirm('Do you want to add data?');" value="SUBMIT" >
                             </div>
                         </div>
                     </div>

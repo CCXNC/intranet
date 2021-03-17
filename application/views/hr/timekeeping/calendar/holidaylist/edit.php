@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT HOLIDAY<a href="<?php echo base_url(); ?>calendar/calendar_list" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4>EDIT HOLIDAY<a href="<?php echo base_url(); ?>calendar/calendar_list" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?></div>
         <form method="post" action="<?php echo base_url(); ?>calendar/edit_calendar_list/<?php echo $calendar->id; ?>" enctype="multipart/form-data">
@@ -20,7 +20,8 @@
                                 <label>Type</label>
                                 <select class="form-control" name="type">
                                     <option value="">Select Type</option>
-                                    <option value="Special Holiday"<?php echo $calendar->type == 'Special Holiday' ? 'selected' : ''; ?>>Special Holiday</option>
+                                    <option value="Special Working Holiday"<?php echo $calendar->type == 'Special Working Holiday' ? 'selected' : ''; ?>>Special Working Holiday</option>
+                                    <option value="Special Nonworking Holiday"<?php echo $calendar->type == 'Special Nonworking Holiday' ? 'selected' : ''; ?>>Special Nonworking Holiday</option>
                                     <option value="Legal Holiday"<?php echo $calendar->type == 'Legal Holiday' ? 'selected' : ''; ?>>Legal Holiday</option>
                                 </select>
                             </div>
@@ -35,7 +36,7 @@
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-info" onclick="return confirm('Do you want to update data?');">Update</button>
+            <button type="submit" title="Update Holiday" class="btn btn-info" onclick="return confirm('Do you want to update data?');">Update</button>
         </form>
     </div>
 </div>

@@ -11,9 +11,9 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header"><h4>EMPLOYEE LIST
-    <a href="<?php echo base_url(); ?>employee/reports" class="btn btn-info float-right" style="">REPORTS</a>
-    <a href="<?php echo base_url(); ?>employee/resigned" class="btn btn-info float-right" style="margin-right:10px;">RESIGNED</a>
-    <a href="<?php echo base_url(); ?>employee/add" class="btn btn-info float-right" style="margin-right:10px;">ADD</a>
+    <a href="<?php echo base_url(); ?>employee/reports" title="Generate Reports" class="btn btn-info float-right" style="">REPORTS</a>
+    <a href="<?php echo base_url(); ?>employee/resigned" title="View Resigned Employees" class="btn btn-info float-right" style="margin-right:10px;">RESIGNED</a>
+    <a href="<?php echo base_url(); ?>employee/add" title="Add Employee Record" class="btn btn-info float-right" style="margin-right:10px;">ADD</a>
     </h4> 
 </div>
 <!--<div class="card-header container-fluid"  style="background-color:#1C4670; color:white;">
@@ -65,21 +65,21 @@
                     <td data-label="Employee Status"><?php echo $employee->employee_status;  ?></td>
                     <td data-label="Action">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" title="View Actions" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/view_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>"> View</a>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/edit_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Edit</a>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/delete_view_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Delete</a>
+                                <a class="dropdown-item" title="View Employee Record" href="<?php echo base_url(); ?>employee/view_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>"> View</a>
+                                <a class="dropdown-item" title="Edit Employee Record" href="<?php echo base_url(); ?>employee/edit_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Edit</a>
+                                <a class="dropdown-item" title="Delete Employee Record" href="<?php echo base_url(); ?>employee/delete_view_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Delete</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/add_info/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Add Info</a>
+                                <a class="dropdown-item" title="Add Employee Info" href="<?php echo base_url(); ?>employee/add_info/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Add Info</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_attachment/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Attachment</a>
+                                <a class="dropdown-item" title="Add Attachment" href="<?php echo base_url(); ?>employee/employee_attachment/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Attachment</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_movement/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Movement</a>
+                                <a class="dropdown-item" title="Add Employee Movement" href="<?php echo base_url(); ?>employee/employee_movement/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Movement</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>employee/employee_termination/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Termination</a>
+                                <a class="dropdown-item" title="Terminate Employee" href="<?php echo base_url(); ?>employee/employee_termination/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Termination</a>
                                 <!--<div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>user/reset_password/<?php echo $employee->emp_no; ?>" onclick="return confirm('Do you want to reset password?');">Reset Password</a>-->
                             </div>
@@ -100,6 +100,7 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
+            "scrollY": '203vh',
             "scrollX": true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
@@ -147,3 +148,55 @@
         } );
     } );
 </script>
+
+<!--<script type="text/javascript">
+$(document).ready(function() {
+    $('table.display').DataTable( {
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        dom: 'Bf',
+        buttons: [
+                {
+                    extend: 'excel',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'copy',
+                    title: '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    text: 'Filter'
+                }
+            ]
+    } );
+} );
+</script>-->

@@ -15,7 +15,8 @@ class Feedback_model extends CI_Model {
                 feedback.category as category,
                 feedback.created_date as date,
                 feedback.comment as comment,
-                feedback.number_comment as number_comment
+                feedback.number_comment as number_comment,
+                feedback.title as title
             ");
 
             $this->db->from('blaine_feedback.feedback');
@@ -51,7 +52,8 @@ class Feedback_model extends CI_Model {
         $this->db->select("
             feedback.id as id,
             feedback.category as category,
-            feedback.number_comment as number_comment
+            feedback.number_comment as number_comment,
+            feedback.title as title
         ");
 
         $this->db->from('blaine_feedback.feedback');
@@ -82,6 +84,7 @@ class Feedback_model extends CI_Model {
     {
         $this->db->trans_start();
         $category = $this->input->post('category');
+        $title = $this->input->post('title');
         $remarks = $this->input->post('remarks');
         $attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
@@ -90,6 +93,7 @@ class Feedback_model extends CI_Model {
         $data = array(
             'employee_number' => $this->session->userdata('employee_number'),
             'category'        => $category,
+            'title'           => $title,
             'comment'         => $remarks,
             'number_comment'  => 1,
             'created_date'    => $date,
@@ -152,6 +156,19 @@ class Feedback_model extends CI_Model {
         $blaine_feedback = $this->load->database('blaine_feedback', TRUE);
         $blaine_feedback->where('feedback.id', $feedback_id);
         $blaine_feedback->update('feedback', $data_comment);
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        
+        $entry_data ="added a comment on feedback:" . $feedback_id;
+
+        $activity_data = array(
+            'username'      => $this->session->userdata('username'),
+            'pcname'        => $_SERVER['REMOTE_ADDR'],
+            'entry_data'    => $entry_data,
+            'entry_date'    => $date
+        );
+        $activity_log->insert('feedback_logs', $activity_data);
 
         $trans = $this->db->trans_complete();
         return $trans;

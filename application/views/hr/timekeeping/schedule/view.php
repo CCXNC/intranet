@@ -4,7 +4,7 @@
     }
 </style>
 <div class="card"> 
-    <div class="card-header"><h4><?php echo $schedule->fullname; ?><a href="<?php echo base_url(); ?>schedule/index" class="btn btn-dark float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4><?php echo $schedule->fullname; ?><a href="<?php echo base_url(); ?>schedule/index" class="btn btn-dark float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div class="card">
             <div class="card-header"><h5>SCHEDULE</h5></div>

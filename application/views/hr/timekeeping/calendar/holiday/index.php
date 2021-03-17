@@ -15,7 +15,7 @@
             <h4>
                 <div class="card-header">
                     <h4>
-                        <a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
+                        <a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a>
                         </h4>
                 </div>
             </h4>
@@ -45,7 +45,8 @@
                             <div class="col-md-8 ui-front">
                                <select class="form-control" name="name">
                                     <option value="">Select Type</option>
-                                    <option value="Special Holiday">Special Holiday</option>
+                                    <option value="Special Working Holiday">Special Working Holiday</option>
+                                    <option value="Special Nonworking Holiday">Special Nonworking Holiday</option>
                                     <option value="Legal Holiday">Legal Holiday</option>
                                 </select>
                             </div>
@@ -64,8 +65,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Add Event">
+                        <button type="button" title="Close" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" title="Add Event" class="btn btn-primary" value="Add Event">
                         <?php echo form_close() ?>
                     </div>
                 </div>
@@ -86,7 +87,8 @@
                                 <div class="col-md-8 ui-front">
                                     <select class="form-control" name="name" value="" id="name">
                                         <option value="">Select Type</option>
-                                        <option value="Special Holiday">Special Holiday</option>
+                                        <option value="Special Working Holiday">Special Working Holiday</option>
+                                        <option value="Special Nonworking Holiday">Special Nonworking Holiday</option>
                                         <option value="Legal Holiday">Legal Holiday</option>
                                     </select>
                                 </div>
@@ -113,8 +115,8 @@
                         <input type="hidden" name="eventid" id="event_id" value="0" />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Update Event">
+                        <button type="button" title="Close" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" title="Update Event" class="btn btn-primary" value="Update Event">
                         <?php echo form_close() ?>
                     </div>
                 </div>

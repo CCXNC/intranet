@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header" style="background-color:#1C4670; color:white;"><h4>SHARE MY IDEA <a href="<?php echo base_url(); ?>fives/idea" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color:#1C4670; color:white;"><h4>SHARE MY IDEA <a href="<?php echo base_url(); ?>fives/idea" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
             <div class="card">
@@ -57,7 +57,7 @@
                         </div> 
                         <center>
                             <div class="form-group">
-                                <input type="submit" class="btn" style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                <input type="submit" title="Submit Status" class="btn" style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
                             </div>
                         </center>
                     </form>  
@@ -112,7 +112,7 @@
                         <br>
                         <center>
                             <div class="form-group">
-                                <input type="submit" class="btn" style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                <input type="submit" title="Submit Status" class="btn" style="background-color:#1C4670; color:white;" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
                             </div>
                         </center>
                     </form> 

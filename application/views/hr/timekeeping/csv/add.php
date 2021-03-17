@@ -10,7 +10,7 @@
     	box-shadow: 5px 10px;
 	}
 </style>
-	<div class="container box">
+	<div class="container box"> 
 	
 		<h3 align="center">UPLOAD EMPLOYEE ATTENDANCE</h3>
 		<br />
@@ -26,7 +26,7 @@
 				</div>
 				<br />
 				<button type="submit" name="import_csv" class="btn btn-info" id="import_csv_btn">Import</button>
-                <a href="<?php echo base_url(); ?>csv_import/view" class="btn btn-info">View Data</a>
+                <a href="<?php echo base_url(); ?>csv_import/view" class="btn btn-info">View Data</a><br><br>
 			</form>
 		</center>
 	</div>
@@ -35,6 +35,7 @@ $(document).ready(function(){
 
 	$('#import_csv').on('submit', function(event){
 		event.preventDefault();
+		//document.getElementById('loadarea').src = '<?php echo base_url(); ?>csv_import/import';
 		$.ajax({
 			url:"<?php echo base_url(); ?>csv_import/import",
 			method:"POST",

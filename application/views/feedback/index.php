@@ -15,12 +15,13 @@
             <th scope="col">Date</th>
             <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><th scope="col">Name</th><?php endif; ?>
             <th scope="col">Type</th>
+            <th scope="col">Title</th>
             <th>Remarks</th>
             <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><th scope="col">No. Comment</th><?php endif; ?>
             <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><th scope="col">Status</th><?php endif; ?>
             <th scope="col">Action</th>
         </tr>
-    </thead>
+    </thead> 
     <tbody>
         <?php if($feedbacks) : ?>
             <?php foreach($feedbacks as $feedback) : ?>
@@ -28,6 +29,7 @@
                     <td data-label="Date"><?php echo date('F j, Y', strtotime($feedback->date));  ?></td>
                     <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><td data-label="Name"><?php echo $feedback->fullname;  ?></td><?php endif; ?>
                     <td data-label="Category"><?php echo $feedback->category;  ?></td>
+                    <td data-label="Title"><?php echo $feedback->title;?></td>
                     <td data-label="Category"><?php echo substr($feedback->comment,0,150);  ?></td>
                     <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><td data-label="Name"><?php echo $feedback->number_comment;  ?></td><?php endif; ?>
                     <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?>
@@ -47,18 +49,18 @@
                     <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?>
                         <td data-label="Action">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>feedback/view/<?php echo $feedback->id; ?>">VIEW</a>
+                                    <a title="View Feedback" class="dropdown-item" href="<?php echo base_url(); ?>feedback/view/<?php echo $feedback->id; ?>">VIEW</a>
                                     <?php if($feedback->is_open != 2 && $feedback->is_open != 0): ?>
                                         <div class="dropdown-divider"></div>
-                                        <a onclick="return confirm('Are you sure you want to hold the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/hold_feedback/<?php echo $feedback->id; ?>">HOLD</a>
+                                        <a title="Hold Feedback" onclick="return confirm('Are you sure you want to hold the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/hold_feedback/<?php echo $feedback->id; ?>">HOLD</a>
                                     <?php endif; ?>
                                     <?php if($feedback->is_open != 0 ): ?>
                                         <div class="dropdown-divider"></div>
-                                        <a onclick="return confirm('Are you sure you want to close the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/close_feedback/<?php echo $feedback->id; ?>">CLOSE</a>
+                                        <a title="Close Feedback" onclick="return confirm('Are you sure you want to close the status?');" class="dropdown-item" href="<?php echo base_url(); ?>feedback/close_feedback/<?php echo $feedback->id; ?>">CLOSE</a>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -92,6 +94,7 @@
                                 <option value="BLAINE 5S">BLAINE 5S</option>
                                 <option value="OTHERS">OTHERS</option>
                             </select><br>
+                            <input type="text" class="form-control" name="title" placeholder="TITLE"><br>
                             <textarea name="remarks" placeholder="COMMENT" class="form-control" cols="30" rows="10" required></textarea><br>
                             <input type='file' name='data1' size='20' />
                             <p><i style="color: blue">Allowed file types: jpg | jpeg | png | gif | docx | xls | xlsx | pdf</i></p>
@@ -101,8 +104,8 @@
                 <br>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" title="Close Feedback Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" title="Submit Feedback Form" class="btn btn-primary">Submit</button>
             </div>
             </form>
     </div>

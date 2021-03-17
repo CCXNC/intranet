@@ -6,13 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
         <title>INTRANET</title>
+        <link rel="icon" href="<?=base_url()?>assets/images/favicon.png" type="image/png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous">
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
         <!-- DATA TABLE CDN -->
         
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css" />
@@ -33,7 +35,6 @@
             crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-        
     
     </head>
     <style>
@@ -76,6 +77,23 @@
                 transform: scale(2);
                 opacity: 0;
             }
+        }
+
+        .notification {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: 3px;
+            right: 108px;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
         }
 
         body {
@@ -569,9 +587,10 @@
                 
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown notification">
                     <a style="color:white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user-circle"></i>
+                        <span class="badge">0</span>
                         <span><?php echo $this->session->userdata('username'); ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -618,7 +637,7 @@
                             <!--DASHBOARD-->
                             <li class="">
                                 <a href="#">
-                                    <i class="fa fa-tachometer-alt"></i>
+                                    <i class="fa fa-tachometer"></i>
                                     <span>Dashboard</span>
                                 </a>
                                 <!--<div class="sidebar-submenu">
@@ -780,6 +799,12 @@
                                     <a href="<?php echo base_url(); ?>feedback/index">
                                         <i class="fa fa-clipboard"></i>
                                         <span>Feedback Form</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar">
+                                    <a href="<?php echo base_url(); ?>logs/index_logs">
+                                        <i class="fa fa-list-alt"></i>
+                                        <span>Activity Logs</span>
                                     </a>
                                 </li>
                             <!--<li>

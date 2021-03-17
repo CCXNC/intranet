@@ -2,7 +2,7 @@
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
 <div class="card">
-    <div class="card-header"><h4> <?php echo $employee->fullname; ?><a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4> <?php echo $employee->fullname; ?><a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
     <form method="post" action="<?php echo base_url(); ?>employee/employee_movement/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>" >  
         <div class="card-body">
             <div style="color:red"><?php echo validation_errors(); ?> </div>
@@ -134,7 +134,7 @@
                 </div>
                 <center>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success" onclick="return confirm('Do you want to update data?');"  value="UPDATE" >
+                    <input type="submit" title="Update Movement Information" class="btn btn-success" onclick="return confirm('Do you want to update data?');"  value="UPDATE" >
                 </div>
             </center> 
             </div> 

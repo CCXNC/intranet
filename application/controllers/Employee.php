@@ -214,14 +214,14 @@ class Employee extends CI_Controller {
 
     public function employee_movement($id,$employee_number) 
     {    
-        $this->form_validation->set_rules('work_group', 'Work Group', 'required|trim');
+        $this->form_validation->set_rules('company', 'Company', 'required|trim');
+        /*$this->form_validation->set_rules('work_group', 'Work Group', 'required|trim');
         $this->form_validation->set_rules('superior', 'Superior', 'required|trim');
         $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
         $this->form_validation->set_rules('date_transfer', 'Date Transfer', 'required|trim');
         $this->form_validation->set_rules('position', 'Position', 'required|trim');
         $this->form_validation->set_rules('movement_from', 'Movement From', 'required|trim');
-        $this->form_validation->set_rules('company', 'Company', 'required|trim');
-        $this->form_validation->set_rules('remarks', 'Remarks', 'required|trim');
+        $this->form_validation->set_rules('remarks', 'Remarks', 'required|trim');*/
 
         if($this->form_validation->run() == FALSE)
         {

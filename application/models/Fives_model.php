@@ -27,7 +27,7 @@ class Fives_model extends CI_Model {
 		// YEAR MONTH
 		$current_date = date('ym');
 
-		// SPLIT STRING IN ARRAY 0,1
+		// SPLIT STRING IN ARRAY [0,1]
         $arr2 = str_split($control_number, 4);
 
 		// INCREMENT CONTRON NUMBER

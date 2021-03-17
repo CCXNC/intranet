@@ -34,7 +34,7 @@
 </script>
 
 <div class="card">
-    <div class="card-header"><h4>HR USER MANAGEMENT<a href="<?php echo base_url(); ?>employee/index" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header"><h4>HR USER MANAGEMENT<a href="<?php echo base_url(); ?>employee/index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                     </div>   
-                    <input class="btn btn-success" type="button" name="add" id="cadd" value="ADD">
+                    <input class="btn btn-success" title="Add Children" type="button" name="add" id="cadd" value="ADD">
                     <br>
                 </div>
             </div>
@@ -275,7 +275,7 @@
                             </div>
                         </div>
                     </div>
-                    <input class="btn btn-success" type="button" name="add" id="add" value="ADD">
+                    <input class="btn btn-success" title="Add Academe Information" type="button" name="add" id="add" value="ADD">
                     <br>
                 </div>
             </div>
@@ -431,7 +431,7 @@
             <br>
             <center>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                    <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
                 </div>
             </center>
             
