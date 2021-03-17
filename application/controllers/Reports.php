@@ -224,6 +224,12 @@ class Reports extends CI_Controller {
 		redirect('reports/index_slvl');
     }
 
+    public function index_individual_attendance()
+    {
+        $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
     public function index_ot()
     {
         $data['main_content'] = 'hr/timekeeping/reports/overtime/index';

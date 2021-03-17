@@ -113,6 +113,7 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('.display').DataTable( {
+            "scrollY" : '50vh',
             "scrollX" : true,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {

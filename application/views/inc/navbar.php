@@ -801,6 +801,12 @@
                                         <span>Feedback Form</span>
                                     </a>
                                 </li>
+                                <li class="sidebar">
+                                    <a href="<?php echo base_url(); ?>logs/index_logs">
+                                        <i class="fa fa-list-alt"></i>
+                                        <span>Activity Logs</span>
+                                    </a>
+                                </li>
                             <!--<li>
                                 <a href="#">
                                 <i class="fas fa-book"></i>

@@ -11,7 +11,7 @@ class Forms_model extends CI_Model {
         
 		$attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
-
+		$i = 0;
 		$date = date('Y-m-d H:i:s');
 
 		$attach_data = array(
@@ -30,6 +30,16 @@ class Forms_model extends CI_Model {
 		print_r($resume_data);
 		print_r('</pre>'); */
 
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'activity' => "Forms added - " . 'title: ' . $title,
+			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+			'type'     => 'BLAINE FORMS',
+			'date'     => $date
+		);
+
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
 
 		$trans = $this->db->trans_complete();
 		return $trans;

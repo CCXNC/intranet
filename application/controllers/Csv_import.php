@@ -7,6 +7,8 @@ class Csv_import extends CI_Controller {
 		parent::__construct();
 		$this->load->model('csv_import_model');
 		$this->load->library('csvimport');
+		ini_set('max_execution_time',0);
+		ini_set('memory_limit','2048M');
 
 		date_default_timezone_set('Asia/Manila');
         if($this->session->userdata('logged_in') !== TRUE){

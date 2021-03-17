@@ -5,11 +5,11 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
 <div class="card">
-    <div class="card-header" style=""><h4><?php echo $this->session->userdata('fullname'); ?> <a href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
+    <div class="card-header" style=""><h4><?php echo $this->session->userdata('fullname'); ?> <a href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</h4></a> 
     </div>
     <div class="card-body">
         <div class="card">
-            <div class="card-header" style="background-color: #3490dc; color:white;"><h4>DAILY ATTENDANCE </h4> 
+            <div class="card-header" style="background-color: #3490dc; color:white;">DAILY ATTENDANCE  
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
@@ -31,7 +31,7 @@
         </div>
         <br>
         <div class="card">
-            <div class="card-header" style="background-color: #6547cd; color:white;"><h4>LEAVE OF ABSENCE </h4> 
+            <div class="card-header" style="background-color: #6547cd; color:white;">LEAVE OF ABSENCE 
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
@@ -50,7 +50,7 @@
         </div>
         <br>
         <div class="card">
-            <div class="card-header" style="background-color:#38c172; color:white;"><h4>OFFICIAL BUSINESS</h4> 
+            <div class="card-header" style="background-color:#38c172; color:white;">OFFICIAL BUSINESS 
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
@@ -69,7 +69,7 @@
         </div>
         <br>
         <div class="card">
-            <div class="card-header" style=""><h4>UNDERTIME </h4> 
+            <div class="card-header" style="">UNDERTIME  
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
@@ -88,7 +88,7 @@
         </div>
         <br>
         <div class="card">
-            <div class="card-header" style=""><h4>OVERTIME </h4> 
+            <div class="card-header" style="">OVERTIME  
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
