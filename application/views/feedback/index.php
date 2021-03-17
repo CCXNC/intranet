@@ -5,19 +5,19 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine Feedback List
-<?php if($this->session->userdata('access_level_id') == 1) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
+<?php if($this->session->userdata('access_level_id') == 1 || $this->session->userdata('access_level_id') == 3) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
     </h4> 
 </div>
-<br>
+<br> 
 <table id="" class="display" style="width:100%">
     <thead>
         <tr style="background-color:#D4F1F4;">
             <th scope="col">Date</th>
-            <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">Name</th><?php endif; ?>
+            <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><th scope="col">Name</th><?php endif; ?>
             <th scope="col">Type</th>
             <th>Remarks</th>
-            <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">No. Comment</th><?php endif; ?>
-            <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">Status</th><?php endif; ?>
+            <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><th scope="col">No. Comment</th><?php endif; ?>
+            <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><th scope="col">Status</th><?php endif; ?>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -25,12 +25,12 @@
         <?php if($feedbacks) : ?>
             <?php foreach($feedbacks as $feedback) : ?>
                 <tr>
-                    <td data-label="Date"><?php echo date('F j, Y | h:i A', strtotime($feedback->date));  ?></td>
-                    <?php if($this->session->userdata('department_id') == 25) : ?><td data-label="Name"><?php echo $feedback->fullname;  ?></td><?php endif; ?>
+                    <td data-label="Date"><?php echo date('F j, Y', strtotime($feedback->date));  ?></td>
+                    <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><td data-label="Name"><?php echo $feedback->fullname;  ?></td><?php endif; ?>
                     <td data-label="Category"><?php echo $feedback->category;  ?></td>
                     <td data-label="Category"><?php echo substr($feedback->comment,0,150);  ?></td>
-                    <?php if($this->session->userdata('department_id') == 25) : ?><td data-label="Name"><?php echo $feedback->number_comment;  ?></td><?php endif; ?>
-                    <?php if($this->session->userdata('department_id') == 25) : ?>
+                    <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><td data-label="Name"><?php echo $feedback->number_comment;  ?></td><?php endif; ?>
+                    <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?>
                         <?php if($feedback->is_open == 1 ): ?>
                             <td data-label="" style="background-color:#FEDE00; "><?php echo 'OPEN'; ?></td>
                         <?php endif; ?>
@@ -41,10 +41,10 @@
                             <td data-label="" style="background-color:#7CF3A0; "><?php echo 'CLOSE'; ?></td>
                         <?php endif; ?>
                     <?php endif; ?>
-                    <?php if($this->session->userdata('department_id') != 25) : ?>
+                    <?php if($this->session->userdata('access_level_id') == 3) : ?>
                         <td><a class="btn btn-info" href="<?php echo base_url(); ?>feedback/view/<?php echo $feedback->id; ?>">VIEW</a></td>
                     <?php endif; ?>
-                    <?php if($this->session->userdata('department_id') == 25) : ?>
+                    <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?>
                         <td data-label="Action">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -111,6 +111,7 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('.display').DataTable( {
+            "scrollY" : '50vh',
             "scrollX" : true,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {

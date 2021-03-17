@@ -5,7 +5,7 @@ class Feedback_model extends CI_Model {
 
     public function get_employees_feedback($employee_number)
     {
-        if($this->session->userdata('department_id') == 25)
+        if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1)
         {
             $this->db->select("
                 CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname,

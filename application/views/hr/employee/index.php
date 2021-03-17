@@ -1,3 +1,9 @@
+<style>
+    @page {
+        margin-top: 100pt;
+        margin-bottom:130pt;
+    }
+</style>
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>

@@ -51,18 +51,18 @@ class Employee extends CI_Controller {
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
         $this->form_validation->set_rules('gender', 'Gender', 'required|trim');
-        $this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
-        $this->form_validation->set_rules('marital_status', 'Marital Status', 'required|trim');
-        $this->form_validation->set_rules('address', 'Address', 'required|trim');
-        $this->form_validation->set_rules('father_full_name', 'Father Full Name', 'required|trim');
-        $this->form_validation->set_rules('mother_full_name', 'Mother Full Name', 'required|trim');
-        $this->form_validation->set_rules('emergency_name', 'Emergency Full Name', 'required|trim');
-        $this->form_validation->set_rules('emergency_contact', 'Emergency Contact', 'required|trim');
-        $this->form_validation->set_rules('date_hired', 'Date Hired', 'required|trim');
-        $this->form_validation->set_rules('company', 'Business Unit', 'required|trim');
-        $this->form_validation->set_rules('position', 'Position', 'required|trim');
-        $this->form_validation->set_rules('rank', 'Rank', 'required|trim');
-        $this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
+        //$this->form_validation->set_rules('birthday', 'BirthDate', 'required|trim');
+        //$this->form_validation->set_rules('marital_status', 'Marital Status', 'required|trim');
+        //$this->form_validation->set_rules('address', 'Address', 'required|trim');
+        //$this->form_validation->set_rules('father_full_name', 'Father Full Name', 'required|trim');
+        //$this->form_validation->set_rules('mother_full_name', 'Mother Full Name', 'required|trim');
+        //$this->form_validation->set_rules('emergency_name', 'Emergency Full Name', 'required|trim');
+        //$this->form_validation->set_rules('emergency_contact', 'Emergency Contact', 'required|trim');
+        //$this->form_validation->set_rules('date_hired', 'Date Hired', 'required|trim');
+        //$this->form_validation->set_rules('company', 'Business Unit', 'required|trim');
+        //$this->form_validation->set_rules('position', 'Position', 'required|trim');
+        //$this->form_validation->set_rules('rank', 'Rank', 'required|trim');
+        //$this->form_validation->set_rules('employee_status', 'Employee Status', 'required|trim');
 
         //$data = $imgData = array(); 
         

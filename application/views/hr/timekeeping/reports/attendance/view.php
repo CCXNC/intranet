@@ -93,6 +93,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" name="fullname" value="<?php echo $employee->fullname; ?>" readonly><br>
+                                                <input type="text" class="form-control" value="<?php echo date('F j Y', strtotime($employee->temp_date)); ?>" readonly><br>
                                                 <label for="">TIME IN</label>
                                                 <?php if($employee->time_in != NULL) : ?>
                                                     <input type="text" name="process" value="1" hidden>
@@ -105,7 +106,8 @@
 
                                                 <input type="text" name="employee_number" value="<?php echo $employee->employee_number; ?>" hidden>
                                                 <input type="text" name="biometric_id" value="<?php echo $employee->biometric_id; ?>" hidden>
-                                                <input type="text" name="date" value="<?php echo $employee->temp_date; ?>" hidden>
+                                                <input type="text" class="form-control" name="date" value="<?php echo $employee->temp_date; ?>" hidden>
+                                               
                                                
                                             </div>
                                         </div>
