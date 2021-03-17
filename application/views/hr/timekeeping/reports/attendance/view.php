@@ -40,6 +40,7 @@
         <thead>
             <tr style="background-color:#D4F1F4;">
                 <th scope="col">NAME</th>
+                <th scope="col">DEPARTMENT</th>
                 <th scope="col">DATE</th>
                 <th scope="col">TIME IN</th>
                 <th scope="col">TIME OUT</th>
@@ -53,6 +54,7 @@
                 <?php foreach($employees as $employee) : ?>
                     <tr>
                         <td><?php echo  $employee->fullname; ?></td>
+                        <td><?php echo  $employee->department_name; ?></td>
                         <td>
                         <?php 
                             if($employee->date == NULL)
@@ -69,15 +71,21 @@
                             <?php 
                                 if($employee->time_in == NULL) { 
                                     if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) {
-                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>'; 
+                                        if($employee->ob_type == "FIELD WORK") {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(127,127,127);color:white;"></p>'; 
+                                        } else {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(113,173,83);color:white;"></p>'; 
+      
+                                        }
                                     } 
                                     elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave)
                                     {
-                                        if($employee->leave_type != "AB") {
+                                        if($employee->type_name == "VL") {
                                             echo '<p class="" style="text-align:center;padding:17px;background-color:#3490dc;color:white;"></p>';
-                                        } 
-                                        else {
-                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#6574cd;color:white;"></p>';
+                                        }  elseif($employee->type_name == "SL") {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>';
+                                        } else {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                         }
                                     }
                                     else
@@ -94,15 +102,21 @@
                             <?php 
                                 if($employee->time_out == NULL) { 
                                     if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) {
-                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>'; 
+                                        if($employee->ob_type == "FIELD WORK") {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(127,127,127);color:white;"></p>'; 
+                                        } else {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(113,173,83);color:white;"></p>'; 
+      
+                                        }
                                     } 
                                     elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave)
                                     {
-                                        if($employee->leave_type != "AB") {
+                                        if($employee->type_name == "VL") {
                                             echo '<p class="" style="text-align:center;padding:17px;background-color:#3490dc;color:white;"></p>';
-                                        } 
-                                        else {
-                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#6574cd;color:white;"></p>';
+                                        }  elseif($employee->type_name == "SL") {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>';
+                                        } else {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                         }
                                     }
                                     else
@@ -119,15 +133,21 @@
                             <?php 
                                 if($employee->in_generate == NULL && $employee->out_generate == NULL) { 
                                     if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) {
-                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>'; 
+                                        if($employee->ob_type == "FIELD WORK") {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(127,127,127);color:white;"></p>'; 
+                                        } else {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(113,173,83);color:white;"></p>'; 
+      
+                                        }
                                     } 
                                     elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave)
                                     {
-                                        if($employee->leave_type != "AB") {
+                                        if($employee->type_name == "VL") {
                                             echo '<p class="" style="text-align:center;padding:17px;background-color:#3490dc;color:white;"></p>';
-                                        } 
-                                        else {
-                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#6574cd;color:white;"></p>';
+                                        }  elseif($employee->type_name == "SL") {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>';
+                                        } else {
+                                            echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                         }
                                     }
                                     else
@@ -155,14 +175,23 @@
                         </td>
                         <td>
                             <?php if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) : ?>
-                                <?php echo '<p class="" style="text-align:center;padding:5px;background-color:#38c172;color:white;">OB</p>'; ?>
+                                <?php 
+                                    if($employee->ob_type == "FIELD WORK") {
+                                        echo '<p class="" style="text-align:center;padding:5px;background-color:rgb(127,127,127);color:white;">' . $employee->ob_type .'</p>'; 
+                                    } else {
+                                        echo '<p class="" style="text-align:center;padding:5px;background-color:rgb(113,173,83);color:white;">' . $employee->ob_type .'</p>'; 
+  
+                                    }
+                                ?>
                             <?php elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave): ?>
                                 <?php
-                                    if($employee->leave_type != "AB") {
+
+                                    if($employee->type_name == "VL") {
                                         echo '<p class="" style="text-align:center;padding:5px;background-color:#3490dc;color:white;">'. $employee->type_name . ' (' . $employee->leave_day . ')' .'</p>';
-                                    } 
-                                    else {
-                                        echo '<p class="" style="text-align:center;padding:5px;background-color:#6574cd;color:white;">'. $employee->type_name . ' (' . $employee->leave_day . ')' .'</p>';
+                                    }  elseif($employee->type_name == "SL") {
+                                        echo '<p class="" style="text-align:center;padding:5px;background-color:#38c172;color:white;">'. $employee->type_name . ' (' . $employee->leave_day . ')' .'</p>';
+                                    } else {
+                                        echo '<p class="" style="text-align:center;padding:5px;background-color:rgb(255,100,0);color:white;">'. $employee->type_name . ' (' . $employee->leave_day . ')' .'</p>';
                                     }
                                 ?>    
                             <?php endif; ?>    
@@ -176,9 +205,9 @@
                                 <?php echo strtoupper($employee->in_generated); ?>    
                             <?php elseif($employee->in_generate != "SYSTEM" || $employee->out_generate != 'SYSTEM') : ?>   
                                 <?php  if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) : ?>
-                                    <?php echo strtoupper($employee->ob_process_by); ?>
+                                    <?php echo strtoupper($employee->ob_created_by); ?>
                                 <?php elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave): ?> 
-                                    <?php echo strtoupper($employee->leave_process_by); ?>   
+                                    <?php echo strtoupper($employee->leave_created_by); ?>   
                                 <?php else: ?>
                                     <button title="Add Manual Attendance" type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
                                         ADD 
@@ -217,8 +246,8 @@
                                                 <?php else : ?>
                                                     <input  type="time" class="form-control " name="time_in" required="required"><br>
                                                 <?php endif; ?>   
-                                                <input type="checkbox" name="no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
-                                                <input type="time" class="form-control" name="time_out" value="<?php echo $employee->time_out; ?>">
+                                                <input type="checkbox" checked class="check" name="no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
+                                                <input type="time" class="timeOut form-control" name="time_out" value="<?php echo $employee->time_out; ?>">
 
                                                 <input type="text" name="employee_number" value="<?php echo $employee->employee_number; ?>" hidden>
                                                 <input type="text" name="biometric_id" value="<?php echo $employee->biometric_id; ?>" hidden>
@@ -241,6 +270,16 @@
     <?php endif; ?>            
     <script type="text/javascript">
         $(document).ready(function() {
+            $('.check').prop('checked', true);
+            $('.timeOut').prop('disabled', true);
+            $(".check").click(function(){
+                if($(this).prop('checked') == false) {
+                    $('.timeOut').attr('disabled', false);
+                } else if($(this).prop('checked') == true) {
+                    $('.timeOut').attr('disabled', true);
+                } 
+            });    
+         
             $('table.display').DataTable( {
                 "paging":   false,
                 "ordering": true,

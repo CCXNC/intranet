@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT LEAVE OF ABSENCE FORM<a href="<?php echo base_url(); ?>reports/index_slvl" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #38c172;color: white;"><h4>EDIT LEAVE OF ABSENCE FORM<a href="<?php echo base_url(); ?>reports/index_slvl" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
     <form method="post" action="<?php echo base_url(); ?>reports/edit_employee_slvl/<?php echo $leave->id; ?>" enctype="multipart/form-data"> 
@@ -14,12 +14,16 @@
                 <div class="form-group">
                     <label for="">Type</label>
                     <select class="form-control" name="type">
-                        <option value="VL|VL"<?php echo $leave->type_name == 'VL' ? 'selected' : ''; ?>>Vacation with Pay</option>
+                        <option value="VL|VL"<?php echo $leave->type_name == 'VL' ? 'selected' : ''; ?>>VL</option>
+                        <option value="SL|SL"<?php echo $leave->type_name == 'SL' ? 'selected' : ''; ?>>SL</option>
+                        <option value="AB|NO WORK SCHEDULE"<?php echo $leave->type_name == 'NO WORK SCHEDULE' ? 'selected' : ''; ?>>No Work Schedule</option>
+                        <option value="VL|VL"<?php echo $leave->type_name == 'VACATION LEAVE' ? 'selected' : ''; ?>>Vacation with Pay</option>
                         <option value="AB|VL W/O PAY"<?php echo $leave->type_name == 'VL W/O PAY' ? 'selected' : ''; ?>>Vacation without Pay</option>
-                        <option value="SL|SL"<?php echo $leave->type_name == 'SL' ? 'selected' : ''; ?>>Sick with Pay</option>
+                        <option value="SL|SL"<?php echo $leave->type_name == 'SICK LEAVE' ? 'selected' : ''; ?>>Sick with Pay</option>
                         <option value="AB|SL W/O PAY"<?php echo $leave->type_name == 'SL W/O PAY' ? 'selected' : ''; ?>>Sick without Pay</option>
                         <option value="ML|ML"<?php echo $leave->type_name == 'ML' ? 'selected' : ''; ?>>Maternity</option>
                         <option value="PL|PL"<?php echo $leave->type_name == 'PL' ? 'selected' : ''; ?>>Paternity</option>
+                        <option value="BL|BL"<?php echo $leave->type_name == 'BL' ? 'selected' : ''; ?>>Bereavement Leave</option>
                     </select>
                 </div>
             </div>

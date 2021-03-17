@@ -5,38 +5,76 @@ class Report_model extends CI_Model {
 
     public function add_ob()
     {
+        $this->db->trans_start();
+
         $explod_employee = explode('|', $this->input->post('employee'));
         $employee_number = $explod_employee[0];
         $department = $explod_employee[1];
-        $date_ob = $this->input->post('date_of_ob');
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
         $destination = $this->input->post('destination');
-        $purpose = $this->input->post('purpose');
+        $purpose = $this->input->post('purpose'); 
         $transport = $this->input->post('transport');
         $plate_number = $this->input->post('plate_number');
-        $time_of_departure = $this->input->post('time_of_departure');
-        $time_of_departure_destination = $this->input->post('time_of_departure_destination');
+        //$time_of_departure = $this->input->post('time_of_departure');
+        //$time_of_departure_destination = $this->input->post('time_of_departure_destination');
+        $remarks = $this->input->post('remarks');
+        $type = $this->input->post('type');
 
-        $data = array(
-            'employee_number'               => $employee_number,
-            'date_ob'                       => $date_ob,
-            'department'                    => $department,
-            'destination'                   => $destination,
-            'purpose'                       => $purpose,
-            'transport'                     => $transport,
-            'plate_no'                      => $plate_number,
-            'time_departure'                => $time_of_departure,
-            'time_departure_destination'    => $time_of_departure_destination,
-            'created_by'                    => $this->session->userdata('username'),
-            'created_date'                  => date('Y-m-d H:i:s')
-        );
+        $datediff = (strtotime($end_date) - strtotime($start_date));
+		$num_dates = floor($datediff / (60 * 60 * 24));
+		$num_dates = $num_dates + 1;
 
-        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-        $query = $blaine_timekeeping->insert('ob', $data);
-        /*print_r('<pre>');
-        print_r($data);
-        print_r('</pre>');*/
+        $cur_date = $start_date;
 
-        return $query;
+        for($k = 1; $k <= $num_dates; $k++)
+		{	
+            if($type == "FIELD WORK")
+            {
+                $data_work = array(
+                    'employee_number'               => $employee_number,
+                    'date_ob'                       => $cur_date,
+                    'type'                          => $type,
+                    'department'                    => $department,
+                    'destination'                   => $destination,
+                    'purpose'                       => $purpose,
+                    'transport'                     => $transport,
+                    'plate_no'                      => $plate_number,
+                    'created_by'                    => $this->session->userdata('username'),
+                    'created_date'                  => date('Y-m-d H:i:s')
+                );
+
+                $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                $query = $blaine_timekeeping->insert('ob', $data_work);
+                /*print_r('<pre>');
+                print_r($data_work);
+                print_r('</pre>');*/
+            }
+            elseif($type == "WORK FROM HOME")
+            {
+                $data_wfh = array(
+                    'employee_number'               => $employee_number,
+                    'date_ob'                       => $cur_date,
+                    'department'                    => $department,
+                    'type'                          => $type,
+                    'remarks'                       => $remarks,
+                    'created_by'                    => $this->session->userdata('username'),
+                    'created_date'                  => date('Y-m-d H:i:s')
+                );
+
+                $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                $query = $blaine_timekeeping->insert('ob', $data_wfh);
+                /*print_r('<pre>');
+                print_r($data_wfh);
+                print_r('</pre>');*/
+            }
+           
+			$conv_date = strtotime($start_date);
+			$cur_date = date('Y-m-d', strtotime('+' . $k .' days', $conv_date));
+		}	
+
+        $trans = $this->db->trans_complete();
+        return $trans;
 
     }
 
@@ -52,7 +90,10 @@ class Report_model extends CI_Model {
             ob.transport as transport,
             ob.plate_no as plate_no,
             ob.time_departure as time_departure,
-            ob.time_departure_destination as time_departure_destination
+            ob.time_departure_destination as time_departure_destination,
+            ob.status as status,
+            ob.type as type,
+            ob.remarks as remarks
         ");
         $this->db->from('blaine_timekeeping.ob');
         $this->db->join('blaine_intranet.employees', 'blaine_timekeeping.ob.employee_number = blaine_intranet.employees.employee_number');
@@ -77,7 +118,9 @@ class Report_model extends CI_Model {
             ob.plate_no as plate_no,
             ob.time_departure as time_departure,
             ob.time_departure_destination as time_departure_destination,
-            ob.status as status
+            ob.status as status,
+            ob.type as type,
+            ob.remarks as remarks
         ");
         $this->db->from('blaine_timekeeping.ob');
         $this->db->join('blaine_intranet.employees', 'blaine_timekeeping.ob.employee_number = blaine_intranet.employees.employee_number');
@@ -100,7 +143,9 @@ class Report_model extends CI_Model {
             ob.plate_no as plate_no,
             ob.time_departure as time_departure,
             ob.time_departure_destination as time_departure_destination,
-            ob.status as status
+            ob.status as status,
+            ob.type as type,
+            ob.remarks as remarks
         ");
         $this->db->from('blaine_timekeeping.ob');
         $this->db->where('blaine_timekeeping.ob.id', $id);
@@ -111,15 +156,15 @@ class Report_model extends CI_Model {
         return $query->row();
     }
 
-    public function update_employee_ob($id)
+    public function update_employee_ob_fw($id)
     {
         $date_ob = $this->input->post('date_of_ob');
         $destination = $this->input->post('destination');
         $purpose = $this->input->post('purpose');
         $transport = $this->input->post('transport');
         $plate_number = $this->input->post('plate_number');
-        $time_of_departure = $this->input->post('time_of_departure');
-        $time_of_departure_destination = $this->input->post('time_of_departure_destination');
+        //$time_of_departure = $this->input->post('time_of_departure');
+        //$time_of_departure_destination = $this->input->post('time_of_departure_destination');
 
         $data = array(
             'date_ob'                       => $date_ob,
@@ -127,10 +172,27 @@ class Report_model extends CI_Model {
             'purpose'                       => $purpose,
             'transport'                     => $transport,
             'plate_no'                      => $plate_number,
-            'time_departure'                => $time_of_departure,
-            'time_departure_destination'    => $time_of_departure_destination,
             'updated_by'                    => $this->session->userdata('username'),
             'updated_date'                  => date('Y-m-d H:i:s')
+        );
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->where('id', $id);
+        $query = $blaine_timekeeping->update('ob', $data);
+
+
+        return $query;
+    }
+
+    public function update_employee_ob_wfh($id)
+    {
+        $date_ob = $this->input->post('date_of_ob');
+        $remarks = $this->input->post('remarks');
+
+        $data = array(
+            'date_ob'      => $date_ob,
+            'remarks'      => $remarks,
+            'updated_by'   => $this->session->userdata('username'),
+            'updated_date' => date('Y-m-d H:i:s')
         );
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
         $blaine_timekeeping->where('id', $id);

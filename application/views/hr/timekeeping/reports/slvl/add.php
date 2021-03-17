@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>LEAVE OF ABSENCE FORM<a href="<?php echo base_url(); ?>reports/index_slvl" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #38c172;color: white;"><h4>LEAVE OF ABSENCE FORM<a href="<?php echo base_url(); ?>reports/index_slvl" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
     <form method="post" action="<?php echo base_url(); ?>reports/add_slvl" enctype="multipart/form-data"> 
@@ -18,16 +18,20 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group"> 
                     <label for="">*Type</label>
                     <select class="form-control" name="type">
                         <option value="">Select Leave Type</option>
-                        <option value="VL|VL">Vacation with Pay</option>
+                        <option value="VL|VL">VL</option>
+                        <option value="SL|SL">SL</option>
+                        <option value="AB|NO WORK SCHEDULE">No Work Schedule</option>
+                        <option value="VL|VACATION LEAVE">Vacation with Pay</option>
                         <option value="AB|VL W/O PAY">Vacation without Pay</option>
-                        <option value="SL|SL">Sick with Pay</option>
+                        <option value="SL|SICK LEAVE">Sick with Pay</option>
                         <option value="AB|SL W/O PAY">Sick without Pay</option>
                         <option value="ML|ML">Maternity</option>
                         <option value="PL|PL">Paternity</option>
+                        <option value="BL|BL">Bereavement Leave</option>
                     </select>
                 </div>
             </div>
@@ -56,7 +60,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">*Address While On Leave</label>
+                    <label for="">Address While On Leave</label>
                     <input type="text" class="form-control" name="address_leave">
                 </div>
             </div>
