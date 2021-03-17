@@ -1,8 +1,8 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT OB FORM<a href="<?php echo base_url(); ?>reports/index_ob" title="Go Back" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color:rgb(127,127,127); color: white"><h4>EDIT FIELD WORK FORM<a href="<?php echo base_url(); ?>reports/index_ob" title="Go Back" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
-    <form method="post" action="<?php echo base_url(); ?>reports/edit_employee_ob/<?php echo $ob->id; ?>" enctype="multipart/form-data"> 
+    <form method="post" action="<?php echo base_url(); ?>reports/edit_employee_ob_fw/<?php echo $ob->id; ?>" enctype="multipart/form-data"> 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for=""> Date of OB</label>
+                    <label for="">Date</label>
                     <input type="date" class="form-control" name="date_of_ob" value="<?php echo $ob->date_ob; ?>">
                 </div>
             </div>
@@ -45,19 +45,7 @@
                     <label for="">Plate Number</label>
                     <input type="text" class="form-control" name="plate_number" value="<?php echo $ob->plate_no ?>">
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="">Time of Departure</label>
-                    <input type="time" class="form-control" name="time_of_departure" value="<?php echo $ob->time_departure; ?>">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="">Time of Departure Destination</label>
-                    <input type="time" class="form-control" name="time_of_departure_destination" value="<?php echo $ob->time_departure_destination; ?>">
-                </div>
-            </div>
+            </div>    
         </div><br>
         <center>
             <input type="submit" onclick="return confirm('Do you want to update data?');" title="Submit Data" class="btn btn-info" value="UPDATE">

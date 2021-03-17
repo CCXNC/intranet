@@ -21,7 +21,7 @@
             <?php if($this->session->userdata('department_id') == 25) : ?><th scope="col">Status</th><?php endif; ?>
             <th scope="col">Action</th>
         </tr>
-    </thead>
+    </thead> 
     <tbody>
         <?php if($feedbacks) : ?>
             <?php foreach($feedbacks as $feedback) : ?>

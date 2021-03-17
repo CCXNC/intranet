@@ -40,10 +40,11 @@ class Reports extends CI_Controller {
     public function add_ob()
     {
         $this->form_validation->set_rules('employee', 'Employee Fullname', 'trim|required');
-        $this->form_validation->set_rules('date_of_ob', 'Date OB', 'trim|required');
-        $this->form_validation->set_rules('destination', 'Destination', 'trim|required');
-        $this->form_validation->set_rules('purpose', 'Purpose', 'trim|required');
-        $this->form_validation->set_rules('transport', 'Transport', 'trim|required');
+        $this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
+        $this->form_validation->set_rules('end_date', 'End Date', 'trim|required');
+        //$this->form_validation->set_rules('destination', 'Destination', 'trim|required');
+        //$this->form_validation->set_rules('purpose', 'Purpose', 'trim|required');
+        //$this->form_validation->set_rules('transport', 'Transport', 'trim|required');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -55,39 +56,66 @@ class Reports extends CI_Controller {
         {
             if($this->report_model->add_ob())
             {
-                $this->session->set_flashdata('success_msg', 'OB SUCCESSFULLY ADDED!');
+                $this->session->set_flashdata('success_msg', 'DATA SUCCESSFULLY ADDED!');
                 redirect('reports/index_ob');
             }
         }
     }
 
-    public function edit_employee_ob($id)
+    public function edit_employee_ob_fw($id)
     {
         $this->form_validation->set_rules('date_of_ob', 'Date OB', 'trim|required');
-        $this->form_validation->set_rules('destination', 'Destination', 'trim|required');
-        $this->form_validation->set_rules('purpose', 'Purpose', 'trim|required');
-        $this->form_validation->set_rules('transport', 'Transport', 'trim|required');
+        //$this->form_validation->set_rules('destination', 'Destination', 'trim|required');
+        //$this->form_validation->set_rules('purpose', 'Purpose', 'trim|required');
+        //$this->form_validation->set_rules('transport', 'Transport', 'trim|required');
 
         if($this->form_validation->run() == FALSE)
         {
             $data['ob'] = $this->report_model->get_employee_ob($id);
-            $data['main_content'] = 'hr/timekeeping/reports/ob/edit';
+            $data['main_content'] = 'hr/timekeeping/reports/ob/edit_fw';
             $this->load->view('inc/navbar', $data);
         }
         else
         {
-            if($this->report_model->update_employee_ob($id))
+            if($this->report_model->update_employee_ob_fw($id))
             {
-                $this->session->set_flashdata('success_msg', 'OB SUCCESSFULLY UPDATED!');
+                $this->session->set_flashdata('success_msg', 'DATA SUCCESSFULLY UPDATED!');
                 redirect('reports/index_ob');
             }
         }    
     }
 
-    public function view_employee_ob($id)
+    public function edit_employee_ob_wfh($id)
+    {
+        $this->form_validation->set_rules('date_of_ob', 'Date OB', 'trim|required');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['ob'] = $this->report_model->get_employee_ob($id);
+            $data['main_content'] = 'hr/timekeeping/reports/ob/edit_wfh';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->report_model->update_employee_ob_wfh($id))
+            {
+                $this->session->set_flashdata('success_msg', 'DATA SUCCESSFULLY UPDATED!');
+                redirect('reports/index_ob');
+            }
+        }    
+    }
+
+    public function view_employee_ob_fw($id)
     {
         $data['ob'] = $this->report_model->get_employee_ob($id);
-        $data['main_content'] = 'hr/timekeeping/reports/ob/view';
+        $data['main_content'] = 'hr/timekeeping/reports/ob/view_fw';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function view_employee_ob_wfh($id)
+    {
+        $data['ob'] = $this->report_model->get_employee_ob($id);
+        $data['main_content'] = 'hr/timekeeping/reports/ob/view_wfh';
         $this->load->view('inc/navbar', $data);
     }
 
@@ -95,7 +123,7 @@ class Reports extends CI_Controller {
     {
         if($this->report_model->delete_employee_ob($id))
         {
-            $this->session->set_flashdata('error_msg', 'OB SUCCESSFULLY DELETED!');
+            $this->session->set_flashdata('error_msg', 'DATA SUCCESSFULLY DELETED!');
             redirect('reports/index_ob');
         }
     }
@@ -125,7 +153,7 @@ class Reports extends CI_Controller {
         $this->form_validation->set_rules('start_date', 'Date of leave (Start)', 'trim|required');
         $this->form_validation->set_rules('end_date', 'Date of leave (End)', 'trim|required');
         $this->form_validation->set_rules('day', 'Day', 'trim|required');
-        $this->form_validation->set_rules('address_leave', 'Address While On Leave', 'trim|required');
+        //$this->form_validation->set_rules('address_leave', 'Address While On Leave', 'trim|required');
         $this->form_validation->set_rules('reason', 'Reason', 'trim|required');
 
         if($this->form_validation->run() == FALSE)
