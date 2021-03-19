@@ -30,7 +30,8 @@ class Announcement_model extends CI_Model {
 		
 		$data = array(
 			'username' => $this->session->userdata('username'),
-			'activity' => "Announcement added - " . ' title: ' . $title,
+			//'activity' => "Announcement added - " . ' title: ' . $title,
+			'activity' => "Entry Added",
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
 			'type'     => 'ANNOUNCEMENT',
 			'date'     => $date
@@ -95,8 +96,9 @@ class Announcement_model extends CI_Model {
 
 		$data = array(
 			'username' => $this->session->userdata('username'),
-			'activity' => "Announcement updated - " . ' id: ' . $id  . ' title: '. $title,
-			'datas'    => $json_data,
+			//'activity' => "Announcement updated - " . ' id: ' . $id  . ' title: '. $title,
+			'activity' => "Entry Updated: " . ' ID: ' . $id,
+			'datas'    => "Previous Data: " . $json_data,
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
 			'type'     => 'ANNOUNCEMENT',
 			'date'     => $date
@@ -166,7 +168,8 @@ class Announcement_model extends CI_Model {
 
 		$data = array(
 			'username' => $this->session->userdata('username'),
-			'activity' => "Announcement deleted:" . ' id:' . $announcement_id  . ' title:'. $announcement_title,
+			//'activity' => "Announcement deleted:" . ' id:' . $announcement_id  . ' title:'. $announcement_title,
+			'activity' => "Entry Deleted: " . ' ID: ' . $id,
 			'datas'    => $json_data,
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
 			'type'     => 'ANNOUNCEMENT',

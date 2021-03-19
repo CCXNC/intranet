@@ -13,9 +13,8 @@
         <tr style="background-color:#D4F1F4;">
             <th scope="col">Date</th>
             <th scope="col">Username</th>
-            <th scope="col">Activity</th>
-            <th scope="col">Datas</th>
             <th scope="col">Type</th>
+            <th scope="col">Activity</th>
             <th scope="col">PC IP</th>
         </tr>
     </thead>
@@ -24,10 +23,9 @@
         <?php foreach($logs as $log) : ?>
             <tr>
                 <td data-label="Date"><?php echo $log->date;  ?></td> 
-                <td data-label="Username"><?php echo $log->username;  ?></td> 
-                <td data-label="Activity"><?php echo $log->activity; ?></td>
-                <td data-label="Datas"><?php echo $log->datas?></td>
+                <td data-label="Username"><?php echo $log->username;  ?></td>
                 <td data-label="Type"><?php echo $log->type?></td>
+                <td data-label="Activity"><?php echo $log->activity; ?></td>
                 <td data-label="PC IP"><?php echo $log->pc_ip?></td>
             </tr>        
         <?php endforeach; ?>

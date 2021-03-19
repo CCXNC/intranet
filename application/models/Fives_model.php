@@ -70,6 +70,16 @@ class Fives_model extends CI_Model {
 		$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
 		$blaine_five_s->insert('idea_attachment', $data_attachment);
 		
+		$data = array (
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Added",
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> '5S: SHARE MY IDEA',
+			'date'		=> $date
+		);
+
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
 
 		$trans = $this->db->trans_complete();
 		return $trans;
@@ -142,12 +152,45 @@ class Fives_model extends CI_Model {
 	{
 		$this->db->trans_start();
 
+		// DATA
 		$current = $this->input->post('current');
 		$proposal = $this->input->post('proposal');
-		
 		$i = 0;
 		$date = date('Y-m-d H:i:s');
 
+		// GET OLD DATA BEFORE UPDATE
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
+		$blaine_five_s->select('*');
+		$blaine_five_s->where('id', $id);
+		$datas = $blaine_five_s->get('idea');
+		$fives_id = $datas->row()->id;
+		$fives_current = $datas->row()->current;
+		$fives_proposal = $datas->row()->proposal;
+		$fives_status = $datas->row()->status;
+
+		$entry_data = array (
+			'id'		=> $fives_id,
+			'current'	=> $fives_current,
+			'proposal'	=> $fives_proposal
+		);
+
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'	=>	$this->session->userdata('username'),
+			'activity'	=>	"Entry Updated: " . ' ID: ' . $id,
+			'datas'		=>	"Previous Data: " .$json_data,
+			'pc_ip'		=>	$_SERVER['REMOTE_ADDR'],
+			'type'		=>	'5S: SHARE MY IDEA',
+			'date'		=>	$date
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
+
+		// PROCESS FOR UPDATE FIVE S
 		$data_idea = array(
 			'current'     		=> $current,
 			'proposal'     		=> $proposal,
@@ -318,6 +361,38 @@ class Fives_model extends CI_Model {
 
 	public function delete_idea($id)
 	{
+		// GET OLD DATA BEFORE UPDATE
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
+		$blaine_five_s->select('*');
+		$blaine_five_s->where('id', $id);
+		$datas = $blaine_five_s->get('idea');
+		$fives_id = $datas->row()->id;
+		$fives_current = $datas->row()->current;
+		$fives_proposal = $datas->row()->proposal;
+		$fives_status = $datas->row()->status;
+
+		$entry_data = array (
+			'id'		=> $fives_id,
+			'current'	=> $fives_current,
+			'proposal'	=> $fives_proposal
+		);
+
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Deleted: " . ' ID: ' . $id,
+			'datas'		=> "Previous Data: " . $json_data,
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> '5S: SHARE MY IDEA',
+			'date'		=> date('Y-m-d H:i:s')
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+		
+
 		$data_idea = array(
 			'is_active'  => 0
 		);

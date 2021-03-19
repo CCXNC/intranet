@@ -32,7 +32,8 @@ class Forms_model extends CI_Model {
 
 		$data = array(
 			'username' => $this->session->userdata('username'),
-			'activity' => "Forms added - " . 'title: ' . $title,
+			//'activity' => "Forms added - " . 'title: ' . $title,
+			'activity' => "Entry Added",
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
 			'type'     => 'BLAINE FORMS',
 			'date'     => $date
@@ -70,15 +71,46 @@ class Forms_model extends CI_Model {
 	{
 		$this->db->trans_start();
 		
+		//DATA
 		$attachment_name = strtoupper($this->input->post('attachment1'));
         $category = $this->input->post('category');
-        
 		$attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
-
 		$date = date('Y-m-d H:i:s');
 
+		// GET OLD DATA BEFORE UPDATE
+		$blaine_forms = $this->load->database('blaine_forms', TRUE); 
+		$blaine_forms->select('*');
+		$blaine_forms->where('id', $id);
+		$datas = $blaine_forms->get('forms');
+		$blaine_forms_id = $datas->row()->id;
+		$blaine_forms_name = $datas->row()->name;
+		$blaine_forms_category = $datas->row()->category;
 		
+		$entry_data = array (
+			'id'		=>	$blaine_forms_id,
+			'name'		=>	$blaine_forms_name,
+			'category'	=>	$blaine_forms_category
+		);
+
+		// CONVERT TO JSON ENCODE
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			//'activity'	=> "Blaine Forms updated - " . ' id: ' . $id . ' name: ' . $attachment_name,
+			'activity'	=> "Entry Updated: " . ' ID: ' . $id,
+			'datas'		=> "Previous Data: " . $json_data,
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> 'BLAINE FORMS',
+			'date'		=> $date
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
+		//PROCESS FOR UPDATE BLAINE FORMS
 		if($attachment1 == NULL)
 		{
 			$data = array(
@@ -109,19 +141,6 @@ class Forms_model extends CI_Model {
 			$blaine_forms->update('forms', $data);
 		}	
 
-		// CALL ACVITIY LOGS DATABASE
-		$activity_log = $this->load->database('activity_logs', TRUE); 
-
-		$entry_data = "update_forms [entry_id:" . $id . "]";
-
-		$activity_data = array(
-			'username'   => $this->session->userdata('username'),
-			'pcname'     => gethostname(),
-			'entry_data' => $entry_data,
-			'entry_date' => $date
-		);
-		$activity_log->insert('forms_logs', $activity_data);
-
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
@@ -129,7 +148,41 @@ class Forms_model extends CI_Model {
 	public function delete_form($id)
 	{
 		$this->db->trans_start();
+
+		// GET OLD DATA BEFORE UPDATE
+		$blaine_forms = $this->load->database('blaine_forms', TRUE); 
+		$blaine_forms->select('*');
+		$blaine_forms->where('id', $id);
+		$datas = $blaine_forms->get('forms');
+		$blaine_forms_id = $datas->row()->id;
+		$blaine_forms_name = $datas->row()->name;
+		$blaine_forms_category = $datas->row()->category;
 		
+		$entry_data = array (
+			'id'		=>	$blaine_forms_id,
+			'name'		=>	$blaine_forms_name,
+			'category'	=>	$blaine_forms_category
+		);
+
+		// CONVERT TO JSON ENCODE
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'	=>	$this->session->userdata('username'),
+			//'activity'	=>	"Blaine Forms deleted:" . ' id: ' . $blaine_forms_id . ' name: ' . $blaine_forms_name,
+			'activity'	=> "Entry Deleted: " . ' ID: ' . $id,
+			'datas'		=>	"Previous Data: " . $json_data,
+			//'datas'		=> "Previous Data: " . $json_data,
+			'pc_ip'		=>	$_SERVER['REMOTE_ADDR'],
+			'type'		=>	'BLAINE FORMS',
+			'date'		=>	date('Y-m-d H:i:s')
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
+		// PROCESS FOR DELETE BLAINE FORMS
 		$date = date('Y-m-d H:i:s');
 		$data = array(
 			'is_active' => 0
@@ -139,19 +192,6 @@ class Forms_model extends CI_Model {
 		$blaine_forms = $this->load->database('blaine_forms', TRUE); 
 		$blaine_forms->where('id', $id);
 		$blaine_forms->update('forms', $data);
-
-		// CALL ACVITIY LOGS DATABASE
-		$activity_log = $this->load->database('activity_logs', TRUE); 
-
-		$entry_data = "delete_forms [entry_id:" . $id . "]";
-
-		$activity_data = array(
-			'username'   => $this->session->userdata('username'),
-			'pcname'     => gethostname(),
-			'entry_data' => $entry_data,
-			'entry_date' => $date
-		);
-		$activity_log->insert('forms_logs', $activity_data);
 
 		$trans = $this->db->trans_complete();
 		return $trans;
