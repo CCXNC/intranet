@@ -48,7 +48,7 @@
                         <td><?php echo $leave->department; ?></td>
                         <td><?php echo $leave->leave_date; ?></td>
                         <td ><?php echo $leave->type_name ; ?></td>
-                        <td><?php if($leave->leave_day == "WD") { echo "WHOLE DAY"; } elseif($leave->leave_day == "HDAM") { echo "HALFDAY (AM)"; } else { echo "HALFDAY (PM)"; } ?></td>
+                        <td><?php if($leave->leave_day == "WD") { echo "WHOLE DAY"; } elseif($leave->leave_day == "HDAM") { echo "HALFDAY (AM)"; } elseif($leave->leave_day == "HDPM") { echo "HALFDAY (PM)"; } else { echo ''; } ?></td>
                         <td><?php echo substr($leave->reason,0,50); ?></td>
                         <!--<td><?php if($leave->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>-->
                         <td data-label="Action">

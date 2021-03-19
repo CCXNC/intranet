@@ -184,7 +184,7 @@ class Reports extends CI_Controller {
         $this->form_validation->set_rules('type', 'Type', 'trim|required');
         $this->form_validation->set_rules('leave_date', 'Effective Date of leave', 'trim|required');
         $this->form_validation->set_rules('day', 'Day', 'trim|required');
-        $this->form_validation->set_rules('address_leave', 'Address While On Leave', 'trim|required');
+        //$this->form_validation->set_rules('address_leave', 'Address While On Leave', 'trim|required');
         $this->form_validation->set_rules('reason', 'Reason', 'trim|required');
 
         if($this->form_validation->run() == FALSE)

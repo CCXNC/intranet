@@ -29,45 +29,50 @@ class Report_model extends CI_Model {
 
         for($k = 1; $k <= $num_dates; $k++)
 		{	
-            if($type == "FIELD WORK")
+            $cur_days = date('w', strtotime($cur_date));
+            if($cur_days != 0 && $cur_days != 6)
             {
-                $data_work = array(
-                    'employee_number'               => $employee_number,
-                    'date_ob'                       => $cur_date,
-                    'type'                          => $type,
-                    'department'                    => $department,
-                    'destination'                   => $destination,
-                    'purpose'                       => $purpose,
-                    'transport'                     => $transport,
-                    'plate_no'                      => $plate_number,
-                    'created_by'                    => $this->session->userdata('username'),
-                    'created_date'                  => date('Y-m-d H:i:s')
-                );
-
-                $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-                $query = $blaine_timekeeping->insert('ob', $data_work);
-                /*print_r('<pre>');
-                print_r($data_work);
-                print_r('</pre>');*/
+                if($type == "FIELD WORK")
+                {
+                    $data_work = array(
+                        'employee_number'               => $employee_number,
+                        'date_ob'                       => $cur_date,
+                        'type'                          => $type,
+                        'department'                    => $department,
+                        'destination'                   => $destination,
+                        'purpose'                       => $purpose,
+                        'transport'                     => $transport,
+                        'plate_no'                      => $plate_number,
+                        'created_by'                    => $this->session->userdata('username'),
+                        'created_date'                  => date('Y-m-d H:i:s')
+                    );
+    
+                    $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                    $query = $blaine_timekeeping->insert('ob', $data_work);
+                    /*print_r('<pre>');
+                    print_r($data_work);
+                    print_r('</pre>');*/
+                }
+                elseif($type == "WORK FROM HOME")
+                {
+                    $data_wfh = array(
+                        'employee_number'               => $employee_number,
+                        'date_ob'                       => $cur_date,
+                        'department'                    => $department,
+                        'type'                          => $type,
+                        'remarks'                       => $remarks,
+                        'created_by'                    => $this->session->userdata('username'),
+                        'created_date'                  => date('Y-m-d H:i:s')
+                    );
+    
+                    $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                    $query = $blaine_timekeeping->insert('ob', $data_wfh);
+                    /*print_r('<pre>');
+                    print_r($data_wfh);
+                    print_r('</pre>');*/
+                }
             }
-            elseif($type == "WORK FROM HOME")
-            {
-                $data_wfh = array(
-                    'employee_number'               => $employee_number,
-                    'date_ob'                       => $cur_date,
-                    'department'                    => $department,
-                    'type'                          => $type,
-                    'remarks'                       => $remarks,
-                    'created_by'                    => $this->session->userdata('username'),
-                    'created_date'                  => date('Y-m-d H:i:s')
-                );
-
-                $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-                $query = $blaine_timekeeping->insert('ob', $data_wfh);
-                /*print_r('<pre>');
-                print_r($data_wfh);
-                print_r('</pre>');*/
-            }
+          
            
 			$conv_date = strtotime($start_date);
 			$cur_date = date('Y-m-d', strtotime('+' . $k .' days', $conv_date));
@@ -233,55 +238,107 @@ class Report_model extends CI_Model {
 		$num_dates = $num_dates + 1;
 
         $cur_date = $start_date;
-
+        
         for($k = 1; $k <= $num_dates; $k++)
-		{	
-            if($day == "WD")
+		{
+            if($type != 'ML')
             {
-                $data = array(
-                    'employee_number' => $employee_number,
-                    'company'         => $company,
-                    'department'      => $department,
-                    'type'            => $type,
-                    'type_name'       => $type_name,
-                    'leave_date'      => $cur_date,
-                    'leave_num'       => '1',
-                    'leave_day'       => $day,
-                    'leave_address'   => $address_leave,
-                    'reason'          => $reason,
-                    'created_by'      => $this->session->userdata('username'),
-                    'created_date'    => date('Y-m-d H:i:s') 
-                );
-                
-                $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-                $blaine_timekeeping->insert('slvl', $data);
-                /*print_r('<pre>');
-                print_r($data);
-                print_r('</pre>');*/
+                $cur_days = date('w', strtotime($cur_date));
+                if($cur_days != 0 && $cur_days != 6)
+                {
+                    if($day == "WD")
+                    {
+                        $data = array(
+                            'employee_number' => $employee_number,
+                            'company'         => $company,
+                            'department'      => $department,
+                            'type'            => $type,
+                            'type_name'       => $type_name,
+                            'leave_date'      => $cur_date,
+                            'leave_num'       => '1',
+                            'leave_day'       => $day,
+                            'leave_address'   => $address_leave,
+                            'reason'          => $reason,
+                            'created_by'      => $this->session->userdata('username'),
+                            'created_date'    => date('Y-m-d H:i:s') 
+                        );
+                        
+                        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                        $blaine_timekeeping->insert('slvl', $data);
+                        /*print_r('<pre>');
+                        print_r($data);
+                        print_r('</pre>');*/
+                    }
+                    else
+                    {
+                        $data = array(
+                            'employee_number' => $employee_number,
+                            'company'         => $company,
+                            'department'      => $department,
+                            'type'            => $type,
+                            'type_name'       => $type_name,
+                            'leave_date'      => $cur_date,
+                            'leave_address'   => $address_leave,
+                            'reason'          => $reason,
+                            'leave_num'       => '0.5',
+                            'leave_day'       => $day,
+                            'created_by'      => $this->session->userdata('username'),
+                            'created_date'    => date('Y-m-d H:i:s') 
+                        );
+            
+                        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                        $blaine_timekeeping->insert('slvl', $data);
+                        /*print_r('<pre>');
+                        print_r($data);
+                        print_r('</pre>');*/
+                    }
+                }
             }
             else
             {
-                $data = array(
-                    'employee_number' => $employee_number,
-                    'company'         => $company,
-                    'department'      => $department,
-                    'type'            => $type,
-                    'type_name'       => $type_name,
-                    'leave_date'      => $cur_date,
-                    'leave_address'   => $address_leave,
-                    'reason'          => $reason,
-                    'leave_num'       => '0.5',
-                    'leave_day'       => $day,
-                    'created_by'      => $this->session->userdata('username'),
-                    'created_date'    => date('Y-m-d H:i:s') 
-                );
-    
-                $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-                $blaine_timekeeping->insert('slvl', $data);
-                /*print_r('<pre>');
-                print_r($data);
-                print_r('</pre>');*/
+                if($day == "WD")
+                    {
+                        $data = array(
+                            'employee_number' => $employee_number,
+                            'company'         => $company,
+                            'department'      => $department,
+                            'type'            => $type,
+                            'type_name'       => $type_name,
+                            'leave_date'      => $cur_date,
+                            'leave_num'       => '1',
+                            'leave_day'       => $day,
+                            'leave_address'   => $address_leave,
+                            'reason'          => $reason,
+                            'created_by'      => $this->session->userdata('username'),
+                            'created_date'    => date('Y-m-d H:i:s') 
+                        );
+                        
+                        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                        $blaine_timekeeping->insert('slvl', $data);
+                    }
+                    else
+                    {
+                        $data = array(
+                            'employee_number' => $employee_number,
+                            'company'         => $company,
+                            'department'      => $department,
+                            'type'            => $type,
+                            'type_name'       => $type_name,
+                            'leave_date'      => $cur_date,
+                            'leave_address'   => $address_leave,
+                            'reason'          => $reason,
+                            'leave_num'       => '0.5',
+                            'leave_day'       => $day,
+                            'created_by'      => $this->session->userdata('username'),
+                            'created_date'    => date('Y-m-d H:i:s') 
+                        );
+            
+                        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                        $blaine_timekeeping->insert('slvl', $data);
+                     
+                    }
             }
+         
            
 			$conv_date = strtotime($start_date);
 			$cur_date = date('Y-m-d', strtotime('+' . $k .' days', $conv_date));
