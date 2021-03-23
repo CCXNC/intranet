@@ -590,7 +590,7 @@
                 <li class="nav-item dropdown notification">
                     <a style="color:white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user-circle"></i>
-                        <span class="badge">0</span>
+                        <!--<span class="badge">0</span>-->
                         <span><?php echo $this->session->userdata('username'); ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

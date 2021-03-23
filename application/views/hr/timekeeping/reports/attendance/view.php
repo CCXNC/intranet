@@ -40,6 +40,7 @@
         <thead>
             <tr style="background-color:#D4F1F4;">
                 <th scope="col">NAME</th>
+                <th scope="col">BUSINESS UNIT</th>
                 <th scope="col">DEPARTMENT</th>
                 <th scope="col">DATE</th>
                 <th scope="col">TIME IN</th>
@@ -53,8 +54,9 @@
             <?php if($employees) : ?>
                 <?php foreach($employees as $employee) : ?>
                     <tr>
-                        <td><?php echo  $employee->fullname; ?></td>
-                        <td><?php echo  $employee->department_name; ?></td>
+                        <td><?php echo $employee->fullname; ?></td>
+                        <td><?php echo $employee->company_name; ?></td>
+                        <td><?php echo $employee->department_name; ?></td>
                         <td>
                         <?php 
                             if($employee->date == NULL)

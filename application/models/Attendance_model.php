@@ -30,6 +30,7 @@ class Attendance_model extends CI_Model
 			slvl.type as leave_type,
 			slvl.leave_day as leave_day,
 			department.name as department_name,
+			company.code as company_name
 		");
 		$this->db->from('blaine_timekeeping.temp_date');
 		$this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.is_active = blaine_timekeeping.temp_date.batch');
@@ -41,6 +42,7 @@ class Attendance_model extends CI_Model
 		$this->db->join('blaine_timekeeping.slvl','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
 		$this->db->join('department', 'employment_info.department = department.id');
+		$this->db->join('company', 'employment_info.company = company.id');
 
 		$this->db->order_by('employees.last_name','ASC');
 		$this->db->order_by('attendance_in.date','ASC');

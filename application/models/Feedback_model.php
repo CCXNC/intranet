@@ -34,7 +34,8 @@ class Feedback_model extends CI_Model {
             feedback.employee_number as employee_number,
             feedback.category as category,
             feedback.created_date as date,
-            feedback.comment as comment
+            feedback.comment as comment,
+            feedback.title as title
         ");
 
         $this->db->from('blaine_feedback.feedback');
