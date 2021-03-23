@@ -20,21 +20,21 @@
             <label for="">&nbsp;</label>
             <input type="submit" title="Submit Date" value="SUBMIT" class="form-control btn btn-dark">
         </div> &nbsp;
-        <div class="form-group">
+        <!--<div class="form-group">
             <label for="">&nbsp;</label>
             <input class="form-control btn btn-success" id="" type="submit" value="APPROVAL">
-        </div>
+        </div>-->
     </div>    
     <table id="" class="display" style="width:100%">
         <thead>
             <tr style="background-color:#D4F1F4;">
-                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
+                <!--<th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>-->
                 <th scope="col">EMPLOYEE NAME</th>
                 <th scope="col">DEPARTMENT</th>
                 <th scope="col">OT DATE</th>
                 <th scope="col">NO. OF HOURS</th>
                 <th scope="col">TASK</th>
-                <th scope="col">STATUS</th>
+                <!--<th scope="col">STATUS</th>-->
                 <th scope="col">ACTION</th>
             </tr>
         </thead>

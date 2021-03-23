@@ -261,6 +261,7 @@ class Attendance_model extends CI_Model
 			{
 				$data_fw = array(
 					'employee_number' => $employee_number,
+					'company'         => $company,
                     'department'      => $department,
 					'date_ob'         => $date,
                     'type'            => 'FIELD WORK',
@@ -275,6 +276,7 @@ class Attendance_model extends CI_Model
 			{
 				$data_wfh = array(
 					'employee_number' => $employee_number,
+					'company'         => $company,
                     'department'      => $department,
 					'date_ob'         => $date,
                     'type'            => 'WORK FROM HOME',

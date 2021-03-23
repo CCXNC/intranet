@@ -38,6 +38,7 @@ class Report_model extends CI_Model {
                         'employee_number'               => $employee_number,
                         'date_ob'                       => $cur_date,
                         'type'                          => $type,
+                        'company'                       => $company,
                         'department'                    => $department,
                         'destination'                   => $destination,
                         'purpose'                       => $purpose,
@@ -58,6 +59,7 @@ class Report_model extends CI_Model {
                     $data_wfh = array(
                         'employee_number'               => $employee_number,
                         'date_ob'                       => $cur_date,
+                        'company'                       => $company,
                         'department'                    => $department,
                         'type'                          => $type,
                         'remarks'                       => $remarks,
@@ -72,7 +74,6 @@ class Report_model extends CI_Model {
                     print_r('</pre>');*/
                 }
             }
-          
            
 			$conv_date = strtotime($start_date);
 			$cur_date = date('Y-m-d', strtotime('+' . $k .' days', $conv_date));
