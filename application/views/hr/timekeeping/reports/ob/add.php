@@ -11,7 +11,7 @@
                         <option value="">SELECT EMPLOYEE</option>
                         <?php if($employees) : ?>
                         <?php foreach($employees as $employee) : ?>
-                            <option value="<?php echo $employee->emp_no . '|' . $employee->department_id; ?>"><?php echo $employee->fullname; ?></option>
+                            <option value="<?php echo $employee->emp_no . '|' . $employee->department_id . '|' . $employee->company_id; ?>"><?php echo $employee->fullname; ?></option>
                         <?php endforeach; ?>
                         <?php endif; ?>
                     </select>

@@ -7,8 +7,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="">*Employee Name</label>
-                    <select name="" class="form-control col-md-12">  
+                    <select name="employee" class="form-control col-md-12">  
                         <option value="">SELECT EMPLOYEE</option>
+                        <?php if($employees) : ?>
+                        <?php foreach($employees as $employee) : ?>
+                            <option value="<?php echo $employee->emp_no . '|' . $employee->department_id . '|' . $employee->company_id; ?>"><?php echo $employee->fullname; ?></option>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </select>
                 </div>
             </div>
@@ -16,6 +21,16 @@
                 <div class="form-group">
                     <label for="">*Date of Overtime</label>
                     <input type="date" class="form-control" name="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">*Day of Overtime</label>
+                    <select name="day" class="form-control col-md-12">  
+                        <option value="">WHOLEDAY</option>
+                        <option value="">AM</option>
+                        <option value="">PM</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-6">

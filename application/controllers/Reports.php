@@ -266,6 +266,7 @@ class Reports extends CI_Controller {
 
     public function add_ot()
     {
+        $data['employees'] = $this->employee_model->get_employees();
         $data['main_content'] = 'hr/timekeeping/reports/overtime/add';
         $this->load->view('inc/navbar', $data);
     }
