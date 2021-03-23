@@ -801,12 +801,15 @@
                                         <span>Feedback Form</span>
                                     </a>
                                 </li>
+
+                            <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?>
                                 <li class="sidebar">
                                     <a href="<?php echo base_url(); ?>logs/index_logs">
                                         <i class="fa fa-list-alt"></i>
                                         <span>Activity Logs</span>
                                     </a>
                                 </li>
+                            <?php endif; ?>
                             <!--<li>
                                 <a href="#">
                                 <i class="fas fa-book"></i>

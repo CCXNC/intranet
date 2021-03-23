@@ -30,6 +30,8 @@ class Attendance_model extends CI_Model
 			slvl.type as leave_type,
 			slvl.leave_day as leave_day,
 			department.name as department_name,
+			department.id as department_id,
+			company.id as company_id,
 			company.code as company_name
 		");
 		$this->db->from('blaine_timekeeping.temp_date');
@@ -104,7 +106,7 @@ class Attendance_model extends CI_Model
 
 		for($k = 1; $k <= $num_dates; $k++)
 		{	
-			$data = array(
+			$data = array( 
 				'date'  => $cur_date,
 				'batch' => 1
 			);
@@ -126,7 +128,7 @@ class Attendance_model extends CI_Model
 
 	public function add_manual_attendance()
 	{
-		$this->db->trans_start();
+		$this->db->trans_start(); 
 
 		$employee_number = $this->input->post('employee_number');
 		$fullname = $this->input->post('fullname');
@@ -137,51 +139,157 @@ class Attendance_model extends CI_Model
 		$process =  $this->input->post('process');
 		$no_time_out = $this->input->post('no_time_out');
 
-		if($process != 1)
-		{
-			$data_in = array(
-				'biometric_id'    => $biometric_id,
-				'employee_number' => $employee_number,
-				'date'            => $date,
-				'time'            => $time_in,
-				'status'          => 'IN',
-				'generate'        => 'MANUAL',
-				'generated_by'    => $this->session->userdata('username'),
-				'generated_date'  => date('Y-m-d H:i:s')
-			);
+		$attendance = $this->input->post('attendance');
+		$other = $this->input->post('other');
+		$department = $this->input->post('department_id');
+		$company = $this->input->post('company_id');
 
-			$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-			$blaine_timekeeping->insert('attendance_in', $data_in);
-			/*print_r('<pre>');
-			print_r($data_in);
-			print_r('</pre>');*/	
-		}
-		
-		if($no_time_out != 1)
+		if($attendance == 1)
 		{
-			$data_out = array(
-				'biometric_id'    => $biometric_id,
-				'employee_number' => $employee_number,
-				'date'            => $date,
-				'time'            => $time_out,
-				'status'          => 'OUT',
-				'generate'        => 'MANUAL',
-				'generated_by'    => $this->session->userdata('username'),
-				'generated_date'  => date('Y-m-d H:i:s')
-			);
-	
-			$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-			$blaine_timekeeping->insert('attendance_out', $data_out);
-			/*print_r('<pre>');
-			print_r($data_out);
-			print_r('</pre>');*/		
+			if($process != 1)
+			{
+				$data_in = array(
+					'biometric_id'    => $biometric_id,
+					'employee_number' => $employee_number,
+					'date'            => $date,
+					'time'            => $time_in,
+					'status'          => 'IN',
+					'generate'        => 'MANUAL',
+					'generated_by'    => $this->session->userdata('username'),
+					'generated_date'  => date('Y-m-d H:i:s')
+				);
+
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->insert('attendance_in', $data_in);
+				/*print_r('<pre>');
+				print_r($data_in);
+				print_r('</pre>');*/	
+			}
+			
+			if($no_time_out != 1)
+			{
+				$data_out = array(
+					'biometric_id'    => $biometric_id,
+					'employee_number' => $employee_number,
+					'date'            => $date,
+					'time'            => $time_out,
+					'status'          => 'OUT',
+					'generate'        => 'MANUAL',
+					'generated_by'    => $this->session->userdata('username'),
+					'generated_date'  => date('Y-m-d H:i:s')
+				);
+		
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->insert('attendance_out', $data_out);
+				/*print_r('<pre>');
+				print_r($data_out);
+				print_r('</pre>');*/		
+			}
+
+			$this->db->query("
+				DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
+				blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
+			");
+		}	
+		else
+		{
+			if($other == 'SL')
+			{
+				$data_sl = array(
+					'employee_number' => $employee_number,
+                    'company'         => $company,
+                    'department'      => $department,
+					'leave_date'      => $date,
+                    'type'            => 'SL',
+                    'type_name'       => 'SL',
+					'created_by'    => $this->session->userdata('username'),
+					'created_date'  => date('Y-m-d H:i:s')
+				);
+
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->insert('slvl', $data_sl);
+			}
+			elseif($other == 'VL') 
+			{
+				$data_vl = array(
+					'employee_number' => $employee_number,
+                    'company'         => $company,
+                    'department'      => $department,
+					'leave_date'      => $date,
+                    'type'            => 'VL',
+                    'type_name'       => 'VL',
+					'created_by'    => $this->session->userdata('username'),
+					'created_date'  => date('Y-m-d H:i:s')
+				);
+
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->insert('slvl', $data_vl);
+			}
+			elseif($other == 'ML') 
+			{
+				$data_vl = array(
+					'employee_number' => $employee_number,
+                    'company'         => $company,
+                    'department'      => $department,
+					'leave_date'      => $date,
+                    'type'            => 'ML',
+                    'type_name'       => 'ML',
+					'created_by'    => $this->session->userdata('username'),
+					'created_date'  => date('Y-m-d H:i:s')
+				);
+
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->insert('slvl', $data_vl);
+			}
+			elseif($other == 'NO WORK SCHEDULE') 
+			{
+				$data_nws = array(
+					'employee_number' => $employee_number,
+                    'company'         => $company,
+                    'department'      => $department,
+					'leave_date'      => $date,
+                    'type'            => 'NO WORK SCHEDULE',
+                    'type_name'       => 'NO WORK SCHEDULE',
+					'created_by'    => $this->session->userdata('username'),
+					'created_date'  => date('Y-m-d H:i:s')
+				);
+
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->insert('slvl', $data_nws);
+			}
+			elseif($other == 'FIELD WORK') 
+			{
+				$data_fw = array(
+					'employee_number' => $employee_number,
+					'company'         => $company,
+                    'department'      => $department,
+					'date_ob'         => $date,
+                    'type'            => 'FIELD WORK',
+					'created_by'      => $this->session->userdata('username'),
+					'created_date'    => date('Y-m-d H:i:s')
+				);
+
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->insert('ob', $data_fw);
+			}
+			elseif($other == 'WORK FROM HOME') 
+			{
+				$data_wfh = array(
+					'employee_number' => $employee_number,
+					'company'         => $company,
+                    'department'      => $department,
+					'date_ob'         => $date,
+                    'type'            => 'WORK FROM HOME',
+					'created_by'      => $this->session->userdata('username'),
+					'created_date'    => date('Y-m-d H:i:s')
+				);
+
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->insert('ob', $data_wfh);
+			}
+			
 		}
 
-		$this->db->query("
-			DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
-			blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
-		");
-		
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
