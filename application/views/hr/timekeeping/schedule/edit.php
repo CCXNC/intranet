@@ -19,7 +19,7 @@
                 <input type="text" class="form-control col-md-6" readonly value="<?php echo $schedule->fullname; ?>">
             </div>
             <?php 
-                $week = ["Monday","Tuesday","Wednesday","Thrusday","Friday","Saturday","Sunday"]; 
+                $week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]; 
                 $count_week = count($week);
                 $days = explode(',',$schedule->days);
                 $count_data = count($days);
