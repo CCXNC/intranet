@@ -268,7 +268,7 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="other" value="VL">
                                                         <label class="form-check-label" for="exampleRadios2">
-                                                            VACTION LEAVE
+                                                            VACATION LEAVE
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
@@ -348,10 +348,15 @@
             });    
 
             $('table.display').DataTable( {
-                "paging":   false,
-                "ordering": true,
-                "info":     false,
-                dom: 'Bf',
+                "bStateSave": true,
+                "fnStateSave": function (oSettings, oData) {
+                    localStorage.setItem('table.display', JSON.stringify(oData));
+                },
+                "fnStateLoad": function (oSettings) {
+                    return JSON.parse(localStorage.getItem('table.display'));
+                },
+                "lengthMenu": [[25, 50, -1], [25, 50, "All"]],
+                dom: 'Blfrtp',
                 buttons: [
                         {
                             extend: 'excel',
