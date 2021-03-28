@@ -46,8 +46,8 @@
                 <label for="vehicle1">&nbsp;TUESDAY&nbsp;</label>
                 <input type="checkbox" class="check" name="days[]" value="Wednesday">
                 <label for="vehicle2">&nbsp;WEDNESDAY&nbsp;</label>
-                <input type="checkbox" class="check" name="days[]" value="Thrusday">
-                <label for="vehicle2">&nbsp;THRUSDAY&nbsp;</label>
+                <input type="checkbox" class="check" name="days[]" value="Thursday">
+                <label for="vehicle2">&nbsp;THURSDAY&nbsp;</label>
                 <input type="checkbox" class="check" name="days[]" value="Friday">
                 <label for="vehicle2">&nbsp;FRIDAY&nbsp;</label>
                 <input type="checkbox" name="days[]" value="Saturday">

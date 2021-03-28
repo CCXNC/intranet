@@ -9,7 +9,7 @@ class Attendance_model extends CI_Model
 			attendance_in.date as date, 
 			attendance_in.time as time_in,
 			attendance_out.time as time_out,
-			attendance_in.id as in_id, 
+			attendance_in.id as in_id,   
 			attendance_out.id as out_id, 	
 			temp_date.date as temp_date,
 			attendance_in.generate as in_generate,
@@ -164,6 +164,11 @@ class Attendance_model extends CI_Model
 				/*print_r('<pre>');
 				print_r($data_in);
 				print_r('</pre>');*/	
+
+				$this->db->query("
+					DELETE tbl1 FROM blaine_timekeeping.attendance_in tbl1 INNER JOIN
+					blaine_timekeeping.attendance_in tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
+				");
 			}
 			
 			if($no_time_out != 1)
@@ -183,13 +188,13 @@ class Attendance_model extends CI_Model
 				$blaine_timekeeping->insert('attendance_out', $data_out);
 				/*print_r('<pre>');
 				print_r($data_out);
-				print_r('</pre>');*/		
+				print_r('</pre>');*/	
+				
+				$this->db->query("
+					DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
+					blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
+				");
 			}
-
-			$this->db->query("
-				DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
-				blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
-			");
 		}	
 		else
 		{

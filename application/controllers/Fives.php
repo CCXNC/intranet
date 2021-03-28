@@ -58,12 +58,12 @@ class Fives extends CI_Controller {
                 }else{ 
                     $error = $this->upload->display_errors();  
                 } 
-            } 
+            }
 
             if($this->fives_model->add_idea())
             {
-                $this->session->set_flashdata('success_msg', 'Idea Successfully Added!');
-                redirect('fives/idea');
+               $this->session->set_flashdata('success_msg', 'Idea Successfully Added!');
+               redirect('fives/idea');
             }
         }
     }
