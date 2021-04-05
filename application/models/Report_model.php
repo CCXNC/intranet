@@ -51,11 +51,11 @@ class Report_model extends CI_Model {
                         'created_date'                  => date('Y-m-d H:i:s')
                     );
     
-                    //$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-                    //$query = $blaine_timekeeping->insert('ob', $data_work);
-                    print_r('<pre>');
+                    $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                    $query = $blaine_timekeeping->insert('ob', $data_work);
+                    /*print_r('<pre>');
                     print_r($data_work);
-                    print_r('</pre>');
+                    print_r('</pre>');*/
                 }
                 elseif($type == "WORK FROM HOME")
                 {
@@ -70,11 +70,11 @@ class Report_model extends CI_Model {
                         'created_date'                  => date('Y-m-d H:i:s')
                     );
     
-                    //$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-                    //$query = $blaine_timekeeping->insert('ob', $data_wfh);
-                    print_r('<pre>');
+                    $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                    $query = $blaine_timekeeping->insert('ob', $data_wfh);
+                    /*print_r('<pre>');
                     print_r($data_wfh);
-                    print_r('</pre>');
+                    print_r('</pre>');*/
                 }
             }
                

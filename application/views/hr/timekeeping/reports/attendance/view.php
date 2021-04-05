@@ -47,6 +47,7 @@
                 <th scope="col">TIME OUT</th>
                 <th scope="col">PROCESS</th>
                 <th scope="col">REMARKS</th>
+                <th scope="col">REASON</th>
                 <th scope="col">ACTION BY</th>
             </tr>
         </thead>
@@ -203,6 +204,25 @@
                                     } else {
                                         echo '<p class="" style="text-align:center;margin-top:15px;padding:5px;background-color:rgb(255,100,0);color:white;">'. $employee->type_name . ' ' . $employee->leave_day . '' .'</p>';
                                     }
+                                ?>    
+                            <?php endif; ?>    
+                        </td>
+                        <td>
+                            <?php if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) : ?>
+                                    <?php 
+                                        if($employee->ob_type == "FIELD WORK") {
+                                            echo '<p>' . $employee->ob_purpose .'</p>'; 
+                                        } else {
+                                            echo '<p>' . $employee->ob_remarks .'</p>'; 
+    
+                                        }
+                                    ?>
+                            <?php elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave): ?>
+                                <?php
+
+                                    if($employee->type_name == "VL" || $employee->type_name == "SL" || $employee->type_name == "ML" || $employee->type_name == "PL" || $employee->type_name == "BL") {
+                                        echo '<p>'. $employee->leave_reason  . '' .'</p>';
+                                    }  
                                 ?>    
                             <?php endif; ?>    
                         </td>
