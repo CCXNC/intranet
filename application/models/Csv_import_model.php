@@ -5,6 +5,18 @@ class Csv_import_model extends CI_Model
 	{
 		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 		$blaine_timekeeping->insert_batch('attendance_logs', $data);
+
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'activity' => "Entry Uploaded-CSV",
+			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+			'type'     => 'TIMEKEEPING',
+			'date'     => date('Y-m-d H:i:s')
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
 	}
 
 	public function get_last_in()
@@ -184,6 +196,18 @@ class Csv_import_model extends CI_Model
 			blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
 		");
 
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'activity' => "Entry Process-CSV",
+			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+			'type'     => 'TIMEKEEPING',
+			'date'     => date('Y-m-d H:i:s')
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 		
@@ -195,6 +219,19 @@ class Csv_import_model extends CI_Model
 		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 		$blaine_timekeeping->where('id !=', NULL);
 		$query = $blaine_timekeeping->delete('attendance_logs');
+
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'activity' => "Entry Delete-CSV",
+			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+			'type'     => 'TIMEKEEPING',
+			'date'     => date('Y-m-d H:i:s')
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
 
 		return $query;
 	}

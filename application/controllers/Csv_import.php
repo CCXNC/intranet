@@ -64,7 +64,7 @@ class Csv_import extends CI_Controller {
 		}*/
 		$this->csv_import_model->insert($data);
 	}
-
+ 
 	public function view()
 	{
 		$data['attendances'] = $this->csv_import_model->get_attendance_logs();

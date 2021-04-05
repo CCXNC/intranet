@@ -35,6 +35,7 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
+            "order": [[0, "asc" ]],
             "scrollX": true,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {

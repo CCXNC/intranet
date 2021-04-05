@@ -76,15 +76,21 @@
 </form>   
 <!-- Modal -->
 <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-sm">
-    <div class="modal-content rounded-0">
-      <div class="modal-body">
-        <center>
-        <h3> <i class="fa fa-spinner fa-spin" style="font-size:200px"></i></h3>
-        </center>
-      </div>
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content rounded-0">
+            <div class="modal-body">
+                <center>
+                    <h3>
+                        <div class="progress" style="height: 40px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size: 25px;">
+                                LOADING  
+                            </div>
+                        </div>
+                    </h3>
+                </center>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
     <script type="text/javascript">  
         $(document).ready(function() {

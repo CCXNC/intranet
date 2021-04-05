@@ -252,23 +252,46 @@ class Reports extends CI_Controller {
 		redirect('reports/index_slvl');
     }
 
-    public function index_individual_attendance()
-    {
-        $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/index';
-        $this->load->view('inc/navbar', $data);
-    }
-
     public function index_ot()
     {
+        if($this->input->server('REQUEST_METHOD') == 'POST')
+		{
+			$data['start_date'] = $this->input->post('start_date');
+			$data['end_date'] = $this->input->post('end_date');
+            $data['ots'] = $this->report_model->get_employees_ot($data['start_date'], $data['end_date']);
+		}
+		else                                      
+		{                                       
+			$data['start_date'] = date('Y-m-d');                         
+			$data['end_date'] = date('Y-m-d');     
+            $data['ots'] = $this->report_model->get_employees_ots();
+		}    
+        
         $data['main_content'] = 'hr/timekeeping/reports/overtime/index';
         $this->load->view('inc/navbar', $data);
     }
 
     public function add_ot()
     {
-        $data['employees'] = $this->employee_model->get_employees();
-        $data['main_content'] = 'hr/timekeeping/reports/overtime/add';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('employee', 'Employee Name', 'trim|required');
+        //$this->form_validation->set_rules('date_ot', 'Date of Overtime', 'trim|required');
+        //$this->form_validation->set_rules('ot_num', 'Estimated Number of Hours', 'trim|required');
+        //$this->form_validation->set_rules('task', 'Specific Task To Be Done', 'trim|required');
+
+        if($this->form_validation->run() == FALSE) 
+        {
+            $data['employees'] = $this->employee_model->get_employees();
+            $data['main_content'] = 'hr/timekeeping/reports/overtime/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->report_model->add_overtime())
+            {
+                $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY PROCESS!');
+                redirect('reports/index_ot');
+            }
+        }    
     }
 
     public function view_employee_ot()
@@ -277,21 +300,94 @@ class Reports extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
+    public function delete_employee_ot($id)
+    {
+        if($this->report_model->delete_employee_ot($id))
+        {
+            $this->session->set_flashdata('error_msg', 'OVERTIME SUCCESSFULLY DELETED!');
+            redirect('reports/index_ot');
+        }
+    }
+
     public function index_ut()
     {
+        if($this->input->server('REQUEST_METHOD') == 'POST')
+		{
+			$data['start_date'] = $this->input->post('start_date');
+			$data['end_date'] = $this->input->post('end_date');
+            $data['uts'] = $this->report_model->get_employees_undertime($data['start_date'], $data['end_date']);
+		}
+		else                                      
+		{                                       
+			$data['start_date'] = date('Y-m-d');                         
+			$data['end_date'] = date('Y-m-d');     
+            $data['uts'] = $this->report_model->get_employees_uts();
+		}     
+
         $data['main_content'] = 'hr/timekeeping/reports/undertime/index';
         $this->load->view('inc/navbar', $data);
     }
 
     public function add_ut()
     {
-        $data['main_content'] = 'hr/timekeeping/reports/undertime/add';
+        $this->form_validation->set_rules('employee', 'Employee Fullname', 'trim|required');
+        $this->form_validation->set_rules('date_ut', 'Date Ut', 'trim|required');
+        $this->form_validation->set_rules('time_start', 'Time Start', 'trim|required');
+        $this->form_validation->set_rules('time_end', 'Time End', 'trim|required');
+        $this->form_validation->set_rules('reason', 'Reason', 'trim|required');
+
+        if($this->form_validation->run() == FALSE) 
+        {
+            $data['employees'] = $this->employee_model->get_employees();
+            $data['main_content'] = 'hr/timekeeping/reports/undertime/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else 
+        {
+            if($this->report_model->add_undertime())
+            {
+                $this->session->set_flashdata('success_msg', 'UNDERTIME SUCCESSFULLY ADDED!');
+                redirect('reports/index_ut');
+            }
+        }
+    }
+
+    public function view_employee_ut($id)
+    {
+        $data['ut'] = $this->report_model->get_employee_ut($id);
+        $data['main_content'] = 'hr/timekeeping/reports/undertime/view';
         $this->load->view('inc/navbar', $data);
     }
 
-    public function view_employee_ut()
+    public function edit_employee_ut($id)
     {
-        $data['main_content'] = 'hr/timekeeping/reports/undertime/view';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('date_ut', 'Date Ut', 'trim|required');
+        $this->form_validation->set_rules('time_start', 'Time Start', 'trim|required');
+        $this->form_validation->set_rules('time_end', 'Time End', 'trim|required');
+        $this->form_validation->set_rules('reason', 'Reason', 'trim|required');
+
+        if($this->form_validation->run() == FALSE) 
+        {
+            $data['ut'] = $this->report_model->get_employee_ut($id);
+            $data['main_content'] = 'hr/timekeeping/reports/undertime/edit';
+            $this->load->view('inc/navbar', $data);
+        }    
+        else 
+        {
+            if($this->report_model->update_employee_undertime($id))
+            {
+                $this->session->set_flashdata('success_msg', 'UNDERTIME SUCCESSFULLY UPDATED!');
+                redirect('reports/index_ut'); 
+            }
+        }
+    }
+
+    public function delete_employee_ut($id)
+    {
+        if($this->report_model->delete_employee_undertime($id))
+        {
+            $this->session->set_flashdata('error_msg', 'UNDERTIME SUCCESSFULLY DELETED!');
+            redirect('reports/index_ut');
+        }
     }
 }

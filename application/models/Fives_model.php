@@ -326,6 +326,18 @@ class Fives_model extends CI_Model {
 		$blaine_five_s = $this->load->database('blaine_five_s', TRUE); 
 		$blaine_five_s->insert('idea_attachment', $data_attachment);
 
+		$data = array(
+			'username' 	=> $this->session->userdata('username'),
+			'activity' 	=> "Entry Status Added",
+			'pc_ip'	   	=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> '5S: SHARE MY IDEA',
+			'date'		=> date('Y-m-d H:i:s')
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
@@ -347,6 +359,7 @@ class Fives_model extends CI_Model {
 		$attachment1 = $_FILES['data1']['name'];
 		$attach1 = str_replace(' ', '_', $attachment1);
 		$date = date('Y-m-d H:i:s');
+
 		
 		if($attach1 != 	NULL)
 		{

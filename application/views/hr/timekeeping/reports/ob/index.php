@@ -40,35 +40,35 @@
         </thead>
         <tbody>
             <?php if($obs) : ?>
-            <?php foreach($obs as $ob) : ?>
-                <tr>
-                    <!--<td><center> <?php if($ob->status != 1) : ?> <input type="checkbox" name="ob[]" value="<?php echo $ob->id . '|' . $ob->fullname; ?>"> <?php endif; ?> </center></td>-->
-                    <td><?php echo $ob->fullname; ?></td>
-                    <td><?php echo $ob->department; ?></td>
-                    <td><?php echo $ob->type; ?></td>
-                    <td><?php echo date('F j, Y', strtotime($ob->date_ob)); ?></td>
-                    <td><?php if($ob->type == "FIELD WORK") { echo substr($ob->purpose,0,50); } else { echo substr($ob->remarks,0,50); } ?></td>
-                    <!--<td><?php if($ob->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>-->
-                    <td data-label="Action">
-                        <div class="btn-group">
-                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                
-                                <?php if($ob->type == "FIELD WORK")  : ?>
-                                    <a class="dropdown-item" title="View OB" href="<?php echo base_url(); ?>reports/view_employee_ob_fw/<?php echo $ob->id; ?>">View</a>
-                                    <a class="dropdown-item" title="Edit OB" href="<?php echo base_url(); ?>reports/edit_employee_ob_fw/<?php echo $ob->id; ?>">Edit</a>
-                                <?php else : ?>
-                                    <a class="dropdown-item" title="View OB" href="<?php echo base_url(); ?>reports/view_employee_ob_wfh/<?php echo $ob->id; ?>">View</a>
-                                    <a class="dropdown-item" title="Edit OB" href="<?php echo base_url(); ?>reports/edit_employee_ob_wfh/<?php echo $ob->id; ?>">Edit</a>
-                                <?php endif; ?>
-                                <a class="dropdown-item" title="Delete OB" onclick="return confirm('Do you want to delete data?');" href="<?php echo base_url(); ?>reports/delete_employee_ob/<?php echo $ob->id; ?>">Delete</a>
+                <?php foreach($obs as $ob) : ?>
+                    <tr>
+                        <!--<td><center> <?php if($ob->status != 1) : ?> <input type="checkbox" name="ob[]" value="<?php echo $ob->id . '|' . $ob->fullname; ?>"> <?php endif; ?> </center></td>-->
+                        <td><?php echo $ob->fullname; ?></td>
+                        <td><?php echo $ob->department; ?></td>
+                        <td><?php echo $ob->type; ?></td>
+                        <td><?php echo date('F j, Y', strtotime($ob->date_ob)); ?></td>
+                        <td><?php if($ob->type == "FIELD WORK") { echo substr($ob->purpose,0,50); } else { echo substr($ob->remarks,0,50); } ?></td>
+                        <!--<td><?php if($ob->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>-->
+                        <td data-label="Action">
+                            <div class="btn-group">
+                                <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    
+                                    <?php if($ob->type == "FIELD WORK")  : ?>
+                                        <a class="dropdown-item" title="View OB" href="<?php echo base_url(); ?>reports/view_employee_ob_fw/<?php echo $ob->id; ?>">View</a>
+                                        <a class="dropdown-item" title="Edit OB" href="<?php echo base_url(); ?>reports/edit_employee_ob_fw/<?php echo $ob->id; ?>">Edit</a>
+                                    <?php else : ?>
+                                        <a class="dropdown-item" title="View OB" href="<?php echo base_url(); ?>reports/view_employee_ob_wfh/<?php echo $ob->id; ?>">View</a>
+                                        <a class="dropdown-item" title="Edit OB" href="<?php echo base_url(); ?>reports/edit_employee_ob_wfh/<?php echo $ob->id; ?>">Edit</a>
+                                    <?php endif; ?>
+                                    <a class="dropdown-item" title="Delete OB" onclick="return confirm('Do you want to delete data?');" href="<?php echo base_url(); ?>reports/delete_employee_ob/<?php echo $ob->id; ?>">Delete</a>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             <?php endif; ?>
         </tbody>
     </table>  

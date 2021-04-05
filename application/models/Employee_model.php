@@ -258,6 +258,18 @@ class Employee_model extends CI_Model {
 		);
 		$activity_log->insert('hris_logs', $activity_data);
 		
+
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Added",
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> 'HRIS: 201',
+			'date'		=> $date
+		);
+
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 	
@@ -440,7 +452,6 @@ class Employee_model extends CI_Model {
 		$philhealth = $this->input->post('philhealth');
 		$pagibig = $this->input->post('pagibig');
 		
-
 		//ACADEME INPUT
 		$school = $this->input->post('school');
 		$course = $this->input->post('course');
@@ -486,6 +497,74 @@ class Employee_model extends CI_Model {
 
 		$i = 0;
 		$date = date('Y-m-d H:i:s');
+
+		// GET OLD DATE BEFORE UPDATE
+		$this->db->select('*');
+		$this->db->where('id', $id);
+		$datas 								= $this->db->get('employees');
+		$emp_id 							= $datas->row()->id;
+		$emp_picture 						= $datas->row()->picture;
+		$emp_empno 							= $datas->row()->employee_number;
+		$emp_first_name 					= $datas->row()->first_name;
+		$emp_middle_name					= $datas->row()->middle_name;
+		$emp_last_name						= $datas->row()->last_name;
+		$emp_nick_name						= $datas->row()->nick_name;
+		$emp_birthday						= $datas->row()->birthday;
+		$emp_age							= $datas->row()->age;
+		$emp_gender							= $datas->row()->gender;
+		$emp_marital_status					= $datas->row()->marital_status;
+		$emp_contact_number					= $datas->row()->contact_number;
+		$emp_email_address					= $datas->row()->email_address;
+		$emp_emergency_contact_name			= $datas->row()->emergency_contact_name;
+		$emp_emergency_contact_number		= $datas->row()->emergency_contact_number;
+		$emp_emergency_contact_relationship	= $datas->row()->emergency_contact_relationship;
+		$emp_address						= $datas->row()->address;
+		$emp_sss_number						= $datas->row()->sss_number;
+		$emp_tin_number						= $datas->row()->tin_number;
+		$emp_pagibig_number					= $datas->row()->pagibig_number;
+		$emp_philhealth_number				= $datas->row()->philhealth_number;
+
+		$entry_data = array(
+			'id'								=> $emp_id,
+			'picture'							=> $emp_picture,
+			'employee_number'					=> $emp_empno,
+			'first_name'						=> $emp_first_name,
+			'middle_name'						=> $emp_middle_name,
+			'last_name'							=> $emp_last_name,
+			'nick_name'							=> $emp_nick_name,
+			'birthday'							=> $emp_birthday,
+			'age'								=> $emp_age,
+			'gender'							=> $emp_gender,
+			'marital_status'					=> $emp_marital_status,
+			'contact_number'					=> $emp_contact_number,
+			'email_address'						=> $emp_email_address,
+			'emergency_contact_name'			=> $emp_emergency_contact_name,
+			'emergency_contact_number'			=> $emp_emergency_contact_number,
+			'emergency_contact_relationship'	=> $emp_emergency_contact_relationship,
+			'address'							=> $emp_address,
+			'sss_number'						=> $emp_sss_number,
+			'tin_number'						=> $emp_tin_number,
+			'pagibig_number'					=> $emp_pagibig_number,
+			'philhealth_number'					=> $emp_philhealth_number
+		);
+
+		// CONVERT TO JSON ENCODE
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Updated: " . ' ID: ' . $id,
+			'datas'		=> "Previous Data: " . $json_data,
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> 'HRIS: 201',
+			'date'		=> $date
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
+
 
 		// AGE EMPLOYEE
 		$today = date("Y-m-d");
@@ -792,7 +871,64 @@ class Employee_model extends CI_Model {
 		$emp_rank = $datas->row()->rank;
 		$emp_employee_status = $datas->row()->employee_status;*/
 
-		
+		// GET OLD DATA BEFORE UPDATE
+		$this->db->select('*');
+		$this->db->where('id', $id);
+		$datas 							= $this->db->get('employment_info');
+		$emp_info_id 					= $datas->row()->id;
+		$emp_info_employee_number		= $datas->row()->employee_number;
+		$emp_info_company				= $datas->row()->company;
+		$emp_info_department			= $datas->row()->department;
+		$emp_info_position				= $datas->row()->position;
+		$emp_info_category				= $datas->row()->category;
+		$emp_info_work_group			= $datas->row()->work_group;
+		$emp_info_rank					= $datas->row()->rank;
+		$emp_info_immediate_superior	= $datas->row()->immediate_superior;
+		$emp_info_date_hired			= $datas->row()->date_hired;
+		$emp_info_employee_status		= $datas->row()->employee_status;
+		$emp_info_years_of_service		= $datas->row()->years_of_service;
+		$emp_info_date_termination		= $datas->row()->date_termination;
+		$emp_info_date_clearance		= $datas->row()->date_clearance;
+		$emp_info_date_probitionary		= $datas->row()->date_probitionary;
+		$emp_info_date_regular			= $datas->row()->date_regular;
+		$emp_info_remarks				= $datas->row()->remarks;
+
+		$entry_data = array(
+			'id'					=> $emp_info_id,
+			'employee_number'		=> $emp_info_employee_number,
+			'company'				=> $emp_info_company,
+			'department'			=> $emp_info_department,
+			'position'				=> $emp_info_position,
+			'category'				=> $emp_info_category,
+			'work_group'			=> $emp_info_work_group,
+			'rank'					=> $emp_info_rank,
+			'immediate_superior'	=> $emp_info_immediate_superior,
+			'date_hired'			=> $emp_info_date_hired,
+			'employee_status'		=> $emp_info_employee_status,
+			'years_of_service'		=> $emp_info_years_of_service,
+			'date_termination'		=> $emp_info_date_termination,
+			'date_clearance'		=> $emp_info_date_clearance,
+			'date_probitionary'		=> $emp_info_date_probitionary,
+			'date_regular'			=> $emp_info_date_regular,
+			'remarks'				=> $emp_info_remarks
+		);
+
+		// CONVERT TO JSON ENCODE
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Movement Updated: " . ' ID: ' . $id,
+			'datas'		=> "Previous Data: " . $json_data,
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> 'HRIS: 201',
+			'date'		=> $datetime
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
 		if($department == NULL) 
 		{
 
@@ -917,7 +1053,64 @@ class Employee_model extends CI_Model {
 		$remarks = $this->input->post('remarks');
 		$datetime = date('Y-m-d H:i:s');
 
-		
+		// GET OLD DATA BEFORE UPDATE
+		$this->db->select('*');
+		$this->db->where('id', $id);
+		$datas 							= $this->db->get('employment_info');
+		$emp_info_id 					= $datas->row()->id;
+		$emp_info_employee_number		= $datas->row()->employee_number;
+		//$emp_info_company				= $datas->row()->company;
+		//$emp_info_department			= $datas->row()->department;
+		//$emp_info_position				= $datas->row()->position;
+		//$emp_info_category				= $datas->row()->category;
+		//$emp_info_work_group			= $datas->row()->work_group;
+		//$emp_info_rank					= $datas->row()->rank;
+		//$emp_info_immediate_superior	= $datas->row()->immediate_superior;
+		//$emp_info_date_hired			= $datas->row()->date_hired;
+		$emp_info_employee_status		= $datas->row()->employee_status;
+		$emp_info_years_of_service		= $datas->row()->years_of_service;
+		$emp_info_date_termination		= $datas->row()->date_termination;
+		$emp_info_date_clearance		= $datas->row()->date_clearance;
+		$emp_info_date_probitionary		= $datas->row()->date_probitionary;
+		$emp_info_date_regular			= $datas->row()->date_regular;
+		$emp_info_remarks				= $datas->row()->remarks;
+
+		$entry_data = array(
+			'id'					=> $emp_info_id,
+			'employee_number'		=> $emp_info_employee_number,
+			//'company'				=> $emp_info_company,
+			//'department'			=> $emp_info_department,
+			//'position'				=> $emp_info_position,
+			//'category'				=> $emp_info_category,
+			//'work_group'			=> $emp_info_work_group,
+			//'rank'					=> $emp_info_rank,
+			//'immediate_superior'	=> $emp_info_immediate_superior,
+			//'date_hired'			=> $emp_info_date_hired,
+			'employee_status'		=> $emp_info_employee_status,
+			'years_of_service'		=> $emp_info_years_of_service,
+			'date_termination'		=> $emp_info_date_termination,
+			'date_clearance'		=> $emp_info_date_clearance,
+			'date_probitionary'		=> $emp_info_date_probitionary,
+			'date_regular'			=> $emp_info_date_regular,
+			'remarks'				=> $emp_info_remarks
+		);
+
+		// CONVERT TO JSON ENCODE
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Termination Updated: " . ' ID: ' . $id,
+			'datas'		=> "Previous Data: " . $json_data,
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> 'HRIS: 201',
+			'date'		=> $datetime
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
 		$employee_data = array(
 			'is_active' => 0
 		);
@@ -1088,6 +1281,18 @@ class Employee_model extends CI_Model {
 		);
 		$activity_log->insert('hris_logs', $activity_data);
 
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Employee Info Added",
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> 'HRIS: 201',
+			'date'		=> $date
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
@@ -1125,10 +1330,77 @@ class Employee_model extends CI_Model {
 	public function delete_all_information($id,$employee_number)
 	{
 		$this->db->trans_start();
+
+		// GET OLD DATE BEFORE UPDATE
+		$this->db->select('*');
+		$this->db->where('id', $id);
+		$datas 								= $this->db->get('employees');
+		$emp_id 							= $datas->row()->id;
+		$emp_picture 						= $datas->row()->picture;
+		$emp_empno 							= $datas->row()->employee_number;
+		$emp_first_name 					= $datas->row()->first_name;
+		$emp_middle_name					= $datas->row()->middle_name;
+		$emp_last_name						= $datas->row()->last_name;
+		$emp_nick_name						= $datas->row()->nick_name;
+		$emp_birthday						= $datas->row()->birthday;
+		$emp_age							= $datas->row()->age;
+		$emp_gender							= $datas->row()->gender;
+		$emp_marital_status					= $datas->row()->marital_status;
+		$emp_contact_number					= $datas->row()->contact_number;
+		$emp_email_address					= $datas->row()->email_address;
+		$emp_emergency_contact_name			= $datas->row()->emergency_contact_name;
+		$emp_emergency_contact_number		= $datas->row()->emergency_contact_number;
+		$emp_emergency_contact_relationship	= $datas->row()->emergency_contact_relationship;
+		$emp_address						= $datas->row()->address;
+		$emp_sss_number						= $datas->row()->sss_number;
+		$emp_tin_number						= $datas->row()->tin_number;
+		$emp_pagibig_number					= $datas->row()->pagibig_number;
+		$emp_philhealth_number				= $datas->row()->philhealth_number;
+
+		$entry_data = array(
+			'id'								=> $emp_id,
+			'picture'							=> $emp_picture,
+			'employee_number'					=> $emp_empno,
+			'first_name'						=> $emp_first_name,
+			'middle_name'						=> $emp_middle_name,
+			'last_name'							=> $emp_last_name,
+			'nick_name'							=> $emp_nick_name,
+			'birthday'							=> $emp_birthday,
+			'age'								=> $emp_age,
+			'gender'							=> $emp_gender,
+			'marital_status'					=> $emp_marital_status,
+			'contact_number'					=> $emp_contact_number,
+			'email_address'						=> $emp_email_address,
+			'emergency_contact_name'			=> $emp_emergency_contact_name,
+			'emergency_contact_number'			=> $emp_emergency_contact_number,
+			'emergency_contact_relationship'	=> $emp_emergency_contact_relationship,
+			'address'							=> $emp_address,
+			'sss_number'						=> $emp_sss_number,
+			'tin_number'						=> $emp_tin_number,
+			'pagibig_number'					=> $emp_pagibig_number,
+			'philhealth_number'					=> $emp_philhealth_number
+		);
+
+		// CONVERT TO JSON ENCODE
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Employee Deleted: " . ' ID: ' . $id,
+			'datas'		=> $json_data,
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> 'HRIS: 201',
+			'date'		=> date('Y-m-d H:i:s')
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
 		
 		$this->db->where('id', $id);
-		$this->db->where('employee_number', $employee_number);
-		$this->db->delete('employees');
+		$this->db->where('employee_number', $employee_number);		$this->db->delete('employees');
+
 
 		//$this->db->where('id', $parent_id);
 		$this->db->where('employee_number', $employee_number);
@@ -1163,6 +1435,42 @@ class Employee_model extends CI_Model {
 
 		$this->db->trans_start();
 		
+		// GET OLD DATA BEFORE UPDATE
+		$this->db->select('*');
+		$this->db->where('id', $id);
+		$datas = $this->db->get('children_info');
+		$child_id				= $datas->row()->id;
+		$child_employee_number  = $datas->row()->employee_number;
+		$child_name				= $datas->row()->name;
+		$child_birthday			= $datas->row()->birthday;
+		$child_age 				= $datas->row()->age;
+		$child_gender 			= $datas->row()->gender;
+
+		$entry_data = array(
+			'id'				=> $child_id,
+			'employee_number'	=> $child_employee_number,
+			'name'				=> $child_name,
+			'birthday'			=> $child_birthday,
+			'age'				=> $child_age,
+			'gender'			=> $child_gender
+		);
+
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			//'activity' => "Announcement deleted:" . ' id:' . $announcement_id  . ' title:'. $announcement_title,
+			'activity' => "Entry Children Deleted: " . ' ID: ' . $id,
+			'datas'    => $json_data,
+			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+			'type'     => 'HRIS: 201',
+			'date'     => date('Y-m-d H:i:s')
+		);
+
+		// CALL ACVITIY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE); 
+		$activity_log->insert('blaine_logs', $data);
+
 		$this->db->where('id', $id);
 		$this->db->where('employee_number', $employee_number);
 		$this->db->delete('children_info');
@@ -1175,6 +1483,43 @@ class Employee_model extends CI_Model {
 	{
 
 		$this->db->trans_start();
+
+		// GET OLD DATA BEFORE UPDATE
+		$this->db->select('*');
+		$this->db->where('id', $id);
+		$datas = $this->db->get('academe_info');
+		$acad_id					= $datas->row()->id;
+		$acad_employee_number		= $datas->row()->employee_number;
+		$acad_school				= $datas->row()->school;
+		$acad_year_graduated		= $datas->row()->year_graduated;
+		$acad_course				= $datas->row()->course;
+		$acad_license				= $datas->row()->license;
+
+		$entry_data = array(
+			'id'					=> $acad_id,
+			'employee_number'		=> $acad_employee_number,
+			'school'				=> $acad_school,
+			'year_graduated'		=> $acad_year_graduated,
+			'course'				=> $acad_course,
+			'license'				=> $acad_license
+		);
+
+		// CONVERT TO JSO ENCODE
+		$json_data = json_encode($entry_data);
+
+		$data = array(
+			'username'		=> $this->session->userdata('username'),
+			'activity'		=> "Entry Academe Deleted: " . ' ID: ' . $id,
+			'datas'			=> $json_data,
+			'pc_ip'			=> $_SERVER['REMOTE_ADDR'],
+			'type'			=> "HRIS: 201",
+			'date'			=> date('Y-m-d H:i:s')
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
 		
 		$this->db->where('id', $id);
 		$this->db->where('employee_number', $employee_number);
@@ -1187,6 +1532,18 @@ class Employee_model extends CI_Model {
 	public function attachment($employee_number)
 	{
 		$this->db->trans_start();
+
+		$data = array(
+			'username'	=> $this->session->userdata('username'),
+			'activity'	=> "Entry Attachment Added",
+			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+			'type'		=> 'HRIS: 201',
+			'date'		=> date('Y-m-d H:i:s')
+		);
+
+		// CALL ACTIVITY LOGS DATABASE
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
 
 		$attachment = $this->input->post('attachment');
 		$name1 = $this->input->post('attachment1');

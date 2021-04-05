@@ -33,7 +33,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-    <div class="card-header" style="background-color: #007BFF; border: #007BFF; color: white"><h4>ATTENDANCE LIST <a href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
+    <div class="card-header" style="background-color: #007BFF; border: #007BFF; color: white"><h4>DAILY ATTENDANCE<a href="<?php echo base_url(); ?>attendance/index_attendance" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
     </div>
     <br>
     <table id="" class="display" style="width:100%">
@@ -47,6 +47,7 @@
                 <th scope="col">TIME OUT</th>
                 <th scope="col">PROCESS</th>
                 <th scope="col">REMARKS</th>
+                <th scope="col">REASON</th>
                 <th scope="col">ACTION BY</th>
             </tr>
         </thead>
@@ -163,9 +164,9 @@
                                         echo  '<p class="" style="width:50%; text-align:center;margin-top:15px;padding:5px;background-color:#e3342f;color:white;">N/A</p>'; 
                                     }
                                 } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == NULL) { 
-                                    echo '(IN-' . ' ' . $employee->in_generate . ')'; 
+                                    echo  '(IN-' . ' ' . $employee->in_generate . ')' ; 
                                 } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == NULL) { 
-                                    echo '(IN-' . ' ' . $employee->in_generate . ')'; 
+                                    echo '<p class="" style="text-align:center;margin-top:15px;padding:5px;background-color:#ffed4a;">' . '(IN-' . ' ' . $employee->in_generate . ')' . '</p>'; 
                                 }  elseif($employee->in_generate == NULL && $employee->out_generate == "MANUAL") { 
                                     echo '(IN-' . ' ' . $employee->in_generate . ')'; 
                                 } elseif($employee->out_generate == "SYSTEM" && $employee->in_generate == NULL) { 
@@ -173,9 +174,9 @@
                                 }  elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'SYSTEM') {
                                     echo 'SYSTEM';
                                 } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'SYSTEM') {
-                                    echo '(IN-' . ' ' . $employee->in_generate . ')' . ' | ' . '(OUT-' . ' ' . $employee->out_generate . ')';  
+                                    echo '<p class="" style="text-align:center;margin-top:15px;padding:5px;background-color:#ffed4a;">' . '(IN-' . ' ' . $employee->in_generate . ')' . '</p>' . ' | ' . '(OUT-' . ' ' . $employee->out_generate . ')';  
                                 } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'MANUAL') {
-                                    echo '(IN-' . ' ' . $employee->in_generate . ')' . ' | ' . '(OUT-' . ' ' . $employee->out_generate . ')';  
+                                    echo  '(IN-' . ' ' . $employee->in_generate . ')' . ' | ' . '<p class="" style="text-align:center;margin-top:15px;padding:5px;background-color:#ffed4a;">' . '(OUT-' . ' ' . $employee->out_generate . ')' . '</p>';  
                                 } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'MANUAL') {
                                     echo 'MANUAL';  
                                 }
@@ -203,6 +204,25 @@
                                     } else {
                                         echo '<p class="" style="text-align:center;margin-top:15px;padding:5px;background-color:rgb(255,100,0);color:white;">'. $employee->type_name . ' ' . $employee->leave_day . '' .'</p>';
                                     }
+                                ?>    
+                            <?php endif; ?>    
+                        </td>
+                        <td>
+                            <?php if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) : ?>
+                                    <?php 
+                                        if($employee->ob_type == "FIELD WORK") {
+                                            echo '<p>' . $employee->ob_purpose .'</p>'; 
+                                        } else {
+                                            echo '<p>' . $employee->ob_remarks .'</p>'; 
+    
+                                        }
+                                    ?>
+                            <?php elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave): ?>
+                                <?php
+
+                                    if($employee->type_name == "VL" || $employee->type_name == "SL" || $employee->type_name == "ML" || $employee->type_name == "PL" || $employee->type_name == "BL") {
+                                        echo '<p>'. $employee->leave_reason  . '' .'</p>';
+                                    }  
                                 ?>    
                             <?php endif; ?>    
                         </td>
@@ -322,7 +342,8 @@
                 </div>
             </div>
         <?php endforeach; ?>
-    <?php endif; ?>            
+    <?php endif; ?>  
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('.check').prop('checked', true);
@@ -348,10 +369,15 @@
             });    
 
             $('table.display').DataTable( {
-                "paging":   false,
-                "ordering": true,
-                "info":     false,
-                dom: 'Bf',
+                "bStateSave": true,
+                "fnStateSave": function (oSettings, oData) {
+                    localStorage.setItem('table.display', JSON.stringify(oData));
+                },
+                "fnStateLoad": function (oSettings) {
+                    return JSON.parse(localStorage.getItem('table.display'));
+                },
+                "lengthMenu": [[25, 50, -1], [25, 50, "All"]],
+                dom: 'Blfrtp',
                 buttons: [
                         {
                             extend: 'excel',
@@ -395,4 +421,5 @@
                     ]
             } );
         } );
-    </script>
+    </script>        
+    
