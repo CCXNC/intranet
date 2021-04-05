@@ -10,7 +10,7 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <a style="width: 70%; background-color: #3490dc; border: #3490dc" href="<?php echo base_url(); ?>reports/index_individual_attendance" class="btn btn-primary btn-md float-left">INDIVIDUAL ATTENDANCE</a>
+                <a style="width: 70%; background-color: #3490dc; border: #3490dc" href="<?php echo base_url(); ?>attendance/index_individual_attendance" class="btn btn-primary btn-md float-left">INDIVIDUAL ATTENDANCE</a>
                 <i style="color: #3490dc;" class="fa fa-file-alt fa-2x float-right"></i>
             </div>
         </div>

@@ -32,7 +32,10 @@ class Attendance_model extends CI_Model
 			department.name as department_name,
 			department.id as department_id,
 			company.id as company_id,
-			company.code as company_name
+			company.code as company_name,
+			ob.purpose as ob_purpose,
+			ob.remarks as ob_remarks,
+			slvl.reason as leave_reason
 		");
 		$this->db->from('blaine_timekeeping.temp_date');
 		$this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.is_active = blaine_timekeeping.temp_date.batch');
@@ -299,7 +302,91 @@ class Attendance_model extends CI_Model
 		return $trans;
 	}
 
+	public function employee_time($employee_number,$start_date,$end_date)
+	{
+		$this->db->select("
+			attendance_in.employee_number as employee_number,
+			attendance_in.date as date, 
+			attendance_in.time as time_in,
+			attendance_in.id as in_id,   
+			attendance_in.generate as in_generate,
+			attendance_out.time as time_out, 
+			attendance_out.id as out_id, 	
+			attendance_out.generate as out_generate
+		");
+		$this->db->from('blaine_timekeeping.attendance_in');
+		//$this->db->join('blaine_timekeeping.attendance_in', 'blaine_timekeeping.attendance_in.employee_number = blaine_intranet.employees.employee_number','left');
+		$this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_in.biometric_id = blaine_timekeeping.attendance_out.biometric_id AND blaine_timekeeping.attendance_in.date = blaine_timekeeping.attendance_out.date','left');
+		$this->db->where('blaine_timekeeping.attendance_in.employee_number', $employee_number);
+		$this->db->where('blaine_timekeeping.attendance_in.date >=', $start_date);
+		$this->db->where('blaine_timekeeping.attendance_in.date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
+	public function employee_absence($employee_number,$start_date,$end_date)
+	{
+		$this->db->select("
+            slvl.id as id,
+            slvl.type_name as type_name,
+            slvl.type as type,
+            slvl.leave_day as leave_day,
+            slvl.leave_date as leave_date,
+            slvl.leave_num as leave_num,
+            slvl.reason as reason,
+            slvl.leave_address as leave_address,
+            slvl.status as status
+        ");
+        $this->db->from('blaine_timekeeping.slvl');
+		$this->db->where('blaine_timekeeping.slvl.employee_number', $employee_number);
+		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
+		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+        $query = $this->db->get();
+
+        return $query->result();
+	}
+
+	public function employee_ob($employee_number,$start_date,$end_date)
+    {
+        $this->db->select("
+            ob.id as id,
+            ob.employee_number as employee_number,
+            ob.date_ob as date_ob,
+            ob.destination as destination,
+            ob.purpose as purpose,
+            ob.transport as transport,
+            ob.plate_no as plate_no,
+            ob.time_departure as time_departure,
+            ob.time_departure_destination as time_departure_destination,
+            ob.status as status,
+            ob.type as type,
+            ob.remarks as remarks
+        ");
+        $this->db->from('blaine_timekeeping.ob');
+		$this->db->where('blaine_timekeeping.ob.employee_number', $employee_number);
+        $this->db->where('blaine_timekeeping.ob.date_ob >=', $start_date);
+        $this->db->where('blaine_timekeeping.ob.date_ob <=', $end_date);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 	
+	public function employee_name($employee_number)
+	{
+		$this->db->select("
+			CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname,
+			department.name as department_name
+		");
+		$this->db->from('employees');
+		$this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
+		$this->db->join('department', 'employment_info.department = department.id');
+		$this->db->where('employees.employee_number', $employee_number);
+		$query = $this->db->get();
+
+		return $query->row();
+	}
 }
 
 /*$query = $this->db->query("

@@ -56,7 +56,6 @@ class Attendance extends CI_Controller {
 				redirect('attendance/view_attendance');
 			}
 		}
-       
     }
 
 	public function view_attendance()
@@ -77,6 +76,27 @@ class Attendance extends CI_Controller {
 			redirect('attendance/view_attendance');
 		}
 	}
+
+	public function index_individual_attendance()
+    {
+        $data['employees'] = $this->employee_model->get_employees();
+        $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function view_individual_attendance()
+    {
+		$employee_number = $this->input->post('employee');
+		$start_date = $this->input->post('start_date');
+		$end_date = $this->input->post('end_date');
+
+		$data['employee_times'] = $this->attendance_model->employee_time($employee_number,$start_date,$end_date);
+		$data['employee_name'] = $this->attendance_model->employee_name($employee_number);
+		$data['employee_leaves'] = $this->attendance_model->employee_absence($employee_number,$start_date,$end_date);
+		$data['employee_obs'] = $this->attendance_model->employee_ob($employee_number,$start_date,$end_date);
+        $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/view';
+        $this->load->view('inc/navbar', $data);
+    }
 	
 		
 }
