@@ -41,13 +41,8 @@
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-<<<<<<< HEAD
                                 <?php if($idea->submit_by == $this->session->userdata('username')) : ?><a class="dropdown-item" href="<?php echo base_url(); ?>fives/edit_implemented_idea/<?php echo $idea->implemented_id; ?>">Edit</a><?php endif; ?>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>fives/idea_implemented_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number;?>">View</a>
-=======
-                                <a class="dropdown-item" title="Edit Idea" href="<?php echo base_url(); ?>fives/edit_implemented_idea/<?php echo $idea->implemented_id; ?>">Edit</a>
-                                <a class="dropdown-item" title="View Idea" href="<?php echo base_url(); ?>fives/idea_implemented_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number;?>">View</a>
->>>>>>> master
                             </div>
                         </div>
                     </td>

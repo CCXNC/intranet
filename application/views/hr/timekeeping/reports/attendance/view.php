@@ -268,7 +268,7 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="other" value="VL">
                                                         <label class="form-check-label" for="exampleRadios2">
-                                                            VACTION LEAVE
+                                                            VACATION LEAVE
                                                         </label>
                                                     </div>
                                                     <div class="form-check">

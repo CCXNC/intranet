@@ -21,7 +21,7 @@ class Feedback_model extends CI_Model {
 
             $this->db->from('blaine_feedback.feedback');
             $this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_feedback.feedback.employee_number');
-            
+            $this->db->order_by('feedback.created_date', 'DESC');
             $query= $this->db->get();
 
             return $query->result();
@@ -41,6 +41,7 @@ class Feedback_model extends CI_Model {
         $this->db->from('blaine_feedback.feedback');
         $this->db->where('blaine_feedback.feedback.employee_number', $employee_number);
         $this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_feedback.feedback.employee_number');
+        $this->db->order_by('feedback.created_date', 'DESC');
         $query= $this->db->get();
 
         return $query->result();

@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Fives_model extends CI_Model {
 
     public function add_idea()
-    {
+	{
 		$this->db->trans_start();
 
 		$data = $this->input->post('employee');
@@ -25,17 +25,38 @@ class Fives_model extends CI_Model {
 		$control_number = $datas->row()->control_number;
 
 		// YEAR MONTH
-		$current_date = date('ym');
-
+		$current_ym = date('ym');
+		$current_m = date('m');
+	
 		// SPLIT STRING IN ARRAY [0,1]
         $arr2 = str_split($control_number, 4);
+		$month =  str_split($control_number, 2);
 
-		// INCREMENT CONTRON NUMBER
+		if($current_m != $month[1])
+		{
+			$i = '001';
+			$crtl_number = $current_ym . '' . $i;
+
+			/*print_r('<pre>');
+			print_r($crtl_number);
+			print_r('<pre>');*/
+		}
+		else
+		{
+			$i = $arr2[1] + 1;
+			$i = str_pad($i, 3, '0', STR_PAD_LEFT);
+			$crtl_number = $current_ym . '' . $i;
+
+			/*print_r('<pre>');
+			print_r($crtl_number);
+			print_r('<pre>');*/
+		}
+		/* INCREMENT CONTRON NUMBER
         $i = $arr2[1] + 1;
 		$i = str_pad($i, 3, '0', STR_PAD_LEFT);
 
-		// AUTO GENERATED CONTROL NUMBER
-        $crtl_number = $current_date . '' . $i;
+		 AUTO GENERATED CONTROL NUMBER
+        $crtl_number = $current_ym . '' . $i; */
 
 		$date = date('Y-m-d H:i:s');
 

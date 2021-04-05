@@ -10,6 +10,7 @@ class Report_model extends CI_Model {
         $explod_employee = explode('|', $this->input->post('employee'));
         $employee_number = $explod_employee[0];
         $department = $explod_employee[1];
+        $company = $explod_employee[2];
         $start_date = $this->input->post('start_date');
         $end_date = $this->input->post('end_date');
         $destination = $this->input->post('destination');

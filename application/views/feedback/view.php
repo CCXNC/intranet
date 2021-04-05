@@ -17,7 +17,7 @@
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DATE</th>
                             <th scope="col">NAME</th>
-                            <th scope="col">COMMENT</th>
+                            <th scope="col">REMARKS/COMMENT</th>
                             <th scope="col">FILE</th>
                         </tr>
                     </thead>
@@ -25,7 +25,7 @@
                     <?php if($comments) : ?>
                         <?php foreach($comments as $comment) : ?>
                             <tr>
-                                <td data-label="Date"><?php echo date('F j, Y | h:i A', strtotime($comment->date)); ?></td>
+                                <td data-label="Date"><?php echo date('y-m-d', strtotime($comment->date)); ?></td>
                                 <td data-label="Name"><?php echo $comment->fullname; ?></td>
                                 <td data-label="Date" style="text-align:justify;"><?php echo $comment->comment; ?></td>
                                 <td data-label="Date"><a href="<?php echo base_url(); ?>feedback/download_attachment/<?php echo $comment->file; ?>"><?php echo $comment->file; ?></a></td>
@@ -94,6 +94,7 @@
 <script type="text/javascript">  
      $(document).ready(function() {
         $('.display').DataTable( {
+            "order": [[0, "desc"]],
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('table.display', JSON.stringify(oData));
@@ -101,12 +102,7 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            "bPaginate": false,
-            "bLengthChange": false,
-            "bFilter": false,
-            "bInfo": false,
-            "bAutoWidth": false
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         });
     } );
 </script>

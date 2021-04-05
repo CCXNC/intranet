@@ -26,7 +26,7 @@
         <?php if($feedbacks) : ?>
             <?php foreach($feedbacks as $feedback) : ?>
                 <tr>
-                    <td data-label="Date"><?php echo date('F j, Y', strtotime($feedback->date));  ?></td>
+                    <td data-label="Date"><?php echo date('y-m-d', strtotime($feedback->date));  ?></td>
                     <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?><td data-label="Name"><?php echo $feedback->fullname;  ?></td><?php endif; ?>
                     <td data-label="Category"><?php echo $feedback->category;  ?></td>
                     <td data-label="Title"><?php echo $feedback->title;?></td>
@@ -114,16 +114,18 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('.display').DataTable( {
-            "scrollY" : '50vh',
-            "scrollX" : true,
+            "order": [[0, "desc"]],
+            "scrollY" : '70vh',
+            "scrollX": true,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            //"scrollX" : true,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('table.display', JSON.stringify(oData));
             },
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
-            },
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            }
         });
     } );
 </script>
