@@ -79,21 +79,33 @@ class Attendance extends CI_Controller {
 
 	public function index_individual_attendance()
     {
-        $data['employees'] = $this->employee_model->get_employees();
-        $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/index';
-        $this->load->view('inc/navbar', $data);
+		$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
+		$this->form_validation->set_rules('end_date', 'End Date', 'trim|required');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$data['employees'] = $this->employee_model->get_employees();
+			$data['main_content'] = 'hr/timekeeping/reports/individual_attendance/index';
+			$this->load->view('inc/navbar', $data);
+		}
+		else
+		{
+			if($this->attendance_model->individual_generate_dates())
+			{
+				redirect('attendance/view_individual_attendance');
+			}
+		}
+       
     }
 
     public function view_individual_attendance()
     {
-		$employee_number = $this->input->post('employee');
-		$start_date = $this->input->post('start_date');
-		$end_date = $this->input->post('end_date');
+		//$employee_number = $this->input->post('employee');
 
-		$data['employee_times'] = $this->attendance_model->employee_time($employee_number,$start_date,$end_date);
-		$data['employee_name'] = $this->attendance_model->employee_name($employee_number);
-		$data['employee_leaves'] = $this->attendance_model->employee_absence($employee_number,$start_date,$end_date);
-		$data['employee_obs'] = $this->attendance_model->employee_ob($employee_number,$start_date,$end_date);
+		$data['employees'] = $this->attendance_model->employee_time();
+		$data['employee_name'] = $this->attendance_model->employee_name();
+		//$data['employee_leaves'] = $this->attendance_model->employee_absence($employee_number,$start_date,$end_date);
+		//$data['employee_obs'] = $this->attendance_model->employee_ob($employee_number,$start_date,$end_date);
         $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/view';
         $this->load->view('inc/navbar', $data);
     }

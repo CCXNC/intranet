@@ -54,11 +54,7 @@ class Reports extends CI_Controller {
         }
         else
         {
-            if($this->report_model->add_ob())
-            {
-                $this->session->set_flashdata('success_msg', 'DATA SUCCESSFULLY ADDED!');
-                redirect('reports/index_ob');
-            }
+            $this->report_model->add_ob();
         }
     }
 
@@ -164,11 +160,7 @@ class Reports extends CI_Controller {
         }   
         else 
         {
-            if($this->report_model->add_slvl())
-            {
-                $this->session->set_flashdata('success_msg', 'LEAVE SUCCESSFULLY ADDED!');
-                redirect('reports/index_slvl');
-            }
+            $this->report_model->add_slvl();
         } 
     }
 

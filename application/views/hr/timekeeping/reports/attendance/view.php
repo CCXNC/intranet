@@ -55,21 +55,26 @@
             <?php if($employees) : ?>
                 <?php foreach($employees as $employee) : ?>
                     <tr>
+                        <!-- FULLNAME -->
                         <td><?php echo $employee->fullname; ?></td>
+                        <!-- BUSINET UNIT -->
                         <td><?php echo $employee->company_name; ?></td>
+                        <!-- DEPARTMENT -->
                         <td><?php echo $employee->department_name; ?></td>
+                        <!-- DATE -->
                         <td>
-                        <?php 
-                            if($employee->date == NULL)
-                            { 
-                                echo $employee->temp_date; 
+                            <?php 
+                                if($employee->date == NULL)
+                                { 
+                                    echo $employee->temp_date; 
 
-                            } else { 
+                                } else { 
 
-                                echo $employee->date; 
-                            } 
-                        ?>
+                                    echo $employee->date; 
+                                } 
+                            ?>
                         </td>
+                        <!-- TIME IN -->
                         <td>
                             <?php 
                                 if($employee->time_in == NULL) { 
@@ -103,6 +108,7 @@
                                 } 
                             ?>
                         </td>
+                        <!-- TIME OUT-->
                         <td>
                             <?php 
                                 if($employee->time_out == NULL) { 
@@ -136,6 +142,7 @@
                                 } 
                             ?>
                         </td>
+                         <!-- PROCESS-->
                         <td>
                             <?php 
                                 if($employee->in_generate == NULL && $employee->out_generate == NULL) { 
@@ -182,6 +189,7 @@
                                 }
                             ?>
                         </td>
+                         <!-- REMARKS-->
                         <td>
                             <?php if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) : ?>
                                 <?php 
@@ -207,6 +215,7 @@
                                 ?>    
                             <?php endif; ?>    
                         </td>
+                        <!-- REASON-->
                         <td>
                             <?php if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) : ?>
                                     <?php 
@@ -226,6 +235,7 @@
                                 ?>    
                             <?php endif; ?>    
                         </td>
+                        <!-- ACTION -->
                         <td data-label="Action">
                             <?php if($employee->in_generate == "SYSTEM" && $employee->out_generate == 'MANUAL') : ?>
                                 <?php echo strtoupper($employee->out_generated); ?>

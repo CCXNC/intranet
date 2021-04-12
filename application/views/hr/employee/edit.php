@@ -379,13 +379,6 @@
                                 <input type="text" class="form-control"  name="superior" value="<?php echo $employee->superior; ?>">
                             </div>
                         </div>
-                                            
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Years of Service</label>
-                                <input type="text" class="form-control"  name="year_of_service" value="<?php echo $employee->years_of_service; ?>">
-                            </div>
-                        </div>
                     </div>    
                 </div>
             </div>

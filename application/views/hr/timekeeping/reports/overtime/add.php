@@ -26,13 +26,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="">*Time Start of Overtime</label>
-                    <input type="time" class="form-control" name="time_start">
+                    <input type="time" class="form-control" name="time_start" value="<?php echo date('Y-m-d'); ?>">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="">*Time End of Overtime</label>
-                    <input type="time" class="form-control" name="time_end">
+                    <input type="time" class="form-control" name="time_end" value="<?php echo date('Y-m-d'); ?>">
                 </div>
             </div>
             <div class="col-md-12">
