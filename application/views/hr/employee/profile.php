@@ -228,7 +228,18 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Years of Service</label>
-                            <div class="form-control"><?php echo $employee->years_of_service; ?> </div>
+                            <div class="form-control"><?php 
+                                $date1 = $employee->date_hired;
+                                $date2 = date('Y-m-d');
+
+                                $diff = abs(strtotime($date2) - strtotime($date1));
+
+                                $years = floor($diff / (365*60*60*24));
+                                $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+                                $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)); 
+
+                                echo $years . '.' . $months;
+                            ?> </div>
                         </div>
                     </div>
                 </div>    

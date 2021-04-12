@@ -5,7 +5,7 @@
     <div class="card-header" style="background-color: #007BFF; border: #007BFF; color: white"><h4>INDIVIDUAL ATTENDANCE <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>attendance/view_individual_attendance" enctype="multipart/form-data"> 
+        <form method="post" action="<?php echo base_url(); ?>attendance/index_individual_attendance" enctype="multipart/form-data"> 
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">

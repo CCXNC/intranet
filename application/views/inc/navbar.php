@@ -629,7 +629,10 @@
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                        <a href="<?php echo base_url(); ?>homepage/index">Announcement</a>
+                                            <a href="<?php echo base_url(); ?>homepage/index">Announcement</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>homepage/active_directory">Active Directory</a>
                                         </li>
                                     </ul>
                                 </div>
