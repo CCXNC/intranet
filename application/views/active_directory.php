@@ -18,7 +18,7 @@
                     <td><?php echo $active_directory->fullname; ?></td>
                     <td><?php echo $active_directory->department; ?></td>
                     <td><?php echo $active_directory->email; ?></td>
-                    <td><?php echo $active_directory->telephone_no; ?><td>
+                    <td><?php echo $active_directory->telephone_no; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

@@ -43,17 +43,17 @@
                                             elseif($employee->time_in != NULL && $employee->time_out == NULL)
                                             {
                                                 $explod_time_in = explode(":",$employee->time_in);
-                                                $explod_time_out = 0;
+                                                $explod_time_out = explode(":",'00:00');
                                             }
                                             elseif($employee->time_in == NULL && $employee->time_out != NULL)
                                             {
-                                                $explod_time_in = 0;
+                                                $explod_time_in = explode(":",'00:00');
                                                 $explod_time_out = explode(":",$employee->time_out);
                                             }
                                             else
                                             {
-                                                $explod_time_in = 0;
-                                                $explod_time_out = 0;
+                                                $explod_time_in = explode(":",'00:00');
+                                                $explod_time_out = explode(":",'00:00');
                                             }
                                             $explode_time_in_hours = $explod_time_in[0];
                                             $explode_time_in_mins = $explod_time_in[1];
@@ -350,7 +350,8 @@
                                                 } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'MANUAL') {
                                                     echo  '(IN-' . ' ' . $employee->in_generate . ')' . ' | ' . '<p class="" style="text-align:center;margin-top:15px;padding:5px;background-color:#ffed4a;">' . '(OUT-' . ' ' . $employee->out_generate . ')' . '</p>';  
                                                 } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'MANUAL') {
-                                                    echo 'MANUAL';  
+                                                    echo  '<p class="" style="text-align:center;margin-top:15px;padding:5px;background-color:#ffed4a;">' . 'MANUAL' . '</p>';  
+ 
                                                 }
                                             ?> 
                                         </td>
