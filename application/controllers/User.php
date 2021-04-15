@@ -62,4 +62,32 @@ class User extends CI_Controller {
             redirect('employee/index');
         }
     }
+
+    public function index_my_attendance()
+    {
+        $this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
+		$this->form_validation->set_rules('end_date', 'End Date', 'trim|required');
+
+		if($this->form_validation->run() == FALSE)
+		{
+            $data['main_content'] = 'myattendance/index';
+            $this->load->view('inc/navbar', $data);
+		}
+		else
+		{
+			if($this->attendance_model->myattendance_generate_dates())
+			{
+				redirect('user/view_my_attendance');
+			}
+		}
+      
+    }
+
+    public function view_my_attendance()
+    {
+        $data['employees'] = $this->attendance_model->my_employee_time();
+		$data['employee_name'] = $this->attendance_model->my_employee_name();
+        $data['main_content'] = 'myattendance/view';
+        $this->load->view('inc/navbar', $data);
+    }
 }

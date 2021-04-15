@@ -1,3 +1,9 @@
+<?php if($this->session->flashdata('success_msg')) : ?>
+    <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
+<?php endif; ?>
+<?php if($this->session->flashdata('error_msg')) : ?>
+    <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
+<?php endif; ?> 
 <div class="card-header" style="background-color:#1C4670; color:white;"><h4>Active Directory List
     </h4> 
 </div>
@@ -9,6 +15,7 @@
             <th scope="col">Department</th>
             <th scope="col">Email</th>
             <th scope="col">Telephone No.</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -17,8 +24,13 @@
                 <tr>
                     <td><?php echo $active_directory->fullname; ?></td>
                     <td><?php echo $active_directory->department; ?></td>
-                    <td><?php  echo $active_directory->email;?></td>
-                    <td><?php  echo $active_directory->telephone_no; ?></td>
+                    <td><?php echo $active_directory->email;?></td>
+                    <td><?php echo $active_directory->telephone_no; ?></td>
+                    <td data-label="Action">
+                        <a href="<?php echo base_url(); ?>productivity/edit_active_directory/<?php echo $active_directory->id; ?>" title="Edit Form" class="btn btn-info " style="margin-right:10px; width: 100%">EDIT</a>
+                        <a href="" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-danger " style="margin-right:10px; width: 100%">DELETE</a>
+                    </td>
+                  
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

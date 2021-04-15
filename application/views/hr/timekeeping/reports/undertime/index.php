@@ -43,7 +43,7 @@
         <tbody>
             <?php if($uts) :?>
                 <?php foreach($uts as $ut) : ?>
-                    <tr <?php echo $ut->status != 1 ? 'style="background-color:#e3342f;color:white;"' : ''; ?>>
+                    <tr>
                         <td><center><input type="checkbox" name="ut[]" value=""></center></td>
                         <td><?php echo $ut->fullname; ?></td>
                         <td><?php echo $ut->department; ?></td>

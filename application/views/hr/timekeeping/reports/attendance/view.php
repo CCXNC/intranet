@@ -109,7 +109,7 @@
                             ?>
                         </td>
                         <!-- TIME OUT-->
-                        <td>
+                        <td> 
                             <?php 
                                 if($employee->time_out == NULL) { 
                                     if($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob) {
@@ -300,7 +300,7 @@
                                                         <label class="form-check-label" for="exampleRadios2">
                                                             VACATION LEAVE
                                                         </label>
-                                                    </div>
+                                                    </div> 
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="other" value="ML">
                                                         <label class="form-check-label" for="exampleRadios2">

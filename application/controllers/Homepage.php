@@ -94,7 +94,7 @@ class Homepage extends CI_Controller {
 
     public function active_directory()
     {
-        $data['active_directories'] = $this->employee_model->active_directory();
+        $data['active_directories'] = $this->it_model->active_directory();
         $data['main_content'] = 'active_directory';
         $this->load->view('inc/navbar', $data);
     }

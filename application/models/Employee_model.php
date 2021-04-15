@@ -1687,23 +1687,4 @@ class Employee_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function active_directory()
-	{
-		$this->db->select("
-			CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
-			company.code as company,
-			department.name as department,
-			active_directory.email as email,
-			active_directory.telephone_no as telephone_no
-		");
-		$this->db->from('active_directory');
-		$this->db->join('employees', 'employees.employee_number = active_directory.employee_number','left');
-		$this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number', 'left');
-        $this->db->join('company', 'employment_info.company = company.id', 'left');
-        $this->db->join('department', 'employment_info.department = department.id', 'left');
-		$this->db->order_by('employees.last_name', 'ASC');
-		$query = $this->db->get();
-
-		return $query->result();
-	}
 }
