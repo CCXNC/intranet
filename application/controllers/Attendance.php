@@ -77,6 +77,15 @@ class Attendance extends CI_Controller {
 		}
 	}
 
+	public function add_individual_manual_attendance()
+	{
+		if($this->attendance_model->add_individual_manual_attendance())
+		{
+			$this->session->set_flashdata('success_msg', 'Manual Attendance Successfully Added!');
+			redirect('attendance/view_individual_attendance');
+		}
+	}
+
 	public function index_individual_attendance()
     {
 		$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
@@ -100,7 +109,6 @@ class Attendance extends CI_Controller {
 
     public function view_individual_attendance()
     {
-		//$employee_number = $this->input->post('employee');
 
 		$data['employees'] = $this->attendance_model->employee_time();
 		$data['employee_name'] = $this->attendance_model->employee_name();
