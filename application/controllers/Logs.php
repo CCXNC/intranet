@@ -9,7 +9,7 @@ class Logs extends CI_Controller {
         }
 
         if($this->session->userdata('access_level_id') == 3){
-            redirect('homepage');
+            redirect('productivity/index_softdev');
         }
     }
 

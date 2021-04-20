@@ -163,7 +163,7 @@
         /*----------------sidebar-wrapper----------------*/
 
         .sidebar-wrapper {
-            width: 220px; /*260px*/
+            width: 230px; /*260px*/
             height: 100%;
             max-height: 100%;
             position: fixed;
@@ -634,6 +634,9 @@
                                         <li>
                                             <a href="<?php echo base_url(); ?>homepage/active_directory">Active Directory</a>
                                         </li>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>homepage/location_directory">Location Directory</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -776,43 +779,36 @@
                                     </ul>
                                 </div>-->
                             </li>
-                            <!--IT-->
-                                <!--HR-->
-                                <li class="sidebar-dropdown">
-                                    <a href="#">
-                                        <i class="fa fa-address-card"></i>
-                                        <span>Productivity</span>
-                                    </a>
-                                    <div class="sidebar-submenu">
-                                        <ul>
-                                            <li>
-                                                <a>CIT</a>
-                                            </li>
-                                            <li>
-                                                <a>Software Developer</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?php echo base_url(); ?>productivity/index_it">IT</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
+                            <!--PRODUCTIVITY-->
+                                <?php if($this->session->userdata('department_id') == 25) : ?>
+                            
+                                    <li class="sidebar-dropdown">
+                                        <a href="#">
+                                            <i class="fa fa-address-card"></i>
+                                            <span>Productivity</span>
+                                        </a>
+                                        <div class="sidebar-submenu">
+                                            <ul>
+                                                <li>
+                                                    <a>CIT</a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo base_url(); ?>productivity/index_softdev">Software Developer</a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo base_url(); ?>productivity/index_it">IT</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                <?php endif; ?>
                                 <li class="sidebar">
                                     <a href="<?php echo base_url(); ?>feedback/index">
                                         <i class="fa fa-clipboard"></i>
-                                        <span>Feedback Form</span>
+                                        <span>E-Feedback Form</span>
                                     </a>
                                 </li>
-
-                            <?php if($this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?>
-                                <li class="sidebar">
-                                    <a href="<?php echo base_url(); ?>logs/index_logs">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Activity Logs</span>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
+                           
                             <!--<li>
                                 <a href="#">
                                 <i class="fas fa-book"></i>
