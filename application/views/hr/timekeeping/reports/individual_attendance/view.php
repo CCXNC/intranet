@@ -277,7 +277,7 @@
                                                     }
                                                     elseif($undertime_am_mins <= $total_time_in_mins)
                                                     {
-                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave)
+                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
                                                         {
                                                             echo '0';
                                                         }
@@ -333,7 +333,11 @@
                                                 {
                                                     if($undertime_am_mins <= $total_time_in_mins)
                                                     {
-                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave)
+                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
+                                                        {
+                                                            echo '0';
+                                                        }
+                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
                                                         {
                                                             echo '0';
                                                         }
@@ -354,7 +358,11 @@
                                                     }
                                                     elseif($undertime_pm_mins <= $total_time_out_mins && $total_sched_time_out_mins >= $total_time_out_mins)
                                                     {
-                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave)
+                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
+                                                        {
+                                                            echo '0';
+                                                        }
+                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDPM')
                                                         {
                                                             echo '0';
                                                         }
