@@ -382,4 +382,25 @@ class Reports extends CI_Controller {
             redirect('reports/index_ut');
         }
     }
+
+    public function process_ut()
+    {
+        foreach($this->input->post('ut') as $ut)
+		{
+			$explode_data = explode('|', $ut);
+
+			$data = array(  
+				'process_by' 	=> $this->session->userdata('username'),
+				'process_date'  => date('Y-m-d H:i:s'),
+				'status'        => '1'
+			);
+
+            $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+            $blaine_timekeeping->where('id', $explode_data[0]);
+			$blaine_timekeeping->update('undertime', $data);
+		}
+        
+        $this->session->set_flashdata('success_msg', 'LEAVE SUCCESSFULLY PROCESS!');
+		redirect('reports/index_ut');
+    }
 }

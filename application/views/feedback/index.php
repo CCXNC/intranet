@@ -4,8 +4,13 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
+<<<<<<< HEAD
 <div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine Feedback List
 <?php if($this->session->userdata('access_level_id') == 1 || $this->session->userdata('access_level_id') == 3) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
+=======
+<div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine E-Feedback List
+<?php if($this->session->userdata('access_level_id') == 1) : ?><a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" title="Add Feedback" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
+>>>>>>> master
     </h4> 
 </div>
 <br> 
@@ -75,10 +80,10 @@
 <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">FEEDBACK FORM</h5>
+        <div class="modal-header" style="background-color:#1C4670; color:white;">
+            <h5 class="modal-title" id="exampleModalLabel" >E-FEEDBACK FORM</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" style="color:white;">&times;</span>
             </button>
         </div>
         <div class="modal-body">

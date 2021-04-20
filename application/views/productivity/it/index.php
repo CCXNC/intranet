@@ -16,3 +16,14 @@
         </div>
     </div>
 </div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <a style="width: 50%; background-color: #2E8BC0; border: #2E8BC0" href="<?php echo base_url(); ?>productivity/index_location_directory" class="btn btn-primary btn-md float-left">LOCATION DIRECTORY</a>
+                <i style="" class="fa fa-file-alt fa-2x float-right"></i>
+            </div>
+        </div>
+    </div>
+</div>

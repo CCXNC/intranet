@@ -22,20 +22,20 @@
         </div> &nbsp;
         <div class="form-group">
             <label for="">&nbsp;</label>
-            <!--<input class="form-control btn btn-success" style="background-color:#38c172;color:white;" id="process" type="submit" value="APPROVAL">-->
+            <input class="form-control btn btn-success" style="background-color:#38c172;color:white;" id="process" type="submit" value="APPROVAL">
         </div>
     </div>   
     <table id="" class="display" style="width:100%">
         <thead>
             <tr style="background-color:#D4F1F4;">
-                <!--<th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>-->
+                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
                 <th scope="col">EMPLOYEE NAME</th>
                 <th scope="col">DEPARTMENT</th>
                 <th scope="col">DATE</th>
                 <th scope="col">TYPE</th>
                 <th scope="col">DAY</th>
                 <th scope="col">REASON</th>
-                <!--<th scope="col">REMARKS</th>-->
+                <th scope="col">REMARKS</th>
                 <th scope="col">ACTION</th>
             </tr> 
         </thead>
@@ -43,14 +43,14 @@
             <?php if($leaves) : ?>
                 <?php foreach($leaves as $leave) : ?>
                     <tr>
-                        <!--<td><?php if($leave->status != 1) : ?> <center><input type="checkbox" name="leave[]" value="<?php echo $leave->id . '|' . $leave->fullname; ?>"> <?php endif; ?> </center></td>-->
+                        <td><?php if($leave->status != 1) : ?> <center><input type="checkbox" name="leave[]" value="<?php echo $leave->id . '|' . $leave->fullname; ?>"> <?php endif; ?> </center></td>
                         <td><?php echo $leave->fullname; ?></td>
                         <td><?php echo $leave->department; ?></td>
                         <td><?php echo $leave->leave_date; ?></td>
                         <td ><?php echo $leave->type_name ; ?></td>
                         <td><?php if($leave->leave_day == "WD") { echo "WHOLE DAY"; } elseif($leave->leave_day == "HDAM") { echo "HALFDAY (AM)"; } elseif($leave->leave_day == "HDPM") { echo "HALFDAY (PM)"; } else { echo ''; } ?></td>
                         <td><?php echo substr($leave->reason,0,50); ?></td>
-                        <!--<td><?php if($leave->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>-->
+                        <td><?php if($leave->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
                         <td data-label="Action">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

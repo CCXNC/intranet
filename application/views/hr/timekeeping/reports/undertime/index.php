@@ -6,7 +6,7 @@
 <?php endif; ?> 
 <div class="card-header" style="background-color: #067593;color:white;"><h4>UNDERTIME LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ut" class="btn btn-dark float-right" title="Add Undertime" style="border:1px solid #ccc; margin-right:10px;">ADD</a> </h4></div>
 <br>
-<form method="POST" id="" enctype="multipart/form-data">
+<form method="POST" id="ut" enctype="multipart/form-data">
     <div class="row">
         &nbsp;&nbsp;&nbsp;<div class="form-group">
             <label for="">START DATE</label>
@@ -22,7 +22,7 @@
         </div> &nbsp;
         <div class="form-group">
             <label for="">&nbsp;</label>
-            <input class="form-control btn btn-success" id="" type="submit" value="APPROVAL">
+            <input class="form-control btn btn-success" id="process" type="submit" value="APPROVAL">
         </div>
     </div>    
     <table id="" class="display" style="width:100%">
@@ -44,7 +44,7 @@
             <?php if($uts) :?>
                 <?php foreach($uts as $ut) : ?>
                     <tr>
-                        <td><center><input type="checkbox" name="ut[]" value=""></center></td>
+                        <td><center><input type="checkbox" name="ut[]" value="<?php echo $ut->id . '|' .  $ut->fullname; ?>"></center></td>
                         <td><?php echo $ut->fullname; ?></td>
                         <td><?php echo $ut->department; ?></td>
                         <td><?php echo $ut->date_ut; ?></td>
@@ -58,15 +58,8 @@
                             ?>
                         </td>
                         <td><?php echo substr($ut->reason,0,50); ?></td>
-                        <td>
-                            <?php 
-                                if($ut->status == 1) {
-                                    echo 'APPROVED';
-                                } else {
-                                    echo 'FOR APPROVAL';
-                                }
-                            ?>
-                        </td>
+                        <td><?php if($ut->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
+
                         <td data-label="Action">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,5 +132,15 @@
         $("#checkAll").click(function(){
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
+
+        $('#process').click(function() {
+			var a = confirm("Are you sure you want to Approved Data?");
+			if (a == true) {
+				$('#ut').attr('action', 'process_ut');
+				$('#ut').submit();
+			} else {
+				return false;
+			} 
+		});
     } );
 </script>

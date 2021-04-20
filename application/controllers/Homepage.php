@@ -98,5 +98,12 @@ class Homepage extends CI_Controller {
         $data['main_content'] = 'active_directory';
         $this->load->view('inc/navbar', $data);
     }
+
+    public function location_directory()
+    {
+        $data['location_directories'] = $this->it_model->get_location_derictories();
+        $data['main_content'] = 'location_directory';
+        $this->load->view('inc/navbar', $data); 
+    }
    
 }

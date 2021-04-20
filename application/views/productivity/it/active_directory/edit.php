@@ -5,12 +5,13 @@
                 <div class="form-group">
                     <center>
                         <?php if($active_directory->picture != NULL) : ?>
-                            <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $active_directory->picture; ?>" style="width:10%" alt="">
+                            <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $active_directory->picture; ?>" style="width:200px; height:250px;" alt="">
                         <?php else : ?>
                             <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="width:10%" alt="">
                         <?php endif; ?> 
                     </center>     
                 </div> 
+                <br>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-3">

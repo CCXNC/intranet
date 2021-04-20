@@ -65,4 +65,60 @@
 	
 		return $query;
 	}
+
+	public function get_location_derictories()
+	{
+		$query = $this->db->get('location_directory');
+		return $query->result();
+	}
+
+	public function get_location_derictory($id)
+	{
+		$this->db->where('id', $id);
+		$query = $this->db->get('location_directory');
+		return $query->row();
+	}
+	
+
+	public function add_location_directory()
+	{
+		$name = $this->input->post('name');
+		$telephone_no = $this->input->post('telephone_no');
+
+		$data = array(
+			'name'         => $name,
+			'telephone_no' => $telephone_no,
+			'created_by'   => $this->session->userdata('username'),
+			'created_date' => date('y-m-d H:i:s')
+		);
+		$query = $this->db->insert('location_directory', $data);
+
+		return $query;
+	}
+
+	public function update_location_directory($id)
+	{
+		$name = $this->input->post('name');
+		$telephone_no = $this->input->post('telephone_no');
+
+		$data = array(
+			'name'         => $name,
+			'telephone_no' => $telephone_no,
+			'updated_by'   => $this->session->userdata('username'),
+			'updated_date' => date('y-m-d H:i:s')
+		);
+
+		$this->db->where('id', $id);
+		$query = $this->db->update('location_directory', $data);
+
+		return $query;
+	}
+
+	public function delete_location_directory($id)
+	{
+		$this->db->where('id', $id);
+		$query = $this->db->delete('location_directory');
+
+		return $query;
+	}
 }    

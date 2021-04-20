@@ -249,6 +249,10 @@
                                                         {
                                                             echo '0';
                                                         }
+                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDPM')
+                                                        {
+                                                            echo '0';
+                                                        }
                                                         elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
                                                         {
                                                             echo '0';
@@ -281,6 +285,10 @@
                                                         {
                                                             echo '0';
                                                         }
+                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
+                                                        {
+                                                            echo '0';
+                                                        }
                                                         elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
                                                         {
                                                             echo '0';
@@ -300,6 +308,10 @@
                                                     else
                                                     {
                                                         if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
+                                                        {
+                                                            echo '0';
+                                                        }
+                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
                                                         {
                                                             echo '0';
                                                         }
