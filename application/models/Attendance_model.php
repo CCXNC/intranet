@@ -490,10 +490,13 @@ class Attendance_model extends CI_Model
 			slvl.type_name as type_name,
 			slvl.type as leave_type,
 			slvl.leave_day as leave_day,
+			undertime.employee_number as ut_employee_number,
+			undertime.date_ut as date_ut,
+			undertime.ut_num as ut_num,
+			undertime.process_by as ut_process_by,
 			schedules.time_in as sched_time_in,
 			schedules.time_out as sched_time_out,
 			schedules.grace_period as grace_period
-		
 		");
 		$this->db->from('blaine_timekeeping.individual_temp_date');
 		$this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
@@ -502,8 +505,8 @@ class Attendance_model extends CI_Model
 		$this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_out.biometric_id = blaine_timekeeping.employee_biometric.biometric_number AND blaine_timekeeping.individual_temp_date.date = blaine_timekeeping.attendance_out.date','left');
 		$this->db->join('blaine_timekeeping.ob','blaine_timekeeping.ob.date_ob = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.ob.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.ob.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.slvl','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.slvl.employee_number = blaine_intranet.employees.employee_number','left');
+		$this->db->join('blaine_timekeeping.undertime','blaine_timekeeping.undertime.date_ut = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.undertime.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.undertime.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.schedules', 'blaine_timekeeping.schedules.employee_number = blaine_intranet.employees.employee_number','left');
-
 		$this->db->order_by('blaine_timekeeping.individual_temp_date.date','ASC');
 		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
 		$query = $this->db->get();
@@ -551,7 +554,7 @@ class Attendance_model extends CI_Model
 		return $query->result();
 	}
 
-	public function employee_absence($employee_number,$start_date,$end_date)
+	public function employee_absence()
 	{
 		$this->db->select("
             slvl.id as id,
@@ -564,20 +567,18 @@ class Attendance_model extends CI_Model
             slvl.leave_address as leave_address,
             slvl.status as status
         ");
-        $this->db->from('blaine_timekeeping.slvl');
-		$this->db->where('blaine_timekeeping.slvl.employee_number', $employee_number);
-		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
-		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
-        $query = $this->db->get();
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+        
+		$query = $this->db->get();
 
         return $query->result();
 	}
 
-	public function employee_ob($employee_number,$start_date,$end_date)
+	public function employee_ob()
     {
         $this->db->select("
             ob.id as id,
-            ob.employee_number as employee_number,
             ob.date_ob as date_ob,
             ob.destination as destination,
             ob.purpose as purpose,
@@ -590,9 +591,8 @@ class Attendance_model extends CI_Model
             ob.remarks as remarks
         ");
         $this->db->from('blaine_timekeeping.ob');
-		$this->db->where('blaine_timekeeping.ob.employee_number', $employee_number);
-        $this->db->where('blaine_timekeeping.ob.date_ob >=', $start_date);
-        $this->db->where('blaine_timekeeping.ob.date_ob <=', $end_date);
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.ob.date_ob = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.ob.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+
         $query = $this->db->get();
 
         return $query->result();
