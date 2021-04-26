@@ -598,4 +598,141 @@ class Fives_model extends CI_Model {
 		return $query;
 	}
 
+	public function add_red_tag()
+	{
+		$this->db->trans_start();
+
+		$data = $this->input->post('employee');
+		$explod_data = explode('|', $data);
+		$fullname = $explod_data[0];
+		$department_id = $explod_data[1];
+		$company_id = $explod_data[2];
+		$red_tag_date = $this->input->post('red_tag_date');
+		$quantity = $this->input->post('quantity');
+		$unit = $this->input->post('unit');
+		$item_description = $this->input->post('item_description');
+		$item_location = $this->input->post('item_location');
+		$category = $this->input->post('category');
+		$reason = $this->input->post('reason');
+		$action = $this->input->post('action');
+
+		// GET PREVIOUS RED TAG NUMBER
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
+		$blaine_five_s->order_by('id', 'DESC');
+		$blaine_five_s->select('red_tag_number');
+		$datas = $blaine_five_s->get('red_tag');
+		$red_tag_number = $datas->row()->red_tag_number;
+
+		// YEAR MONTH
+		$current_ym = date('ym');
+		$current_m = date('m');
+
+		// SPLIT STRING IN ARRAY [0, 1]
+		$arr2 = str_split($red_tag_number, 4);
+		$month = str_split($red_tag_number, 2);
+
+		if($current_m != $month[1])
+		{
+			$i = '001';
+			$crtl_number = $current_ym . '' . $i;
+		}
+		else
+		{
+			$i = $arr2[1] + 1;
+			$i = str_pad($i, 3, '0', STR_PAD_LEFT);
+			$crtl_number = $current_ym . '' . $i;
+		}
+
+		$date = date('Y-m-d H:i:s');
+		
+		$data_redtag = array(
+			'red_tag_date'			=> $date,
+			'red_tag_number'		=> $crtl_number,
+			'tagged_by'				=> $fullname,
+			'submit_by'				=> $this->session->userdata('username'),
+			'company'				=> $company_id,
+			'department'			=> $department_id,
+			'quantity'				=> $quantity,
+			'unit'					=> $unit,
+			'item_description'		=> $item_description,
+			'item_location'			=> $item_location,
+			'category'				=> $category,
+			'reason'				=> $reason,
+			'action'				=> $action,
+			'created_by'			=> $this->session->userdata('username'),
+			'created_date'			=> $date
+		);
+
+		$blaine_five_s = $this->load->database('blaine_five_s', TRUE);
+		$blaine_five_s->insert('red_tag', $data_redtag);
+
+		$data = array (
+			'username'		=> $this->session->userdata('username'),
+			'activity'		=> "Entry Added",
+			'pc_ip'			=> $_SERVER['REMOTE_ADDR'],
+			'type'			=> '1S: RED TAG',
+			'date'			=> $date
+		);
+
+		$activity_log = $this->load->database('activity_logs', TRUE);
+		$activity_log->insert('blaine_logs', $data);
+
+		$trans = $this->db->trans_complete();
+		return $trans;
+
+		//print_r('<pre>');
+		//print_r($data_idea);
+		//print_r('</pre>');
+	}
+
+	public function get_red_tags()
+	{
+		$this->db->select("
+			red_tag.id as id,
+			red_tag.red_tag_date as red_tag_date,
+			CONCAT(red_tag.code, red_tag.red_tag_number) AS red_tag_number,
+			red_tag.submit_by as submit_by,
+			red_tag.tagged_by as tagged_by,
+			red_tag.item_description as item_description,
+			red_tag.item_location as item_location,
+			red_tag.reason as reason,
+			company.name as company,
+			department.name as department
+
+		");
+		$this->db->from('blaine_five_s.red_tag');
+		$this->db->where('blaine_five_s.red_tag.is_active', 1);
+		$this->db->join('blaine_intranet.company', 'blaine_intranet.company.id = blaine_five_s.red_tag.company');
+		$this->db->join('blaine_intranet.department', 'blaine_intranet.department.id = blaine_five_s.red_tag.department');
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
+	public function get_red_tag($id)
+	{
+		$this->db->select("
+			red_tag.id as id,
+			red_tag.red_tag_date as red_tag_date,
+			CONCAT(red_tag.code, red_tag.red_tag_number) AS red_tag_number,
+			red_tag.submit_by as submit_by,
+			red_tag.tagged_by as tagged_by,
+			company.name as company,
+			department.name as department,
+			red_tag.quantity as quantity,
+			red_tag.unit as unit,
+			red_tag.item_description as item_description,
+			red_tag.item_location as item_location,
+			red_tag.category as category,
+			red_tag.reason as reason,
+			red_tag.action as action
+		");
+		$this->db->from('blaine_five_s.red_tag');
+		$this->db->where('blaine_five_s.red_tag.id', $id);
+		$this->db->join('blaine_intranet.company', 'blaine_intranet.company.id = blaine_five_s.red_tag.company');
+		$this->db->join('blaine_intranet.department', 'blaine_intranet.department.id = blaine_five_s.red_tag.department');
+
+		$query = $this->db->get();
+		return $query->row();
+	}
 }

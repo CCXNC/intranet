@@ -4,45 +4,45 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header" style="background-color:#1C4670; color:white;"><h4>5S CONTINUOUS IMPROVEMENT PROJECTS
-    <a href="<?php echo base_url(); ?>fives/idea" title="Go Back" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a>
+<div class="card-header" style="background-color:#1C4670; color:white;"><h4>DEPARTMENT RED TAG LIST
+    <a href="" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">RED TAG</a>
+    <a href="<?php echo base_url(); ?>fives/red_tag_add" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
     </h4> 
 </div>
 <br>
 <table id="" class="display" style="width:100%">
     <thead>
         <tr style="background-color:#D4F1F4;">
-            <th scope="col">Control No.</th>
+            <th scope="col">Red Tag Number</th>
             <th scope="col">Date</th>
-            <th scope="col">Encoded By</th>
-            <th scope="col">Idea Owner</th>
-            <th scope="col">Before</th>
-            <th scope="col">After</th>
-            <th scope="col">Impact</th>
-            <th scope="col">Category</th>
+            <th scope="col">Tagged By</th>
+            <th scope="col">Department</th>
+            <th scope="col">Description</th>
+            <th scope="col">Location</th>
+            <th scope="col">Reason</th>
+            <th scope="col">Status</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
-        <?php if($ideas) : ?> 
-            <?php foreach($ideas as $idea) : ?>
+        <?php if($redtags) : ?>
+            <?php foreach ($redtags as $redtag) : ?>
                 <tr>
-                    <td data-label="Business Unit"><a href="<?php echo base_url(); ?>fives/idea_implemented_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number;?>"><?php echo $idea->control_number;?></a></td>
-                    <td data-label="Date"><?php echo date('F j, Y',strtotime($idea->created_date));  ?></td>
-                    <td data-label="Submitted By"><?php echo $idea->submit_by; ?></td>
-                    <td data-label="Proposed_by"><?php echo $idea->propose_by; ?></td>
-                    <td data-label="Before"><?php echo substr($idea->current,0,50); ?></td>
-                    <td data-label="After"><?php echo substr($idea->proposal,0,50); ?></td>
-                    <td data-label="Impact"><?php echo substr($idea->impact,0,50); ?></td>
-                    <td data-label="Impact"><?php echo $idea->classification; ?></td>
-                    <td data-label="Action">
+                    <td><?php echo $redtag->red_tag_number; ?></td>
+                    <td><?php echo date('F j, Y', strtotime($redtag->red_tag_date)); ?></td>
+                    <td><?php echo $redtag->tagged_by;?></td>
+                    <td><?php echo $redtag->department;?></td>
+                    <td><?php echo $redtag->item_description;?></td>
+                    <td><?php echo $redtag->item_location;?></td>
+                    <td><?php echo $redtag->reason;?></td>
+                    <td></td>
+                    <td>
                         <div class="btn-group">
-                            <button type="button" title="View Actions" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" title="Edit Idea" href="<?php echo base_url(); ?>fives/edit_implemented_idea/<?php echo $idea->implemented_id; ?>">Edit</a>
-                                <a class="dropdown-item" title="View Idea" href="<?php echo base_url(); ?>fives/idea_implemented_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number;?>">View</a>
+                                <a class="dropdown-item" title="View Idea" href="<?php echo base_url(); ?>fives/red_tag_view/<?php echo $redtag->id; ?>/<?php echo $redtag->red_tag_number; ?>"> View</a>
                             </div>
                         </div>
                     </td>
@@ -61,34 +61,35 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-            "scrollX": true,
+            "scrollY" : '50vh',
+            "scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
             buttons: [
                 {
                     extend: 'excel',
-                    title: '5S Continuous Improvement',
+                    title: 'Red Tag',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'pdf',
-                    title: '5S Continuous Improvement',
+                    title: 'Red Tag',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'print',
-                    title: '5S Continuous Improvement',
+                    title: 'Red Tag',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'copy',
-                    title: '5S Continuous Improvement',
+                    title: 'Red Tag',
                     exportOptions: {
                         columns: ':visible'
                     }

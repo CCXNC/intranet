@@ -381,35 +381,35 @@
                 buttons: [
                         {
                             extend: 'excel',
-                            title: '',
+                            title: 'Daily Attendance',
                             exportOptions: {
                                 columns: ':visible'
                             }
                         },
                         {
                             extend: 'pdf',
-                            title: '',
+                            title: 'Daily Attendance',
                             exportOptions: {
                                 columns: ':visible'
                             }
                         },
                         {
                             extend: 'csv',
-                            title: '',
+                            title: 'Daily Attendance',
                             exportOptions: {
                                 columns: ':visible'
                             }
                         },
                         {
                             extend: 'print',
-                            title: '',
+                            title: 'Daily Attendance',
                             exportOptions: {
                                 columns: ':visible'
                             }
                         },
                         {
                             extend: 'copy',
-                            title: '',
+                            title: 'Daily Attendance',
                             exportOptions: {
                                 columns: ':visible'
                             }

@@ -678,7 +678,7 @@
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                            <a href="">1S: Sort</a>
+                                            <a href="<?php echo base_url(); ?>fives/sort/index">1S: Sort</a>
                                         </li>
                                         <li>
                                             <a href="">2S: Set</a>
