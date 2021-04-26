@@ -49,28 +49,28 @@
             buttons: [
                 {
                     extend: 'excel',
-                    title: '',
+                    title: 'Activity Logs',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'pdf',
-                    title: '',
+                    title: 'Activity Logs',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'print',
-                    title: '',
+                    title: 'Activity Logs',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'copy',
-                    title: '',
+                    title: 'Activity Logs',
                     exportOptions: {
                         columns: ':visible'
                     }

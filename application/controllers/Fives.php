@@ -355,5 +355,51 @@ class Fives extends CI_Controller {
         force_download($name, $data);
         //print_r($data);
     }
+
+    function sort() 
+    {
+        $data['main_content'] = 'fives/sort/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    function red_tag()
+    {
+        $data['redtags'] = $this->fives_model->get_red_tags();
+        $data['main_content'] = 'fives/sort/redtag/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    function red_tag_add()
+    {
+        $this->form_validation->set_rules('reason', 'Reason', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['employees'] = $this->employee_model->get_employees();
+            $data['main_content'] = 'fives/sort/redtag/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->fives_model->add_red_tag())
+            {
+                $this->session->set_flashdata('success_msg', 'Red Tag Successfully Added!');
+                redirect('fives/red_tag');
+            }
+        }
+    }
+
+    public function red_tag_view($id,$red_tag_number) 
+    {
+        $data['redtag'] = $this->fives_model->get_red_tag($id);
+        $data['main_content'] = 'fives/sort/redtag/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    function red_tag_edit()
+    {
+        $data['main_content'] = 'fives/sort/redtag/edit';
+        $this->load->view('inc/navbar', $data);
+    }
        
 }

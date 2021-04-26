@@ -257,7 +257,7 @@ input[type="checkbox"]:checked:after {
                 {
                     extend: 'excel',
                     text: 'Extract to Excel',
-                    title: '',
+                    title: 'Employee List',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -265,7 +265,7 @@ input[type="checkbox"]:checked:after {
                 {
                     extend: 'copy',
                     text: 'Copy Data',
-                    title: '',
+                    title: 'Employee List',
                     exportOptions: {
                         columns: ':visible'
                     }

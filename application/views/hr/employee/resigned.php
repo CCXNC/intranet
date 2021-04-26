@@ -61,35 +61,35 @@
             buttons: [
                 {
                     extend: 'excel',
-                    title: '',
+                    title: 'Resigned Employee',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'pdf',
-                    title: '',
+                    title: 'Resigned Employee',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'csv',
-                    title: '',
+                    title: 'Resigned Employee',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'print',
-                    title: '',
+                    title: 'Resigned Employee',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'copy',
-                    title: '',
+                    title: 'Resigned Employee',
                     exportOptions: {
                         columns: ':visible'
                     }

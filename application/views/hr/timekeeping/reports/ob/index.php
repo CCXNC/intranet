@@ -84,28 +84,28 @@
             buttons: [
                     {
                         extend: 'excel',
-                        title: '',
+                        title: 'Field Work & Work From Home',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'pdf',
-                        title: '',
+                        title: 'Field Work & Work From Home',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'print',
-                        title: '',
+                        title: 'Field Work & Work From Home',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'copy',
-                        title: '',
+                        title: 'Field Work & Work From Home',
                         exportOptions: {
                             columns: ':visible'
                         }

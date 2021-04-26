@@ -106,28 +106,28 @@
             buttons: [
                 {
                     extend: 'excel',
-                    title: '',
+                    title: 'Employee Schedule',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'pdf',
-                    title: '',
+                    title: 'Employee Schedule',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'print',
-                    title: '',
+                    title: 'Employee Schedule',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'copy',
-                    title: '',
+                    title: 'Employee Schedule',
                     exportOptions: {
                         columns: ':visible'
                     }

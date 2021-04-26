@@ -79,28 +79,28 @@
             buttons: [
                     {
                         extend: 'excel',
-                        title: '',
+                        title: 'Leave Of Absence',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'pdf',
-                        title: '',
+                        title: 'Leave Of Absence',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'print',
-                        title: '',
+                        title: 'Leave Of Absence',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'copy',
-                        title: '',
+                        title: 'Leave Of Absence',
                         exportOptions: {
                             columns: ':visible'
                         }

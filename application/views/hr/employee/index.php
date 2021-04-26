@@ -74,8 +74,6 @@
                                 <a class="dropdown-item" title="Add Employee Movement" href="<?php echo base_url(); ?>employee/employee_movement/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Movement</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" title="Terminate Employee" href="<?php echo base_url(); ?>employee/employee_termination/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">Termination</a>
-                                <!--<div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url(); ?>user/reset_password/<?php echo $employee->emp_no; ?>" onclick="return confirm('Do you want to reset password?');">Reset Password</a>-->
                             </div>
                         </div>
                     </td>
@@ -101,35 +99,35 @@
             buttons: [
                 {
                     extend: 'excel',
-                    title: '',
+                    title: 'Employee List',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'pdf',
-                    title: '',
+                    title: 'Employee List',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'csv',
-                    title: '',
+                    title: 'Employee List',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'print',
-                    title: '',
+                    title: 'Employee List',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'copy',
-                    title: '',
+                    title: 'Employee List',
                     exportOptions: {
                         columns: ':visible'
                     }
