@@ -28,14 +28,14 @@
     <table id="" class="display" style="width:100%">
         <thead>
             <tr style="background-color:#D4F1F4;">
-                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
+                <th scope="col">DATE</th>
                 <th scope="col">EMPLOYEE NAME</th>
                 <th scope="col">DEPARTMENT</th>
-                <th scope="col">DATE</th>
                 <th scope="col">TIME START</th>
                 <th scope="col">TIME END</th>
                 <th scope="col">TOTAL HOURS</th>
                 <th scope="col">TASK</th>
+                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
                 <th scope="col">STATUS</th>
                 <th scope="col">ACTION</th>
             </tr>
@@ -44,14 +44,14 @@
             <?php if($ots) : ?>
                 <?php foreach($ots as $ot) : ?>
                     <tr>
-                        <td> <center><input type="checkbox" name="leave[]" value=""> </center></td>
+                        <td><?php echo $ot->date_ot; ?></td>
                         <td><?php echo $ot->fullname; ?></td>
                         <td><?php echo $ot->department; ?></td>
-                        <td><?php echo $ot->date_ot; ?></td>
-                        <td ><?php echo $ot->time_start . ' | ' . $ot->time_in; ?></td>
-                        <td ><?php echo $ot->time_end . ' | ' . $ot->time_out; ?></td>
-                        <td ><?php echo $ot->ot_num; ?></td>
+                        <td><?php echo $ot->time_start . ' | ' . $ot->time_in; ?></td>
+                        <td><?php echo $ot->time_end . ' | ' . $ot->time_out; ?></td>
+                        <td><?php echo $ot->ot_num; ?></td>
                         <td><?php echo substr($ot->task,0,50); ?></td>
+                        <td> <center><input type="checkbox" name="leave[]" value=""> </center></td>
                         <td>
                             <?php 
                                 if($ot->status == 1) {
@@ -132,5 +132,15 @@
         $("#checkAll").click(function(){
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
+
+        $('#process').click(function() {
+			var a = confirm("Are you sure you want to Approved Data?");
+			if (a == true) {
+				$('#ut').attr('action', 'process_ut');
+				$('#ut').submit();
+			} else {
+				return false;
+			} 
+		});
     } );
 </script>
