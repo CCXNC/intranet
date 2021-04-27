@@ -28,12 +28,12 @@
     <table id="" class="display" style="width:100%">
         <thead>
             <tr style="background-color:#D4F1F4;">
-                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
+                <th scope="col">DATE</th>
                 <th scope="col">EMPLOYEE NAME</th>
                 <th scope="col">DEPARTMENT</th>
                 <th scope="col">TYPE</th> 
-                <th scope="col">DATE</th>
                 <th scope="col">PURPOSE / REMARKS</th> 
+                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
                 <th scope="col">STATUS</th>
                 <th scope="col">ACTION</th>
             </tr>
@@ -42,12 +42,12 @@
             <?php if($obs) : ?>
                 <?php foreach($obs as $ob) : ?>
                     <tr>
-                        <td><center> <?php if($ob->status != 1) : ?> <input type="checkbox" name="ob[]" value="<?php echo $ob->id . '|' . $ob->fullname; ?>"> <?php endif; ?> </center></td>
+                        <td><?php echo $ob->date_ob; ?></td>
                         <td><?php echo $ob->fullname; ?></td>
                         <td><?php echo $ob->department; ?></td>
                         <td><?php echo $ob->type; ?></td>
-                        <td><?php echo date('F j, Y', strtotime($ob->date_ob)); ?></td>
                         <td><?php if($ob->type == "FIELD WORK") { echo substr($ob->purpose,0,50); } else { echo substr($ob->remarks,0,50); } ?></td>
+                        <td><center> <?php if($ob->status != 1) : ?> <input type="checkbox" name="ob[]" value="<?php echo $ob->id . '|' . $ob->fullname; ?>"> <?php endif; ?> </center></td>
                         <td><?php if($ob->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
                         <td data-label="Action">
                             <div class="btn-group">
@@ -84,28 +84,28 @@
             buttons: [
                     {
                         extend: 'excel',
-                        title: '',
+                        title: 'Field Work & Work From Home',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'pdf',
-                        title: '',
+                        title: 'Field Work & Work From Home',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'print',
-                        title: '',
+                        title: 'Field Work & Work From Home',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'copy',
-                        title: '',
+                        title: 'Field Work & Work From Home',
                         exportOptions: {
                             columns: ':visible'
                         }

@@ -67,28 +67,28 @@
             buttons: [
                 {
                     extend: 'excel',
-                    title: '',
+                    title: '5S Continuous Improvement',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'pdf',
-                    title: '',
+                    title: '5S Continuous Improvement',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'print',
-                    title: '',
+                    title: '5S Continuous Improvement',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'copy',
-                    title: '',
+                    title: '5S Continuous Improvement',
                     exportOptions: {
                         columns: ':visible'
                     }

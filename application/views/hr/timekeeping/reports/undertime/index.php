@@ -28,14 +28,14 @@
     <table id="" class="display" style="width:100%">
         <thead> 
             <tr style="background-color:#D4F1F4;">
-                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
+                <th scope="col">DATE</th>
                 <th scope="col">EMPLOYEE NAME</th>
                 <th scope="col">DEPARTMENT</th>
-                <th scope="col">DATE</th>
                 <th scope="col">TIME START</th>
                 <th scope="col">TIME END</th>
                 <th scope="col">TOTAL HOURS</th>
                 <th scope="col">REASON</th>
+                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
                 <th scope="col">STATUS</th>
                 <th scope="col">ACTION</th>
             </tr>
@@ -44,10 +44,9 @@
             <?php if($uts) :?>
                 <?php foreach($uts as $ut) : ?>
                     <tr>
-                        <td><center><input type="checkbox" name="ut[]" value="<?php echo $ut->id . '|' .  $ut->fullname; ?>"></center></td>
+                        <td><?php echo $ut->date_ut; ?></td>
                         <td><?php echo $ut->fullname; ?></td>
                         <td><?php echo $ut->department; ?></td>
-                        <td><?php echo $ut->date_ut; ?></td>
                         <td><?php echo $ut->time_start; ?></td>
                         <td><?php echo $ut->time_end; ?></td>
                         <td>
@@ -58,6 +57,7 @@
                             ?>
                         </td>
                         <td><?php echo substr($ut->reason,0,50); ?></td>
+                        <td><center><input type="checkbox" name="ut[]" value="<?php echo $ut->id . '|' .  $ut->fullname; ?>"></center></td>
                         <td><?php if($ut->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
 
                         <td data-label="Action">
@@ -90,35 +90,35 @@
             buttons: [
                     {
                         extend: 'excel',
-                        title: '',
+                        title: 'Undertime',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'pdf',
-                        title: '',
+                        title: 'Undertime',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'csv',
-                        title: '',
+                        title: 'Undertime',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'print',
-                        title: '',
+                        title: 'Undertime',
                         exportOptions: {
                             columns: ':visible'
                         }
                     },
                     {
                         extend: 'copy',
-                        title: '',
+                        title: 'Undertime',
                         exportOptions: {
                             columns: ':visible'
                         }

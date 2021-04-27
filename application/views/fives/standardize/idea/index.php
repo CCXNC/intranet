@@ -101,28 +101,28 @@
             buttons: [
                 {
                     extend: 'excel',
-                    title: '',
+                    title: '5S Share My Idea',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'pdf',
-                    title: '',
+                    title: '5S Share My Idea',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'print',
-                    title: '',
+                    title: '5S Share My Idea',
                     exportOptions: {
                         columns: ':visible'
                     }
                 },
                 {
                     extend: 'copy',
-                    title: '',
+                    title: '5S Share My Idea',
                     exportOptions: {
                         columns: ':visible'
                     }
