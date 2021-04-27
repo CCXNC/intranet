@@ -569,7 +569,8 @@ class Attendance_model extends CI_Model
         ");
 		$this->db->from('blaine_timekeeping.slvl');
 		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-        
+		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+
 		$query = $this->db->get();
 
         return $query->result();
@@ -592,6 +593,7 @@ class Attendance_model extends CI_Model
         ");
         $this->db->from('blaine_timekeeping.ob');
 		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.ob.date_ob = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.ob.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
 
         $query = $this->db->get();
 

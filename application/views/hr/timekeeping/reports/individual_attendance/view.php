@@ -541,7 +541,7 @@
                                                 } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'MANUAL') {
                                                     echo  '(IN-' . ' ' . $employee->in_generate . ')' . ' | ' . '<p class="" style="text-align:center;padding:5px;background-color:#ffed4a;">' . '(OUT-' . ' ' . $employee->out_generate . ')' . '</p>';  
                                                 } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'MANUAL') {
-                                                    echo  '<p class="" style="text-align:center;margin-top:15px;padding:5px;background-color:#ffed4a;">' . 'MANUAL' . '</p>';  
+                                                    echo  '<p class="" style="text-align:center;padding:5px;background-color:#ffed4a;">' . 'MANUAL' . '</p>';  
  
                                                 }
                                             ?> 
@@ -624,13 +624,14 @@
                         <?php if($employee_leaves) : ?>
                             <?php foreach($employee_leaves as $employee_leave) : ?>
                                 <tr>
+
                                     <td><?php echo date('D', strtotime($employee_leave->leave_date)); ?></td>
                                     <td><?php echo $employee_leave->leave_date; ?></td>
                                     <td><?php if($employee_leave->leave_day == "WD") { echo "WHOLE DAY"; } elseif($employee_leave->leave_day == "HDAM") { echo "HALFDAY (AM)"; } elseif($employee_leave->leave_day == "HDPM") { echo "HALFDAY (PM)"; } else { echo ''; } ?></td>
                                     <td><?php echo $employee_leave->type_name; ?></td>
                                     <td><?php echo substr($employee_leave->reason,0,50); ?></td>
                                     <td><?php if($employee_leave->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
-                        </tr>
+                                </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </tbody>
