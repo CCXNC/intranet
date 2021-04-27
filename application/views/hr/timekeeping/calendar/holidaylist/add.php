@@ -7,14 +7,27 @@
                 <div class="card-header">Holiday Information</div>
                 <div class="card-body">
                     <div class="row">
+                        <div class="form-control">
+                            <input type="checkbox" id="checkAll" name="">
+                            <label for="">CHECK ALL</label>
+                        </div>    
+                        <?php if($employees) : ?>
+                            <?php foreach($employees as $employee) : ?>
+                                <div class="form-control">
+                                    <input type="checkbox" name="employee[]" value="<?php echo $employee->id . '|' . $employee->emp_no; ?>">
+                                    <?php echo $employee->fullname; ?><br>
+                                </div>
+                            <?php endforeach;  ?>
+                        <?php endif; ?>
+                    </div>
+                    <br>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Date</label>
                                 <input type="date" class="form-control" name="start">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Type</label>
@@ -26,10 +39,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Description</label>
-                                <input type="text" class="form-control"  name="description">
+                                <textarea class="form-control" name="description" id="" cols="30" rows="4"></textarea>
                             </div>
                         </div>
                     </div>
@@ -45,3 +61,11 @@
         </form>
     </div>
 </div>
+
+<script>
+   $(document).ready(function() {
+        $("#checkAll").click(function(){
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+    });
+</script>

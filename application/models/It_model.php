@@ -89,7 +89,7 @@
 			'name'         => $name,
 			'telephone_no' => $telephone_no,
 			'created_by'   => $this->session->userdata('username'),
-			'created_date' => date('y-m-d H:i:s')
+			'created_date' => date('Y-m-d H:i:s')
 		);
 		$query = $this->db->insert('location_directory', $data);
 
@@ -105,7 +105,7 @@
 			'name'         => $name,
 			'telephone_no' => $telephone_no,
 			'updated_by'   => $this->session->userdata('username'),
-			'updated_date' => date('y-m-d H:i:s')
+			'updated_date' => date('Y-m-d H:i:s')
 		);
 
 		$this->db->where('id', $id);

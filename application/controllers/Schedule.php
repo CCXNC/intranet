@@ -115,4 +115,10 @@ class Schedule extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
+    public function ui_sample()
+    {
+        $data['main_content'] = 'hr/timekeeping/schedule/ui';
+        $this->load->view('inc/navbar', $data);
+    }
+
 }    

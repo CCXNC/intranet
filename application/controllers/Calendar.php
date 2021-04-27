@@ -29,6 +29,7 @@ class Calendar extends CI_Controller {
 
         if($this->form_validation->run() == FALSE)
         {
+            $data['employees'] = $this->employee_model->get_employees();
             $data['main_content'] = 'hr/timekeeping/calendar/holidaylist/add';
             $this->load->view('inc/navbar', $data);
         }
