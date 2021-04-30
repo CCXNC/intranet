@@ -42,7 +42,7 @@
             <?php foreach($ideas as $idea) : ?>
                 <tr>
                     <td data-label="Business Unit"><a href="<?php echo base_url(); ?>fives/idea_view/<?php echo $idea->id; ?>/<?php echo $idea->control_number; ?>"><?php echo $idea->control_number; ?></a></td>
-                    <td data-label="Date"><?php echo date('F j, Y', strtotime($idea->submit_date));  ?></td>
+                    <td data-label="Date"><?php echo date('y-m-d', strtotime($idea->submit_date));  ?></td>
                     <td data-label="Department"><?php echo $idea->submit_by; ?></td>
                     <td data-label="Department"><?php echo $idea->propose_by; ?></td>
                     <td data-label="Date Hired"><?php echo $idea->department; ?></td>
@@ -87,7 +87,8 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
-            "bStateSave": true,
+             "order": [[ 1, 'desc' ]],
+            //"bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('table.display', JSON.stringify(oData));
             },

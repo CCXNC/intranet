@@ -26,8 +26,11 @@ class Homepage extends CI_Controller {
         // Get record count
 	 	$this->load->library('pagination');
 
-         $this->db->where('is_active', 1);
-         $total_rows = $this->db->count_all('announcement');
+        $this->db->select('*');
+        $this->db->from('announcement');
+        $this->db->where('category', "homepage");
+        $this->db->where('is_active', 1);
+        $total_rows = $this->db->count_all_results();
          
 	 	$limit = 1;
 	 	$start = $this->uri->segment(3);
