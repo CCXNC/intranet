@@ -202,6 +202,10 @@
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
                                                     }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#9f5f80;color:white;"></p>';
+                                                    }
                                                     elseif($days_temp_date == '6' || $days_temp_date == '0') 
                                                     {
                                                     }
@@ -263,6 +267,10 @@
                                                         } else {
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
+                                                    }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#9f5f80;color:white;"></p>';
                                                     }
                                                     elseif($days_temp_date == '6' || $days_temp_date == '0') 
                                                     {
@@ -519,9 +527,14 @@
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
                                                     }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#9f5f80;color:white;"></p>';
+                                                    }
                                                     elseif($days_temp_date == '6' || $days_temp_date == '0') 
                                                     {
                                                     }
+                                                    
                                                     else
                                                     {
                                                         echo  '<p class="" style="width:50%; text-align:center;padding:5px;background-color:#e3342f;color:white;">N/A</p>'; 
@@ -578,6 +591,10 @@
                                                 <?php
                                                     echo '<p class="" style="text-align:center;padding:5px;background-color:#067593;color:white;">'. 'UNDERTIME' .'</p>';
                                                 ?>
+                                            <?php elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date): ?>   
+                                                <?php
+                                                    echo '<p class="" style="text-align:center;padding:5px;background-color:#9f5f80;color:white;">'. $employee->holiday_type .'</p>';
+                                                ?>
                                             <?php endif; ?>    
                                         </td>
                                         <!-- ACTION -->
@@ -587,7 +604,9 @@
                                             <?php elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave): ?>
                                                 <?php echo strtoupper($employee->leave_process_by); ?>   
                                             <?php elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut): ?>   
-                                                <?php echo strtoupper($employee->ut_process_by); ?>      
+                                                <?php echo strtoupper($employee->ut_process_by); ?>  
+                                            <?php elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date): ?>         
+                                                <?php echo strtoupper($employee->holiday_created_by); ?>  
                                             <?php else: ?> 
                                                 <button title="Add Manual Attendance" type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
                                                     View

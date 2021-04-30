@@ -7,21 +7,6 @@
                 <div class="card-header">Holiday Information</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="form-control">
-                            <input type="checkbox" id="checkAll" name="">
-                            <label for="">CHECK ALL</label>
-                        </div>    
-                        <?php if($employees) : ?>
-                            <?php foreach($employees as $employee) : ?>
-                                <div class="form-control">
-                                    <input type="checkbox" name="employee[]" value="<?php echo $employee->id . '|' . $employee->emp_no; ?>">
-                                    <?php echo $employee->fullname; ?><br>
-                                </div>
-                            <?php endforeach;  ?>
-                        <?php endif; ?>
-                    </div>
-                    <br>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Date</label>

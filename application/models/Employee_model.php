@@ -1136,19 +1136,6 @@ class Employee_model extends CI_Model {
 		print_r($data);
 		print_r('</pre>');*/
 
-		// CALL ACVITIY LOGS DATABASE
-		$activity_log = $this->load->database('activity_logs', TRUE); 
-
-		$entry_data = "employee_termination [entry_id:" . $employee_number . "]";
-
-		$activity_data = array(
-			'username'   => $this->session->userdata('username'),
-			'pcname'     => $_SERVER['REMOTE_ADDR'],
-			'entry_data' => $entry_data,
-			'entry_date' => $datetime
-		);
-		$activity_log->insert('hris_logs', $activity_data);
-
 		$trans = $this->db->trans_complete();
 		return $trans;
 		

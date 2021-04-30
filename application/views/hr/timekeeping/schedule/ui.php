@@ -11,6 +11,20 @@
         <div class="card">
             <div class="card-header" style="background-color: #3490dc; color:white;"><h4>SCHEDULE <a href="#" title="Add Form" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a></h4></div>
             <div class="card-body">
+                <div class="row">
+                    &nbsp;&nbsp;&nbsp;<div class="form-group">
+                        <label for="">START DATE</label>
+                        <input type="date" class="form-control" name="start_date" >
+                    </div> &nbsp;
+                    <div class="form-group">
+                        <label for="">END DATE</label>
+                        <input type="date" class="form-control" name="end_date">
+                    </div> &nbsp;
+                    <div class="form-group">
+                        <label for="">&nbsp;</label>
+                        <input type="submit" title="Submit Date" value="SUBMIT" class="form-control btn btn-dark">
+                    </div> &nbsp;
+                </div>  
                 <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr style="background-color:#D4F1F4;">
