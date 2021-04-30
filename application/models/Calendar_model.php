@@ -30,41 +30,105 @@ class Calendar_model extends CI_Model {
     {
         $this->db->trans_start();
 
-        //HOLIDAY INPUT
-        $start = $this->input->post('start');
+        //HOLIDAY INPUT 
+        $date = $this->input->post('start');
         $type = $this->input->post('type');
         $description = $this->input->post('description');
 
         $created_date = date('Y-m-d H:i:s');
 
+       
         $data_calendar = array(
-            'start'         => $start,
-            'type'          => $type,
-            'description'   => $description,
-            'created_date'  => $created_date,
-            'created_by'    => $this->session->userdata('username')
+            'date'            => $date,
+            'type'            => $type,
+            'description'     => $description,
+            'created_date'    => $created_date,
+            'created_by'      => $this->session->userdata('username')
         );
 
-        // DATABASE CONNECTION TO TIMEKEEPING
-        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        //DATABASE CONNECTION TO TIMEKEEPING
+        $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
         $blaine_timekeeping->insert('holiday_calendar', $data_calendar);
 
         /*print_r('<pre>');
-		print_r($data_calendar);
-		print_r('</pre>');*/
+        print_r($data_calendar);
+        print_r('</pre>');*/
 
         $trans = $this->db->trans_complete();
         return $trans;
     }
 
+    public function add_employee_holiday()
+    {
+        $this->db->trans_start();
+
+        //HOLIDAY INPUT 
+        $date = $this->input->post('date');
+        $type = $this->input->post('type');
+
+        $created_date = date('Y-m-d H:i:s');
+
+       foreach($this->input->post('employee') as $emp)
+       {
+            $data_calendar = array(
+                'employee_number' => $emp,
+                'date'            => $date,
+                'type'            => $type,
+                'created_date'    => $created_date,
+                'created_by'      => $this->session->userdata('username')
+            );
+
+            //DATABASE CONNECTION TO TIMEKEEPING
+            $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
+            $blaine_timekeeping->insert('employee_holiday', $data_calendar);
+
+            /*print_r('<pre>');
+            print_r($data_calendar);
+            print_r('</pre>');*/
+       }
+       
+        $trans = $this->db->trans_complete();
+        return $trans;
+    }
+
+    public function get_holidays()
+    {
+        $query = $this->db->get('blaine_schedules.holiday_calendar');
+        return $query->result();
+    }
+
     public function get_calendar_list($id)
     {
-        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
 
         $blaine_timekeeping->where('id', $id);
         $query = $blaine_timekeeping->get('holiday_calendar');
 
         return $query->row();
+    }
+
+    public function get_calendar_list_with_employee($date)
+    {
+        $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
+
+        $blaine_timekeeping->where('date', $date);
+        $query = $blaine_timekeeping->get('holiday_calendar');
+
+        return $query->row();
+    }
+
+    public function get_holiday_employee($date)
+    {
+        $this->db->select("
+            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
+        ");
+        $this->db->from('blaine_schedules.employee_holiday');
+        $this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_schedules.employee_holiday.employee_number','left');
+        $this->db->where('blaine_schedules.employee_holiday.date', $date);
+        $this->db->order_by('blaine_intranet.employees.last_name', 'ASC');
+        $query = $this->db->get();
+
+        return $query->result();
     }
 
     public function update_calendar_list($id)
