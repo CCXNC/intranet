@@ -53,8 +53,8 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-           "scrollX" : true,
-           "scrollY" : '150vh',
+           //"scrollX" : true,
+           //"scrollY" : '150vh',
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         } );
     } );

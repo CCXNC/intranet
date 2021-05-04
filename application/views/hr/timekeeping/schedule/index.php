@@ -94,8 +94,8 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
-            "scrollY" : '70vh',
-            "scrollX": true,
+            //"scrollY" : '70vh',
+            //"scrollX": true,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('table.display', JSON.stringify(oData));
