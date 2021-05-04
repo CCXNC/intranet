@@ -22,25 +22,7 @@ class Calendar extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function add_calendar_list()
-    {
-        $this->form_validation->set_rules('type', 'Type', 'required|trim');
-        $this->form_validation->set_rules('description', 'Description', 'required|trim');
-
-        if($this->form_validation->run() == FALSE)
-        {
-            $data['main_content'] = 'hr/timekeeping/calendar/holidaylist/add';
-            $this->load->view('inc/navbar', $data);
-        }
-        else
-        {
-            if($this->calendar_model->add_calendar_list())
-            {
-                $this->session->set_flashdata('success_msg', 'Holiday Successfully Added!');
-                redirect('calendar/calendar_list');
-            }
-        }
-    }
+  
 
     public function add_employee_holiday($id)
     {
@@ -70,6 +52,49 @@ class Calendar extends CI_Controller {
         $data['employees_holiday'] = $this->calendar_model-> get_holiday_employee($date);
         $data['main_content'] = 'hr/timekeeping/calendar/holidaylist/view';
         $this->load->view('inc/navbar', $data);
+    }
+
+    public function update_employee($id, $date)
+    {
+        $this->form_validation->set_rules('date', 'Date', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['calendar'] = $this->calendar_model->get_calendar_list($id);
+            $data['economic_dates'] = $this->calendar_model->get_economic_holiday();
+            $data['employees_holiday'] = $this->calendar_model-> get_holiday_employee($date);
+            $data['main_content'] = 'hr/timekeeping/calendar/holidaylist/update_employee';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->calendar_model->update_move_to_economic_holiday())
+            {
+                $this->session->set_flashdata('success_msg', 'Employee Holiday Successfully Moved!');
+                redirect('calendar/calendar_list');
+            }
+        }
+      
+    }
+
+    public function add_calendar_list()
+    {
+        $this->form_validation->set_rules('type', 'Type', 'required|trim');
+        $this->form_validation->set_rules('description', 'Description', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['main_content'] = 'hr/timekeeping/calendar/holidaylist/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->calendar_model->add_calendar_list())
+            {
+                $this->session->set_flashdata('success_msg', 'Holiday Successfully Added!');
+                redirect('calendar/calendar_list');
+            }
+        }
     }
     
 

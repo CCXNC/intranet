@@ -35,8 +35,9 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <!--<a title="View Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/add_employee_holiday/<?php echo $calendar->id; ?>"> Add Employee</a>-->
                                 <a title="View Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/view_calendar_list/<?php echo $calendar->date; ?>"> View</a>
-                                <a title="Edit Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/edit_calendar_list/<?php echo $calendar->id?>">Edit</a>
+                                <a title="Edit Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/edit_calendar_list/<?php echo $calendar->id; ?>">Edit</a>
                                 <a title="Delete Holiday" onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>calendar/delete_calendar_list/<?php echo $calendar->id?>">Delete</a>
+                                <?php if($calendar->type != "Economic Holiday") : ?><a title="Update Employee Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/update_employee/<?php echo $calendar->id; ?>/<?php echo $calendar->date;?>">Update Employee</a> <?php endif; ?>
                             </div>
                         </div>
                     </td>

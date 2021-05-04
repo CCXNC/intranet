@@ -92,7 +92,6 @@
     <div class="card-header"><h4>
         VIEW HOLIDAY
         <a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
-        <a href="<?php echo base_url(); ?>calendar/add_employee_holiday/<?php echo $calendar->id; ?>" target="_blank" class="btn btn-info float-right" style="margin-right:10px;">ADD</a>
         <!--<input type="submit" style="margin-right:10px;" class="btn btn-info float-right" title="Print Holiday" id="printButton" value="PRINT">-->
     </h4></div>
     <div class="card-body">
