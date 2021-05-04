@@ -19,8 +19,9 @@
                                 <select class="form-control" name="type">
                                     <option value="">Select Type</option>
                                     <option value="Special Working Holiday">Special Working Holiday</option>
-                                    <option value="Special Nonworking Holiday">Special Nonworking Holiday</option>
-                                    <option value="Legal Holiday">Legal Holiday</option>
+                                    <option value="Special Non-working Holiday">Special Non-working Holiday</option>
+                                    <option value="Regular Holiday">Regular Holiday</option>
+                                    <option value="Economic Holiday">Economic Holiday</option>
                                 </select>
                             </div>
                         </div>
