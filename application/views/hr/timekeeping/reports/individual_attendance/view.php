@@ -92,34 +92,63 @@
                                             //echo $explode_time_in_hours . 'HOURS |' . $explode_time_in_mins . 'MINS';
                                             //echo $explode_time_out_hours . 'HOURS |' . $explode_time_out_mins . 'MINS';
 
-                                            //EXPLODE SCHEDULE TIME IN AND TIME OUT
-                                            $explod_sched_time_in = explode(":",$employee->sched_time_in);
-                                            $explod_sched_time_out = explode(":",$employee->sched_time_out);
+                                             //COMPUTATION OF ACTUAL TIME IN AND TIME OUT TO MINUTES
+                                             $time_in_mins = $explode_time_in_hours * 60;
+                                             $total_time_in_mins = $time_in_mins + $explode_time_in_mins;
+ 
+                                             $time_out_mins = $explode_time_out_hours * 60;
+                                             $total_time_out_mins = $time_out_mins + $explode_time_out_mins;
+                                             //echo $total_time_in_mins . '|' . $total_time_out_mins;
 
-                                            $explode_sched_time_in_hours = $explod_sched_time_in[0];
-                                            $explode_sched_time_in_mins = $explod_sched_time_in[1];
 
-                                            $explode_sched_time_out_hours = $explod_sched_time_out[0];
-                                            $explode_sched_time_out_mins = $explod_sched_time_out[1];
-                                            //echo $explode_sched_time_in_hours . 'HOURS |' . $explode_sched_time_in_mins . 'MINS';
-                                            //echo $explode_sched_time_out_hours . 'HOURS |' . $explode_sched_time_out_mins . 'MINS';
+                                            if($employee->emp_sched_date == $employee->temp_date)
+                                            {
+                                                //EXPLODE SCHEDULE TIME IN AND TIME OUT
+                                                $explod_sched_time_in = explode(":",$employee->emp_sched_time_in);
+                                                $explod_sched_time_out = explode(":",$employee->emp_sched_time_out);
 
-                                            //COMPUTATION OF ACTUAL TIME IN AND TIME OUT TO MINUTES
-                                            $time_in_mins = $explode_time_in_hours * 60;
-                                            $total_time_in_mins = $time_in_mins + $explode_time_in_mins;
+                                                $explode_sched_time_in_hours = $explod_sched_time_in[0];
+                                                $explode_sched_time_in_mins = $explod_sched_time_in[1];
 
-                                            $time_out_mins = $explode_time_out_hours * 60;
-                                            $total_time_out_mins = $time_out_mins + $explode_time_out_mins;
-                                            //echo $total_time_in_mins . '|' . $total_time_out_mins;
+                                                $explode_sched_time_out_hours = $explod_sched_time_out[0];
+                                                $explode_sched_time_out_mins = $explod_sched_time_out[1];
+                                                //echo $explode_sched_time_in_hours . 'HOURS |' . $explode_sched_time_in_mins . 'MINS';
+                                                //echo $explode_sched_time_out_hours . 'HOURS |' . $explode_sched_time_out_mins . 'MINS';
 
-                                            //COMPUTATION OF SCHEDULE TIME IN PLUS GRACE PERIOD AND TIME OUT TO MINUTES
-                                            $sched_time_in_mins = $explode_sched_time_in_hours * 60;
-                                            $total_sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins + $employee->grace_period;
-                                            $sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins;
+                                                //COMPUTATION OF SCHEDULE TIME IN PLUS GRACE PERIOD AND TIME OUT TO MINUTES
+                                                $sched_time_in_mins = $explode_sched_time_in_hours * 60;
+                                                $total_sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins + $employee->emp_sched_grace_period;
+                                                $sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins;
 
-                                            $sched_time_out_mins = $explode_sched_time_out_hours * 60;
-                                            $total_sched_time_out_mins = $sched_time_out_mins + $explode_sched_time_out_mins;
-                                            //echo $total_sched_time_in_mins . '|' . $total_sched_time_out_mins;
+                                                $sched_time_out_mins = $explode_sched_time_out_hours * 60;
+                                                $total_sched_time_out_mins = $sched_time_out_mins + $explode_sched_time_out_mins;
+                                                //echo $total_sched_time_in_mins . '|' . $total_sched_time_out_mins;
+                                            }
+                                            else
+                                            {
+                                                
+                                                //EXPLODE SCHEDULE TIME IN AND TIME OUT
+                                                $explod_sched_time_in = explode(":",$employee->sched_time_in);
+                                                $explod_sched_time_out = explode(":",$employee->sched_time_out);
+
+                                                $explode_sched_time_in_hours = $explod_sched_time_in[0];
+                                                $explode_sched_time_in_mins = $explod_sched_time_in[1];
+
+                                                $explode_sched_time_out_hours = $explod_sched_time_out[0];
+                                                $explode_sched_time_out_mins = $explod_sched_time_out[1];
+                                                //echo $explode_sched_time_in_hours . 'HOURS |' . $explode_sched_time_in_mins . 'MINS';
+                                                //echo $explode_sched_time_out_hours . 'HOURS |' . $explode_sched_time_out_mins . 'MINS';
+
+                                                //COMPUTATION OF SCHEDULE TIME IN PLUS GRACE PERIOD AND TIME OUT TO MINUTES
+                                                $sched_time_in_mins = $explode_sched_time_in_hours * 60;
+                                                $total_sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins + $employee->grace_period;
+                                                $sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins;
+
+                                                $sched_time_out_mins = $explode_sched_time_out_hours * 60;
+                                                $total_sched_time_out_mins = $sched_time_out_mins + $explode_sched_time_out_mins;
+                                                //echo $total_sched_time_in_mins . '|' . $total_sched_time_out_mins;
+                                            }
+
 
                                             // UNDERTIME MORNING MINUTES
                                             if($sched_time_in_mins == 420 && $total_sched_time_out_mins == 1020)
@@ -497,7 +526,14 @@
                                             <?php 
                                                 if($employee->date_in != NULL || $employee->date_out != NULL)
                                                 {
-                                                    echo $employee->sched_time_in . '|' . $employee->sched_time_out . '|' . $employee->grace_period; 
+                                                    if($employee->emp_sched_date == $employee->temp_date)
+                                                    {
+                                                        echo $employee->emp_sched_time_in . '|' . $employee->emp_sched_time_out . '|' . $employee->emp_sched_grace_period; 
+                                                    }
+                                                    else
+                                                    {
+                                                        echo $employee->sched_time_in . '|' . $employee->sched_time_out . '|' . $employee->grace_period; 
+                                                    }
                                                 }
                                                 
                                             ?>

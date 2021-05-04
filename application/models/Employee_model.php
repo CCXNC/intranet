@@ -1136,6 +1136,7 @@ class Employee_model extends CI_Model {
 		print_r($data);
 		print_r('</pre>');*/
 
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 		

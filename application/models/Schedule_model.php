@@ -11,7 +11,7 @@ class Schedule_model extends CI_Model {
         $employee_number = $explod_data[0];
         $biometric_id = $explod_data[1];
         $id = $explod_data[2];
-        $days = substr(implode(',', $this->input->post('days')), 0);
+        //$days = substr(implode(',', $this->input->post('days')), 0); | 'days'            => $days,
         $time_in = $this->input->post('time_in');
         $time_out = $this->input->post('time_out');
         $grace_period = $this->input->post('grace_period');
@@ -19,7 +19,6 @@ class Schedule_model extends CI_Model {
         $date = date('Y-m-d H:i:s');
 
         $data = array(
-            'days'            => $days,
             'time_in'         => $time_in,
             'time_out'        => $time_out,
             'grace_period'    => $grace_period,
@@ -44,6 +43,7 @@ class Schedule_model extends CI_Model {
         $this->db->select("
             CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
             schedules.employee_number as employee_number,
+            schedules.biometric_id as biometric_number,
             schedules.id as id,
             schedules.days as days,
             schedules.time_in as time_in,
@@ -52,7 +52,7 @@ class Schedule_model extends CI_Model {
             schedules.effective_date as effective_date
         ");
         $this->db->from('blaine_timekeeping.schedules');
-        $this->db->where('blaine_timekeeping.schedules.is_schedule', 1);
+        $this->db->where('blaine_intranet.employees.is_active', 1);
         $this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_timekeeping.schedules.employee_number', 'left');
         $query = $this->db->get();
        
@@ -84,7 +84,7 @@ class Schedule_model extends CI_Model {
 
     public function update_employee_schedule($id)
     {
-        $days = substr(implode(',', $this->input->post('days')), 0);
+        //$days = substr(implode(',', $this->input->post('days')), 0); |   'days'            => $days,
         $time_in = $this->input->post('time_in');
         $time_out = $this->input->post('time_out');
         $grace_period = $this->input->post('grace_period');
@@ -92,7 +92,6 @@ class Schedule_model extends CI_Model {
         $date = date('Y-m-d H:i:s');
 
         $data = array(
-            'days'            => $days,
             'time_in'         => $time_in,
             'time_out'        => $time_out,
             'grace_period'    => $grace_period,
@@ -123,6 +122,7 @@ class Schedule_model extends CI_Model {
         ");
         $this->db->from('blaine_timekeeping.schedules');
         $this->db->where('blaine_timekeeping.schedules.is_schedule', 0);
+        $this->db->where('blaine_intranet.employees.is_active', 1);
         $this->db->order_by('blaine_intranet.employees.last_name', 'ASC');
         $this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_timekeeping.schedules.employee_number', 'left');
         $query = $this->db->get();
@@ -224,5 +224,67 @@ class Schedule_model extends CI_Model {
         return $trans;
     }
 
+    public function add_employee_schedules($employee_number)
+    {
+        $this->db->trans_start();
+
+        $employee_number = $this->input->post('employee_number');
+        $biometric_number = $this->input->post('biometric_number');
+        $time_in = $this->input->post('time_in');
+        $time_out = $this->input->post('time_out');
+        $grace_period = $this->input->post('grace_period');
+        $start_date = $this->input->post('start_date');
+		$end_date = $this->input->post('end_date');
+
+		$datediff = (strtotime($end_date) - strtotime($start_date));
+		$num_dates = floor($datediff / (60 * 60 * 24));
+		$num_dates = $num_dates + 1;
+
+		$data = array(
+			'total_days'  => $num_dates
+		);
+
+		$cur_date = $start_date;
+
+		for($k = 1; $k <= $num_dates; $k++)
+		{	
+            $w_date = date('w', strtotime($cur_date));
+
+            if($w_date != 6 && $w_date != 0)
+            {
+                $data = array( 
+                    'employee_number' => $employee_number,
+                    'biometric_id'    => $biometric_number,
+                    'date'            => $cur_date,
+                    'time_in'         => $time_in,
+                    'time_out'        => $time_out,
+                    'grace_period'    => $grace_period,
+                    'created_by'      => $this->session->userdata('username'),
+                    'created_date'    => date('Y-m-d H:i:s')
+                );
+                
+                $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
+                $blaine_timekeeping->insert('employee_schedules', $data);
+                /*print_r('<pre>');
+                print_r($data);
+                print_r('</pre>');*/
+            }
+			
+
+			$conv_date = strtotime($start_date);
+			$cur_date = date('Y-m-d', strtotime('+' . $k .' days', $conv_date));
+		}	
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+    }
+
+    public function get_employee_schedules($employee_number)
+    {
+        $this->db->where('blaine_schedules.employee_schedules.employee_number', $employee_number);
+        $query = $this->db->get('blaine_schedules.employee_schedules');
+        
+        return $query->result();
+    }
 
 }    

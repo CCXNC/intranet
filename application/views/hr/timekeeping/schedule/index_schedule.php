@@ -5,7 +5,9 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
 <div class="card">
-    <div class="card-header" style=""><h4><?php echo $this->session->userdata('fullname'); ?></h4> 
+    <div class="card-header" style=""><h4><?php echo $employee_schedule->fullname; ?>
+    <a href="<?php echo base_url(); ?>schedule/index" class="btn btn-dark float-right" title="Add Employee Schedule" style="border:1px solid #ccc; margin-right:10px;color:white;">BACK</a>
+    </h4> 
     </div>
     <div class="card-body" >
         <div class="card">
@@ -88,15 +90,15 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="">START DATE</label>
-                            <input type="date" class="form-control" name="attachment1" required><br>
+                            <input type="date" class="form-control" name="start_date" required><br>
                             <label for="">END DATE</label>
-                            <input type="date" class="form-control" name="attachment1" required><br>
+                            <input type="date" class="form-control" name="end_date" required><br>
                             <label for="">TIME IN</label>
-                            <input type="time" class="form-control" name="attachment1" required><br>
+                            <input type="time" class="form-control" name="time_in" required><br>
                             <label for="">TIME OUT</label>
-                            <input type="time" class="form-control" name="attachment1" required><br>
+                            <input type="time" class="form-control" name="time_out" required><br>
                             <label for="">GRACE PERIOD</label>
-                            <input type="text" class="form-control" name="attachment1" required><br>
+                            <input type="text" class="form-control" name="grace_period" required><br>
                         </div>
                     </div>
                 </div>

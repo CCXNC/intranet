@@ -10,7 +10,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card" style="width: 50rem;"> 
-    <div class="card-header"><h4>EDIT EMPLOYEE SCHEDULE<a href="<?php echo base_url(); ?>schedule/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color:#0C2D48; border:#0C2D48; color:white;"><h4>EDIT EMPLOYEE SCHEDULE<a href="<?php echo base_url(); ?>schedule/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div> 
         <form method="post" action="<?php echo base_url(); ?>schedule/edit_schedule/<?php echo $schedule->id; ?>" enctype="multipart/form-data"> 
@@ -18,7 +18,7 @@
                 <label class="form-check-label"><p>EMPLOYEE NAME</p></label><br>
                 <input type="text" class="form-control col-md-6" readonly value="<?php echo $schedule->fullname; ?>">
             </div>
-            <?php 
+            <!--<?php 
                 $week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]; 
                 $count_week = count($week);
                 $days = explode(',',$schedule->days);
@@ -35,7 +35,7 @@
                     <?php for($a=0; $count_data > $a; $a++) : ?><?php echo $week[$i] == $days[$a] ? 'checked' : ' '; ?><?php endfor; ?>>
                     <label for="vehicle3">&nbsp;<?php echo $week[$i]; ?>&nbsp;</label>
                 <?php endfor; ?>    
-            </div>
+            </div>-->
             <div class="form-group">
                 <label class="form-check-label"><p>TIME IN</p></label>
                 <div class="form-group">

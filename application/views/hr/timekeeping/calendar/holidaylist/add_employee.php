@@ -10,15 +10,17 @@
                     <input type="text" name="type" hidden value="<?php echo $calendar->type; ?>">
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="checkbox" id="checkAll" name="">
-                            <label for="">CHECK ALL</label>
+                            <div class="form-control">
+                                <input type="checkbox" id="checkAll" name="">
+                                <label for="">CHECK ALL</label>
+                            </div>
                         </div>   
                     </div>    
                     <div class="row">
                         <?php if($employees) : ?>
                             <?php foreach($employees as $employee) : ?>
-                                <div class="col-md-3">
-                                    <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="form-control">
                                         <input type="checkbox" name="employee[]" value="<?php echo $employee->emp_no; ?>">
                                         <?php echo $employee->fullname; ?><br>
                                     </div>

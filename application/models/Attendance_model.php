@@ -500,7 +500,11 @@ class Attendance_model extends CI_Model
 			employee_holiday.employee_number as holiday_employee_number,
 			employee_holiday.date as holiday_date,
 			employee_holiday.type as holiday_type,
-			employee_holiday.created_by as holiday_created_by
+			employee_holiday.created_by as holiday_created_by,
+			employee_schedules.time_in as emp_sched_time_in,
+			employee_schedules.time_out as emp_sched_time_out,
+			employee_schedules.date as emp_sched_date,
+			employee_schedules.grace_period as emp_sched_grace_period
 		");
 		$this->db->from('blaine_timekeeping.individual_temp_date');
 		$this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
@@ -512,6 +516,7 @@ class Attendance_model extends CI_Model
 		$this->db->join('blaine_timekeeping.undertime','blaine_timekeeping.undertime.date_ut = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.undertime.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.undertime.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.schedules', 'blaine_timekeeping.schedules.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_schedules.employee_holiday', 'blaine_timekeeping.individual_temp_date.date = blaine_schedules.employee_holiday.date AND blaine_timekeeping.individual_temp_date.employee_number = blaine_schedules.employee_holiday.employee_number','left');
+		$this->db->join('blaine_schedules.employee_schedules', 'blaine_schedules.employee_schedules.date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.individual_temp_date.employee_number = blaine_schedules.employee_schedules.employee_number', 'left');
 		$this->db->order_by('blaine_timekeeping.individual_temp_date.date','ASC');
 		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
 		$query = $this->db->get();
