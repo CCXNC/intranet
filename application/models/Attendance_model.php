@@ -215,7 +215,7 @@ class Attendance_model extends CI_Model
 			$conv_date = strtotime($start_date);
 			$cur_date = date('Y-m-d', strtotime('+' . $k .' days', $conv_date));
 		}	
-
+ 
 		$trans = $this->db->trans_complete();
 
 		return $trans;
@@ -400,12 +400,32 @@ class Attendance_model extends CI_Model
 		$employee_number = $this->input->post('employee_number');
 		$biometric_id = $this->input->post('biometric_id');
 		$date = $this->input->post('date');
+
+		// ADD
 		$time_in = $this->input->post('time_in');
 		$time_out = $this->input->post('time_out');
 		$process =  $this->input->post('process');
 		$no_time_out = $this->input->post('no_time_out');
-	
-		if($process != 1)
+		$attendance = $this->input->post('attendance');
+
+		// EDIT
+		$edit_no_time_in = $this->input->post('edit_no_time_in');
+		$edit_time_in = $this->input->post('edit_time_in');
+		$edit_no_time_out = $this->input->post('edit_no_time_out');
+		$edit_time_out = $this->input->post('edit_time_out');
+		$edit_remarks = $this->input->post('edit_remarks');
+
+		// DELETE 
+		$delete_no_time_in = $this->input->post('delete_no_time_in');
+		$delete_time_in = $this->input->post('delete_time_in');
+		$delete_no_time_out = $this->input->post('delete_no_time_out');
+		$delete_time_out = $this->input->post('delete_time_out');
+		$delete_remarks = $this->input->post('delete_remarks');
+
+		if($attendance == 1)
+		{
+			
+			if($process != 1)
 			{
 				$data_in = array(
 					'biometric_id'    => $biometric_id,
@@ -454,6 +474,193 @@ class Attendance_model extends CI_Model
 					blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
 				");*/
 			}
+		}
+		elseif($attendance == 2)
+		{
+			if($edit_no_time_in == 1)
+			{
+				// GET RECENT DATA
+				$this->db->select('*');
+				$this->db->where('blaine_timekeeping.attendance_in.employee_number', $employee_number);
+				$this->db->where('blaine_timekeeping.attendance_in.date', $date);
+				$datas = $this->db->get('blaine_timekeeping.attendance_in');
+
+				$emp_employee_number = $datas->row()->$employee_number;
+				$emp_date = $datas->row()->date;
+				$emp_time = $datas->row()->time;
+				$emp_status = $datas->row->status;
+				$emp_generate = $datas->row()->generate;
+
+				$entry_data = array(
+					'employee_number' => $employee_number,
+					'date'            => $emp_date,
+					'time'            => $emp_time,
+					'status'          => 'IN',
+					'generate'        => $emp_generate,
+					'remarks'         => $edit_remarks
+				);
+
+				$json_data = json_encode($entry_data);
+
+				$data = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Updated: " . ' Employee Number: ' . $employee_number ,
+					'datas'		=> "Previous Data: " . $json_data,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> 'MANUAL ATTENDANCE',
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				// CALL ACTIVITY LOGS DATABASE
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data);
+
+
+				$update_data = array(
+					'time'           => $edit_time_in,
+					'generate'       => 'MANUAL',
+					'generated_by'   => $this->session->userdata('username'),
+					'generated_date' => date('Y-m-d H:i:s')
+				);
+
+				// UPDATE TIME IN 
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->where('attendance_in.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_in.date', $date);
+				$blaine_timekeeping->update('attendance_in', $update_data);
+				
+			}
+
+			if($edit_no_time_out == 1)
+			{
+
+				// GET RECENT DATA
+				$this->db->select('*');
+				$this->db->where('blaine_timekeeping.attendance_out.employee_number', $employee_number);
+				$this->db->where('blaine_timekeeping.attendance_out.date', $date);
+				$datas = $this->db->get('blaine_timekeeping.attendance_out');
+
+				$emp_employee_number = $datas->row()->$employee_number;
+				$emp_date = $datas->row()->date;
+				$emp_time = $datas->row()->time;
+				$emp_status = $datas->row->status;
+				$emp_generate = $datas->row()->generate;
+
+				$entry_data = array(
+					'employee_number' => $employee_number,
+					'date'            => $emp_date,
+					'time'            => $emp_time,
+					'status'          => 'OUT',
+					'generate'        => $emp_generate,
+					'remarks'         => $edit_remarks
+				);
+
+				$json_data = json_encode($entry_data);
+
+				$data = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Updated: " . ' Employee Number: ' . $employee_number ,
+					'datas'		=> "Previous Data: " . $json_data,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> 'MANUAL ATTENDANCE',
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				// CALL ACTIVITY LOGS DATABASE
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data);
+
+
+				$update_data = array(
+					'time'           => $edit_time_out,
+					'generate'       => 'MANUAL',
+					'generated_by'   => $this->session->userdata('username'),
+					'generated_date' => date('Y-m-d H:i:s')
+				);
+
+				// UPDATE TIME IN 
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->where('attendance_out.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_out.date', $date);
+				$blaine_timekeeping->update('attendance_out', $update_data);
+			}
+		}
+		elseif($attendance == 3)
+		{
+			if($delete_no_time_in == 1)
+			{
+				$entry_data = array(
+					'biometric_id'    => $biometric_id,
+					'employee_number' => $employee_number,
+					'date'            => $date,
+					'time'            => $delete_time_in,
+					'status'          => 'IN',
+					'remarks'         => $delete_remarks
+				);
+
+				$json_data = json_encode($entry_data);
+
+				$data = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Deleted: " . ' Employee Number: ' . $employee_number ,
+					'datas'		=> "Deleted Data: " . $json_data,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> 'MANUAL ATTENDANCE',
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				// CALL ACTIVITY LOGS DATABASE
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data);
+				
+				// DELETE TIME IN 
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->where('attendance_in.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_in.date', $date);
+				$blaine_timekeeping->delete('attendance_in');
+
+			}
+
+			if($delete_no_time_out == 1)
+			{
+
+				$entry_data = array(
+					'biometric_id'    => $biometric_id,
+					'employee_number' => $employee_number,
+					'date'            => $date,
+					'time'            => $delete_time_out,
+					'status'          => 'OUT',
+					'remarks'         => $delete_remarks
+				);
+
+				$json_data = json_encode($entry_data);
+
+				$data = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Deleted: " . ' Employee Number: ' . $employee_number ,
+					'datas'		=> "Deleted Data: " . $json_data,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> 'MANUAL ATTENDANCE',
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				// CALL ACTIVITY LOGS DATABASE
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data);
+				
+				// DELETE TIME IN 
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->where('attendance_in.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_in.date', $date);
+				$blaine_timekeeping->delete('attendance_in');
+
+				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+				$blaine_timekeeping->where('attendance_out.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_out.date', $date);
+				$blaine_timekeeping->delete('attendance_out');
+			}
+		}
+	
 
 		$trans = $this->db->trans_complete();
 		return $trans;

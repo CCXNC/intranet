@@ -776,7 +776,7 @@
                             <h5 class="modal-title" id="exampleModalLongTitle">MANUAL ATTENDANCE FORM</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                            </button>
+                            </button> 
                         </div>
                         <div class="modal-body"> 
                             <form method="post" action="<?php echo base_url(); ?>attendance/add_individual_manual_attendance" enctype="multipart/form-data">
@@ -818,10 +818,10 @@
                                                 <div class="delete">
                                                 
                                                     <input type="checkbox" class="deleteCheckIn" name="delete_no_time_in" value="1">&nbsp;<label for="">TIME IN</label>
-                                                    <input  type="time" class="deleteTimeIn form-control"  name="delete_time_in" value="<?php echo $employee->time_in; ?>"><br>
+                                                    <input  type="time" class="deleteTimeIn form-control" readonly  name="delete_time_in" value="<?php echo $employee->time_in; ?>"><br>
 
                                                     <input type="checkbox" class="deleteCheckOut" name="delete_no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
-                                                    <input type="time" class="deleteTimeOut form-control" name="delete_time_out" value="<?php echo $employee->time_out; ?>"><br>
+                                                    <input type="time" class="deleteTimeOut form-control" readonly name="delete_time_out" value="<?php echo $employee->time_out; ?>"><br>
 
                                                     <textarea class="form-control" name="delete_remarks" id="" cols="30" rows="4" placeholder="REMARKS DELETE"></textarea>
                                                 </div>
@@ -831,7 +831,15 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" title="Close Manual Attendance Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" title="Submit Manual Attendance Form" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
+                                    <div class="add">
+                                        <button type="submit" title="Submit Manual Attendance Form" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
+                                    </div>
+                                    <div class="edit">
+                                        <button type="submit" title="Update Manual Attendance Form" onclick="return confirm('Do you want to update data?');" class="btn btn-info">Update</button>
+                                    </div>
+                                    <div class="delete">
+                                        <button type="submit" title="Delete Manual Attendance Form" onclick="return confirm('Do you want to delete data?');" class="btn btn-danger">Delete</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

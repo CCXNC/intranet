@@ -227,7 +227,7 @@
 			'date'			=> date('Y-m-d H:i:s')
 		);
 
-		// CALL ACTIVITY LOGS DATABASE
+		// CALL ACTIVITY LOGS DATABASE 
 		$activity_log = $this->load->database('activity_logs', TRUE);
 		$activity_log->insert('blaine_logs', $data);
 

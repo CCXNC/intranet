@@ -79,12 +79,28 @@ class Attendance extends CI_Controller {
 
 	public function add_individual_manual_attendance()
 	{
+		$attendance = $this->input->post('attendance');
 		if($this->attendance_model->add_individual_manual_attendance())
 		{
-			$this->session->set_flashdata('success_msg', 'Manual Attendance Successfully Added!');
-			redirect('attendance/view_individual_attendance');
+			if($attendance == 1)
+			{
+				$this->session->set_flashdata('success_msg', 'Manual Attendance Successfully Added!');
+				redirect('attendance/view_individual_attendance');
+			}
+			elseif($attendance == 2)
+			{
+				$this->session->set_flashdata('success_msg', 'Attendance Successfully Updated!');
+				redirect('attendance/view_individual_attendance');
+			}
+			elseif($attendance == 3)
+			{
+				$this->session->set_flashdata('error_msg', 'Attendance Successfully Deleted!');
+				redirect('attendance/view_individual_attendance');
+			}
+		
 		}
 	}
+	
 
 	public function index_individual_attendance()
     {
