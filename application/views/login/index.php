@@ -172,38 +172,6 @@
                         <section>
                             <div class="container">
                             
-                                    <!--<?php if($announcement) : ?>
-                                        <?php foreach($announcement as $announcement) : ?>
-                                            <div class="card">
-                                                <div class="card-header" style="background-color: #003153; color: white">
-                                                    <?php echo $announcement->title;  ?>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <center>
-                                                            <h1><img class="d-block w-100" src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" alt="First slide"></h1>
-                                                            </center>
-                                                        </div>
-                                                        <div id="myModal" class="modal">
-                                                            <span class="close">&times;</span>
-                                                            <img class="modal-content" id="img01">
-                                                            <div id="caption"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <p class="announcement">
-                                                                <?php echo word_limiter($announcement->content,100); ?></a>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            <br>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>-->
                                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                         <div class="carousel-inner">
                                             <?php $active = true; ?>
