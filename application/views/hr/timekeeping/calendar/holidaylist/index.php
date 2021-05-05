@@ -7,7 +7,7 @@
 <div class="card-header" style="background-color: #478C5C; border: #478C5C; color: white">
     <h4>CALENDAR OF HOLIDAYS
         <a href="<?php echo base_url(); ?>calendar/add_calendar_list" title="Add Holiday" class="btn btn-dark float-right" >ADD</a>
-        <a href="<?php echo base_url(); ?>calendar/holiday_calendar" title="View Holiday Calendar" class="btn btn-dark float-right" style="margin-right:10px;">CALENDAR</a>
+        <!--<a href="<?php echo base_url(); ?>calendar/holiday_calendar" title="View Holiday Calendar" class="btn btn-dark float-right" style="margin-right:10px;">CALENDAR</a>-->
     </h4> 
 </div>
 <br>
@@ -15,7 +15,6 @@
     <thead>
         <tr style="">
             <th scope="col">Date</th>
-           <!-- <th scope="col">End Date</th>-->
             <th scope="col">Type</th>
             <th scope="col">Description</th>
             <th scope="col">Action</th>
@@ -25,8 +24,7 @@
         <?php if($calendars) : ?> 
             <?php foreach($calendars as $calendar) : ?>
                 <tr>
-                    <td data-label="Start Date"><?php echo date('F j, Y', strtotime($calendar->start));  ?></td>
-                    <!--<td data-label="End Date"><?php echo $calendar->end;  ?></td>-->
+                    <td data-label="Start Date"><?php echo $calendar->date;  ?></td>
                     <td data-label="Type"><?php echo $calendar->type; ?></td>
                     <td data-label="Description"><?php echo word_limiter($calendar->description, 10); ?></td>
                     <td data-label="Action">
@@ -35,9 +33,11 @@
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a title="View Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/view_calendar_list/<?php echo $calendar->id; ?>"> View</a>
-                                <a title="Edit Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/edit_calendar_list/<?php echo $calendar->id?>">Edit</a>
+                                <!--<a title="View Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/add_employee_holiday/<?php echo $calendar->id; ?>"> Add Employee</a>-->
+                                <a title="View Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/view_calendar_list/<?php echo $calendar->date; ?>"> View</a>
+                                <a title="Edit Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/edit_calendar_list/<?php echo $calendar->id; ?>">Edit</a>
                                 <a title="Delete Holiday" onclick="return confirm('Are you sure you want to delete data?');" class="dropdown-item" href="<?php echo base_url(); ?>calendar/delete_calendar_list/<?php echo $calendar->id?>">Delete</a>
+                                <?php if($calendar->type != "Economic Holiday") : ?><a title="Update Employee Holiday" class="dropdown-item" href="<?php echo base_url(); ?>calendar/update_employee/<?php echo $calendar->id; ?>/<?php echo $calendar->date;?>">Update Employee</a> <?php endif; ?>
                             </div>
                         </div>
                     </td>
@@ -56,7 +56,7 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-            "scrollX": true,
+            //"scrollX": true,
             dom: 'Blfrtip',
             buttons: [
                 {

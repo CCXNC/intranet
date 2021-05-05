@@ -10,7 +10,7 @@
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
 <div class="card" style="width: 50rem;"> 
-    <div class="card-header" style="background-color: #0C2D48; border: #0C2D48; color: white"><h4>ADD EMPLOYEE SCHEDULE<a href="<?php echo base_url(); ?>schedule/index" id="back" title="Go Back" class="btn btn-dark float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color:#0C2D48; border:#0C2D48; color:white;"><h4>ADD EMPLOYEE DEFAULT SCHEDULE<a href="<?php echo base_url(); ?>schedule/index" id="back" title="Go Back" class="btn btn-dark float-right"style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <form method="post" action="<?php echo base_url(); ?>schedule/add_schedule" enctype="multipart/form-data">           
             <div class="form-group">
@@ -22,22 +22,8 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </select>
-
-                <!--<select name="employee_number" class="form-control col-md-6">
-                    <?php if($employees) : ?>
-                        <?php foreach($employees as $employee) : ?>
-                            <?php if($schedules) : ?>
-                                <?php foreach($schedules as $schedule) : ?>
-                                    <?php if($employee->emp_no == $schedule->employee_number) : ?>
-                                        <option value="<?php echo $employee->emp_no . '|' . $employee->biometric_id; ?>"><?php echo $employee->fullname; ?></option>
-                                    <?php endif; ?>    
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>-->
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <input type="checkbox" id="checkAll" name="">                      
                 <label class="form-check-label"><p>5 DAYS</p></label><br>
                 <input type="checkbox" class="check"  name="days[]" value="Monday">
@@ -54,7 +40,7 @@
                 <label for="vehicle2">&nbsp;SATURDAY&nbsp;</label>
                 <input type="checkbox" name="days[]" value="Sunday">
                 <label for="vehicle2">&nbsp;SUNDAY&nbsp;</label>
-            </div>
+            </div>-->
             <div class="form-group">
                 <label class="form-check-label"><p>TIME IN</p></label>
                 <div class="form-group">

@@ -10,11 +10,11 @@
     <div class="row">
         &nbsp;&nbsp;&nbsp;<div class="form-group">
             <label for="">START DATE</label>
-            <input type="date" class="form-control" name="start_date" value="<?php echo $start_date; ?>">
+            <input type="date" class="form-control" min="2018-12-31" max="2030-12-31" name="start_date" value="<?php echo $start_date; ?>">
         </div> &nbsp;
         <div class="form-group">
             <label for="">END DATE</label>
-            <input type="date" class="form-control" name="end_date" value="<?php echo $end_date; ?>">
+            <input type="date" class="form-control" min="2018-12-31" max="2030-12-31" name="end_date" value="<?php echo $end_date; ?>">
         </div> &nbsp;
         <div class="form-group">
             <label for="">&nbsp;</label>

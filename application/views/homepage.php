@@ -117,7 +117,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <center>
-                                    <h1><img id="myImg" src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" alt="" style="width:100%;max-width:300px"></h1>
+                                    <h1><img id="myImg" src="<?php echo base_url(); ?>uploads/announcement/<?php echo $announcement->image; ?>" alt="" style="width:70%;"></h1>
                                     </center>
                                 </div>
                                 <div id="myModal" class="modal">

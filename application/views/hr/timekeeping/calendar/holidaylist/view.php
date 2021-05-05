@@ -89,7 +89,11 @@
 
 </style>
 <div class="card">
-    <div class="card-header"><h4>VIEW HOLIDAY<a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" title="Print Holiday" id="printButton" value="PRINT"></h4></div>
+    <div class="card-header"><h4>
+        VIEW HOLIDAY
+        <a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
+        <!--<input type="submit" style="margin-right:10px;" class="btn btn-info float-right" title="Print Holiday" id="printButton" value="PRINT">-->
+    </h4></div>
     <div class="card-body">
         <div class="card">
             <div class="card-header">Holiday Information</div>
@@ -98,23 +102,36 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Date</label>
-                            <input class="form-control" name="start" value="<?php echo $calendar->start; ?>" readonly></input>
+                            <input class="form-control" name="start" value="<?php echo $calendar->date; ?>" readonly></input>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Type</label>
                             <input class="form-control" name="type" value="<?php echo $calendar->type; ?>" readonly></input>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>Description</label>
                             <input class="form-control" name="description" value="<?php echo $calendar->description; ?>" readonly></input>
                         </div>
                     </div>
+                </div>
+                <br>
+                <div class="card-header" style="background-color:#D4F1F4;">Employee Holiday List</div>
+                <div class="card-body">
+                    <div class="row">
+                        <?php if($employees_holiday) : ?>
+                            <?php foreach($employees_holiday as $employee_holiday) : ?>
+                                <div class="col-md-3">
+                                    <div class="form-control"><?php echo $employee_holiday->fullname; ?></div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>    
                 </div>
             </div>
         </div>
@@ -122,6 +139,7 @@
 </div>    
 <script>
     $(document).ready(function(){
+        
         $('#printButton').click(function() {
             $('#menuTab').css('display', 'none');
             $('#show-sidebar').hide();

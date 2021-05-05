@@ -92,34 +92,63 @@
                                             //echo $explode_time_in_hours . 'HOURS |' . $explode_time_in_mins . 'MINS';
                                             //echo $explode_time_out_hours . 'HOURS |' . $explode_time_out_mins . 'MINS';
 
-                                            //EXPLODE SCHEDULE TIME IN AND TIME OUT
-                                            $explod_sched_time_in = explode(":",$employee->sched_time_in);
-                                            $explod_sched_time_out = explode(":",$employee->sched_time_out);
+                                             //COMPUTATION OF ACTUAL TIME IN AND TIME OUT TO MINUTES
+                                             $time_in_mins = $explode_time_in_hours * 60;
+                                             $total_time_in_mins = $time_in_mins + $explode_time_in_mins;
+ 
+                                             $time_out_mins = $explode_time_out_hours * 60;
+                                             $total_time_out_mins = $time_out_mins + $explode_time_out_mins;
+                                             //echo $total_time_in_mins . '|' . $total_time_out_mins;
 
-                                            $explode_sched_time_in_hours = $explod_sched_time_in[0];
-                                            $explode_sched_time_in_mins = $explod_sched_time_in[1];
 
-                                            $explode_sched_time_out_hours = $explod_sched_time_out[0];
-                                            $explode_sched_time_out_mins = $explod_sched_time_out[1];
-                                            //echo $explode_sched_time_in_hours . 'HOURS |' . $explode_sched_time_in_mins . 'MINS';
-                                            //echo $explode_sched_time_out_hours . 'HOURS |' . $explode_sched_time_out_mins . 'MINS';
+                                            if($employee->emp_sched_date == $employee->temp_date)
+                                            {
+                                                //EXPLODE SCHEDULE TIME IN AND TIME OUT
+                                                $explod_sched_time_in = explode(":",$employee->emp_sched_time_in);
+                                                $explod_sched_time_out = explode(":",$employee->emp_sched_time_out);
 
-                                            //COMPUTATION OF ACTUAL TIME IN AND TIME OUT TO MINUTES
-                                            $time_in_mins = $explode_time_in_hours * 60;
-                                            $total_time_in_mins = $time_in_mins + $explode_time_in_mins;
+                                                $explode_sched_time_in_hours = $explod_sched_time_in[0];
+                                                $explode_sched_time_in_mins = $explod_sched_time_in[1];
 
-                                            $time_out_mins = $explode_time_out_hours * 60;
-                                            $total_time_out_mins = $time_out_mins + $explode_time_out_mins;
-                                            //echo $total_time_in_mins . '|' . $total_time_out_mins;
+                                                $explode_sched_time_out_hours = $explod_sched_time_out[0];
+                                                $explode_sched_time_out_mins = $explod_sched_time_out[1];
+                                                //echo $explode_sched_time_in_hours . 'HOURS |' . $explode_sched_time_in_mins . 'MINS';
+                                                //echo $explode_sched_time_out_hours . 'HOURS |' . $explode_sched_time_out_mins . 'MINS';
 
-                                            //COMPUTATION OF SCHEDULE TIME IN PLUS GRACE PERIOD AND TIME OUT TO MINUTES
-                                            $sched_time_in_mins = $explode_sched_time_in_hours * 60;
-                                            $total_sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins + $employee->grace_period;
-                                            $sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins;
+                                                //COMPUTATION OF SCHEDULE TIME IN PLUS GRACE PERIOD AND TIME OUT TO MINUTES
+                                                $sched_time_in_mins = $explode_sched_time_in_hours * 60;
+                                                $total_sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins + $employee->emp_sched_grace_period;
+                                                $sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins;
 
-                                            $sched_time_out_mins = $explode_sched_time_out_hours * 60;
-                                            $total_sched_time_out_mins = $sched_time_out_mins + $explode_sched_time_out_mins;
-                                            //echo $total_sched_time_in_mins . '|' . $total_sched_time_out_mins;
+                                                $sched_time_out_mins = $explode_sched_time_out_hours * 60;
+                                                $total_sched_time_out_mins = $sched_time_out_mins + $explode_sched_time_out_mins;
+                                                //echo $total_sched_time_in_mins . '|' . $total_sched_time_out_mins;
+                                            }
+                                            else
+                                            {
+                                                
+                                                //EXPLODE SCHEDULE TIME IN AND TIME OUT
+                                                $explod_sched_time_in = explode(":",$employee->sched_time_in);
+                                                $explod_sched_time_out = explode(":",$employee->sched_time_out);
+
+                                                $explode_sched_time_in_hours = $explod_sched_time_in[0];
+                                                $explode_sched_time_in_mins = $explod_sched_time_in[1];
+
+                                                $explode_sched_time_out_hours = $explod_sched_time_out[0];
+                                                $explode_sched_time_out_mins = $explod_sched_time_out[1];
+                                                //echo $explode_sched_time_in_hours . 'HOURS |' . $explode_sched_time_in_mins . 'MINS';
+                                                //echo $explode_sched_time_out_hours . 'HOURS |' . $explode_sched_time_out_mins . 'MINS';
+
+                                                //COMPUTATION OF SCHEDULE TIME IN PLUS GRACE PERIOD AND TIME OUT TO MINUTES
+                                                $sched_time_in_mins = $explode_sched_time_in_hours * 60;
+                                                $total_sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins + $employee->grace_period;
+                                                $sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins;
+
+                                                $sched_time_out_mins = $explode_sched_time_out_hours * 60;
+                                                $total_sched_time_out_mins = $sched_time_out_mins + $explode_sched_time_out_mins;
+                                                //echo $total_sched_time_in_mins . '|' . $total_sched_time_out_mins;
+                                            }
+
 
                                             // UNDERTIME MORNING MINUTES
                                             if($sched_time_in_mins == 420 && $total_sched_time_out_mins == 1020)
@@ -202,6 +231,10 @@
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
                                                     }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#9f5f80;color:white;"></p>';
+                                                    }
                                                     elseif($days_temp_date == '6' || $days_temp_date == '0') 
                                                     {
                                                     }
@@ -263,6 +296,10 @@
                                                         } else {
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
+                                                    }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#9f5f80;color:white;"></p>';
                                                     }
                                                     elseif($days_temp_date == '6' || $days_temp_date == '0') 
                                                     {
@@ -489,7 +526,14 @@
                                             <?php 
                                                 if($employee->date_in != NULL || $employee->date_out != NULL)
                                                 {
-                                                    echo $employee->sched_time_in . '|' . $employee->sched_time_out . '|' . $employee->grace_period; 
+                                                    if($employee->emp_sched_date == $employee->temp_date)
+                                                    {
+                                                        echo $employee->emp_sched_time_in . '|' . $employee->emp_sched_time_out . '|' . $employee->emp_sched_grace_period; 
+                                                    }
+                                                    else
+                                                    {
+                                                        echo $employee->sched_time_in . '|' . $employee->sched_time_out . '|' . $employee->grace_period; 
+                                                    }
                                                 }
                                                 
                                             ?>
@@ -519,9 +563,14 @@
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
                                                     }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '<p class="" style="text-align:center;padding:17px;background-color:#9f5f80;color:white;"></p>';
+                                                    }
                                                     elseif($days_temp_date == '6' || $days_temp_date == '0') 
                                                     {
                                                     }
+                                                    
                                                     else
                                                     {
                                                         echo  '<p class="" style="width:50%; text-align:center;padding:5px;background-color:#e3342f;color:white;">N/A</p>'; 
@@ -579,6 +628,10 @@
                                                 <?php
                                                     echo '<p class="" style="text-align:center;padding:5px;background-color:#067593;color:white;">'. 'UNDERTIME' .'</p>';
                                                 ?>
+                                            <?php elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date): ?>   
+                                                <?php
+                                                    echo '<p class="" style="text-align:center;padding:5px;background-color:#9f5f80;color:white;">'. $employee->holiday_type .'</p>';
+                                                ?>
                                             <?php endif; ?>    
                                         </td>
                                         <!-- ACTION -->
@@ -588,7 +641,9 @@
                                             <?php elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave): ?>
                                                 <?php echo strtoupper($employee->leave_process_by); ?>   
                                             <?php elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut): ?>   
-                                                <?php echo strtoupper($employee->ut_process_by); ?>      
+                                                <?php echo strtoupper($employee->ut_process_by); ?>  
+                                            <?php elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date): ?>         
+                                                <?php echo strtoupper($employee->holiday_created_by); ?>  
                                             <?php else: ?> 
                                                 <button title="Add Manual Attendance" type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
                                                     View
@@ -723,7 +778,7 @@
                             <h5 class="modal-title" id="exampleModalLongTitle">MANUAL ATTENDANCE FORM</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                            </button>
+                            </button> 
                         </div>
                         <div class="modal-body"> 
                             <form method="post" action="<?php echo base_url(); ?>attendance/add_individual_manual_attendance" enctype="multipart/form-data">
@@ -765,10 +820,10 @@
                                                 <div class="delete">
                                                 
                                                     <input type="checkbox" class="deleteCheckIn" name="delete_no_time_in" value="1">&nbsp;<label for="">TIME IN</label>
-                                                    <input  type="time" class="deleteTimeIn form-control"  name="delete_time_in" value="<?php echo $employee->time_in; ?>"><br>
+                                                    <input  type="time" class="deleteTimeIn form-control" readonly  name="delete_time_in" value="<?php echo $employee->time_in; ?>"><br>
 
                                                     <input type="checkbox" class="deleteCheckOut" name="delete_no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
-                                                    <input type="time" class="deleteTimeOut form-control" name="delete_time_out" value="<?php echo $employee->time_out; ?>"><br>
+                                                    <input type="time" class="deleteTimeOut form-control" readonly name="delete_time_out" value="<?php echo $employee->time_out; ?>"><br>
 
                                                     <textarea class="form-control" name="delete_remarks" id="" cols="30" rows="4" placeholder="REMARKS DELETE"></textarea>
                                                 </div>
@@ -778,7 +833,15 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" title="Close Manual Attendance Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" title="Submit Manual Attendance Form" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
+                                    <div class="add">
+                                        <button type="submit" title="Submit Manual Attendance Form" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
+                                    </div>
+                                    <div class="edit">
+                                        <button type="submit" title="Update Manual Attendance Form" onclick="return confirm('Do you want to update data?');" class="btn btn-info">Update</button>
+                                    </div>
+                                    <div class="delete">
+                                        <button type="submit" title="Delete Manual Attendance Form" onclick="return confirm('Do you want to delete data?');" class="btn btn-danger">Delete</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

@@ -13,9 +13,8 @@
 <table id="" class="display" style="width:100%">
     <thead>
         <tr style="background-color:#D4F1F4;">
-            <th scope="col">Name</th>
-            <th scope="col">Effective Date</th>
-            <th scope="col">Days</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Biometric Number</th>
             <th scope="col">Time</th>
             <th scope="col">Grace Period</th>
             <th scope="col">Action</th>
@@ -26,21 +25,23 @@
             <?php foreach($schedules as $schedule) : ?>
                 <tr>
                     <td data-label="Name"><?php echo $schedule->fullname; ?></td>
-                    <td data-label="Effective Date"><?php echo date('F j, Y',strtotime($schedule->effective_date));  ?></td>
-                    <td data-label="Days"><?php echo $schedule->days; ?></td>
-                    <td data-label="Time"><?php echo date('h:i A', strtotime($schedule->time_in)) . ' | ' . date('h:i A', strtotime($schedule->time_out)); ?></td>
-                    <td data-label="Grace Period"><?php echo $schedule->grace_period . ' Minutes'; ?></td>
+                    <td data-label="Name"><?php echo $schedule->biometric_number; ?></td>
+                    <td><?php echo date('h:i A', strtotime($schedule->time_in)) . ' | ' . date('h:i A', strtotime($schedule->time_out)); ?></td>
+                    <td data-label="Name"><?php echo $schedule->grace_period . ' Minutes'; ?></td>
                     <td data-label="Action">
                         <div class="btn-group">
                             <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" title="View Employee Schedule" href="<?php echo base_url(); ?>schedule/view_schedule/<?php echo $schedule->id; ?>">View</a>
+                                <a class="dropdown-item" title="View Employee Schedule" href="<?php echo base_url(); ?>schedule/view_schedule/<?php echo $schedule->id; ?>/<?php echo $schedule->employee_number; ?>">View</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" title="Edit Employee Biometric" href="<?php echo base_url(); ?>schedule/add_employee_schedule/<?php echo $schedule->employee_number; ?>">Add Schedule</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" title="Edit Employee Schedule" href="<?php echo base_url(); ?>schedule/edit_schedule/<?php echo $schedule->id; ?>">Edit Schedule</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" title="Edit Employee Biometric" href="<?php echo base_url(); ?>schedule/edit_biometric/<?php echo $schedule->employee_number; ?>">Edit Biometric</a>
+                               
                             </div>
                         </div>
                     </td>
@@ -52,10 +53,10 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header"  style="background-color:#0C2D48; border:#0C2D48; color:white;">
             <h5 class="modal-title" id="exampleModalLabel">ADD BIOMETRIC</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" style="color:white;">&times;</span>
             </button>
         </div>
         <div class="modal-body">
@@ -93,7 +94,8 @@
 <script type="text/javascript">  
     $(document).ready(function() {
         $('table.display').DataTable( {
-            "scrollX": true,
+            //"scrollY" : '70vh',
+            //"scrollX": true,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('table.display', JSON.stringify(oData));

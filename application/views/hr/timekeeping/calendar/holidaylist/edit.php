@@ -10,23 +10,24 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Date</label>
-                                <input type="date" class="form-control" name="start" value="<?php echo date('Y-m-d', strtotime($calendar->start)); ?>" required><br>
+                                <input type="date" class="form-control" name="start" value="<?php echo date('Y-m-d', strtotime($calendar->date)); ?>" required><br>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Type</label>
                                 <select class="form-control" name="type">
                                     <option value="">Select Type</option>
                                     <option value="Special Working Holiday"<?php echo $calendar->type == 'Special Working Holiday' ? 'selected' : ''; ?>>Special Working Holiday</option>
-                                    <option value="Special Nonworking Holiday"<?php echo $calendar->type == 'Special Nonworking Holiday' ? 'selected' : ''; ?>>Special Nonworking Holiday</option>
-                                    <option value="Legal Holiday"<?php echo $calendar->type == 'Legal Holiday' ? 'selected' : ''; ?>>Legal Holiday</option>
+                                    <option value="Special Non-working Holiday"<?php echo $calendar->type == 'Special Non-working Holiday' ? 'selected' : ''; ?>>Special Nonworking Holiday</option>
+                                    <option value="Regular Holiday"<?php echo $calendar->type == 'Regular Holiday' ? 'selected' : ''; ?>>Regular Holiday</option>
+                                    <option value="Economic Holiday"<?php echo $calendar->type == 'Economic Holiday' ? 'selected' : ''; ?>>Economic Holiday</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Description</label>
                                 <input type="text" class="form-control" name="description" value="<?php echo $calendar->description; ?>" required><br>
@@ -36,7 +37,10 @@
                 </div>
             </div>
             <br>
+            <center>
             <button type="submit" title="Update Holiday" class="btn btn-info" onclick="return confirm('Do you want to update data?');">Update</button>
+            </center>
+            
         </form>
     </div>
 </div>

@@ -61,8 +61,8 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-            "scrollY" : '50vh',
-            "scrollX" : true,
+            //"scrollY" : '50vh',
+            //"scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
             buttons: [

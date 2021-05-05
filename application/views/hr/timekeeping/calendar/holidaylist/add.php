@@ -13,23 +13,25 @@
                                 <input type="date" class="form-control" name="start">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Type</label>
                                 <select class="form-control" name="type">
                                     <option value="">Select Type</option>
                                     <option value="Special Working Holiday">Special Working Holiday</option>
-                                    <option value="Special Nonworking Holiday">Special Nonworking Holiday</option>
-                                    <option value="Legal Holiday">Legal Holiday</option>
+                                    <option value="Special Non-working Holiday">Special Non-working Holiday</option>
+                                    <option value="Regular Holiday">Regular Holiday</option>
+                                    <option value="Economic Holiday">Economic Holiday</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Description</label>
-                                <input type="text" class="form-control"  name="description">
+                                <textarea class="form-control" name="description" id="" cols="30" rows="4"></textarea>
                             </div>
                         </div>
                     </div>
@@ -45,3 +47,11 @@
         </form>
     </div>
 </div>
+
+<script>
+   $(document).ready(function() {
+        $("#checkAll").click(function(){
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+    });
+</script>

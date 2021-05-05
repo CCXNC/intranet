@@ -108,11 +108,40 @@ class Schedule extends CI_Controller {
        
     }
 
-    public function view_schedule($id)
+    public function view_schedule($id,$employee_number)
     {
         $data['schedule'] = $this->schedule_model->get_employee_schedule($id);
+        $data['schedules'] = $this->schedule_model->get_employee_schedules($employee_number);
         $data['main_content'] = 'hr/timekeeping/schedule/view';
         $this->load->view('inc/navbar', $data);
+    }
+
+    public function ui_sample($employee_number)
+    {
+        $data['employee_schedule'] = $this->schedule_model->get_employee_biometric($employee_number);
+        $data['main_content'] = 'hr/timekeeping/schedule/index_schedule';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function add_employee_schedule($employee_number)
+    {
+        $this->form_validation->set_rules('employee_number', 'Employee Number', 'trim|required');
+        
+        if($this->form_validation->run() ==  FALSE)
+        {
+            $data['employee_schedule'] = $this->schedule_model->get_employee_biometric($employee_number);
+            $data['main_content'] = 'hr/timekeeping/schedule/add_schedule';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->schedule_model->add_employee_schedules($employee_number))
+            {
+                $this->session->set_flashdata('success_msg','EMPLOYEE SCHEDULE SUCCESSFULLY ADDED!');
+                redirect('schedule/index');
+            }
+        }
+    
     }
 
 }    

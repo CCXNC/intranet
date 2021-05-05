@@ -78,7 +78,7 @@ class Productivity extends CI_Controller {
 
     public function edit_location_directory($id)
     {
-        $this->form_validation->set_rules('name', 'NAME', 'required|trim');
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('telephone_no', 'Telephone Number', 'required|trim');
 
         if($this->form_validation->run() == FALSE) 

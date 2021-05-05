@@ -1,4 +1,24 @@
-<div class="card-header" style="background-color:#1C4670; color:white;"><h4>Active Directory List
+<div class="card-header" style="background-color:#1C4670; color:white;">
+    <h4>Active Directory List
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+            FAQ
+        </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#1C4670; color:white;">
+                        <h5 class="modal-title" id="exampleModalLabel" >FAQ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: white">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="<?php echo base_url(); ?>assets/images/Telephone_FAQ.jpg" alt="" style="width: 100%">
+                    </div>
+                </div>
+            </div>
+        </div>
     </h4> 
 </div>
 <br>
@@ -47,7 +67,7 @@
             "fnStateLoad": function (oSettings) {
                 return JSON.parse(localStorage.getItem('table.display'));
             },
-            "scrollX" : true,
+           // "scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         } );
     } );

@@ -7,13 +7,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Start Date</label>
-                        <input type="date" class="form-control" name="start_date" value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" class="form-control" min="2018-12-31" max="2030-12-31" name="start_date" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">End Date</label>
-                        <input type="date" class="form-control" name="end_date" value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" class="form-control" min="2018-12-31" max="2030-12-31" name="end_date" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
             </div><br>

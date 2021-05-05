@@ -244,21 +244,8 @@ class Employee_model extends CI_Model {
 
 		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
         $blaine_timekeeping->insert('schedules', $data_schedule);
-	
-		// CALL ACVITIY LOGS DATABASE
-		$activity_log = $this->load->database('activity_logs', TRUE); 
-
-		$entry_data = "add_employee [entry_data:" . $employee_number . "]";
-
-		$activity_data = array(
-			'username'   => $this->session->userdata('username'),
-			'pcname'     => $_SERVER['REMOTE_ADDR'],
-			'entry_data' => $entry_data,
-			'entry_date' => $date
-		);
-		$activity_log->insert('hris_logs', $activity_data);
 		
-
+		// ACTIVITY LOGS
 		$data = array(
 			'username'	=> $this->session->userdata('username'),
 			'activity'	=> "Entry Added",
@@ -269,6 +256,15 @@ class Employee_model extends CI_Model {
 
 		$activity_log = $this->load->database('activity_logs', TRUE);
 		$activity_log->insert('blaine_logs', $data);
+
+		// ACTIVE DIRECTORY
+		$active_directory_data = array(
+			'employee_number' => $employee_number,
+			'created_date'    => $date,
+			'created_by'      => $this->session->userdata('username')
+		);
+
+		$this->db->insert('active_directory', $active_directory_data);
 
 		$trans = $this->db->trans_complete();
 		return $trans;
@@ -1140,18 +1136,6 @@ class Employee_model extends CI_Model {
 		print_r($data);
 		print_r('</pre>');*/
 
-		// CALL ACVITIY LOGS DATABASE
-		$activity_log = $this->load->database('activity_logs', TRUE); 
-
-		$entry_data = "employee_termination [entry_id:" . $employee_number . "]";
-
-		$activity_data = array(
-			'username'   => $this->session->userdata('username'),
-			'pcname'     => $_SERVER['REMOTE_ADDR'],
-			'entry_data' => $entry_data,
-			'entry_date' => $datetime
-		);
-		$activity_log->insert('hris_logs', $activity_data);
 
 		$trans = $this->db->trans_complete();
 		return $trans;
