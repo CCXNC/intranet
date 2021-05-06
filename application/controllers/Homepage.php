@@ -24,7 +24,7 @@ class Homepage extends CI_Controller {
     function index() {
 
         // Get record count
-	 	$this->load->library('pagination');
+	 	/*$this->load->library('pagination');
 
         $this->db->select('*');
         $this->db->from('announcement');
@@ -36,11 +36,11 @@ class Homepage extends CI_Controller {
 	 	$start = $this->uri->segment(3);
 
         $this->db->order_by('created_date','desc');
-	 	$this->db->limit($limit, $start);
+	 	$this->db->limit($limit, $start);*/
 	 	//$keyword    =   $this->input->post('keyword');
 	 	//$this->db->like('name', $keyword);
 
-         $this->db->select("
+         /*$this->db->select("
             image,
             category,
             title,
@@ -88,10 +88,10 @@ class Homepage extends CI_Controller {
 	  
 	  	$this->pagination->initialize($config);	
         $data['main_content'] = 'homepage';
-        $this->load->view('inc/navbar', $data);
-       /* $data['announcements'] = $this->homepage_model->get_announcements();
-        $data['main_content'] = 'homepage';
         $this->load->view('inc/navbar', $data);*/
+        $data['announcements'] = $this->announcement_model->get_announcements();
+        $data['main_content'] = 'homepage';
+        $this->load->view('inc/navbar', $data);
     
     }
 

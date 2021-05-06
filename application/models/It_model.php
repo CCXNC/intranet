@@ -159,14 +159,14 @@
 		$this->db->select('*');
 		$this->db->where('id', $id);
 		$datas = $this->db->get('location_directory');
-		$id 			= $datas->row()->id;
-		$name 			= $datas->row()->name;
-		$telephone_no 	= $datas->row()->telephone_no;
+		$id 				= $datas->row()->id;
+		$it_name 			= $datas->row()->name;
+		$it_telephone_no 	= $datas->row()->telephone_no;
 
 		$entry_data = array(
 			'id'				=> $id,
-			'name'				=> $name,
-			'telephone_no'		=> $telephone_no,
+			'name'				=> $it_name,
+			'telephone_no'		=> $it_telephone_no,
 		);
 
 		// CONVERT TO JSON ENCODE

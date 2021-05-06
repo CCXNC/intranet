@@ -13,6 +13,7 @@
                 <th scope="col">Category</th>
                 <th scope="col">Title</th>
                 <th scope="col">Content</th>
+                <th scope="col">Status</th>
                 <th scope="col">Date</th>
                 <th scope="col">Action</th>
             </tr>
@@ -25,6 +26,7 @@
                         <td data-label="Category"><?php echo $announcement->category;  ?></td>
                         <td data-label="Title"><?php echo $announcement->title;  ?></td>
                         <td data-label="Content"><?php echo word_limiter($announcement->content,10); ?></td>
+                        <td data-label="Status"><?php echo $announcement->is_active; ?></td>
                         <td data-label="Date"><?php echo date('F j Y', strtotime($announcement->created_date)); ?></td>
                         <td data-label="Action">
                             <div class="btn-group">
