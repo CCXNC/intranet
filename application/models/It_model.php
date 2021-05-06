@@ -51,9 +51,7 @@
 
 	public function update_active_directory($id)
 	{
-		$email = $this->input->post('email');
-		$telephone_no = $this->input->post('telephone_no');
-
+		
 		$i = 0;
 		$date = date('Y-m-d H:i:s');
 
@@ -89,6 +87,8 @@
 		$activity_log = $this->load->database('activity_logs', TRUE);
 		$activity_log->insert('blaine_logs', $activity_data);
 
+		$email = $this->input->post('email');
+		$telephone_no = $this->input->post('telephone_no');
 
 		$data = array(
 			'email'        => $email,
