@@ -685,12 +685,7 @@ class Attendance_model extends CI_Model
 				$activity_log = $this->load->database('activity_logs', TRUE);
 				$activity_log->insert('blaine_logs', $data);
 				
-				// DELETE TIME IN 
-				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-				$blaine_timekeeping->where('attendance_in.employee_number', $employee_number);
-				$blaine_timekeeping->where('attendance_in.date', $date);
-				$blaine_timekeeping->delete('attendance_in');
-
+				// DELETE TIME OUT
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 				$blaine_timekeeping->where('attendance_out.employee_number', $employee_number);
 				$blaine_timekeeping->where('attendance_out.date', $date);
