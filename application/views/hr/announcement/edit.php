@@ -17,10 +17,20 @@
                             </div> 
                             <input type='file' name='image' size='20' />
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Title</label>
                                         <input type="text" class="form-control"  name="title" value="<?php echo $announcement->title; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Status</label>
+                                        <select name="is_active" class="form-control" id="">
+                                            <option value="">Select Status</option>
+                                            <option value='1'<?php echo $announcement->is_active == '1' ? 'selected' : ''; ?>>Active</option>
+                                            <option value='0'<?php echo $announcement->is_active == '0' ? 'selected' : ''; ?>>Inactive</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -35,10 +45,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Content</label>
-                                        <input type="text" class="form-control"  name="content" value="<?php echo $announcement->content; ?>">
+                                        <textarea class="form-control" name="content" rows="4" cols="50"><?php echo $announcement->content; ?></textarea>
                                     </div>
                                 </div>
                             </div>
