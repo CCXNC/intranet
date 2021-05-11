@@ -263,6 +263,18 @@ class Attendance_model extends CI_Model
 					DELETE tbl1 FROM blaine_timekeeping.attendance_in tbl1 INNER JOIN
 					blaine_timekeeping.attendance_in tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
 				");*/
+
+				$data = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added" ,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> 'MANUAL ATTENDANCE',
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				// CALL ACTIVITY LOGS DATABASE
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data);
 			}
 			
 			if($no_time_out != 1)
@@ -288,6 +300,18 @@ class Attendance_model extends CI_Model
 					DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
 					blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
 				");*/
+
+				$data = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added" ,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> 'MANUAL ATTENDANCE',
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				// CALL ACTIVITY LOGS DATABASE
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data);
 			}
 		}	
 		else
@@ -448,6 +472,19 @@ class Attendance_model extends CI_Model
 					DELETE tbl1 FROM blaine_timekeeping.attendance_in tbl1 INNER JOIN
 					blaine_timekeeping.attendance_in tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
 				");*/
+
+				$data = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added" ,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> 'MANUAL ATTENDANCE',
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				// CALL ACTIVITY LOGS DATABASE
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data);
+
 			}
 			
 			if($no_time_out != 1)
@@ -473,6 +510,18 @@ class Attendance_model extends CI_Model
 					DELETE tbl1 FROM blaine_timekeeping.attendance_out tbl1 INNER JOIN
 					blaine_timekeeping.attendance_out tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
 				");*/
+
+				$data = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added" ,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> 'MANUAL ATTENDANCE',
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				// CALL ACTIVITY LOGS DATABASE
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data);
 			}
 		}
 		elseif($attendance == 2)
@@ -485,18 +534,15 @@ class Attendance_model extends CI_Model
 				$this->db->where('blaine_timekeeping.attendance_in.date', $date);
 				$datas = $this->db->get('blaine_timekeeping.attendance_in');
 
-				$emp_employee_number = $datas->row()->$employee_number;
-				$emp_date = $datas->row()->date;
-				$emp_time = $datas->row()->time;
-				$emp_status = $datas->row->status;
-				$emp_generate = $datas->row()->generate;
+				$emp_time_in = $datas->row()->time;
+				$emp_generate_in = $datas->row()->generate;
 
 				$entry_data = array(
 					'employee_number' => $employee_number,
-					'date'            => $emp_date,
-					'time'            => $emp_time,
+					'date'            => $date,
+					'time'            => $emp_time_in,
 					'status'          => 'IN',
-					'generate'        => $emp_generate,
+					'generate'        => $emp_generate_in,
 					'remarks'         => $edit_remarks
 				);
 
@@ -540,18 +586,15 @@ class Attendance_model extends CI_Model
 				$this->db->where('blaine_timekeeping.attendance_out.date', $date);
 				$datas = $this->db->get('blaine_timekeeping.attendance_out');
 
-				$emp_employee_number = $datas->row()->$employee_number;
-				$emp_date = $datas->row()->date;
-				$emp_time = $datas->row()->time;
-				$emp_status = $datas->row->status;
-				$emp_generate = $datas->row()->generate;
+				$emp_time_out = $datas->row()->time;
+				$emp_generate_out = $datas->row()->generate;
 
 				$entry_data = array(
 					'employee_number' => $employee_number,
-					'date'            => $emp_date,
-					'time'            => $emp_time,
+					'date'            => $date,
+					'time'            => $emp_time_out,
 					'status'          => 'OUT',
-					'generate'        => $emp_generate,
+					'generate'        => $emp_generate_out,
 					'remarks'         => $edit_remarks
 				);
 
@@ -648,12 +691,7 @@ class Attendance_model extends CI_Model
 				$activity_log = $this->load->database('activity_logs', TRUE);
 				$activity_log->insert('blaine_logs', $data);
 				
-				// DELETE TIME IN 
-				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-				$blaine_timekeeping->where('attendance_in.employee_number', $employee_number);
-				$blaine_timekeeping->where('attendance_in.date', $date);
-				$blaine_timekeeping->delete('attendance_in');
-
+				// DELETE TIME OUT 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 				$blaine_timekeeping->where('attendance_out.employee_number', $employee_number);
 				$blaine_timekeeping->where('attendance_out.date', $date);

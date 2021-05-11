@@ -51,26 +51,26 @@
 
 	public function update_active_directory($id)
 	{
-		$email = $this->input->post('email');
-		$telephone_no = $this->input->post('telephone_no');
-
 		$i = 0;
 		$date = date('Y-m-d H:i:s');
+
+		$email = $this->input->post('email');
+		$telephone_no = $this->input->post('telephone_no');
 
 		// GET OLD DATA BEFORE UPDATE
 		$this->db->select('*');
 		$this->db->where('id', $id);
 		$datas = $this->db->get('active_directory');
 		$id = $datas->row()->id;
-		$employee_number = $datas->row()->employee_number;
-		$email = $datas->row()->email;
-		$telephone_no = $datas->row()->telephone_no;
+		$active_dir_employee_number = $datas->row()->employee_number;
+		$active_dir_email = $datas->row()->email;
+		$active_dir_telephone_no = $datas->row()->telephone_no;
 
 		$entry_data = array(
 			'id'				=> $id,
-			'employee_number'	=> $employee_number,
-			'email'				=> $email,
-			'telephone_no'		=> $telephone_no
+			'employee_number'	=> $active_dir_employee_number,
+			'email'				=> $active_dir_email,
+			'telephone_no'		=> $active_dir_telephone_no
 		);
 
 		// CONVERT TO JSON ENCODE
@@ -88,7 +88,6 @@
 		// CALL ACTIVITY LOGS DATABASE
 		$activity_log = $this->load->database('activity_logs', TRUE);
 		$activity_log->insert('blaine_logs', $activity_data);
-
 
 		$data = array(
 			'email'        => $email,
@@ -149,24 +148,25 @@
 
 		$this->db->trans_start();
 
-		$name = $this->input->post('name');
-		$telephone_no = $this->input->post('telephone_no');
-
 		//$i = 0;
 		//$date = date('Y-m-d H:i:s');
 
-		// GET OLD DATA BEFORE UPDATE
+		// UPDATE FUNCTION
+		$name = $this->input->post('name');
+		$telephone_no = $this->input->post('telephone_no');
+
+		// ACTIVITY LOG: GET OLD DATA BEFORE UPDATE
 		$this->db->select('*');
 		$this->db->where('id', $id);
 		$datas = $this->db->get('location_directory');
-		$id 			= $datas->row()->id;
-		$name 			= $datas->row()->name;
-		$telephone_no 	= $datas->row()->telephone_no;
+		$id = $datas->row()->id;
+		$it_name = $datas->row()->name;
+		$it_telephone_no = $datas->row()->telephone_no;
 
 		$entry_data = array(
 			'id'				=> $id,
-			'name'				=> $name,
-			'telephone_no'		=> $telephone_no,
+			'name'				=> $it_name,
+			'telephone_no'		=> $it_telephone_no,
 		);
 
 		// CONVERT TO JSON ENCODE
@@ -185,6 +185,7 @@
 		$activity_log = $this->load->database('activity_logs', TRUE);
 		$activity_log->insert('blaine_logs', $activity_data);
 
+		// UPDATE FUNCTION
 		$data = array(
 			'name'         => $name,
 			'telephone_no' => $telephone_no,
@@ -206,14 +207,14 @@
 		$this->db->select('*');
 		$this->db->where('id', $id);
 		$datas = $this->db->get('location_directory');
-		$id 			= $datas->row()->id;
-		$name 			= $datas->row()->name;
-		$telephone_no 	= $datas->row()->telephone_no;
+		$id = $datas->row()->id;
+		$it_name = $datas->row()->name;
+		$it_telephone_no = $datas->row()->telephone_no;
 
 		$entry_data = array(
 			'id'			=> $id,
-			'name'			=> $name,
-			'telephone_no'	=> $telephone_no
+			'name'			=> $it_name,
+			'telephone_no'	=> $it_telephone_no
 		);
 
 		$json_data = json_encode($entry_data);
