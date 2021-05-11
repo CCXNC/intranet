@@ -9,9 +9,14 @@ class Login extends CI_Controller {
     }
 
     function index() {
-        $data['announcements'] = $this->login_model->get_announcements();
-        $this->load->view('login/index', $data);
-    
+        if($this->session->userdata('logged_in') == TRUE){
+            redirect('homepage');
+        }
+        else
+        {
+            $data['announcements'] = $this->login_model->get_announcements();
+            $this->load->view('login/index', $data);
+        }
     }
 
     function auth() {

@@ -206,6 +206,7 @@ class Calendar_model extends CI_Model {
     public function get_economic_holiday()
     {
         $this->db->where('blaine_schedules.holiday_calendar.type', "Economic Holiday");
+        $this->db->where('blaine_schedules.holiday_calendar.date >=', date('Y-m-d'));
         $query = $this->db->get('blaine_schedules.holiday_calendar');
 
         return $query->result();

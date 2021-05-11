@@ -89,9 +89,9 @@
 
 </style>
 <div class="card">
-    <div class="card-header"><h4>
+    <div style="background-color: #478C5C; border: #478C5C; color: white" class="card-header"><h4>
         VIEW HOLIDAY
-        <a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
+        <a href="<?php echo base_url(); ?>calendar/calendar_list" id="back" title="Go Back" class="btn btn-dark float-right" style="margin-right:10px;">BACK</a>
         <!--<input type="submit" style="margin-right:10px;" class="btn btn-info float-right" title="Print Holiday" id="printButton" value="PRINT">-->
     </h4></div>
     <div class="card-body">
@@ -126,7 +126,7 @@
                     <div class="row">
                         <?php if($employees_holiday) : ?>
                             <?php foreach($employees_holiday as $employee_holiday) : ?>
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     <div class="form-control"><?php echo $employee_holiday->fullname; ?></div>
                                 </div>
                             <?php endforeach; ?>
