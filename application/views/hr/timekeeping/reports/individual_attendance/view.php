@@ -577,20 +577,20 @@
                                                     }
                                                 } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == NULL) { 
                                                     echo  '(IN-' . ' ' . $employee->in_generate . ')' ; 
+                                                } elseif($employee->in_generate == NULL && $employee->out_generate == "SYSTEM") { 
+                                                    echo  '(OUT-' . ' ' . $employee->out_generate . ')' ; 
+                                                } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'SYSTEM') {
+                                                    echo 'SYSTEM';
                                                 } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == NULL) { 
                                                     echo '<p class="" style="text-align:center;padding:5px;background-color:#ffed4a;">' . '(IN-' . ' ' . $employee->in_generate . ')' . '</p>'; 
-                                                }  elseif($employee->in_generate == NULL && $employee->out_generate == "MANUAL") { 
-                                                    echo '(IN-' . ' ' . $employee->in_generate . ')'; 
-                                                } elseif($employee->out_generate == "SYSTEM" && $employee->in_generate == NULL) { 
-                                                    echo '(OUT-' . ' ' . $employee->out_generate . ')'; 
-                                                }  elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'SYSTEM') {
-                                                    echo 'SYSTEM';
+                                                } elseif($employee->in_generate == NULL && $employee->out_generate == "MANUAL") { 
+                                                    echo '<p class="" style="text-align:center;padding:5px;background-color:#ffed4a;">' .  '(OUT-' . ' ' . $employee->out_generate . ')'; 
+                                                } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'MANUAL') {
+                                                    echo  '<p class="" style="text-align:center;padding:5px;background-color:#ffed4a;">' .  'MANUAL';  
                                                 } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'SYSTEM') {
                                                     echo '<p class="" style="text-align:center;padding:5px;background-color:#ffed4a;">' . '(IN-' . ' ' . $employee->in_generate . ')' . '</p>' . ' | ' . '(OUT-' . ' ' . $employee->out_generate . ')';  
                                                 } elseif($employee->in_generate == "SYSTEM" && $employee->out_generate == 'MANUAL') {
                                                     echo  '(IN-' . ' ' . $employee->in_generate . ')' . ' | ' . '<p class="" style="text-align:center;padding:5px;background-color:#ffed4a;">' . '(OUT-' . ' ' . $employee->out_generate . ')' . '</p>';  
-                                                } elseif($employee->in_generate == "MANUAL" && $employee->out_generate == 'MANUAL') {
-                                                    echo 'MANUAL';  
                                                 }
                                             ?> 
                                         </td>

@@ -99,6 +99,24 @@
             width: 100%;
         }
     }
+
+    .carousel-indicators .cindicator{
+        background-color: gray;
+    }
+
+    .carousel-indicators .active{
+        background-color: black;
+    }
+
+    .carousel-indicators li {
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+    }
+
+    .carousel-indicators {
+        top: 63px;
+    }
 </style>
 <section>
     <!--<div class="card">
@@ -143,8 +161,12 @@
     </div>-->
     <section>
         <div class="container">
-            <div class="carousel slide" id="carouselExampleControls" data-ride="carousel">
-               <div class="carousel-inner">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active cindicator"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="cindicator"></li>
+                </ol>
+                <div class="carousel-inner">
                     <?php $active = true; ?>
                         <?php if($announcements) : ?>
                             <?php foreach($announcements as $announcement) : ?>
@@ -177,18 +199,22 @@
                             <?php $active = false; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
-               </div> 
-               <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                </div> 
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
-            </div>
+            </div> 
         </div>
     </section>
+
+                              
+
+
     <!--<div class="float-right">
         <?php echo $this->pagination->create_links(); ?>
         <br>
