@@ -159,9 +159,9 @@
 		$this->db->select('*');
 		$this->db->where('id', $id);
 		$datas = $this->db->get('location_directory');
-		$id = $datas->row()->id;
-		$it_name = $datas->row()->name;
-		$it_telephone_no = $datas->row()->telephone_no;
+		$id 				= $datas->row()->id;
+		$it_name 			= $datas->row()->name;
+		$it_telephone_no 	= $datas->row()->telephone_no;
 
 		$entry_data = array(
 			'id'				=> $id,

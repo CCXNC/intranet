@@ -28,7 +28,7 @@
             <th>Employee Picture</th>
             <th scope="col">Employee Name</th>
             <th scope="col">Department</th>
-            <th scope="col">Email</th>
+            <th class="email">Email</th>
             <th scope="col">Telephone No.</th>
         </tr>
     </thead>
@@ -68,7 +68,19 @@
                 return JSON.parse(localStorage.getItem('table.display'));
             },
            // "scrollX" : true,
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            dom: 'Blfrtip',
+            buttons: [
+                {
+                    header: false,
+                    extend: 'copy',
+                    text: 'Copy All Email',
+                    title: '',
+                    exportOptions: {
+                        columns: [3]
+                    }
+                }
+            ]
         } );
     } );
 </script>

@@ -448,7 +448,6 @@ class Attendance_model extends CI_Model
 
 		if($attendance == 1)
 		{
-			
 			if($process != 1)
 			{
 				$data_in = array(
@@ -611,7 +610,7 @@ class Attendance_model extends CI_Model
 
 				// CALL ACTIVITY LOGS DATABASE
 				$activity_log = $this->load->database('activity_logs', TRUE);
-				$activity_log->insert('blaine_logs', $data);
+				$activity_log->insert('blaine_logs', $data); 
 
 
 				$update_data = array(

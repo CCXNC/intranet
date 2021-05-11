@@ -49,7 +49,9 @@ class Announcement_model extends CI_Model {
 	public function get_announcements()
 	{
 		$this->db->where('is_active', 1);
-		$query = $this->db->get('announcement');
+		$this->db->where('category', "homepage");
+		$this->db->order_by('created_date', 'DESC');
+		$query = $this->db->get('announcement', 10);
 
 		return $query->result();
 	}
@@ -70,6 +72,7 @@ class Announcement_model extends CI_Model {
 		$title = $this->input->post('title');
 		$category = $this->input->post('category');
 		$content = $this->input->post('content');
+		$is_active = $this->input->post('is_active');
 		$i = 0;
 		$date = date('Y-m-d H:i:s');
 
@@ -82,6 +85,7 @@ class Announcement_model extends CI_Model {
 		$announcement_category = $datas->row()->category;
 		$announcement_title = $datas->row()->title;
 		$announcement_content = $datas->row()->content;
+		$announcement_is_active = $datas->row()->is_active;
 
 		$entry_data = array(
 			'id'            => $announcement_id,
@@ -89,6 +93,7 @@ class Announcement_model extends CI_Model {
 			'category'		=> $announcement_category,
 			'title'         => $announcement_title,
 			'content'       => $announcement_content,
+			'is_active'		=> $announcement_is_active
 		);
 
 		// CONVERT TO JSON ENCODE
@@ -97,7 +102,7 @@ class Announcement_model extends CI_Model {
 		$data = array(
 			'username' => $this->session->userdata('username'),
 			//'activity' => "Announcement updated - " . ' id: ' . $id  . ' title: '. $title,
-			'activity' => "Entry Updated: " . ' ID: ' . $id,
+			'activity' => "Entry Updated: " . ' ID: ' . $announcement_id,
 			'datas'    => "Previous Data: " . $json_data,
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
 			'type'     => 'ANNOUNCEMENT',
@@ -115,6 +120,7 @@ class Announcement_model extends CI_Model {
 				'title'         => $title,
 				'category'      => $category,
 				'content'       => $content,
+				'is_active'		=> $is_active,
 				'updated_date'  => $date,
 				'updated_by'    => $this->session->userdata('username')
 			);
@@ -129,6 +135,7 @@ class Announcement_model extends CI_Model {
 				'title'         => $title,
 				'category'      => $category,
 				'content'		=> $content,
+				'is_active'		=> $is_active,
 				'updated_date'  => $date,
 				'updated_by'    => $this->session->userdata('username')
 			);
@@ -143,7 +150,7 @@ class Announcement_model extends CI_Model {
 
 	public function delete_announcement($id)
 	{
-		$this->db->trans_start();
+		//$this->db->trans_start();
 
 		// GET OLD DATA BEFORE UPDATE
 		$this->db->select('*');
@@ -181,13 +188,19 @@ class Announcement_model extends CI_Model {
 		$activity_log->insert('blaine_logs', $data);
 
 		// PROCESS FOR DELETE ANNOUNCEMENT
-		$data = array(
+		/*$data = array(
 			'is_active'  => 0
 		);
 		$this->db->where('id', $id);
-	   	$this->db->update('announcement', $data);
+	   	$this->db->update('announcement', $data);*/
+
+		// PROCESS FOR DELETE ANNOUNCEMENT
+		$this->db->where('id', $id);
+		$query = $this->db->delete('announcement');
+
+		return $query;
 		
-		$trans = $this->db->trans_complete();
-	   	return $trans;
+		//$trans = $this->db->trans_complete();
+	   	//return $trans;
 	}
 }

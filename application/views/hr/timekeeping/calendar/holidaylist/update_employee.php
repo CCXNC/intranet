@@ -5,6 +5,14 @@
         <form method="post" action="<?php echo base_url(); ?>calendar/update_employee/<?php echo $calendar->id; ?>/<?php echo $calendar->date; ?>" enctype="multipart/form-data">
             <input type="text" hidden name="regular_date" value="<?php echo $calendar->date; ?>">
             <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-control">
+                                <input type="checkbox" id="checkAll" name="">
+                                <label for="">CHECK ALL</label>
+                            </div>
+                        </div>   
+                    </div>   
+            <div class="row">
                 <?php if($employees_holiday) : ?>
                     <?php foreach($employees_holiday as $employee_holiday) : ?>
                         <div class="col-md-12">
@@ -39,3 +47,11 @@
         </form>    
     </div>
 </div>
+
+<script>
+   $(document).ready(function() {
+        $("#checkAll").click(function(){
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+    });
+</script>

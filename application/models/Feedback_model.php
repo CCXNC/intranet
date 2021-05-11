@@ -123,6 +123,17 @@ class Feedback_model extends CI_Model {
         $blaine_feedback = $this->load->database('blaine_feedback', TRUE);
         $blaine_feedback->insert('comment_list', $data_comment);
 
+        $logs_data = array (
+            'username' => $this->session->userdata('username'),
+            'activity' => "Entry Added",
+            'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+            'type'     => 'E-FEEDBACK',
+            'date'     => $date
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $logs_data);
+
         $trans = $this->db->trans_complete();
         return $trans;
     }
@@ -171,6 +182,19 @@ class Feedback_model extends CI_Model {
             'entry_date'    => $date
         );
         $activity_log->insert('feedback_logs', $activity_data);
+
+        // BLAINE LOGS
+
+        $logs_data = array (
+            'username' => $this->session->userdata('username'),
+            'activity' => "Comment Added On Feedback: " . $feedback_id,
+            'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+            'type'     => 'E-FEEDBACK',
+            'date'     => $date
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $logs_data);
 
         $trans = $this->db->trans_complete();
         return $trans;

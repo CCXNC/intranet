@@ -26,7 +26,7 @@ class Announcement extends CI_Controller {
 	 	$this->load->library('pagination');
 
 	 	$total_rows = $this->db->count_all('announcement');
-	 	$limit = 5;
+	 	$limit = 100;
 	 	$start = $this->uri->segment(3);
 
 	 	$this->db->order_by('created_date','desc');
@@ -46,7 +46,7 @@ class Announcement extends CI_Controller {
         ");
         $this->db->from('announcement');
         $this->db->order_by('created_date', 'DESC');
-        $this->db->where('is_active', 1);
+        //$this->db->where('is_active', 1);
         
 	  	$query = $this->db->get();
 	 	$data['announcement'] = $query->result();
