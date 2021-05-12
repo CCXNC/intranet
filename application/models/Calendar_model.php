@@ -97,6 +97,19 @@ class Calendar_model extends CI_Model {
             print_r('</pre>');*/
         }
 
+        // ACTIVITY LOGS PROCESS
+        $data_logs = array(
+            'username' => $this->session->userdata('username'),
+            'activity' => "Entry Added: Holiday",
+            'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+            'type'     => 'HOLIDAY CALENDAR LIST',
+            'date'     => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $trans = $this->db->trans_complete();
         return $trans;
     }
@@ -111,8 +124,8 @@ class Calendar_model extends CI_Model {
 
         $created_date = date('Y-m-d H:i:s');
 
-       foreach($this->input->post('employee') as $emp)
-       {
+        foreach($this->input->post('employee') as $emp)
+        {
             $data_calendar = array(
                 'employee_number' => $emp,
                 'date'            => $date,
@@ -128,7 +141,7 @@ class Calendar_model extends CI_Model {
             /*print_r('<pre>');
             print_r($data_calendar);
             print_r('</pre>');*/
-       }
+        }
        
         $trans = $this->db->trans_complete();
         return $trans;
@@ -185,6 +198,40 @@ class Calendar_model extends CI_Model {
 
         $updated_date = date('Y-m-d H:i:s');
 
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('holiday_calendar');
+        $holiday_id     = $datas->row()->id;
+        $holiday_start  = $datas->row()->date;
+        $holiday_type   = $datas->row()->type;
+        $holiday_description = $datas->row()->description;
+
+        $entry_data = array(
+            'id'            => $holiday_id,
+            'date'          => $holiday_start,
+            'type'          => $holiday_type,
+            'description'   => $holiday_description
+        );
+
+        // CONVERT TO JSON ENCODE
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username' => $this->session->userdata('username'),
+            'activity' => "Entry Updated: " . ' ID: ' . $holiday_id,
+            'datas'    => "Previous Data: " . $json_data,
+            'pc_ip'    => $_SERVER['REMOTE_ADDR'],
+            'type'     => 'HOLIDAY CALENDAR LIST',
+            'date'     => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
+        // PROCESS FOR UPDATE ANNOUNCEMENT
         $data_calendar = array(
             'date'         => $start,
             'type'          => $type,
@@ -246,14 +293,48 @@ class Calendar_model extends CI_Model {
     public function delete_calendar_list($id)
     {
 
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('holiday_calendar');
+        $holiday_id = $datas->row()->id;
+        $holiday_type = $datas->row()->type;
+        $holiday_description = $datas->row()->description;
+        $holiday_date = $datas->row()->date;
+
+        $entry_data = array(
+            'id'            => $holiday_id,
+            'type'          => $holiday_type,
+            'description'   => $holiday_description,
+            'date'          => $holiday_date
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'  => $this->session->userdata('username'),
+            'activity'  => "Entry Deleted: " . ' ID: ' . $id,
+            'datas'     => "Deleted Data: " . $json_data,
+            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+            'type'      => 'HOLIDAY CALENDAR LIST',
+            'date'      => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
+        // DELETE PROCESS
         $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
         $blaine_timekeeping->where('id', $id);
         $query = $blaine_timekeeping->delete('holiday_calendar');
-
         return $query;
 
     }
 
+
+    // CALENDAR
     public function get_events() 
     {
         return $this->db->get("blaine_timekeeping.holiday_calendar");
@@ -274,7 +355,7 @@ class Calendar_model extends CI_Model {
         $trans = $this->db->trans_complete();
         return $trans;
     }
-
+    
     public function get_event($id) 
     {
         return $this->db->where("blaine_timekeeping.holiday_calendar.id", $id)->get("blaine_timekeeping.holiday_calendar");
