@@ -20,10 +20,10 @@
             <label for="">&nbsp;</label>
             <input type="submit" title="Submit Date"  value="SUBMIT" class="form-control btn btn-dark">
         </div> &nbsp;
-        <div class="form-group">
+        <!--<div class="form-group">
             <label for="">&nbsp;</label>
             <input class="form-control btn btn-success" id="" type="submit" value="APPROVAL">
-        </div>
+        </div>-->
     </div>    
     <table id="" class="display" style="width:100%">
         <thead>
@@ -33,10 +33,10 @@
                 <th scope="col">DEPARTMENT</th>
                 <th scope="col">TIME START</th>
                 <th scope="col">TIME END</th>
-                <th scope="col">TOTAL HOURS</th>
+                <th scope="col">OT (HOURS.MINS)</th>
                 <th scope="col">TASK</th>
-                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
-                <th scope="col">STATUS</th>
+                <!--<th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
+                <th scope="col">STATUS</th>-->
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
@@ -47,11 +47,11 @@
                         <td><?php echo $ot->date_ot; ?></td>
                         <td><?php echo $ot->fullname; ?></td>
                         <td><?php echo $ot->department; ?></td>
-                        <td><?php echo $ot->time_start . ' | ' . $ot->time_in; ?></td>
-                        <td><?php echo $ot->time_end . ' | ' . $ot->time_out; ?></td>
+                        <td><?php echo $ot->time_start; ?></td>
+                        <td><?php echo $ot->time_end; ?></td>
                         <td><?php echo $ot->ot_num; ?></td>
                         <td><?php echo substr($ot->task,0,50); ?></td>
-                        <td> <center><input type="checkbox" name="leave[]" value=""> </center></td>
+                        <!--<td> <center><input type="checkbox" name="leave[]" value=""> </center></td>
                         <td>
                             <?php 
                                 if($ot->status == 1) {
@@ -60,7 +60,7 @@
                                     echo 'FOR APPROVAL';
                                 }
                             ?>
-                        </td>
+                        </td>-->
                         <td data-label="Action">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,7 +68,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="<?php echo base_url(); ?>reports/view_employee_ot/<?php echo $ot->id; ?>">View</a>
-                                    <a class="dropdown-item" href="<?php echo base_url(); ?>reports/edit_employee_slvl/<?php echo $ot->id; ?>">Edit</a>
+                                    <a class="dropdown-item" href="<?php echo base_url(); ?>reports/edit_employee_ot/<?php echo $ot->id; ?>">Edit</a>
                                     <a class="dropdown-item" onclick="return confirm('Do you want to delete data?');" href="<?php echo base_url(); ?>reports/delete_employee_ot/<?php echo $ot->id; ?>">Delete</a>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
     $(document).ready(function() {
         $('table.display').DataTable( {
             "paging":   false,
-            "ordering": false,
+            "ordering": true,
             "info":     false,
             dom: 'Bf',
             buttons: [

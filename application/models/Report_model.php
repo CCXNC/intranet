@@ -1119,7 +1119,7 @@ class Report_model extends CI_Model {
         $timediff = $time_end_num - $time_start_num;
         
         //Delivery Drivers Helper Collectors
-        $less_daily_mins = $timediff - 600;
+        $less_daily_mins = $timediff;
         $ot_hrs = floor($less_daily_mins / 60);
         $ot_mins = $less_daily_mins % 60;
 
@@ -1150,6 +1150,55 @@ class Report_model extends CI_Model {
         $trans = $this->db->trans_complete();
         return $trans;
         
+    }
+
+    public function update_overtime($id)
+    {
+
+        $this->db->trans_start();
+
+        $date_ot = $this->input->post('date_ot');
+        $time_start = $this->input->post('time_start');
+        $time_end = $this->input->post('time_end');
+        $task = $this->input->post('task');
+        
+        // TIME START AND TIME END
+        $explod_time_start = explode(':', $time_start);
+        $time_start_hr = $explod_time_start[0] * 60;
+        $time_start_num = $time_start_hr + $explod_time_start[1];
+
+        $explod_time_end = explode(':', $time_end);
+        $time_end_mins = $explod_time_end[0] * 60;
+        $time_end_num = $time_end_mins + $explod_time_end[1];
+        
+        $timediff = $time_end_num - $time_start_num;
+        
+        //Delivery Drivers Helper Collectors
+        $less_daily_mins = $timediff;
+        $ot_hrs = floor($less_daily_mins / 60);
+        $ot_mins = $less_daily_mins % 60;
+
+        if($ot_mins >= 30) {
+            $total_ot = $ot_hrs . '.' . 30;
+        } elseif($ot_mins <= 30) {
+            $total_ot = $ot_hrs . '.' . 00;
+        }
+        $data = array(
+            'date_ot'         => $date_ot,
+            'time_start'      => $time_start,
+            'time_end'        => $time_end,
+            'ot_num'          => $total_ot,
+            'task'            => $task,
+            'updated_by'      => $this->session->userdata('username'),
+            'updated_date'    => date('Y-m-d H:i:s')
+        );
+
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->where('id', $id);
+        $blaine_timekeeping->update('overtime', $data);
+
+        $trans = $this->db->trans_complete();
+        return $trans;
     }
 
     public function get_employees_ot($start_date,$end_date)
@@ -1206,6 +1255,26 @@ class Report_model extends CI_Model {
         $query = $this->db->get();
 
         return $query->result();
+    }
+
+    public function get_employee_ot($id)
+    {
+        $this->db->select("
+            overtime.id as id,
+            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
+            overtime.date_ot as date_ot,
+            overtime.time_start as time_start,
+            overtime.time_end as time_end,
+            overtime.ot_num as ot_num,
+            overtime.task as task,
+            overtime.status as status
+        ");
+        $this->db->from('blaine_timekeeping.overtime');
+        $this->db->join('blaine_intranet.employees', 'blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number');
+        $query = $this->db->get();
+
+
+        return $query->row();
     }
 
     public function delete_employee_ot($id)
