@@ -286,8 +286,29 @@ class Reports extends CI_Controller {
         }    
     }
 
-    public function view_employee_ot()
+    public function edit_employee_ot($id)
     {
+        $this->form_validation->set_rules('date_ot', 'Date of Overtime', 'trim|required');
+
+        if($this->form_validation->run() == FALSE) 
+        {
+            $data['ot'] = $this->report_model->get_employee_ot($id);
+            $data['main_content'] = 'hr/timekeeping/reports/overtime/edit';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->report_model->update_overtime($id))
+            {
+                $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY UPDATED!');
+                redirect('reports/index_ot');
+            }
+        }    
+       
+    }
+    public function view_employee_ot($id)
+    {
+        $data['ot'] = $this->report_model->get_employee_ot($id);
         $data['main_content'] = 'hr/timekeeping/reports/overtime/view';
         $this->load->view('inc/navbar', $data);
     }

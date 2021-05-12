@@ -45,12 +45,15 @@
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DAYS</th>
+                            <!--<th scope="col">SHCEDULE (IN|OUT|GP)</th>-->
                             <th scope="col">DATE</th>
                             <th scope="col">TIME IN</th>
                             <th scope="col">TIME OUT</th>
                             <th scope="col">TARDINESS</th>
                             <th scope="col">UNDERTIME</th>
-                            <th>Schedule (IN/OUT/GP)</th>
+                            <th scope="col">OT AM</th>
+                            <th scope="col">OT PM</th>
+                            <th scope="col">ND</th>
                             <th scope="col">PROCESS</th>
                             <th scope="col">REMARKS</th>
                             <th scope="col">ACTION</th>
@@ -186,7 +189,21 @@
                                         
                                         ?>
                                         <!-- DAYS -->
-                                        <td>
+                                        <td title="
+                                            <?php 
+                                                if($employee->date_in != NULL || $employee->date_out != NULL)
+                                                {
+                                                    if($employee->emp_sched_date == $employee->temp_date)
+                                                    {
+                                                        echo $employee->emp_sched_time_in . ' AM | ' . $employee->emp_sched_time_out . ' PM | ' . $employee->emp_sched_grace_period . ' MINS'; 
+                                                    }
+                                                    else
+                                                    {
+                                                        echo $employee->sched_time_in . ' AM | ' . $employee->sched_time_out . ' PM | ' . $employee->grace_period . ' MINS'; 
+                                                    }
+                                                }
+                                            ?>
+                                        ">
                                             <?php
                                                 if($employee->date_in != NULL)
                                                 { 
@@ -354,7 +371,24 @@
                                             <?php 
                                                 if($total_sched_time_in_mins <= $total_time_in_mins)
                                                 {
-                                                    if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
+                                                    $w_date = date('w', strtotime($employee->temp_date));
+                                                    if($w_date == 6  || $w_date == 0)
+                                                    {
+                                                        if($employee->employee_number == '03151077')
+                                                        {
+                                                            $tardiness_mins = $total_time_in_mins - $total_sched_time_in_mins;
+                                                            $hours = intval($tardiness_mins/60);
+                                                            $min_diff = intval($tardiness_mins%60);
+                                                            $minutes = sprintf("%02d", $min_diff);
+                                                            echo $hours.".".$minutes."";
+                                                        }
+                                                        else
+                                                        {
+                                                            echo '0';
+                                                        }
+                                                      
+                                                    }
+                                                    elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
                                                     {
                                                         echo '0';
                                                     }
@@ -528,7 +562,32 @@
                                         <!-- UNDERTIME -->
                                         <td>
                                             <?php 
-                                                if($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
+                                                $w_date = date('w', strtotime($employee->temp_date));
+                                                if($w_date == 6  || $w_date == 0)
+                                                {
+                                                    if($employee->employee_number == '03151077')
+                                                    {
+                                                        if($undertime_pm_mins <= $total_time_out_mins && $total_sched_time_out_mins >= $total_time_out_mins)
+                                                        {
+                                                            //COMPUTATION UNDERTIME
+                                                            $undertime_mins = $total_sched_time_out_mins - $total_time_out_mins;
+                                                            $undertime_hours = intval($undertime_mins/60);
+                                                            $undertime_min_diff = intval($undertime_mins%60);
+                                                            $undertime_minutes = sprintf("%02d", $undertime_min_diff);
+                                                            echo $undertime_hours.".".$undertime_minutes.""; 
+                                                        }
+                                                        else
+                                                        {
+                                                            echo '0';
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '0';
+                                                    }
+                                                
+                                                }
+                                                elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
                                                 {
                                                     $ut_num = $employee->ut_num;
                                                     $undertime_hours = intval($ut_num/60);
@@ -683,21 +742,60 @@
                                             ?>
 
                                         </td>
-                                        <!--  ScHEDULES-->
+                                        <!-- OT MORNING -->
+                                        <td>
+                                        <?php
+                                            if($sched_time_in_mins > $total_time_in_mins && $employee->date_in != NULL)
+                                            {
+                                                $total_ot_am =  $sched_time_in_mins - $total_time_in_mins; 
+                                                if($total_ot_am >= 60)
+                                                {
+                                                    $hours = intval($total_ot_am/60);
+                                                    $min_diff = intval($total_ot_am%60);
+                                                    $minutes = sprintf("%02d", $min_diff);
+                                                    echo $hours.".".$minutes."";
+                                                }
+                                               
+                                            }
+                                           
+                                           
+                                        ?>
+                                           
+                                        </td>
+                                        <!-- OT EVENING -->
                                         <td>
                                             <?php 
-                                                if($employee->date_in != NULL || $employee->date_out != NULL)
+                                                if($total_time_out_mins > $sched_time_out_mins && $employee->date_out != NULL)
                                                 {
-                                                    if($employee->emp_sched_date == $employee->temp_date)
+                                                    $total_ot_pm = $total_time_out_mins - $sched_time_out_mins;
+                                                    if($total_ot_pm >= 60)
                                                     {
-                                                        echo $employee->emp_sched_time_in . '|' . $employee->emp_sched_time_out . '|' . $employee->emp_sched_grace_period; 
-                                                    }
-                                                    else
+                                                        $hours = intval($total_ot_pm/60);
+                                                        $min_diff = intval($total_ot_pm%60);
+                                                        $minutes = sprintf("%02d", $min_diff);
+                                                        echo $hours.".".$minutes."";
+                                                    }    
+                                                }
+                                            ?>
+                                          
+                                        </td>
+                                        <!-- NIGHT DIFF -->
+                                        <td>
+                                            <?php
+                                                $start_nd = 1320;
+                                                $end_nd = 360;
+
+                                                if($end_nd > $total_time_in_mins && $employee->date_in != NULL)
+                                                {
+                                                    $total_nd_am = $end_nd - $total_time_in_mins;
+                                                    if($total_nd_am >= 30)
                                                     {
-                                                        echo $employee->sched_time_in . '|' . $employee->sched_time_out . '|' . $employee->grace_period; 
+                                                        $hours = intval($total_nd_am/60);
+                                                        $min_diff = intval($total_nd_am%60);
+                                                        $minutes = sprintf("%02d", $min_diff);
+                                                        echo $hours.".".$minutes."";
                                                     }
                                                 }
-                                                
                                             ?>
                                         </td>
                                         <!--  PROCESS -->
