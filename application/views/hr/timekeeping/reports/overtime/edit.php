@@ -28,7 +28,17 @@
                     <input type="time" class="form-control" name="time_end" value="<?php echo $ot->time_end; ?>">
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">*Type</label> 
+                    <select name="ot_type" id="" class="form-control">
+                        <option value="OT"<?php echo $ot->type == 'OT' ? 'selected' : ''; ?>>REGULAR OT</option>
+                        <option value="RHOT"<?php echo $ot->type == 'RHOT' ? 'selected' : ''; ?>>REGULAR HOLIDAY OT</option>
+                        <option value="SHOT"<?php echo $ot->type == 'SHOT' ? 'selected' : ''; ?>>SPECIAL HOLIDAY OT</option>
+                    </select>        
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="">*Specific Task To Be Done</label>
                     <textarea class="form-control" name="task" id="" cols="30" rows="4"><?php echo $ot->task; ?></textarea>

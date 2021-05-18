@@ -130,6 +130,7 @@ class Attendance extends CI_Controller {
 		$data['employee_name'] = $this->attendance_model->employee_name();
 		$data['employee_leaves'] = $this->attendance_model->employee_absence();
 		$data['employee_obs'] = $this->attendance_model->employee_ob();
+		$data['employee_ut'] = $this->attendance_model->employee_ut();
         $data['main_content'] = 'hr/timekeeping/reports/individual_attendance/view';
         $this->load->view('inc/navbar', $data);
     }
