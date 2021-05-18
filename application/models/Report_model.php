@@ -1236,46 +1236,71 @@ class Report_model extends CI_Model {
         $time_start = $this->input->post('time_start');
         $time_end = $this->input->post('time_end');
         $task = $this->input->post('task');
+        $ot_type = $this->input->post('ot_type');
+        $i = 0;
+        foreach($ot_type as $type)
+        {
+             // TIME START AND TIME END
+            $explod_time_start = explode(':', $time_start[$i]);
+            $time_start_hr = $explod_time_start[0] * 60;
+            $time_start_num = $time_start_hr + $explod_time_start[1];
 
-        // TIME START AND TIME END
-        $explod_time_start = explode(':', $time_start);
-        $time_start_hr = $explod_time_start[0] * 60;
-        $time_start_num = $time_start_hr + $explod_time_start[1];
+            $explod_time_end = explode(':', $time_end[$i]);
+            $time_end_mins = $explod_time_end[0] * 60;
+            $time_end_num = $time_end_mins + $explod_time_end[1];
+            
+            $timediff = $time_end_num - $time_start_num;
+            
+            //Delivery Drivers Helper Collectors
+            $less_daily_mins = $timediff;
+            $ot_hrs = floor($less_daily_mins / 60);
+            $ot_mins = $less_daily_mins % 60;
 
-        $explod_time_end = explode(':', $time_end);
-        $time_end_mins = $explod_time_end[0] * 60;
-        $time_end_num = $time_end_mins + $explod_time_end[1];
-        
-        $timediff = $time_end_num - $time_start_num;
-        
-        //Delivery Drivers Helper Collectors
-        $less_daily_mins = $timediff;
-        $ot_hrs = floor($less_daily_mins / 60);
-        $ot_mins = $less_daily_mins % 60;
+            if($ot_mins >= 30) {
+                $total_ot = $ot_hrs . '.' . 30;
+            } elseif($ot_mins <= 30) {
+                $total_ot = $ot_hrs . '.' . 00;
+            }
 
-        if($ot_mins >= 30) {
-            $total_ot = $ot_hrs . '.' . 30;
-        } elseif($ot_mins <= 30) {
-            $total_ot = $ot_hrs . '.' . 00;
+            $hf = 720;
+            $w_date = date('w', strtotime($date_ot[$i]));
+            if($w_date != 6 && $w_date != 0)
+            {
+                if($time_start_num < 720)
+                {
+                    $day = 'am';
+                }
+                else
+                {
+                    $day = 'pm';
+                }
+            }
+            else
+            {
+                $day = 'wd';
+            }
+            $data = array(
+                'employee_number' => $employee_number,
+                'company'         => $company,
+                'department'      => $department,
+                'type'            => $type,
+                'day'             => $day,
+                'date_ot'         => $date_ot[$i],
+                'time_start'      => $time_start[$i],
+                'time_end'        => $time_end[$i],
+                'ot_num'          => $total_ot,
+                'task'            => $task[$i],
+                'created_by'      => $this->session->userdata('username'),
+                'created_date'    => date('Y-m-d H:i:s')
+            );
+
+            $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+            $blaine_timekeeping->insert('overtime', $data);
+            /*print_r('<pre>');
+            print_r($data);
+            print_r('</pre>');*/
+            $i++;
         }
-        $data = array(
-            'employee_number' => $employee_number,
-            'company'         => $company,
-            'department'      => $department,
-            'date_ot'         => $date_ot,
-            'time_start'      => $time_start,
-            'time_end'        => $time_end,
-            'ot_num'          => $total_ot,
-            'task'            => $task,
-            'created_by'      => $this->session->userdata('username'),
-            'created_date'    => date('Y-m-d H:i:s')
-        );
-
-        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-        $blaine_timekeeping->insert('overtime', $data);
-        /*print_r('<pre>');
-        print_r($data);
-        print_r('</pre>');*/
 
         $trans = $this->db->trans_complete();
         return $trans;
@@ -1284,13 +1309,13 @@ class Report_model extends CI_Model {
 
     public function update_overtime($id)
     {
-
         $this->db->trans_start();
 
         $date_ot = $this->input->post('date_ot');
         $time_start = $this->input->post('time_start');
         $time_end = $this->input->post('time_end');
         $task = $this->input->post('task');
+        $ot_type = $this->input->post('ot_type');
         
         // TIME START AND TIME END
         $explod_time_start = explode(':', $time_start);
@@ -1315,6 +1340,7 @@ class Report_model extends CI_Model {
         }
         $data = array(
             'date_ot'         => $date_ot,
+            'type'            => $ot_type,
             'time_start'      => $time_start,
             'time_end'        => $time_end,
             'ot_num'          => $total_ot,
@@ -1339,18 +1365,32 @@ class Report_model extends CI_Model {
             department.name as department,
             company.name as company,
             overtime.date_ot as date_ot,
+            overtime.type as type,
             overtime.time_start as time_start,
             overtime.time_end as time_end,
             overtime.ot_num as ot_num,
             overtime.task as task,
             overtime.status as status,
+            overtime.day as day,
             attendance_in.time as time_in,
-            attendance_out.time as time_out
+            attendance_out.time as time_out,
+            attendance_in.date as date_in, 
+			attendance_out.date as date_out, 
+          
+            schedules.time_in as sched_time_in,
+			schedules.time_out as sched_time_out,
+			schedules.grace_period as grace_period,
+            employee_schedules.time_in as emp_sched_time_in,
+			employee_schedules.time_out as emp_sched_time_out,
+			employee_schedules.date as emp_sched_date,
+			employee_schedules.grace_period as emp_sched_grace_period
         ");
         $this->db->from('blaine_timekeeping.overtime');
         $this->db->join('blaine_intranet.employees', 'blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number');
         $this->db->join('blaine_timekeeping.attendance_in', 'blaine_timekeeping.overtime.employee_number = blaine_timekeeping.attendance_in.employee_number AND blaine_timekeeping.overtime.date_ot = blaine_timekeeping.attendance_in.date', 'left');
         $this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.overtime.employee_number = blaine_timekeeping.attendance_out.employee_number AND blaine_timekeeping.overtime.date_ot = blaine_timekeeping.attendance_out.date', 'left');
+        $this->db->join('blaine_timekeeping.schedules', 'blaine_timekeeping.schedules.employee_number = blaine_timekeeping.overtime.employee_number','left');
+        $this->db->join('blaine_schedules.employee_schedules', 'blaine_schedules.employee_schedules.date = blaine_timekeeping.overtime.date_ot AND blaine_timekeeping.overtime.employee_number = blaine_schedules.employee_schedules.employee_number', 'left');
         $this->db->join('blaine_intranet.department', 'blaine_timekeeping.overtime.department = blaine_intranet.department.id');
         $this->db->join('blaine_intranet.company', 'blaine_timekeeping.overtime.company = blaine_intranet.company.id');
         $this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
@@ -1368,18 +1408,33 @@ class Report_model extends CI_Model {
             department.name as department,
             company.name as company,
             overtime.date_ot as date_ot,
+            overtime.type as type,
             overtime.time_start as time_start,
             overtime.time_end as time_end,
             overtime.ot_num as ot_num,
             overtime.task as task,
             overtime.status as status,
+            overtime.day as day,
             attendance_in.time as time_in,
-            attendance_out.time as time_out
+            attendance_out.time as time_out,
+            attendance_in.date as date_in, 
+			attendance_out.date as date_out, 
+
+            schedules.time_in as sched_time_in,
+			schedules.time_out as sched_time_out,
+			schedules.grace_period as grace_period,
+            employee_schedules.time_in as emp_sched_time_in,
+			employee_schedules.time_out as emp_sched_time_out,
+			employee_schedules.date as emp_sched_date,
+			employee_schedules.grace_period as emp_sched_grace_period
         ");
+
         $this->db->from('blaine_timekeeping.overtime');
         $this->db->join('blaine_intranet.employees', 'blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number');
         $this->db->join('blaine_timekeeping.attendance_in', 'blaine_timekeeping.overtime.employee_number = blaine_timekeeping.attendance_in.employee_number AND blaine_timekeeping.overtime.date_ot = blaine_timekeeping.attendance_in.date', 'left');
         $this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.overtime.employee_number = blaine_timekeeping.attendance_out.employee_number AND blaine_timekeeping.overtime.date_ot = blaine_timekeeping.attendance_out.date', 'left');
+        $this->db->join('blaine_timekeeping.schedules', 'blaine_timekeeping.schedules.employee_number = blaine_timekeeping.overtime.employee_number','left');
+        $this->db->join('blaine_schedules.employee_schedules', 'blaine_schedules.employee_schedules.date = blaine_timekeeping.overtime.date_ot AND blaine_timekeeping.overtime.employee_number = blaine_schedules.employee_schedules.employee_number', 'left');
         $this->db->join('blaine_intranet.department', 'blaine_timekeeping.overtime.department = blaine_intranet.department.id');
         $this->db->join('blaine_intranet.company', 'blaine_timekeeping.overtime.company = blaine_intranet.company.id');
         $query = $this->db->get();
@@ -1393,6 +1448,7 @@ class Report_model extends CI_Model {
             overtime.id as id,
             CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
             overtime.date_ot as date_ot,
+            overtime.type as type,
             overtime.time_start as time_start,
             overtime.time_end as time_end,
             overtime.ot_num as ot_num,

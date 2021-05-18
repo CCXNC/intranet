@@ -1198,7 +1198,7 @@ class Employee_model extends CI_Model {
 		{
 			if($fullname == NULL)
 			{
-
+ 
 			}
 			else
 			{

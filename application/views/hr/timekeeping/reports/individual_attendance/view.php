@@ -51,8 +51,9 @@
                             <th scope="col">TIME OUT</th>
                             <th scope="col">TARDINESS</th>
                             <th scope="col">UNDERTIME</th>
-                            <th scope="col">OT AM</th>
-                            <th scope="col">OT PM</th>
+                            <th scope="col">EXCESS AM</th>
+                            <th scope="col">EXCESS PM</th>
+                            <th scope="col">EXCESS WD</th>
                             <th scope="col">ND</th>
                             <th scope="col">PROCESS</th>
                             <th scope="col">REMARKS</th>
@@ -129,7 +130,6 @@
                                             }
                                             else
                                             {
-                                                
                                                 //EXPLODE SCHEDULE TIME IN AND TIME OUT
                                                 $explod_sched_time_in = explode(":",$employee->sched_time_in);
                                                 $explod_sched_time_out = explode(":",$employee->sched_time_out);
@@ -287,7 +287,14 @@
                                                         }
                                                         else
                                                         {
-                                                            echo '<p class="" style="text-align:center;padding:5px;background-color:#e3342f;color:white;">' . $employee->time_in . '</p>'; 
+                                                            if($days_temp_date == '6' || $days_temp_date == '0' && $employee->employee_number != '03151077') 
+                                                            {
+                                                                echo $employee->time_in; 
+                                                            }
+                                                            else
+                                                            {
+                                                                echo '<p class="" style="text-align:center;padding:5px;background-color:#e3342f;color:white;">' . $employee->time_in . '</p>'; 
+                                                            }    
                                                         }
                                                     }
                                                    
@@ -331,6 +338,7 @@
                                                     }
                                                     elseif($days_temp_date == '6' || $days_temp_date == '0') 
                                                     {
+                                                      
                                                     }
                                                     else
                                                     {
@@ -355,7 +363,14 @@
                                                         }
                                                         else
                                                         {
-                                                            echo '<p class="" style="text-align:center;padding:5px;background-color:#e3342f;color:white;">' . $employee->time_out .'</p>'; 
+                                                            if($days_temp_date == '6' || $days_temp_date == '0' && $employee->employee_number != '03151077') 
+                                                            {
+                                                                echo $employee->time_out; 
+                                                            }
+                                                            else
+                                                            {
+                                                                echo '<p class="" style="text-align:center;padding:5px;background-color:#e3342f;color:white;">' . $employee->time_out .'</p>'; 
+                                                            }
                                                         }
                                                     }
                                                     else
@@ -744,23 +759,22 @@
                                         </td>
                                         <!-- OT MORNING -->
                                         <td>
-                                        <?php
-                                            if($sched_time_in_mins > $total_time_in_mins && $employee->date_in != NULL)
-                                            {
-                                                $total_ot_am =  $sched_time_in_mins - $total_time_in_mins; 
-                                                if($total_ot_am >= 60)
+                                            <?php
+                                                if($sched_time_in_mins > $total_time_in_mins && $employee->date_in != NULL)
                                                 {
-                                                    $hours = intval($total_ot_am/60);
-                                                    $min_diff = intval($total_ot_am%60);
-                                                    $minutes = sprintf("%02d", $min_diff);
-                                                    echo $hours.".".$minutes."";
+                                                    $total_ot_am =  $sched_time_in_mins - $total_time_in_mins; 
+                                                    if($total_ot_am >= 60)
+                                                    {
+                                                        $hours = intval($total_ot_am/60);
+                                                        $min_diff = intval($total_ot_am%60);
+                                                        $minutes = sprintf("%02d", $min_diff);
+                                                        echo $hours.".".$minutes."";
+                                                    }
+                                                
                                                 }
-                                               
-                                            }
-                                           
-                                           
-                                        ?>
-                                           
+                                            
+                                            
+                                            ?>
                                         </td>
                                         <!-- OT EVENING -->
                                         <td>
@@ -778,6 +792,28 @@
                                                 }
                                             ?>
                                           
+                                        </td>
+                                        <!-- OT WD -->
+                                        <td>
+                                            <?php 
+                                                $week_day = date('w', strtotime($employee->temp_date));
+                                                if($week_day == 6 || $week_day == 0)
+                                                {
+                                                    if($employee->employee_number != '03151077')
+                                                    {
+                                                        $total_ot_pm = $total_time_out_mins - $total_time_in_mins;
+                                                        if($total_ot_pm >= 60)
+                                                        {
+                                                            $hours = intval($total_ot_pm/60);
+                                                            $min_diff = intval($total_ot_pm%60);
+                                                            $minutes = sprintf("%02d", $min_diff);
+                                                            echo $hours.".".$minutes."";
+                                                        }    
+                                                    }
+                                                }
+                                               
+                                            ?>
+                                        
                                         </td>
                                         <!-- NIGHT DIFF -->
                                         <td>
@@ -920,7 +956,7 @@
         <br>
         <div class="card">
             <div class="card-header" style="background-color: #38c172; color:white;">
-                <h5> LEAVE OF ABSENCE <a href="<?php echo base_url(); ?>reports/index_slvl" target="_blank" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">ADD </a> </h5>
+                <h5> LEAVE OF ABSENCE <a href="<?php echo base_url(); ?>reports/index_slvl" target="_blank" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
@@ -954,7 +990,7 @@
         <br>
         <div class="card">
             <div class="card-header" style="background-color:rgb(127,127,127); color:white;"> 
-                <h5>  FIELD WORK / WORK FROM HOME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ob" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">ADD </a> </h5>
+                <h5>  FIELD WORK / WORK FROM HOME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ob" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
@@ -986,7 +1022,7 @@
         <br>
         <div class="card">
             <div class="card-header" style="background-color:#067593; color:white;">
-                <h5>  UNDERTIME   <a target="_blank" href="<?php echo base_url(); ?>reports/index_ut" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">ADD </a> </h5>
+                <h5>UNDERTIME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ut" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
@@ -994,19 +1030,41 @@
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DAYS</th>
                             <th scope="col">DATE</th>
-                            <th scope="col">TIME</th>
+                            <th scope="col">TIME START</th>
+                            <th scope="col">TIME END</th>
                             <th scope="col">UT HOURS</th>
                             <th scope="col">REASON</th>
                             <th scope="col">STATUS</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <?php if($employee_ut) :?>
+                            <?php foreach($employee_ut as $ut) : ?>
+                                <tr>
+                                    <td><?php echo date('D', strtotime($ut->date_ut)); ?></td>
+                                    <td><?php echo $ut->date_ut; ?></td>
+                                    <td><?php echo $ut->time_start; ?></td>
+                                    <td><?php echo $ut->time_end; ?></td>
+                                    <td>
+                                        <?php 
+                                            $ut_num = $ut->ut_num;
+                                            $ut_hrs = intdiv($ut_num, 60).'.'. ($ut_num % 60);
+                                            echo $ut_hrs;
+                                        ?>
+                                    </td>
+                                    <td><?php echo substr($ut->reason,0,50); ?></td>
+                                    <td><?php if($ut->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
                 </table> 
             </div>
         </div>
         <br>
         <div class="card">
             <div class="card-header" style="background-color:#0C2D48; color:white;">
-                <h5> OVERTIME<a target="_blank" href="<?php echo base_url(); ?>reports/index_ot" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">ADD </a> </h5>
+                <h5> OVERTIME<a target="_blank" href="<?php echo base_url(); ?>reports/index_ot" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
@@ -1020,6 +1078,28 @@
                             <th scope="col">OT HOURS</th>
                             <th scope="col">NATURE OF WORK</th>
                             <th scope="col">STATUS</th>
+                        </tr>
+                    </thead>
+                </table> 
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header" style="background-color: #3490dc; color:white;">
+                <h5> TOTAL SUMMARY  </h5>
+            </div>
+            <div class="card-body">
+                <table id="" class="table table-bordered no-wrap" >
+                    <thead>
+                        <tr style="background-color:#D4F1F4;">
+                            <th scope="col">TARDINESS</th>
+                            <th scope="col">UNDERTIME</th>
+                            <th scope="col">ABSENCES</th>
+                            <th scope="col">SICK LEAVE</th>
+                            <th scope="col">VACATION LEAVE</th>
+                            <th scope="col">REGULAR OT</th>
+                            <th scope="col">REGULAR HOLIDAY OT</th>
+                            <th scope="col">SPECIAL HOLIDAY OT</th>
                         </tr>
                     </thead>
                 </table> 

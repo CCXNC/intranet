@@ -266,7 +266,7 @@ class Reports extends CI_Controller {
     public function add_ot()
     {
         $this->form_validation->set_rules('employee', 'Employee Name', 'trim|required');
-        //$this->form_validation->set_rules('date_ot', 'Date of Overtime', 'trim|required');
+        //$this->form_validation->set_rules('ot_type', 'OT TYPE', 'trim|required');
         //$this->form_validation->set_rules('ot_num', 'Estimated Number of Hours', 'trim|required');
         //$this->form_validation->set_rules('task', 'Specific Task To Be Done', 'trim|required');
 
@@ -280,8 +280,8 @@ class Reports extends CI_Controller {
         {
             if($this->report_model->add_overtime())
             {
-                $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY PROCESS!');
-                redirect('reports/index_ot');
+               $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY ADDED!');
+               redirect('reports/index_ot');
             }
         }    
     }
