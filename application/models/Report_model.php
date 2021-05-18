@@ -192,6 +192,19 @@ class Report_model extends CI_Model {
                         /*print_r('<pre>');
                         print_r($data_work);
                         print_r('</pre>');*/
+
+                        // ACTIVITY LOGS
+                        $data_logs = array(
+                            'username'  => $this->session->userdata('username'),
+                            'activity'  => "Entry Added: Employee Number: " . $employee_number,
+                            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+                            'type'      => 'TIMEKEEPING: FIELD WORK',
+                            'date'      => date('Y-m-d H:i:s')
+                        );
+
+                        $activity_log = $this->load->database('activity_logs', TRUE);
+                        $activity_log->insert('blaine_logs', $data_logs);
+
                     }
                     elseif($type == "WORK FROM HOME")
                     {
@@ -211,6 +224,18 @@ class Report_model extends CI_Model {
                         /*print_r('<pre>');
                         print_r($data_wfh);
                         print_r('</pre>');*/
+
+                        // ACTIVITY LOGS
+                        $data_logs = array(
+                            'username'  => $this->session->userdata('username'),
+                            'activity'  => "Entry Added: Employee Number: " . $employee_number,
+                            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+                            'type'      => 'TIMEKEEPING: WORK FROM HOME',
+                            'date'      => date('Y-m-d H:i:s')
+                        );
+
+                        $activity_log = $this->load->database('activity_logs', TRUE);
+                        $activity_log->insert('blaine_logs', $data_logs);
                     }
                 
                     $conv_date = strtotime($start_date);
@@ -218,16 +243,11 @@ class Report_model extends CI_Model {
                 }
                
             }
-
             $this->session->set_flashdata('success_msg', 'DATA SUCCESSFULLY ADDED!');
             redirect('reports/index_ob');
         }
-        
-          
-
         $trans = $this->db->trans_complete();
         return $trans;
-
     }
 
     public function get_emp_entry_ob($employee_number,$start_date,$end_date)
@@ -357,6 +377,45 @@ class Report_model extends CI_Model {
         //$time_of_departure = $this->input->post('time_of_departure');
         //$time_of_departure_destination = $this->input->post('time_of_departure_destination');
 
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('ob');
+        $employee_fw_id = $datas->row()->id;
+        $employee_fw_employee_number = $datas->row()->employee_number;
+        $employee_fw_date_ob = $datas->row()->date_ob;
+        $employee_fw_destination = $datas->row()->destination;
+        $employee_fw_purpose = $datas->row()->purpose;
+        $employee_fw_transport = $datas->row()->transport;
+        $employee_fw_plate_number = $datas->row()->plate_number;
+
+        $entry_data = array(
+            'id'            => $employee_fw_id,
+            'date_ob'       => $employee_fw_date_ob,
+            'destination'   => $employee_fw_destination,
+            'purpose'       => $employee_fw_purpose,
+            'transport'     => $employee_fw_transport,
+            'plate_number'  => $employee_fw_plate_number
+
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'  => $this->session->userdata('username'),
+            'activity'  => "Entry Updated: " . 'Employee Number: ' . $employee_fw_employee_number,
+            'datas'     => "Previous Data: " . $json_data,
+            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+            'type'      => 'TIMEKEEPING: FIELD WORK',
+            'date'      => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
+        // PROCESS FOR UPDATE
         $data = array(
             'date_ob'                       => $date_ob,
             'destination'                   => $destination,
@@ -379,6 +438,38 @@ class Report_model extends CI_Model {
         $date_ob = $this->input->post('date_of_ob');
         $remarks = $this->input->post('remarks');
 
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('ob');
+        $employee_wfh_id = $datas->row()->id;
+        $employee_wfh_employee_number = $datas->row()->employee_number;
+        $employee_wfh_date_ob = $datas->row()->date_ob;
+        $employee_wfh_remarks = $datas->row()->remarks;
+
+        $entry_data = array(
+            'id'        => $employee_wfh_id,
+            'date_ob'   => $employee_wfh_date_ob,
+            'remarks'   => $employee_wfh_remarks
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'  => $this->session->userdata('username'),
+            'activity'  => "Entry Updated: " . 'Employee Number: ' . $employee_wfh_employee_number,
+            'datas'     => "Previous Data: " . $json_data,
+            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+            'type'      => 'TIMEKEEPING: WORK FROM HOME',
+            'date'      => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
+        // PROCESS FOR UPDATE
         $data = array(
             'date_ob'      => $date_ob,
             'remarks'      => $remarks,
@@ -396,6 +487,45 @@ class Report_model extends CI_Model {
     public function delete_employee_ob($id)
     {
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('ob');
+        $employee_ob_id = $datas->row()->id;
+        $employee_ob_employee_number = $datas->row()->employee_number;
+        $employee_ob_date_ob = $datas->row()->date_ob;
+        $employee_ob_type = $datas->row()->type;
+        $employee_ob_remarks = $datas->row()->remarks;
+        $employee_ob_destination = $datas->row()->destination;
+        $employee_ob_purpose = $datas->row()->purpose;
+        $employee_ob_transport = $datas->row()->transport;
+        $employee_ob_plate_no = $datas->row()->plate_no;
+
+        $entry_data = array(
+            'id'            => $employee_ob_id,
+            'date_ob'       => $employee_ob_date_ob,
+            'type'          => $employee_ob_type,
+            'remarks'       => $employee_ob_remarks,
+            'destination'   => $employee_ob_destination,
+            'purpose'       => $employee_ob_purpose,
+            'transport'     => $employee_ob_transport,
+            'plate_no'      => $employee_ob_plate_no
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Deleted: " . "ID: " . $employee_ob_id . " Employee Number: " . $employee_ob_employee_number,
+            'datas'         => $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => "TIMEKEEPING: FIELD WORK/WORK FROM HOME",
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+       
         $blaine_timekeeping->where('id', $id);
         $query = $blaine_timekeeping->delete('ob');
 
@@ -1271,6 +1401,7 @@ class Report_model extends CI_Model {
         ");
         $this->db->from('blaine_timekeeping.overtime');
         $this->db->join('blaine_intranet.employees', 'blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number');
+        $this->db->where('blaine_timekeeping.overtime.id', $id);
         $query = $this->db->get();
 
 

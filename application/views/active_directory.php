@@ -49,7 +49,16 @@
                     </td>
                     <td><?php echo $active_directory->fullname; ?></td>
                     <td><?php echo $active_directory->department; ?></td>
-                    <td><?php  echo $active_directory->email;?></td>
+                    <td>
+                        <?php  
+                            if ($active_directory->email == NULL){
+                                echo '<p class="" style="text-align:center;padding:15px;background-color:#E7D2CC;"></p>'; 
+                            }
+                            else{
+                                echo $active_directory->email;
+                            }
+                        ?>
+                    </td>
                     <td><?php  echo $active_directory->telephone_no; ?></td>
                 </tr>
             <?php endforeach; ?>
