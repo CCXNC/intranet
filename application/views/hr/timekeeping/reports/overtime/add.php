@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        var html = '<div id="sib"><br><div class="row"><div class="col-md-3"><div class="form-group"><label for="">*Date of Overtime</label> <input type="date" class="form-control" name="date_ot[]"></div></div><div class="col-md-3"><div class="form-group"><label for="">*Type</label><select name="ot_type[]" id="" class="form-control"><option value="">SELECT TYPE OF OVERTIME</option><option value="OT">REGULAR OT</option><option value="RHOT">REGULAR HOLIDAY OT</option><option value="SHOT">SPECIAL HOLIDAY OT</option></select></div></div><div class="col-md-3"><div class="form-group"><label for="">*Time Start of Overtime</label><input type="time" class="form-control" name="time_start[]" value="<?php echo date('Y-m-d'); ?>"></div></div><div class="col-md-3"><div class="form-group"><label for="">*Time End of Overtime</label><input type="time" class="form-control" name="time_end[]" value="<?php echo date('Y-m-d'); ?>"></div></div><div class="col-md-12"><div class="form-group"><label for="">*Specific Task To Be Done</label><textarea class="form-control" name="task[]" id="" cols="30" rows="4"></textarea></div></div></div><input class="btn btn-danger" type="button" name="remove" id="remove" value="Remove"></div>'
+        var html = '<div id="sib"><br><div class="row"><div class="col-md-3"><div class="form-group"><label for="">*Date of Overtime</label> <input type="date" class="form-control" name="date_ot[]"></div></div><div class="col-md-3"><div class="form-group"><label for="">*Type</label><select name="ot_type[]" id="" class="form-control"><option value="">SELECT TYPE OF OVERTIME</option><option value="OT">REGULAR OT</option><option value="RHOT">REGULAR HOLIDAY OT</option><option value="SHOT">SPECIAL HOLIDAY OT</option><option value="RD">RESTDAY</option></select></div></div><div class="col-md-3"><div class="form-group"><label for="">*Time Start of Overtime</label><input type="time" class="form-control" name="time_start[]" ></div></div><div class="col-md-3"><div class="form-group"><label for="">*Time End of Overtime</label><input type="time" class="form-control" name="time_end[]"></div></div><div class="col-md-12"><div class="form-group"><input type="checkbox" name="no_less_hour[]" value="1">&nbsp;<label for=""><b>STRAIGHT OVERTIME (NO BREAKTIME)</b></label></div></div><div class="col-md-12"><div class="form-group"><label for="">*Specific Task To Be Done</label><textarea class="form-control" name="task[]" id="" cols="30" rows="4"></textarea></div></div></div><input class="btn btn-danger" type="button" name="remove" id="remove" value="Remove"></div>'
         //var html = '<div id="sib"><br><div class="row"><div class="col-md-3"><div class="form-group"><label>School/Establishment</label><input type="text" class="form-control" name="school[]" ></div></div><div class="col-md-3"><div class="form-group"><label>Course/Diploma</label><input type="text" class="form-control" name="course[]" ></div></div><div class="col-md-3"><div class="form-group"><label>Year Graduated</label><input type="text" class="form-control"  name="year_graduated[]" > </div></div><div class="col-md-3"><div class="form-group"><label>License</label> <input type="text" class="form-control"  name="license[]" ></div></div></div> <input class="btn btn-danger" type="button" name="remove" id="remove" value="Remove"></div>';
         var max = 30;
         var x = 1;
@@ -46,11 +46,16 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="">*Type</label> 
-                        <select name="ot_type[]" id="" class="form-control">
+                        <select name="ot_type[]" class="form-control">
                             <option value="">SELECT TYPE OF OVERTIME</option>
-                            <option value="OT">REGULAR OT</option>
+                            <option value="ROT">REGULAR OT</option>
                             <option value="RHOT">REGULAR HOLIDAY OT</option>
                             <option value="SHOT">SPECIAL HOLIDAY OT</option>
+                            <option value="RD">RESTDAY</option>
+                            <option value="RDSHOT">RESTDAY + REGULAR HOLIDAY OT</option>
+                            <option value="RDSHOT">RESTDAY + SPECIAL HOLIDAY OT</option>
+                            <option value="RHOTSHOT">REGULAR HOLIDAY OT + SPECIAL HOLIDAY OT</option>
+                            <option value="RDRHOTSHOT">RESTDAY + REGULAR HOLIDAY OT + SPECIAL HOLIDAY OT</option>
                         </select>        
                     </div>
                 </div>
@@ -64,6 +69,12 @@
                     <div class="form-group">
                         <label for="">*Time End of Overtime</label>
                         <input type="time" class="form-control" name="time_end[]" value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="checkbox" name="no_less_hour[]" value="1">
+                        <label for=""><b>STRAIGHT OVERTIME (NO BREAKTIME)</b></label>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -82,11 +93,24 @@
             </div>   
         </div> 
         <div class="col-md-12">
-                    <div class="form-group">
-                        <center>
-                            <input type="submit" onclick="return confirm('Do you want to submit data?');" title="Submit Data" class="btn btn-info" name="SUBMIT">
-                        </center>
-                     </div>    
-                </div>            
+            <div class="form-group">
+                <center>
+                    <input type="submit" onclick="return confirm('Do you want to submit data?');" title="Submit Data" class="btn btn-info" name="SUBMIT">
+                </center>
+            </div>    
+        </div>            
     </form>                          
 </div>
+<script type="text/javascript">
+    $('.hideOt').hide();
+    $(document).ready(function() {
+        $('.otType').on('change', function() {
+            var value = $(this).val();
+            if(value == "RD") {
+                $('.hideOt').show();
+            } else {
+                $('.hideOt').hide();
+            }
+        });
+    });
+</script>

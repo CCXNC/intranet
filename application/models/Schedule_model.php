@@ -11,7 +11,7 @@ class Schedule_model extends CI_Model {
         $employee_number = $explod_data[0];
         $biometric_id = $explod_data[1];
         $id = $explod_data[2];
-        //$days = substr(implode(',', $this->input->post('days')), 0); | 'days'            => $days,
+        $days = substr(implode(',', $this->input->post('days')), 0);
         $time_in = $this->input->post('time_in');
         $time_out = $this->input->post('time_out');
         $grace_period = $this->input->post('grace_period');
@@ -19,6 +19,7 @@ class Schedule_model extends CI_Model {
         $date = date('Y-m-d H:i:s');
 
         $data = array(
+            'days'            => $days,
             'time_in'         => $time_in,
             'time_out'        => $time_out,
             'grace_period'    => $grace_period,
@@ -96,7 +97,7 @@ class Schedule_model extends CI_Model {
 
     public function update_employee_schedule($id)
     {
-        //$days = substr(implode(',', $this->input->post('days')), 0); |   'days'            => $days,
+        $days = substr(implode(',', $this->input->post('days')), 0); 
         $time_in = $this->input->post('time_in');
         $time_out = $this->input->post('time_out');
         $grace_period = $this->input->post('grace_period');
@@ -140,6 +141,7 @@ class Schedule_model extends CI_Model {
         
         // PROCESS FOR UPDATE
         $data = array(
+            'days'            => $days,
             'time_in'         => $time_in,
             'time_out'        => $time_out,
             'grace_period'    => $grace_period,

@@ -53,7 +53,7 @@
                             <th scope="col">UNDERTIME</th>
                             <th scope="col">EXCESS AM</th>
                             <th scope="col">EXCESS PM</th>
-                            <th scope="col">EXCESS WD</th>
+                            <th scope="col">EXCESS RD|RDOT</th>
                             <th scope="col">ND</th>
                             <th scope="col">PROCESS</th>
                             <th scope="col">REMARKS</th>
@@ -757,37 +757,46 @@
                                             ?>
 
                                         </td>
-                                        <!-- OT MORNING -->
+                                        <!-- EXCESS AM -->
                                         <td>
                                             <?php
                                                 if($sched_time_in_mins > $total_time_in_mins && $employee->date_in != NULL)
                                                 {
-                                                    $total_ot_am =  $sched_time_in_mins - $total_time_in_mins; 
-                                                    if($total_ot_am >= 60)
+                                                    $week_day = date('w', strtotime($employee->temp_date));
+                                                    if($week_day != 6 && $week_day != 0)
                                                     {
-                                                        $hours = intval($total_ot_am/60);
-                                                        $min_diff = intval($total_ot_am%60);
-                                                        $minutes = sprintf("%02d", $min_diff);
-                                                        echo $hours.".".$minutes."";
+                                                        $total_ot_am =  $sched_time_in_mins - $total_time_in_mins; 
+                                                        if($total_ot_am >= 60)
+                                                        {
+                                                            $hours = intval($total_ot_am/60);
+                                                            $min_diff = intval($total_ot_am%60);
+                                                            $minutes = sprintf("%02d", $min_diff);
+                                                            echo $hours.".".$minutes."";
+                                                        }
+                                                    
                                                     }
-                                                
+                                                   
                                                 }
                                             
                                             
                                             ?>
                                         </td>
-                                        <!-- OT EVENING -->
+                                        <!-- EXCESS PM -->
                                         <td>
                                             <?php 
                                                 if($total_time_out_mins > $sched_time_out_mins && $employee->date_out != NULL)
                                                 {
-                                                    $total_ot_pm = $total_time_out_mins - $sched_time_out_mins;
-                                                    if($total_ot_pm >= 60)
+                                                    $week_day = date('w', strtotime($employee->temp_date));
+                                                    if($week_day != 6 && $week_day != 0)
                                                     {
-                                                        $hours = intval($total_ot_pm/60);
-                                                        $min_diff = intval($total_ot_pm%60);
-                                                        $minutes = sprintf("%02d", $min_diff);
-                                                        echo $hours.".".$minutes."";
+                                                        $total_ot_pm = $total_time_out_mins - $sched_time_out_mins;
+                                                        if($total_ot_pm >= 60)
+                                                        {
+                                                            $hours = intval($total_ot_pm/60);
+                                                            $min_diff = intval($total_ot_pm%60);
+                                                            $minutes = sprintf("%02d", $min_diff);
+                                                            echo $hours.".".$minutes."";
+                                                        }    
                                                     }    
                                                 }
                                             ?>
@@ -801,19 +810,81 @@
                                                 {
                                                     if($employee->employee_number != '03151077')
                                                     {
-                                                        $total_ot_pm = $total_time_out_mins - $total_time_in_mins;
-                                                        if($total_ot_pm >= 60)
+                                                        $total_ot_wd = $total_time_out_mins - $total_time_in_mins;
+                                                        if($total_ot_wd >= 60)
                                                         {
-                                                            $hours = intval($total_ot_pm/60);
-                                                            $min_diff = intval($total_ot_pm%60);
-                                                            $minutes = sprintf("%02d", $min_diff);
-                                                            echo $hours.".".$minutes."";
+                                                            if($total_ot_wd <= 480)
+                                                            {
+                                                                if($total_time_out_mins >= 780)
+                                                                {
+                                                                    $less_breaktime = $total_ot_wd;
+                                                                    $hours = intval($less_breaktime/60);
+                                                                    $min_diff = intval($less_breaktime%60);
+                                                                    $minutes = sprintf("%02d", $min_diff);
+                                                                    echo $hours.".".$minutes." | 0";
+                                                                }
+                                                                else
+                                                                {
+                                                                    //$compute_ot = $total_ot_wd - 480;
+                                                                    $hours = intval($total_ot_wd/60);
+                                                                    $min_diff = intval($total_ot_wd%60);
+                                                                    $minutes = sprintf("%02d", $min_diff);
+                                                                    echo $hours.".".$minutes." | 0";
+                                                                }
+                                                               
+                                                            }
+                                                            elseif($total_ot_wd >= 480)
+                                                            {
+                                                                if($total_time_out_mins >= 780)
+                                                                {
+                                                                    if($total_ot_wd >= 480)
+                                                                    {
+                                                                        $less_breaktime = $total_ot_wd;
+                                                                        //echo $less_breaktime;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        $less_breaktime = $total_ot_wd;
+                                                                    }
+
+                                                                    if($less_breaktime >= 480)
+                                                                    {
+                                                                        $excess_hours = 480;
+                                                                        $compute_ot = $total_ot_wd - 480 - 60;
+                                                                        $hours = intval($compute_ot/60);
+                                                                        $min_diff = intval($compute_ot%60);
+                                                                        $minutes = sprintf("%02d", $min_diff);
+                                                                        echo "8.00 | " . $hours.".".$minutes."";
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        $hours = intval($less_breaktime/60);
+                                                                        $min_diff = intval($less_breaktime%60);
+                                                                        $minutes = sprintf("%02d", $min_diff);
+                                                                        echo $hours.".".$minutes."";
+                                                                    }
+                                                                    
+                                                                  
+                                                                  
+                                                                    /*$excess_hours = 480;
+                                                                    $compute_ot = $total_ot_wd - 480 - 60;
+                                                                    $hours = intval($compute_ot/60);
+                                                                    $min_diff = intval($compute_ot%60);
+                                                                    $minutes = sprintf("%02d", $min_diff);
+                                                                    echo "8.00 | " . $hours.".".$minutes."";*/
+                                                                }  
+                                                                else
+                                                                {
+                                                                   echo 0;
+                                                                }  
+                                                            }
+
+                                                         
                                                         }    
                                                     }
                                                 }
                                                
                                             ?>
-                                        
                                         </td>
                                         <!-- NIGHT DIFF -->
                                         <td>
@@ -821,15 +892,57 @@
                                                 $start_nd = 1320;
                                                 $end_nd = 360;
 
-                                                if($end_nd > $total_time_in_mins && $employee->date_in != NULL)
+                                                if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $start_nd < $total_time_out_mins && $employee->date_out != NULL)
                                                 {
                                                     $total_nd_am = $end_nd - $total_time_in_mins;
-                                                    if($total_nd_am >= 30)
+                                                    $total_nd_pm = $total_time_out_mins - $start_nd;
+                                                    $total_nd = $total_nd_am + $total_nd_pm;
+
+                                                    $hours = intval($total_nd/60);
+                                                    $min_diff = intval($total_nd%60);
+
+                                                    if($total_nd >= 30)
                                                     {
+                                                        if($min_diff >= 30) {
+                                                            echo $hours . '.' . 5;
+                                                        } elseif($min_diff <= 30) {
+                                                            echo $hours . '.' . 00;
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if($end_nd > $total_time_in_mins && $employee->date_in != NULL)
+                                                    {
+                                                        $total_nd_am = $end_nd - $total_time_in_mins;
+    
                                                         $hours = intval($total_nd_am/60);
                                                         $min_diff = intval($total_nd_am%60);
-                                                        $minutes = sprintf("%02d", $min_diff);
-                                                        echo $hours.".".$minutes."";
+    
+                                                        if($total_nd_am >= 30)
+                                                        {
+                                                            if($min_diff >= 30) {
+                                                                echo $hours . '.' . 5;
+                                                            } elseif($min_diff <= 30) {
+                                                                echo $hours . '.' . 00;
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif($start_nd < $total_time_out_mins && $employee->date_out != NULL)
+                                                    {
+                                                        $total_nd_pm = $total_time_out_mins - $start_nd;
+
+                                                        $hours = intval($total_nd_pm/60);
+                                                        $min_diff = intval($total_nd_pm%60);
+
+                                                        if($total_nd_pm >= 30)
+                                                        {
+                                                            if($min_diff >= 30) {
+                                                                echo $hours . '.' . 5;
+                                                            } elseif($min_diff <= 30) {
+                                                                echo $hours . '.' . 00;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             ?>
@@ -1095,11 +1208,18 @@
                             <th scope="col">TARDINESS</th>
                             <th scope="col">UNDERTIME</th>
                             <th scope="col">ABSENCES</th>
-                            <th scope="col">SICK LEAVE</th>
-                            <th scope="col">VACATION LEAVE</th>
-                            <th scope="col">REGULAR OT</th>
-                            <th scope="col">REGULAR HOLIDAY OT</th>
-                            <th scope="col">SPECIAL HOLIDAY OT</th>
+                            <th scope="col">ROT</th>
+                            <th scope="col">ND</th>
+                            <th scope="col">RHOT</th>
+                            <th scope="col">SHOT</th>
+                            <th scope="col">RD</th>
+                            <th scope="col">RDOT</th>
+                            <th scope="col">SL</th>
+                            <th scope="col">VL</th>
+                            <th scope="col">ML</th>
+                            <th scope="col">PL</th>
+                            <th scope="col">BL</th>
+                            <th scope="col">SPL</th>
                         </tr>
                     </thead>
                 </table> 
@@ -1279,6 +1399,6 @@
                     }); 
                 }
             });    
-        } );
+        });
     </script> 
    
