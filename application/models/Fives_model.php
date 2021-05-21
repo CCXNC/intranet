@@ -129,6 +129,8 @@ class Fives_model extends CI_Model {
 		");
 		$this->db->from('blaine_five_s.idea');
 		$this->db->where('blaine_five_s.idea.is_active', 1);
+		$status_condition = array('Open', 'Ongoing');
+		$this->db->where_in('blaine_five_s.idea.status', $status_condition);
 		// DATABASE.TABLE.FIELD
 		$this->db->join('blaine_intranet.company', 'blaine_intranet.company.id = blaine_five_s.idea.company');
 		$this->db->join('blaine_intranet.department', 'blaine_intranet.department.id = blaine_five_s.idea.department');
@@ -416,7 +418,7 @@ class Fives_model extends CI_Model {
 		$data = array(
 			'username'	=> $this->session->userdata('username'),
 			'activity'	=> "Entry Deleted: " . ' ID: ' . $id,
-			'datas'		=> "Previous Data: " . $json_data,
+			'datas'		=> "Deleted Data: " . $json_data,
 			'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
 			'type'		=> '5S: SHARE MY IDEA',
 			'date'		=> date('Y-m-d H:i:s')
@@ -670,7 +672,7 @@ class Fives_model extends CI_Model {
 			'username'		=> $this->session->userdata('username'),
 			'activity'		=> "Entry Added",
 			'pc_ip'			=> $_SERVER['REMOTE_ADDR'],
-			'type'			=> '1S: RED TAG',
+			'type'			=> '5S: RED TAG',
 			'date'			=> $date
 		);
 

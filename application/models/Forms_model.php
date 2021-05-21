@@ -171,7 +171,7 @@ class Forms_model extends CI_Model {
 			'username'	=>	$this->session->userdata('username'),
 			//'activity'	=>	"Blaine Forms deleted:" . ' id: ' . $blaine_forms_id . ' name: ' . $blaine_forms_name,
 			'activity'	=> "Entry Deleted: " . ' ID: ' . $id,
-			'datas'		=>	"Previous Data: " . $json_data,
+			'datas'		=>	"Deleted Data: " . $json_data,
 			//'datas'		=> "Previous Data: " . $json_data,
 			'pc_ip'		=>	$_SERVER['REMOTE_ADDR'],
 			'type'		=>	'BLAINE FORMS',

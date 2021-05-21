@@ -737,6 +737,8 @@ class Report_model extends CI_Model {
                                 /*print_r('<pre>');
                                 print_r($data);
                                 print_r('</pre>');*/
+
+                                
                             }
                         }
                     }
@@ -761,6 +763,8 @@ class Report_model extends CI_Model {
                                 
                                 $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
                                 $blaine_timekeeping->insert('slvl', $data);
+
+                                
                             }
                             else
                             {
@@ -826,6 +830,18 @@ class Report_model extends CI_Model {
                             /*print_r('<pre>');
                             print_r($data);
                             print_r('</pre>');*/
+
+                            // ACTIVITY LOGS
+                            $data_logs = array(
+                                'username'  => $this->session->userdata('username'),
+                                'activity'  => "Entry Added: Employee Number: " . $employee_number,
+                                'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+                                'type'      => 'TIMEKEEPING: LEAVE OF ABSENCE',
+                                'date'      => date('Y-m-d H:i:s')
+                            );
+
+                            $activity_log = $this->load->database('activity_logs', TRUE);
+                            $activity_log->insert('blaine_logs', $data_logs);
                         }
                         else
                         {
@@ -849,6 +865,18 @@ class Report_model extends CI_Model {
                             /*print_r('<pre>');
                             print_r($data);
                             print_r('</pre>');*/
+
+                            // ACTIVITY LOGS
+                            $data_logs = array(
+                                'username'  => $this->session->userdata('username'),
+                                'activity'  => "Entry Added: Employee Number: " . $employee_number,
+                                'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+                                'type'      => 'TIMEKEEPING: LEAVE OF ABSENCE',
+                                'date'      => date('Y-m-d H:i:s')
+                            );
+
+                            $activity_log = $this->load->database('activity_logs', TRUE);
+                            $activity_log->insert('blaine_logs', $data_logs);
                         }
                     }
                 }
@@ -873,6 +901,18 @@ class Report_model extends CI_Model {
                             
                             $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
                             $blaine_timekeeping->insert('slvl', $data);
+                        
+                            // ACTIVITY LOGS
+                            $data_logs = array(
+                                'username'  => $this->session->userdata('username'),
+                                'activity'  => "Entry Added: Employee Number: " . $employee_number,
+                                'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+                                'type'      => 'TIMEKEEPING: LEAVE OF ABSENCE',
+                                'date'      => date('Y-m-d H:i:s')
+                            );
+
+                            $activity_log = $this->load->database('activity_logs', TRUE);
+                            $activity_log->insert('blaine_logs', $data_logs);
                         }
                         else
                         {
@@ -894,6 +934,17 @@ class Report_model extends CI_Model {
                             $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
                             $blaine_timekeeping->insert('slvl', $data);
                          
+                            // ACTIVITY LOGS
+                            $data_logs = array(
+                                'username'  => $this->session->userdata('username'),
+                                'activity'  => "Entry Added: Employee Number: " . $employee_number,
+                                'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+                                'type'      => 'TIMEKEEPING: LEAVE OF ABSENCE',
+                                'date'      => date('Y-m-d H:i:s')
+                            );
+                            
+                            $activity_log = $this->load->database('activity_logs', TRUE);
+                            $activity_logs->insert('blaine_logs', $data_logs);
                         }
                 }
                
@@ -1002,8 +1053,52 @@ class Report_model extends CI_Model {
         $address_leave = $this->input->post('address_leave');
         $reason = $this->input->post('reason');
 
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('slvl');
+        $employee_leave_id = $datas->row()->id;
+        $employee_leave_employee_number = $datas->row()->employee_number;
+        $employee_leave_type = $datas->row()->type;
+        $employee_leave_type_name = $datas->row()->type_name;
+        $employee_leave_leave_date = $datas->row()->leave_date;
+        $employee_leave_leave_day = $datas->row()->leave_day;
+        $employee_leave_leave_address = $datas->row()->leave_address;
+        $employee_leave_reason = $datas->row()->reason;
+        $employee_leave_leave_num = $datas->row()->leave_num;
+
+        // PROCESS FOR UPDATE
         if($day == "WD")
         {
+
+            $entry_data = array(
+                'id'                => $employee_leave_id,
+                'type'              => $employee_leave_type,
+                'type_name'         => $employee_leave_type_name,
+                'leave_date'        => $employee_leave_leave_date,
+                'leave_day'         => $employee_leave_leave_day,
+                'leave_address'     => $employee_leave_leave_address,
+                'reason'            => $employee_leave_reason,
+                'leave_num'         => $employee_leave_leave_num
+            );
+    
+            $json_data = json_encode($entry_data);
+    
+            $data_logs = array(
+                'username'  => $this->session->userdata('username'),
+                'activity'  => "Entry Updated: Employee Number: " . $employee_leave_employee_number,
+                'datas'     => "Previous Data: " . $json_data,
+                'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+                'type'      => 'TIMEKEEPING: LEAVE OF ABSENCE',
+                'date'      => date('Y-m-d H:i:s')
+            );
+    
+            // CALL ACTIVITY LOGS DATABASE
+            $activity_log = $this->load->database('activity_logs', TRUE);
+            $activity_log->insert('blaine_logs', $data_logs);
+        
+            // PROCESS FOR UPDATE
             $data = array(
                 'type'            => $type,
                 'type_name'       => $type_name,
@@ -1023,6 +1118,33 @@ class Report_model extends CI_Model {
         }
         else
         {
+            $entry_data = array(
+                'id'                => $employee_leave_id,
+                'type'              => $employee_leave_type,
+                'type_name'         => $employee_leave_type_name,
+                'leave_date'        => $employee_leave_leave_date,
+                'leave_day'         => $employee_leave_leave_day,
+                'leave_address'     => $employee_leave_leave_address,
+                'reason'            => $employee_leave_reason,
+                'leave_num'         => $employee_leave_leave_num
+            );
+    
+            $json_data = json_encode($entry_data);
+    
+            $data_logs = array(
+                'username'  => $this->session->userdata('username'),
+                'activity'  => "Entry Updated: Employee Number: " . $employee_leave_employee_number,
+                'datas'     => "Previous Data: " . $json_data,
+                'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+                'type'      => 'TIMEKEEPING: LEAVE OF ABSENCE',
+                'date'      => date('Y-m-d H:i:s')
+            );
+    
+            // CALL ACTIVITY LOGS DATABASE
+            $activity_log = $this->load->database('activity_logs', TRUE);
+            $activity_log->insert('blaine_logs', $data_logs);
+        
+            // PROCESS FOR UPDATE
             $data = array(
                 'type'            => $type,
                 'type_name'       => $type_name,
@@ -1049,6 +1171,45 @@ class Report_model extends CI_Model {
     public function delete_employee_leave($id)
     {
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('slvl');
+        $employee_leave_id = $datas->row()->id;
+        $employee_leave_employee_number = $datas->row()->employee_number;
+        $employee_leave_type = $datas->row()->type;
+        $employee_leave_type_name = $datas->row()->type_name;
+        $employee_leave_leave_date = $datas->row()->leave_date;
+        $employee_leave_leave_day = $datas->row()->leave_day;
+        $employee_leave_leave_address = $datas->row()->leave_address;
+        $employee_leave_reason = $datas->row()->reason;
+        $employee_leave_leave_num = $datas->row()->leave_num;
+
+        $entry_data = array(
+            'id'                => $employee_leave_id,
+            'type'              => $employee_leave_type,
+            'type_name'         => $employee_leave_type_name,
+            'leave_date'        => $employee_leave_leave_date,
+            'leave_day'         => $employee_leave_leave_day,
+            'leave_address'     => $employee_leave_leave_address,
+            'reason'            => $employee_leave_reason,
+            'leave_num'         => $employee_leave_leave_num
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'          => $this->session->userdata('username'),
+            'activity'          => "Entry Deleted: " . "ID: " . $employee_leave_id . " Employee Number: " . $employee_leave_employee_number,
+            'datas'             => "Deleted Data: " . $json_data,
+            'pc_ip'             => $_SERVER['REMOTE_ADDR'],
+            'type'              => "TIMEKEEPING: LEAVE OF ABSENCE",
+            'date'              => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $blaine_timekeeping->where('id', $id);
         $query = $blaine_timekeeping->delete('slvl');
 
@@ -1098,6 +1259,19 @@ class Report_model extends CI_Model {
         /*print_r('<pre>');
         print_r($data);
         print_r('</pre>');*/
+
+        // ACTIVITY LOGS
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added: Employee Number: " . $employee_number,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'TIMEKEEPING: UNDERTIME',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOG DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
 
         $trans = $this->db->trans_complete();
         return $trans;
@@ -1193,7 +1367,45 @@ class Report_model extends CI_Model {
         
         $timediff = $time_end_num - $time_start_num;
         //$total_ut = $timediff / 60;
+
+        // GET DATA BEFORE UPDATE
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('undertime');
+        $employee_undertime_id = $datas->row()->id;
+        $employee_undertime_employee_number = $datas->row()->employee_number;
+        $employee_undertime_date_ut = $datas->row()->date_ut;
+        $employee_undertime_time_start = $datas->row()->time_start;
+        $employee_undertime_time_end = $datas->row()->time_end;
+        $employee_undertime_ut_num = $datas->row()->ut_num;
+        $employee_undertime_reason = $datas->row()->reason;
+
+        $entry_data = array(
+            'id'            => $employee_undertime_id,
+            'date_ut'       => $employee_undertime_date_ut,
+            'time_start'    => $employee_undertime_time_start,
+            'time_end'      => $employee_undertime_time_end,
+            'ut_num'        => $employee_undertime_ut_num,
+            'reason'        => $employee_undertime_reason
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Updated: " . 'Employee Number: ' . $employee_undertime_employee_number,
+            'datas'         => "Previous Data: " . $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'TIMEKEEPING: UNDERTIME',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
        
+        // PROCESS FOR UPDATE
         $data = array(
             'date_ut'         => $date_ut,
             'time_start'      => $time_start,
@@ -1218,6 +1430,41 @@ class Report_model extends CI_Model {
     public function delete_employee_undertime($id)
     {
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('undertime');
+        $employee_undertime_id = $datas->row()->id;
+        $employee_undertime_employee_number = $datas->row()->employee_number;
+        $employee_undertime_date_ut = $datas->row()->date_ut;
+        $employee_undertime_time_start = $datas->row()->time_start;
+        $employee_undertime_time_end = $datas->row()->time_end;
+        $employee_undertime_ut_num = $datas->row()->ut_num;
+        $employee_undertime_reason = $datas->row()->reason;
+
+        $entry_data = array(
+            'id'            => $employee_undertime_id,
+            'date_ut'       => $employee_undertime_date_ut,
+            'time_start'    => $employee_undertime_time_start,
+            'time_end'      => $employee_undertime_time_end,
+            'ut_num'        => $employee_undertime_ut_num,
+            'reason'        => $employee_undertime_reason
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Deleted: " . "ID: " . $employee_undertime_id . " Employee Number: " . $employee_undertime_employee_number,
+            'datas'         => "Deleted Data: " . $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => "TIMEKEEPING: UNDERTIME",
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $blaine_timekeeping->where('id', $id);
         $query = $blaine_timekeeping->delete('undertime');
 

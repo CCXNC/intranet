@@ -369,7 +369,7 @@ class Schedule_model extends CI_Model {
             'username'  => $this->session->userdata('username'),
             'activity'  => "Entry Added: Employee Number: " .$employee_number,
             'pc_ip'     => $_SERVER['REMOTE_ADDR'],
-            'type'      => 'TIMEKEEPING: ADD EMPLOYEE SCHEDULE',
+            'type'      => 'TIMEKEEPING: EMPLOYEE SCHEDULE - CHANGE SCHEDULE',
             'date'      => date('Y-m-d H:i:s')
         );
 

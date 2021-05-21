@@ -102,7 +102,7 @@ class Calendar_model extends CI_Model {
             'username' => $this->session->userdata('username'),
             'activity' => "Entry Added: Holiday",
             'pc_ip'    => $_SERVER['REMOTE_ADDR'],
-            'type'     => 'HOLIDAY CALENDAR LIST',
+            'type'     => 'TIMEKEEPING: HOLIDAY CALENDAR LIST',
             'date'     => date('Y-m-d H:i:s')
         );
 
@@ -223,7 +223,7 @@ class Calendar_model extends CI_Model {
             'activity' => "Entry Updated: " . ' ID: ' . $holiday_id,
             'datas'    => "Previous Data: " . $json_data,
             'pc_ip'    => $_SERVER['REMOTE_ADDR'],
-            'type'     => 'HOLIDAY CALENDAR LIST',
+            'type'     => 'TIMEKEEPING: HOLIDAY CALENDAR LIST',
             'date'     => date('Y-m-d H:i:s')
         );
 
@@ -317,7 +317,7 @@ class Calendar_model extends CI_Model {
             'activity'  => "Entry Deleted: " . ' ID: ' . $id,
             'datas'     => "Deleted Data: " . $json_data,
             'pc_ip'     => $_SERVER['REMOTE_ADDR'],
-            'type'      => 'HOLIDAY CALENDAR LIST',
+            'type'      => 'TIMEKEEPING: HOLIDAY CALENDAR LIST',
             'date'      => date('Y-m-d H:i:s')
         );
 

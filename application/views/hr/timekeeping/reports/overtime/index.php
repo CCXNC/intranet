@@ -153,6 +153,10 @@
                                 $actual_total_ot = $total_time_out_mins - $sched_time_out_mins;
                                 //echo $actual_total_ot;
                             }
+                            else
+                            {
+                                $actual_total_ot = 0;
+                            }
                         }
                         
                         $explod_ot = explode(".", $ot->ot_num);

@@ -297,9 +297,9 @@ class Attendance_model extends CI_Model
 
 				$data = array(
 					'username'	=> $this->session->userdata('username'),
-					'activity'	=> "Entry Added",
+					'activity'	=> "Entry Added: Employee Number: " . $employee_number,
 					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
-					'type'		=> "MANUAL ATTENDANCE",
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - IN",
 					'date'		=> date('Y-m-d H:i:s')
 				);
 		
@@ -333,9 +333,9 @@ class Attendance_model extends CI_Model
 
 				$data = array(
 					'username'	=> $this->session->userdata('username'),
-					'activity'	=> "Entry Added",
+					'activity'	=> "Entry Added: Employee Number: " . $employee_number,
 					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
-					'type'		=> "MANUAL ATTENDANCE",
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - OUT",
 					'date'		=> date('Y-m-d H:i:s')
 				);
 		
@@ -360,6 +360,18 @@ class Attendance_model extends CI_Model
 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 				$blaine_timekeeping->insert('slvl', $data_sl);
+
+				// ACTIVITY LOG
+				$data_logs = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added: Employee Number: " .$employee_number,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - SL",
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data_logs);
 			}
 			elseif($other == 'VL') 
 			{
@@ -376,6 +388,17 @@ class Attendance_model extends CI_Model
 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 				$blaine_timekeeping->insert('slvl', $data_vl);
+
+				$data_logs = array(
+					'username'		=> $this->session->userdata('username'),
+					'activity'		=> "Entry Added: Employee Number: " . $employee_number,
+					'pc_ip'			=> $_SERVER['REMOTE_ADDR'],
+					'type'			=> "TIMEKEEPING: MANUAL ATTENDANCE - VL",
+					'date'			=> date('Y-m-d H:i:s')
+				);
+
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data_logs);
 			}
 			elseif($other == 'ML') 
 			{
@@ -392,6 +415,18 @@ class Attendance_model extends CI_Model
 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 				$blaine_timekeeping->insert('slvl', $data_vl);
+
+				// ACTIVITY LOGS
+				$data_logs = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added: Employee Number: " . $employee_number,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - ML",
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data_logs);
 			}
 			elseif($other == 'NO WORK SCHEDULE') 
 			{
@@ -408,6 +443,18 @@ class Attendance_model extends CI_Model
 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 				$blaine_timekeeping->insert('slvl', $data_nws);
+
+				// ACTIVITY LOG
+				$data_logs = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added: Employee Number: " . $employee_number,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - NO WORK SCHEDULE",
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data_logs);
 			}
 			elseif($other == 'FIELD WORK') 
 			{
@@ -423,6 +470,18 @@ class Attendance_model extends CI_Model
 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 				$blaine_timekeeping->insert('ob', $data_fw);
+
+				// ACTIVITY LOG
+				$data_logs = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added: Employee Number: " . $employee_number,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - FIELD WORK",
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data_logs);
 			}
 			elseif($other == 'WORK FROM HOME') 
 			{
@@ -438,6 +497,18 @@ class Attendance_model extends CI_Model
 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 				$blaine_timekeeping->insert('ob', $data_wfh);
+
+				// ACTIVITY LOG
+				$data_logs = array(
+					'username'	=> $this->session->userdata('username'),
+					'activity'	=> "Entry Added: Employee Number: " . $employee_number,
+					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - WORK FROM HOME",
+					'date'		=> date('Y-m-d H:i:s')
+				);
+
+				$activity_log = $this->load->database('activity_logs', TRUE);
+				$activity_log->insert('blaine_logs', $data_logs);
 			}
 			
 		}
@@ -501,16 +572,16 @@ class Attendance_model extends CI_Model
 					blaine_timekeeping.attendance_in tbl2 WHERE tbl1.id > tbl2.id AND tbl1.biometric_id = tbl2.biometric_id AND tbl1.date = tbl2.date
 				");*/
 
-				$data = array(
+				$data_logs = array(
 					'username'	=> $this->session->userdata('username'),
-					'activity'	=> "Entry Added",
+					'activity'	=> "Entry Added: Employee Number: " . $employee_number,
 					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
-					'type'		=> "MANUAL ATTENDANCE",
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - IN",
 					'date'		=> date('Y-m-d H:i:s')
 				);
 		
 				$activity_log = $this->load->database('activity_logs', TRUE);
-				$activity_log->insert('blaine_logs', $data);
+				$activity_log->insert('blaine_logs', $data_logs);
 			}
 			
 			if($no_time_out != 1)
@@ -539,9 +610,9 @@ class Attendance_model extends CI_Model
 
 				$data = array(
 					'username'	=> $this->session->userdata('username'),
-					'activity'	=> "Entry Added",
+					'activity'	=> "Entry Added: Employee Number: " . $employee_number,
 					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
-					'type'		=> "MANUAL ATTENDANCE",
+					'type'		=> "TIMEKEEPING: MANUAL ATTENDANCE - OUT",
 					'date'		=> date('Y-m-d H:i:s')
 				);
 		
@@ -578,7 +649,7 @@ class Attendance_model extends CI_Model
 					'activity'	=> "Entry Updated: " . ' Employee Number: ' . $employee_number ,
 					'datas'		=> "Previous Data: " . $json_data,
 					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
-					'type'		=> 'MANUAL ATTENDANCE',
+					'type'		=> 'TIMEKEEPING: MANUAL ATTENDANCE - IN',
 					'date'		=> date('Y-m-d H:i:s')
 				);
 
@@ -630,7 +701,7 @@ class Attendance_model extends CI_Model
 					'activity'	=> "Entry Updated: " . ' Employee Number: ' . $employee_number ,
 					'datas'		=> "Previous Data: " . $json_data,
 					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
-					'type'		=> 'MANUAL ATTENDANCE',
+					'type'		=> 'TIMEKEEPING: MANUAL ATTENDANCE - OUT',
 					'date'		=> date('Y-m-d H:i:s')
 				);
 
@@ -673,7 +744,7 @@ class Attendance_model extends CI_Model
 					'activity'	=> "Entry Deleted: " . ' Employee Number: ' . $employee_number ,
 					'datas'		=> "Deleted Data: " . $json_data,
 					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
-					'type'		=> 'MANUAL ATTENDANCE',
+					'type'		=> 'TIMEKEEPING: MANUAL ATTENDANCE - IN',
 					'date'		=> date('Y-m-d H:i:s')
 				);
 
@@ -708,7 +779,7 @@ class Attendance_model extends CI_Model
 					'activity'	=> "Entry Deleted: " . ' Employee Number: ' . $employee_number ,
 					'datas'		=> "Deleted Data: " . $json_data,
 					'pc_ip'		=> $_SERVER['REMOTE_ADDR'],
-					'type'		=> 'MANUAL ATTENDANCE',
+					'type'		=> 'TIMEKEEPING: MANUAL ATTENDANCE - OUT',
 					'date'		=> date('Y-m-d H:i:s')
 				);
 

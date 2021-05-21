@@ -36,7 +36,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" title="View Employee Schedule" href="<?php echo base_url(); ?>schedule/view_schedule/<?php echo $schedule->id; ?>/<?php echo $schedule->employee_number; ?>">View</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" title="Edit Employee Biometric" href="<?php echo base_url(); ?>schedule/add_employee_schedule/<?php echo $schedule->employee_number; ?>">Add Schedule</a>
+                                <a class="dropdown-item" title="Change Employee Schedule" href="<?php echo base_url(); ?>schedule/add_employee_schedule/<?php echo $schedule->employee_number; ?>">Change Schedule</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" title="Edit Employee Schedule" href="<?php echo base_url(); ?>schedule/edit_schedule/<?php echo $schedule->id; ?>">Edit Default Schedule</a>
                                 <div class="dropdown-divider"></div>
