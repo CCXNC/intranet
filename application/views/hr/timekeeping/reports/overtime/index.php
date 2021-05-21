@@ -32,12 +32,11 @@
                 <th scope="col">EMPLOYEE NAME</th>
                 <th scope="col">DEPARTMENT</th>
                 <th scope="col">TYPE</th>
-                <th>OT AM</th>
-                <th>OT PM</th>
-                <th>OT WD</th>
+                <!--<th>EXCESS AM|PM|RD|RDOT</th>-->
                 <th scope="col">TIME START</th>
                 <th scope="col">TIME END</th>
-                <th scope="col">OT (HOURS.MINS)</th>
+                <th>EXCESS OT</th>
+                <th scope="col">TOTAL OT</th>
                 <th scope="col">TASK</th>
                 <!--<th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
                 <th scope="col">STATUS</th>-->
@@ -137,8 +136,44 @@
                         $week_day = date('w', strtotime($ot->date_ot));
                         if($week_day == 6 || $week_day == 0)
                         {
-                            $actual_total_ot = $total_time_out_mins - $total_time_in_mins;
-                            //echo $actual_total_ot;
+                            if($ot->type == "RD")
+                            {
+                                $actual_ot = $total_time_out_mins - $total_time_in_mins;
+                                if($actual_ot >= 480)
+                                {
+                                    $actual_total_ot = 480;
+                                }
+                                else
+                                {
+                                    $actual_total_ot = $actual_ot;
+                                }
+                                //echo $actual_total_ot;
+                                /*$limit_rd = $total_time_out_mins - $total_time_in_mins;
+                                echo $limit_rd;
+                                if($limit_rd >= 780)
+                                {
+                                    $fix_ot = $total_time_out_mins - $total_time_in_mins;
+                                }
+                                else
+                                {
+                                    $fix_ot = $total_time_out_mins - $total_time_in_mins - 60;
+                                }
+                               
+                                if($fix_ot > 480)
+                                {
+                                    //$actual_total_ot = $total_time_out_mins - $total_time_in_mins - 60;
+                                    $actual_total_ot = 480;
+                                }
+                                else
+                                {
+                                    $actual_total_ot = $total_time_out_mins - $total_time_in_mins;
+                                }*/
+                            }
+                            elseif($ot->type == "RDOT")
+                            {
+                                $actual_total_ot = $total_time_out_mins - $total_time_in_mins - 480;
+                                //echo $actual_total_ot;
+                            }
                         }
                         else
                         {
@@ -156,7 +191,9 @@
                             else
                             {
                                 $actual_total_ot = 0;
+                                //echo $actual_total_ot;
                             }
+
                         }
                         
                         $explod_ot = explode(".", $ot->ot_num);
@@ -169,9 +206,10 @@
                         <td><?php echo $ot->date_ot; ?></td>
                         <td><?php echo $ot->fullname; ?></td>
                         <td><?php echo $ot->department; ?></td>
-                        <td><?php if($ot->type == 'OT') { echo "REGULAR OVERTIME"; } elseif($ot->type == 'RHOT') { echo "REGULAR HOLIDAY OVERTIME"; } elseif($ot->type == 'SHOT') { echo "SPECIAL HOLIDAY OVERTIME"; } ?></td>
-                        <td>
+                        <td><?php if($ot->type == 'ROT') { echo "REGULAR OT"; } elseif($ot->type == 'RHOT') { echo "REGULAR HOLIDAY OT"; } elseif($ot->type == 'SHOT') { echo "SPECIAL HOLIDAY OT"; } elseif($ot->type == 'RD') { echo "RESTDAY"; } elseif($ot->type == 'RDOT') { echo "RESTDAY OT"; } ?></td>
+                        <!--<td>
                             <?php
+                                // EXCESS AM
                                 if($sched_time_in_mins > $total_time_in_mins && $ot->date_in != NULL && $ot->day == 'am')
                                 {
                                     $total_ot_am =  $sched_time_in_mins - $total_time_in_mins; 
@@ -184,11 +222,13 @@
                                     }
                                 
                                 }
-                            
-                            ?>
-                        </td>
-                        <td>
-                            <?php 
+                                else
+                                {
+                                    echo 0;
+                                }
+
+                                echo ' | ';
+                                // EXCESS PM
                                 if($total_time_out_mins > $sched_time_out_mins && $ot->date_out != NULL && $ot->day == 'pm')
                                 {
                                     $total_ot_pm = $total_time_out_mins - $sched_time_out_mins;
@@ -200,29 +240,172 @@
                                         echo $hours.".".$minutes."";
                                     }    
                                 }
+                                else
+                                {
+                                    echo 0;
+                                }
+
+                                echo ' | ';
+                               
+
+                                $week_day = date('w', strtotime($ot->date_ot));
+                                $total_ot_wd = $total_time_out_mins - $total_time_in_mins;
+                                if($week_day == 6 || $week_day == 0)
+                                {
+                                    if($total_ot_wd <= 480)
+                                    {
+                                        if($total_time_out_mins >= 780)
+                                        {
+                                            $less_breaktime = $total_ot_wd - 60;
+                                            $actual_total_ot = $less_breaktime;
+                                            $hours = intval($less_breaktime/60);
+                                            $min_diff = intval($less_breaktime%60);
+                                            $minutes = sprintf("%02d", $min_diff);
+                                            echo $hours.".".$minutes." | 0";
+                                          
+                                        }
+                                        else
+                                        {
+                                            //$compute_ot = $total_ot_wd - 480;
+                                            $hours = intval($total_ot_wd/60);
+                                            $min_diff = intval($total_ot_wd%60);
+                                            $minutes = sprintf("%02d", $min_diff);
+                                            echo $hours.".".$minutes." | 0";
+                                        }
+                                        
+                                    }
+                                   
+                                }
+                                
+                                
+                                $week_day = date('w', strtotime($ot->date_ot));
+                                $total_ot_wd = $total_time_out_mins - $total_time_in_mins;
+                                if($week_day == 6 || $week_day == 0)
+                                {
+                                    $total_ot_wd = $total_time_out_mins - $total_time_in_mins;
+                                    if($total_ot_wd >= 480)
+                                    {
+                                        if($total_time_out_mins >= 720)
+                                        {
+                                            if($total_ot_wd >= 480)
+                                            {
+                                                $less_breaktime = $total_ot_wd - 60;
+                                                //echo $less_breaktime;
+                                            }
+                                            else
+                                            {
+                                                $less_breaktime = $total_ot_wd;
+                                            }
+
+                                            if($less_breaktime >= 480)
+                                            {
+                                                $excess_hours = 480;
+                                                $compute_ot = $total_ot_wd - 480 - 60;
+                                                $hours = intval($compute_ot/60);
+                                                $min_diff = intval($compute_ot%60);
+                                                $minutes = sprintf("%02d", $min_diff);
+                                                echo "8.00 | " . $hours.".".$minutes."";
+                                            }
+                                            else
+                                            {
+                                                $hours = intval($less_breaktime/60);
+                                                $min_diff = intval($less_breaktime%60);
+                                                $minutes = sprintf("%02d", $min_diff);
+                                                echo $hours.".".$minutes."";
+                                            }
+                                        }  
+                                        else
+                                        {
+                                            echo 0;
+                                        }  
+                                    }
+                                   
+                                }
                             ?>
-                            
-                        </td>
-                         <td>
+                        </td>-->
+                        <td><?php echo $ot->time_start; ?></td>
+                        <td><?php echo $ot->time_end; ?></td>
+                        <!-- EXCESS OT -->       
+                        <td>
                             <?php 
                                 $week_day = date('w', strtotime($ot->date_ot));
                                 if($week_day == 6 || $week_day == 0)
                                 {
-                                    $total_ot_pm = $total_time_out_mins - $total_time_in_mins;
-                                    if($total_ot_pm >= 60)
+                                    if($ot->type == "RD")
                                     {
-                                        $hours = intval($total_ot_pm/60);
-                                        $min_diff = intval($total_ot_pm%60);
+                                        $actual_ot = $total_time_out_mins - $total_time_in_mins;
+                                        if($actual_ot >= 480)
+                                        {
+                                            $actual_total_ot = 480;
+                                        }
+                                        else
+                                        {
+                                            $actual_total_ot = $actual_ot;
+                                        }
+                                        //$actual_total_ot = $total_time_out_mins - $total_time_in_mins;
+                                        $hours = intval($actual_total_ot/60);
+                                        $min_diff = intval($actual_total_ot%60);
                                         $minutes = sprintf("%02d", $min_diff);
                                         echo $hours.".".$minutes."";
-                                    }    
+                                    }
+                                    elseif($ot->type == "RDOT")
+                                    {
+                                        $actual_total_ot = $total_time_out_mins - $total_time_in_mins - 480;
+                                        $hours = intval($actual_total_ot/60);
+                                        $min_diff = intval($actual_total_ot%60);
+                                        $minutes = sprintf("%02d", $min_diff);
+                                        echo $hours.".".$minutes."";
+                                    }
                                 }
-                                
+                                else
+                                {
+                                    if($sched_time_in_mins > $total_time_in_mins && $ot->date_in != NULL && $ot->day == 'am')
+                                    {
+                                        $actual_total_ot =  $sched_time_in_mins - $total_time_in_mins; 
+                                        $hours = intval($actual_total_ot/60);
+                                        $min_diff = intval($actual_total_ot%60);
+                                        $minutes = sprintf("%02d", $min_diff);
+                                        echo $hours.".".$minutes."";
+                                    
+                                    }
+                                    elseif($total_time_out_mins > $sched_time_out_mins && $ot->date_out != NULL && $ot->day == 'pm')
+                                    {
+                                        $actual_total_ot = $total_time_out_mins - $sched_time_out_mins;
+                                        $hours = intval($actual_total_ot/60);
+                                        $min_diff = intval($actual_total_ot%60);
+                                        $minutes = sprintf("%02d", $min_diff);
+                                        echo $hours.".".$minutes."";
+                                    }
+                                    else
+                                    {
+                                        $actual_total_ot = 0;
+                                        $hours = intval($actual_total_ot/60);
+                                        $min_diff = intval($actual_total_ot%60);
+                                        $minutes = sprintf("%02d", $min_diff);
+                                        echo $hours.".".$minutes."";
+                                    }
+                                }
+                                /*$hours = intval($actual_total_ot/60);
+                                $min_diff = intval($actual_total_ot%60);
+                                $minutes = sprintf("%02d", $min_diff);
+                                echo $hours.".".$minutes."";8*/
                             ?>
+                        </td> 
+                        <!-- TOTAL OT -->       
+                        <td>
+                            <?php 
+                                $convert_ot = explode(".", $ot->ot_num); 
+
+                                if($convert_ot[1] >= 30) {
+                                    $convrt_ot = $convert_ot[0] . '.' . 5;
+                                } elseif($convert_ot[1] <= 30) {
+                                    $convrt_ot = $convert_ot[0] . '.' . 0;
+                                }
+
+                                echo $convrt_ot;
+                            ?>
+                    
                         </td>
-                        <td><?php echo $ot->time_start; ?></td>
-                        <td><?php echo $ot->time_end; ?></td>
-                        <td><?php echo $ot->ot_num; ?></td>
                         <td><?php echo substr($ot->task,0,50); ?></td>
                         <!--<td> <center><input type="checkbox" name="leave[]" value=""> </center></td>
                         <td>

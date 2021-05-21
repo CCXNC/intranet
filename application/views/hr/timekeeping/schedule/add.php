@@ -23,7 +23,7 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <!--<div class="form-group">
+            <div class="form-group">
                 <input type="checkbox" id="checkAll" name="">                      
                 <label class="form-check-label"><p>5 DAYS</p></label><br>
                 <input type="checkbox" class="check"  name="days[]" value="Monday">
@@ -40,7 +40,7 @@
                 <label for="vehicle2">&nbsp;SATURDAY&nbsp;</label>
                 <input type="checkbox" name="days[]" value="Sunday">
                 <label for="vehicle2">&nbsp;SUNDAY&nbsp;</label>
-            </div>-->
+            </div>
             <div class="form-group">
                 <label class="form-check-label"><p>TIME IN</p></label>
                 <div class="form-group">
