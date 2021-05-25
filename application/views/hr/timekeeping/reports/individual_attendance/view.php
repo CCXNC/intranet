@@ -53,7 +53,7 @@
                             <th scope="col">UNDERTIME</th>
                             <th scope="col">EXCESS AM</th>
                             <th scope="col">EXCESS PM</th>
-                            <th scope="col">EXCESS RD|RDOT</th>
+                            <th scope="col">EXCESS WEEKEND</th>
                             <th scope="col">ND</th>
                             <th scope="col">PROCESS</th>
                             <th scope="col">REMARKS</th>
@@ -62,6 +62,7 @@
                     </thead>
                     <tbody>
                         <?php if($employees) : ?>
+                            <?php $total_tardiness = 0; $total_undertime = 0; $total_nd = 0; ?>
                             <?php foreach($employees as $employee) : ?>
                                 <tr>
                                     <?php $w_date = date('w', strtotime($employee->temp_date)); ?>
@@ -184,8 +185,7 @@
                                                 //HALFDAY MINUTES
                                                 $halfday_mins = 720;
                                                 $halfday_in_mins = 780;
-                                            }
-                                      
+                                            }                                         
                                         
                                         ?>
                                         <!-- DAYS -->
@@ -255,6 +255,8 @@
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>';
                                                         } elseif($employee->type_name == "ML" || $employee->type_name == "PL" || $employee->type_name == "BL") {
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(111,49,160);color:white;"></p>';
+                                                        } elseif($employee->type_name == "SL W/O PAY") {
+                                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#e3342f;color:white;"></p>';
                                                         } else {
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
@@ -328,6 +330,8 @@
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>';
                                                         } elseif($employee->type_name == "ML" || $employee->type_name == "PL" || $employee->type_name == "BL") {
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(111,49,160);color:white;"></p>';
+                                                        }  elseif($employee->type_name == "SL W/O PAY") {
+                                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#e3342f;color:white;"></p>';
                                                         } else {
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
@@ -396,16 +400,19 @@
                                                             $min_diff = intval($tardiness_mins%60);
                                                             $minutes = sprintf("%02d", $min_diff);
                                                             echo $hours.".".$minutes."";
+                                                            $late_mins = $tardiness_mins;
                                                         }
                                                         else
                                                         {
                                                             echo '0';
+                                                            $late_mins = 0;
                                                         }
                                                       
                                                     }
                                                     elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
                                                     {
                                                         echo '0';
+                                                        $late_mins = 0;
                                                     }
                                                     elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
                                                     {
@@ -414,6 +421,7 @@
                                                             if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDPM')
                                                             {
                                                                 echo '0';
+                                                                $late_mins = 0;
                                                             }
                                                             elseif($halfday_in_mins <= $total_time_in_mins)
                                                             {
@@ -422,31 +430,42 @@
                                                                 $min_diff = intval($tardiness_mins%60);
                                                                 $minutes = sprintf("%02d", $min_diff);
                                                                 echo $hours.".".$minutes."";
+                                                                $late_mins = $tardiness_mins;
+                                                            }
+                                                            else
+                                                            {
+                                                                echo '0';
+                                                                $late_mins = 0;
                                                             }
                                                         
                                                         }  
                                                         else
                                                         {
                                                             echo '0';
+                                                            $late_mins = 0;
                                                         }  
                                                     }
                                                     elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
                                                     {
                                                         echo '0';
+                                                        $late_mins = 0;
                                                     }
                                                     elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
                                                     {
                                                         echo '0';
+                                                        $late_mins = 0;
                                                     }  
                                                     elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
                                                     {
                                                         echo '0';
+                                                        $late_mins = 0;
                                                     }
                                                     elseif($halfday_mins <= $total_time_in_mins)
                                                     {
                                                         if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDPM')
                                                         {
                                                             echo '0';
+                                                            $late_mins = 0;
                                                         }
                                                         elseif($halfday_in_mins <= $total_time_in_mins)
                                                         {
@@ -455,6 +474,12 @@
                                                             $min_diff = intval($tardiness_mins%60);
                                                             $minutes = sprintf("%02d", $min_diff);
                                                             echo $hours.".".$minutes."";
+                                                            $late_mins = $tardiness_mins;
+                                                        }
+                                                        else
+                                                        {
+                                                            echo '0';
+                                                            $late_mins = 0;
                                                         }
                                                      
                                                     }    
@@ -465,6 +490,7 @@
                                                         $min_diff = intval($tardiness_mins%60);
                                                         $minutes = sprintf("%02d", $min_diff);
                                                         echo $hours.".".$minutes."";
+                                                        $late_mins = $tardiness_mins;
                                                     }  
                                                     else
                                                     {
@@ -473,105 +499,16 @@
                                                         $min_diff = intval($tardiness_mins%60);
                                                         $minutes = sprintf("%02d", $min_diff);
                                                         echo $hours.".".$minutes."";
+                                                        $late_mins = $tardiness_mins;
                                                     }
                                                   
                                                 }
-                                                // HALFDAY 
-                                                /*if($halfday_mins <= $total_time_in_mins)
+                                                else
                                                 {
-                                                    if($halfday_in_mins <= $total_time_in_mins)
-                                                    {
-                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDPM')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        else 
-                                                        {
-                                                            //COMPUTATION OF ACTUAL TIME IN AND UNDERTIME MORNING 
-                                                            $tardiness_mins = $total_time_in_mins - $halfday_in_mins;
-                                                            $hours = intval($tardiness_mins/60);
-                                                            $min_diff = intval($tardiness_mins%60);
-                                                            $minutes = sprintf("%02d", $min_diff);
-                                                            echo $hours.".".$minutes.""; 
-                                                        }    
-                                                    }
-                                                }*/
-                                                // WHOLEDAY
-                                                /*else
-                                                {
-                                                    if($total_sched_time_in_mins >= $total_time_in_mins)
-                                                    {
-                                                      
-                                                    }
-                                                    elseif($undertime_am_mins <= $total_time_in_mins)
-                                                    {
-                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        else
-                                                        {
-                                                             //COMPUTATION OF ACTUAL TIME IN AND UNDERTIME MORNING 
-                                                            $tardiness_mins = $total_time_in_mins - $undertime_am_mins;
-                                                            $hours = intval($tardiness_mins/60);
-                                                            $min_diff = intval($tardiness_mins%60);
-                                                            $minutes = sprintf("%02d", $min_diff);
-                                                            echo $hours.".".$minutes."";
-                                                            //echo $tardiness_mins;
-                                                        }
-                                                       
-                                                    }
-                                                    else
-                                                    {
-                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        else 
-                                                        {
-                                                             //COMPUTATION OF ACTUAL TIME IN AND SCHEDULE TIME IN
-                                                            $tardiness_mins = $total_time_in_mins - $total_sched_time_in_mins;
-                                                            $hours = intval($tardiness_mins/60);
-                                                            $min_diff = intval($tardiness_mins%60);
-                                                            $minutes = sprintf("%02d", $min_diff);
-                                                            echo $hours.".".$minutes."";
-                                                            //echo $tardiness_mins;
-                                                        }
-                                                    }
-                                                }*/
-                                            
+                                                    echo ' ';
+                                                    $late_mins = 0;
+                                                }   
+                                                $total_tardiness += $late_mins;
                                             ?>
                                         </td>
                                         <!-- UNDERTIME -->
@@ -590,15 +527,18 @@
                                                             $undertime_min_diff = intval($undertime_mins%60);
                                                             $undertime_minutes = sprintf("%02d", $undertime_min_diff);
                                                             echo $undertime_hours.".".$undertime_minutes.""; 
+                                                            $ut_mins = $undertime_mins;
                                                         }
                                                         else
                                                         {
                                                             echo '0';
+                                                            $ut_mins = 0;
                                                         }
                                                     }
                                                     else
                                                     {
                                                         echo '0';
+                                                        $ut_mins = 0;
                                                     }
                                                 
                                                 }
@@ -609,24 +549,28 @@
                                                     $undertime_min_diff = intval($ut_num%60);
                                                     $undertime_minutes = sprintf("%02d", $undertime_min_diff);
                                                     echo $undertime_hours.".".$undertime_minutes."";
+                                                    $ut_mins = $undertime_mins;
                                                 }
                                                 elseif($undertime_am_mins <= $total_time_in_mins)
                                                 {
                                                     if($halfday_mins <= $total_time_in_mins)
                                                     {
-                                                     
+                                                        $ut_mins = 0;
                                                     }
                                                     elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
                                                     {
                                                         echo '0';
+                                                        $ut_mins = 0;
                                                     }
                                                     elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
                                                     {
                                                         echo '0';
+                                                        $ut_mins = 0;
                                                     }
                                                     elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
                                                     {
                                                         echo '0';
+                                                        $ut_mins = 0;
                                                     }
                                                     else
                                                     {
@@ -635,6 +579,7 @@
                                                         $undertime_min_diff = intval($undertime_mins%60);
                                                         $undertime_minutes = sprintf("%02d", $undertime_min_diff);
                                                         echo $undertime_hours.".".$undertime_minutes."";
+                                                        $ut_mins = $undertime_mins;
                                                     }
                                                  
                                                 }
@@ -643,14 +588,17 @@
                                                     if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
                                                     {
                                                         echo '0';
+                                                        $ut_mins = 0;
                                                     }
                                                     elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
                                                     {
                                                         echo '0';
+                                                        $ut_mins = 0;
                                                     }
                                                     elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
                                                     {
                                                         echo '0';
+                                                        $ut_mins = 0;
                                                     }
                                                     else
                                                     {
@@ -660,100 +608,16 @@
                                                         $undertime_min_diff = intval($undertime_mins%60);
                                                         $undertime_minutes = sprintf("%02d", $undertime_min_diff);
                                                         echo $undertime_hours.".".$undertime_minutes."";  
+                                                        $ut_mins = $undertime_mins;
                                                     }
                                                  
                                                 }
-                                               
-                                                /*if($halfday_mins <= $total_time_in_mins)
-                                                {
-                                                    
-                                                }
                                                 else
                                                 {
-                                                    if($undertime_am_mins <= $total_time_in_mins)
-                                                    {
-                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDAM')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
-                                                        {
-                                                            $ut_num = $employee->ut_num;
-                                                            $undertime_hours = intval($ut_num/60);
-                                                            $undertime_min_diff = intval($ut_num%60);
-                                                            $undertime_minutes = sprintf("%02d", $undertime_min_diff);
-                                                            echo $undertime_hours.".".$undertime_minutes."";
-                                                            //echo '123';
-                                                        }
-                                                        else
-                                                        {
-                                                            // FOR DRIVER
-                                                            if($total_sched_time_in_mins >= $total_time_in_mins)
-                                                            {
-                                                               
-                                                            }
-                                                            else
-                                                            {
-                                                                //COMPUTATION UNDERTIME
-                                                                $undertime_mins = $undertime_am_mins - $total_sched_time_in_mins + 5;
-                                                                $undertime_hours = intval($undertime_mins/60);
-                                                                $undertime_min_diff = intval($undertime_mins%60);
-                                                                $undertime_minutes = sprintf("%02d", $undertime_min_diff);
-                                                                echo $undertime_hours.".".$undertime_minutes."";
-                                                             
-                                                            }
-                                                         
-                                                        }
-                                                       
-                                                    }
-                                                    elseif($undertime_pm_mins <= $total_time_out_mins && $total_sched_time_out_mins >= $total_time_out_mins)
-                                                    {
-                                                        if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'WD')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDPM')
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        elseif($employee->employee_number == $employee->ob_employee_number && $employee->temp_date == $employee->date_ob)
-                                                        {
-                                                            echo '0';
-                                                        }
-                                                        
-                                                        else
-                                                        {
-                                                            //COMPUTATION UNDERTIME
-                                                            $undertime_mins = $total_sched_time_out_mins - $total_time_out_mins;
-                                                            $undertime_hours = intval($undertime_mins/60);
-                                                            $undertime_min_diff = intval($undertime_mins%60);
-                                                            $undertime_minutes = sprintf("%02d", $undertime_min_diff);
-                                                            echo $undertime_hours.".".$undertime_minutes."";  
-                                                           
-                                                        }    
-                                                    }
-                                                    else
-                                                    {
-                                                        if($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
-                                                        {
-                                                            $ut_num = $employee->ut_num;
-                                                            $undertime_hours = intval($ut_num/60);
-                                                            $undertime_min_diff = intval($ut_num%60);
-                                                            $undertime_minutes = sprintf("%02d", $undertime_min_diff);
-                                                            echo $undertime_hours.".".$undertime_minutes."";
-                                                         
-                                                        } 
-                                                    
-                                                    }
-                                                }*/
+                                                    $ut_mins = 0;
+                                                }
+
+                                                $total_undertime += $ut_mins;
                                             ?>
 
                                         </td>
@@ -905,28 +769,101 @@
                                                     {
                                                         if($min_diff >= 30) {
                                                             echo $hours . '.' . 5;
-                                                        } elseif($min_diff <= 30) {
+                                                            $hr_diff = $hours * 60;
+                                                            $nd = $hr_diff + 30;
+                                                            $nd_compute =  $nd;
+                                                        } 
+                                                        elseif($min_diff <= 30) {
                                                             echo $hours . '.' . 00;
+                                                            $hr_diff = $hours * 60;
+                                                            $nd = $hr_diff + 00;
+                                                            $nd_compute =  $nd;
                                                         }
+                                                        else
+                                                        {
+                                                            $nd_compute = 0;
+                                                            //echo 0;
+                                                        }
+                                                        
                                                     }
+                                                    else
+                                                    {
+                                                        $nd_compute = 0;
+                                                        //echo 0;
+                                                    }
+                                                   
                                                 }
                                                 else
                                                 {
-                                                    if($end_nd > $total_time_in_mins && $employee->date_in != NULL)
+                                                    if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd > $total_time_out_mins && $employee->date_out != NULL)
                                                     {
-                                                        $total_nd_am = $end_nd - $total_time_in_mins;
-    
+                                                        $total_nd_am = $total_time_out_mins - $total_time_in_mins;
+
                                                         $hours = intval($total_nd_am/60);
                                                         $min_diff = intval($total_nd_am%60);
-    
+                                                        
+                                                        //echo $total_nd_am;
                                                         if($total_nd_am >= 30)
                                                         {
                                                             if($min_diff >= 30) {
                                                                 echo $hours . '.' . 5;
+                                                                $hr_diff = $hours * 60;
+                                                                $nd = $hr_diff + 30;
+                                                                $nd_compute =  $nd;
                                                             } elseif($min_diff <= 30) {
                                                                 echo $hours . '.' . 00;
+                                                                $hr_diff = $hours * 60;
+                                                                $nd = $hr_diff + 00;
+                                                                $nd_compute =  $nd;
+                                                            }
+                                                            else
+                                                            {
+                                                                $nd_compute = 0;
+                                                                //echo 0;
                                                             }
                                                         }
+                                                        else
+                                                        {
+                                                            $nd_compute = 0;
+                                                            //echo 0;
+                                                        }
+                                                       
+                                                    }
+                                                    elseif($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd < $total_time_out_mins && $employee->date_out != NULL)
+                                                    {
+                                                       
+                                                        $total_nd_am = $end_nd - $total_time_in_mins;
+
+                                                        $hours = intval($total_nd_am/60);
+                                                        $min_diff = intval($total_nd_am%60);
+                                                        
+                                                        //echo $total_nd_am;
+                                                        if($total_nd_am >= 30)
+                                                        {
+                                                            if($min_diff >= 30) {
+                                                                echo $hours . '.' . 5;
+                                                                $hr_diff = $hours * 60;
+                                                                $nd = $hr_diff + 30;
+                                                                $nd_compute =  $nd;
+                                                            } 
+                                                            elseif($min_diff <= 30) {
+                                                                echo $hours . '.' . 00;
+                                                                $hr_diff = $hours * 60;
+                                                                $nd = $hr_diff + 00;
+                                                                $nd_compute =  $nd;
+                                                            }
+                                                            else
+                                                            {
+                                                                $nd_compute = 0;
+                                                                //echo 0;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            $nd_compute = 0;
+                                                            //echo 0;
+                                                        }
+                                                       
                                                     }
                                                     elseif($start_nd < $total_time_out_mins && $employee->date_out != NULL)
                                                     {
@@ -939,12 +876,32 @@
                                                         {
                                                             if($min_diff >= 30) {
                                                                 echo $hours . '.' . 5;
-                                                            } elseif($min_diff <= 30) {
+                                                                $hr_diff = $hours * 60;
+                                                                $nd = $hr_diff + 30;
+                                                                $nd_compute =  $nd;
+                                                            } 
+                                                            elseif($min_diff <= 30) {
                                                                 echo $hours . '.' . 00;
+                                                                $hr_diff = $hours * 60;
+                                                                $nd = $hr_diff + 00;
+                                                                $nd_compute =  $nd;
                                                             }
+                                                            else
+                                                            {
+                                                                $nd_compute = 0;
+                                                                //echo 0;
+                                                            }   
+                                                          
                                                         }
                                                     }
+                                                    else
+                                                    {
+                                                        $nd_compute = 0;
+                                                        //echo 0;
+                                                    }
                                                 }
+
+                                                $total_nd += $nd_compute;
                                             ?>
                                         </td>
                                         <!--  PROCESS -->
@@ -968,6 +925,8 @@
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:#38c172;color:white;"></p>';
                                                         } elseif($employee->type_name == "ML" || $employee->type_name == "PL" || $employee->type_name == "BL") {
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(111,49,160);color:white;"></p>';
+                                                        } elseif($employee->type_name == "SL W/O PAY") {
+                                                            echo '<p class="" style="text-align:center;padding:17px;background-color:#e3342f;color:white;"></p>';
                                                         } else {
                                                             echo '<p class="" style="text-align:center;padding:17px;background-color:rgb(255,100,0);color:white;"></p>';
                                                         }
@@ -1085,6 +1044,7 @@
                     </thead>
                     <tbody>
                         <?php if($employee_leaves) : ?>
+                            <?php $leave_ab = 0; ?>
                             <?php foreach($employee_leaves as $employee_leave) : ?>
                                 <tr>
                                     <td><?php echo date('D', strtotime($employee_leave->leave_date)); ?></td>
@@ -1208,20 +1168,113 @@
                             <th scope="col">TARDINESS</th>
                             <th scope="col">UNDERTIME</th>
                             <th scope="col">ABSENCES</th>
-                            <th scope="col">ROT</th>
-                            <th scope="col">ND</th>
-                            <th scope="col">RHOT</th>
-                            <th scope="col">SHOT</th>
-                            <th scope="col">RD</th>
-                            <th scope="col">RDOT</th>
                             <th scope="col">SL</th>
                             <th scope="col">VL</th>
                             <th scope="col">ML</th>
                             <th scope="col">PL</th>
                             <th scope="col">BL</th>
                             <th scope="col">SPL</th>
+                            <th scope="col">ROT</th>
+                            <th scope="col">ND</th>
+                            <th scope="col">RD</th>
+                            <th scope="col">RDOT</th>
+                            <th scope="col">RH</th>
+                            <th scope="col">RHOT</th>
+                            <th scope="col">SH</th>
+                            <th scope="col">SHOT</th>
                         </tr>
                     </thead>
+                    <tbody>
+                    <tr>
+                        <!-- TARDINESS -->
+                        <td>
+                            <?php 
+                                if($total_tardiness != 0)
+                                {
+                                    $hours = intval($total_tardiness/60);
+                                    $min_diff = intval($total_tardiness%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours.".".$minutes."";
+                                }
+                                else
+                                {
+                                    echo 0;
+                                }
+                               
+                            ?>
+                        </td>
+                        <!-- UNDERTIME -->
+                        <td>
+                            <?php 
+                                if($total_undertime != 0)
+                                {
+                                    $hours = intval($total_undertime/60);
+                                    $min_diff = intval($total_undertime%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours.".".$minutes."";
+                                }
+                                else
+                                {
+                                    echo 0;
+                                }
+                            
+                            ?>
+                        </td>
+                        <td>
+                            <?php if($total_absences) : ?>
+                                <?php foreach($total_absences as $absence) : ?>
+                                    <?php echo $absence->leave_absence_total; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($total_sl) : ?>
+                                <?php foreach($total_sl as $sl) : ?>
+                                    <?php echo $sl->sick_leave_total; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($total_vl) : ?>
+                                <?php foreach($total_vl as $vl) : ?>
+                                    <?php echo $vl->vacation_leave_total; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <!-- NIGHT DIFF -->
+                        <td>
+                            <?php 
+                                if($total_nd != 0)
+                                {
+                                    $hours = intval($total_nd/60);
+                                    $min_diff = intval($total_nd%60);
+                                    if($min_diff >= 30) {
+                                        echo $hours . '.' . 5;
+                                    } 
+                                    elseif($min_diff <= 30) {
+                                        echo $hours . '.0';
+                                    }
+                                }
+                                else
+                                {
+                                    echo 0;
+                                }
+                               
+                            ?>
+                        </td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    </tbody>
                 </table> 
             </div>
         </div>

@@ -967,6 +967,52 @@ class Attendance_model extends CI_Model
 
 		return $query->result();
 	}
+
+	public function get_total_absences()
+	{
+		$this->db->select("SUM(slvl.leave_num) as leave_absence_total");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->where('blaine_timekeeping.slvl.type', "AB");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_sl()
+	{
+		$this->db->select("SUM(slvl.leave_num) as sick_leave_total");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->where('blaine_timekeeping.slvl.type', "SL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_vl()
+	{
+		$this->db->select("SUM(slvl.leave_num) as vacation_leave_total");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->where('blaine_timekeeping.slvl.type', "VL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+	
 	public function employee_name()
 	{
 		$this->db->select("

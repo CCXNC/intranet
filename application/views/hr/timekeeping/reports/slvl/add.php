@@ -32,6 +32,7 @@
                         <option value="ML|ML">Maternity</option>
                         <option value="PL|PL">Paternity</option>
                         <option value="BL|BL">Bereavement Leave</option>
+                        <option value="SPL|SPL">Solo Parent Leave</option>
                     </select>
                 </div>
             </div>

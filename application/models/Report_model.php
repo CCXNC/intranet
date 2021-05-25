@@ -1501,9 +1501,9 @@ class Report_model extends CI_Model {
 
             $w_date = date('w', strtotime($date_ot[$i]));
         
-            if($type == "RD")
+            if($type == "RD" || $type == "RH" || $type == "SH")
             {
-                if($timediff >= 480)
+                if($timediff > 480)
                 {
                     if($no_less_hour[$i] != 1)
                     {
@@ -1516,11 +1516,12 @@ class Report_model extends CI_Model {
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        if($rdot_mins >= 30) {
+                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
                             $total_rdot = $rdot_hrs . '.' . 00;
-                        }
+                        }*/
 
                         $data = array(
                             'employee_number' => $employee_number,
@@ -1543,12 +1544,25 @@ class Report_model extends CI_Model {
                         /*print_r('<pre>');
                         print_r($data);
                         print_r('</pre>');*/
-        
+                        
+                        if($type == "RD")
+                        {
+                            $ot_excess_name = "RDOT";
+                        } 
+                        elseif($type == "RH")
+                        {
+                            $ot_excess_name = "RHOT";
+                        }
+                        elseif($type == "SH")
+                        {
+                            $ot_excess_name = "SHOT";
+                        }
+                        
                         $data1 = array(
                             'employee_number' => $employee_number,
                             'company'         => $company,
                             'department'      => $department,
-                            'type'            => 'RDOT',
+                            'type'            => $ot_excess_name,
                             'day'             => 'wd',
                             'date_ot'         => $date_ot[$i],
                             'time_start'      => $time_start[$i],
@@ -1577,11 +1591,12 @@ class Report_model extends CI_Model {
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        if($rdot_mins >= 30) {
+                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
                             $total_rdot = $rdot_hrs . '.' . 00;
-                        }
+                        }*/
 
                         $data = array(
                             'employee_number' => $employee_number,
@@ -1603,12 +1618,25 @@ class Report_model extends CI_Model {
                         /*print_r('<pre>');
                         print_r($data);
                         print_r('</pre>');*/
+
+                        if($type == "RD")
+                        {
+                            $ot_excess_name = "RDOT";
+                        } 
+                        elseif($type == "RH")
+                        {
+                            $ot_excess_name = "RHOT";
+                        }
+                        elseif($type == "SH")
+                        {
+                            $ot_excess_name = "SHOT";
+                        }
         
                         $data1 = array(
                             'employee_number' => $employee_number,
                             'company'         => $company,
                             'department'      => $department,
-                            'type'            => 'RDOT',
+                            'type'            => $ot_excess_name,
                             'day'             => 'wd',
                             'date_ot'         => $date_ot[$i],
                             'time_start'      => $time_start[$i],
@@ -1642,11 +1670,12 @@ class Report_model extends CI_Model {
                         $ot_hrs = floor($less_one_hour / 60);
                         $ot_mins = $less_one_hour % 60;
 
-                        if($ot_mins >= 30) {
+                        $total_ot = $ot_hrs . '.' . $ot_mins;
+                        /*if($ot_mins >= 30) {
                             $total_ot = $ot_hrs . '.' . 30;
                         } elseif($ot_mins <= 30) {
                             $total_ot = $ot_hrs . '.' . 00;
-                        }
+                        }*/
 
                         $data = array(
                             'employee_number' => $employee_number,
