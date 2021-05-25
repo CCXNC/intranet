@@ -35,7 +35,7 @@
                 <!--<th>EXCESS AM|PM|RD|RDOT</th>-->
                 <th scope="col">TIME START</th>
                 <th scope="col">TIME END</th>
-                <th>EXCESS OT</th>
+                <!--<th>EXCESS OT</th>-->
                 <th scope="col">TOTAL OT</th>
                 <th scope="col">TASK</th>
                 <!--<th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
@@ -136,7 +136,7 @@
                         $week_day = date('w', strtotime($ot->date_ot));
                         if($week_day == 6 || $week_day == 0)
                         {
-                            if($ot->type == "RD")
+                            if($ot->type == "RD" || $ot->type == "RH" || $ot->type == "SH")
                             {
                                 $actual_ot = $total_time_out_mins - $total_time_in_mins;
                                 if($actual_ot >= 480)
@@ -169,7 +169,7 @@
                                     $actual_total_ot = $total_time_out_mins - $total_time_in_mins;
                                 }*/
                             }
-                            elseif($ot->type == "RDOT")
+                            elseif($ot->type == "RDOT" || $ot->type == "RHOT" || $ot->type == "SHOT")
                             {
                                 $actual_total_ot = $total_time_out_mins - $total_time_in_mins - 480;
                                 //echo $actual_total_ot;
@@ -202,11 +202,11 @@
                         //echo $total_ot;
                         
                     ?>
-                    <tr <?php echo $actual_total_ot < $total_ot ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>>
+                    <tr <?php //echo $actual_total_ot < $total_ot ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>>
                         <td><?php echo $ot->date_ot; ?></td>
                         <td><?php echo $ot->fullname; ?></td>
                         <td><?php echo $ot->department; ?></td>
-                        <td><?php if($ot->type == 'ROT') { echo "REGULAR OT"; } elseif($ot->type == 'RHOT') { echo "REGULAR HOLIDAY OT"; } elseif($ot->type == 'SHOT') { echo "SPECIAL HOLIDAY OT"; } elseif($ot->type == 'RD') { echo "RESTDAY"; } elseif($ot->type == 'RDOT') { echo "RESTDAY OT"; } ?></td>
+                        <td><?php if($ot->type == 'ROT') { echo "REGULAR OT"; } elseif($ot->type == 'RH') { echo "REGULAR HOLIDAY"; } elseif($ot->type == 'RHOT') { echo "REGULAR HOLIDAY OT"; } elseif($ot->type == 'SH') { echo "SPECIAL HOLIDAY"; } elseif($ot->type == 'SHOT') { echo "SPECIAL HOLIDAY OT"; } elseif($ot->type == 'RD') { echo "RESTDAY"; } elseif($ot->type == 'RDOT') { echo "RESTDAY OT"; } ?></td>
                         <!--<td>
                             <?php
                                 // EXCESS AM
@@ -326,12 +326,12 @@
                         <td><?php echo $ot->time_start; ?></td>
                         <td><?php echo $ot->time_end; ?></td>
                         <!-- EXCESS OT -->       
-                        <td>
+                        <!--<td>
                             <?php 
                                 $week_day = date('w', strtotime($ot->date_ot));
                                 if($week_day == 6 || $week_day == 0)
                                 {
-                                    if($ot->type == "RD")
+                                    if($ot->type == "RD" || $ot->type == "RH" || $ot->type == "SH")
                                     {
                                         $actual_ot = $total_time_out_mins - $total_time_in_mins;
                                         if($actual_ot >= 480)
@@ -348,7 +348,7 @@
                                         $minutes = sprintf("%02d", $min_diff);
                                         echo $hours.".".$minutes."";
                                     }
-                                    elseif($ot->type == "RDOT")
+                                    elseif($ot->type == "RDOT" || $ot->type == "RHOT" || $ot->type == "SHOT")
                                     {
                                         $actual_total_ot = $total_time_out_mins - $total_time_in_mins - 480;
                                         $hours = intval($actual_total_ot/60);
@@ -390,19 +390,25 @@
                                 $minutes = sprintf("%02d", $min_diff);
                                 echo $hours.".".$minutes."";8*/
                             ?>
-                        </td> 
+                        </td> -->
                         <!-- TOTAL OT -->       
                         <td>
                             <?php 
                                 $convert_ot = explode(".", $ot->ot_num); 
-
-                                if($convert_ot[1] >= 30) {
-                                    $convrt_ot = $convert_ot[0] . '.' . 5;
-                                } elseif($convert_ot[1] <= 30) {
-                                    $convrt_ot = $convert_ot[0] . '.' . 0;
+                                if($ot->type != "ROT")
+                                {
+                                    $convrt_ot = $ot->ot_num;
+                                    echo $convrt_ot;
                                 }
-
-                                echo $convrt_ot;
+                                else
+                                {
+                                    if($convert_ot[1] >= 30) {
+                                        $convrt_ot = $convert_ot[0] . '.' . 5;
+                                    } elseif($convert_ot[1] <= 30) {
+                                        $convrt_ot = $convert_ot[0] . '.' . 0;
+                                    }
+                                    echo $convrt_ot;
+                                }
                             ?>
                     
                         </td>
