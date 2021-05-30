@@ -233,7 +233,7 @@ class Calendar_model extends CI_Model {
 
         // PROCESS FOR UPDATE ANNOUNCEMENT
         $data_calendar = array(
-            'date'         => $start,
+            'date'          => $start,
             'type'          => $type,
             'description'   => $description,
             'updated_date'  => $updated_date,
@@ -244,6 +244,17 @@ class Calendar_model extends CI_Model {
         $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
         $blaine_timekeeping->where('id', $id);
         $blaine_timekeeping->update('holiday_calendar', $data_calendar);
+
+        $data_employee = array(
+            'date' => $start,
+            'updated_date'  => $updated_date,
+            'updated_by'    => $this->session->userdata('username')
+        );
+
+         //DATABASE CONNECTION
+         $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
+         $blaine_timekeeping->where('employee_holiday.date', $holiday_start);
+         $blaine_timekeeping->update('employee_holiday', $data_employee);
 
         $trans = $this->db->trans_complete();
         return $trans;
@@ -292,6 +303,7 @@ class Calendar_model extends CI_Model {
 
     public function delete_calendar_list($id)
     {
+        $this->db->trans_start();
 
         // GET OLD DATA BEFORE UPDATE
         $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
@@ -328,8 +340,14 @@ class Calendar_model extends CI_Model {
         // DELETE PROCESS
         $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
         $blaine_timekeeping->where('id', $id);
-        $query = $blaine_timekeeping->delete('holiday_calendar');
-        return $query;
+        $blaine_timekeeping->delete('holiday_calendar');
+
+        $blaine_timekeeping = $this->load->database('blaine_schedules', TRUE);
+        $blaine_timekeeping->where('employee_holiday.date', $holiday_date);
+        $blaine_timekeeping->delete('employee_holiday');
+
+        $trans = $this->db->trans_complete();
+        return $trans;
 
     }
 

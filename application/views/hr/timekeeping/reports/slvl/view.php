@@ -46,7 +46,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">Reason/s</label>
-                        <div class="form-control"><?php echo $leave->reason; ?></div>                </div>
+                        <div class="form-control"><?php echo $leave->reason; ?></div></div>
                 </div>
             </div><br>
         

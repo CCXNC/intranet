@@ -251,6 +251,7 @@ class Attendance_model extends CI_Model
 
 		return $trans;
 	}
+	
 	public function add_manual_attendance()
 	{
 		$this->db->trans_start(); 
@@ -973,7 +974,7 @@ class Attendance_model extends CI_Model
 		$this->db->select("SUM(slvl.leave_num) as leave_absence_total");
 		$this->db->from('blaine_timekeeping.slvl');
 		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
 		$this->db->where('blaine_timekeeping.slvl.type', "AB");
 		$this->db->where('blaine_timekeeping.slvl.status', 1);
 
@@ -988,7 +989,7 @@ class Attendance_model extends CI_Model
 		$this->db->select("SUM(slvl.leave_num) as sick_leave_total");
 		$this->db->from('blaine_timekeeping.slvl');
 		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
 		$this->db->where('blaine_timekeeping.slvl.type', "SL");
 		$this->db->where('blaine_timekeeping.slvl.status', 1);
 
@@ -1003,8 +1004,68 @@ class Attendance_model extends CI_Model
 		$this->db->select("SUM(slvl.leave_num) as vacation_leave_total");
 		$this->db->from('blaine_timekeeping.slvl');
 		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
 		$this->db->where('blaine_timekeeping.slvl.type', "VL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_ml()
+	{
+		$this->db->select("SUM(slvl.leave_num) as maternity_leave_total");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->where('blaine_timekeeping.slvl.type', "ML");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_pl()
+	{
+		$this->db->select("SUM(slvl.leave_num) as paternity_leave_total");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->where('blaine_timekeeping.slvl.type', "PL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_bl()
+	{
+		$this->db->select("SUM(slvl.leave_num) as bereavement_leave_total");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->where('blaine_timekeeping.slvl.type', "BL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_spl()
+	{
+		$this->db->select("SUM(slvl.leave_num) as soloparent_leave_total");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
+		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->where('blaine_timekeeping.slvl.type', "SPL");
 		$this->db->where('blaine_timekeeping.slvl.status', 1);
 
 		$query = $this->db->get();
