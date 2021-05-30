@@ -1859,45 +1859,39 @@ class Report_model extends CI_Model {
 
     public function get_employees_ots()
     {
-        $this->db->select("
-            overtime.id as id,
+        $query = $this->db->query("
+        SELECT
+            a.id as id,
             CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
-            department.name as department,
-            company.name as company,
-            overtime.date_ot as date_ot,
-            overtime.type as type,
-            overtime.time_start as time_start,
-            overtime.time_end as time_end,
-            overtime.ot_num as ot_num,
-            overtime.task as task,
-            overtime.status as status,
-            overtime.day as day,
-            overtime.sot as sot,
-            attendance_in.time as time_in,
-            attendance_out.time as time_out,
-            attendance_in.date as date_in, 
-			attendance_out.date as date_out, 
+            a.employee_number as employee_number,
+            a.date_ot as date_ot,
+            a.time_start as time_start,
+            a.time_end as time_end,
+            a.task as task,
+	        aa.time as time_in,
+            b.ot_num as rd,
+            c.ot_num as rdot,
+            d.ot_num as rh,
+            e.ot_num as rhot,
+            f.ot_num as sh,
+            g.ot_num as shot,
+            h.ot_num as rotam,
+            i.ot_num as rotpm
+        FROM blaine_timekeeping.overtime as a
+        INNER JOIN blaine_intranet.employees ON blaine_intranet.employees.employee_number = a.employee_number
+	    LEFT JOIN blaine_timekeeping.attendance_in as aa ON a.employee_number = aa.employee_number AND a.date_ot = aa.date
+        LEFT JOIN blaine_timekeeping.overtime as b ON a.employee_number = b.employee_number AND b.type = 'RD'
+        LEFT JOIN blaine_timekeeping.overtime as c ON a.employee_number = c.employee_number AND c.type = 'RDOT'
+        LEFT JOIN blaine_timekeeping.overtime as d ON a.employee_number = d.employee_number AND d.type = 'RH'
+        LEFT JOIN blaine_timekeeping.overtime as e ON a.employee_number = e.employee_number AND e.type = 'RHOT'
+        LEFT JOIN blaine_timekeeping.overtime as f ON a.employee_number = f.employee_number AND f.type = 'SH'
+        LEFT JOIN blaine_timekeeping.overtime as g ON a.employee_number = g.employee_number AND g.type = 'SHOT'
+        LEFT JOIN blaine_timekeeping.overtime as h ON a.employee_number = h.employee_number AND h.type = 'ROT' AND h.day = 'am'
+        LEFT JOIN blaine_timekeeping.overtime as i ON a.employee_number = i.employee_number AND i.type = 'ROT' AND i.day = 'pm'
+        GROUP BY a.employee_number, a.day
+        ")->result();
 
-            schedules.time_in as sched_time_in,
-			schedules.time_out as sched_time_out,
-			schedules.grace_period as grace_period,
-            employee_schedules.time_in as emp_sched_time_in,
-			employee_schedules.time_out as emp_sched_time_out,
-			employee_schedules.date as emp_sched_date,
-			employee_schedules.grace_period as emp_sched_grace_period
-        ");
-
-        $this->db->from('blaine_timekeeping.overtime');
-        $this->db->join('blaine_intranet.employees', 'blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number');
-        $this->db->join('blaine_timekeeping.attendance_in', 'blaine_timekeeping.overtime.employee_number = blaine_timekeeping.attendance_in.employee_number AND blaine_timekeeping.overtime.date_ot = blaine_timekeeping.attendance_in.date', 'left');
-        $this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.overtime.employee_number = blaine_timekeeping.attendance_out.employee_number AND blaine_timekeeping.overtime.date_ot = blaine_timekeeping.attendance_out.date', 'left');
-        $this->db->join('blaine_timekeeping.schedules', 'blaine_timekeeping.schedules.employee_number = blaine_timekeeping.overtime.employee_number','left');
-        $this->db->join('blaine_schedules.employee_schedules', 'blaine_schedules.employee_schedules.date = blaine_timekeeping.overtime.date_ot AND blaine_timekeeping.overtime.employee_number = blaine_schedules.employee_schedules.employee_number', 'left');
-        $this->db->join('blaine_intranet.department', 'blaine_timekeeping.overtime.department = blaine_intranet.department.id');
-        $this->db->join('blaine_intranet.company', 'blaine_timekeeping.overtime.company = blaine_intranet.company.id');
-        $query = $this->db->get();
-
-        return $query->result();
+        return $query;
     }
 
     public function get_employee_ot($id)
