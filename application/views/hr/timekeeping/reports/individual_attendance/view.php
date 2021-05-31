@@ -460,6 +460,11 @@
                                                         echo '0';
                                                         $late_mins = 0;
                                                     }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '0';
+                                                        $late_mins = 0;
+                                                    }
                                                     elseif($halfday_mins <= $total_time_in_mins)
                                                     {
                                                         if($employee->employee_number == $employee->leave_employee_number && $employee->temp_date == $employee->date_leave && $employee->leave_day == 'HDPM')
@@ -572,6 +577,11 @@
                                                         echo '0';
                                                         $ut_mins = 0;
                                                     }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '0';
+                                                        $ut_mins = 0;
+                                                    }
                                                     else
                                                     {
                                                         $undertime_mins = $undertime_am_mins - $total_sched_time_in_mins + 5;
@@ -600,6 +610,11 @@
                                                         echo '0';
                                                         $ut_mins = 0;
                                                     }
+                                                    elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
+                                                    {
+                                                        echo '0';
+                                                        $ut_mins = 0;
+                                                    }
                                                     else
                                                     {
                                                         //COMPUTATION UNDERTIME
@@ -624,23 +639,31 @@
                                         <!-- EXCESS AM -->
                                         <td>
                                             <?php
-                                                if($sched_time_in_mins > $total_time_in_mins && $employee->date_in != NULL)
+                                                if($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
                                                 {
-                                                    $week_day = date('w', strtotime($employee->temp_date));
-                                                    if($week_day != 6 && $week_day != 0)
-                                                    {
-                                                        $total_ot_am =  $sched_time_in_mins - $total_time_in_mins; 
-                                                        if($total_ot_am >= 60)
-                                                        {
-                                                            $hours = intval($total_ot_am/60);
-                                                            $min_diff = intval($total_ot_am%60);
-                                                            $minutes = sprintf("%02d", $min_diff);
-                                                            echo $hours.".".$minutes."";
-                                                        }
                                                     
-                                                    }
-                                                   
                                                 }
+                                                else
+                                                {
+                                                    if($sched_time_in_mins > $total_time_in_mins && $employee->date_in != NULL)
+                                                    {
+                                                        $week_day = date('w', strtotime($employee->temp_date));
+                                                        if($week_day != 6 && $week_day != 0)
+                                                        {
+                                                            $total_ot_am =  $sched_time_in_mins - $total_time_in_mins; 
+                                                            if($total_ot_am >= 60)
+                                                            {
+                                                                $hours = intval($total_ot_am/60);
+                                                                $min_diff = intval($total_ot_am%60);
+                                                                $minutes = sprintf("%02d", $min_diff);
+                                                                echo $hours.".".$minutes."";
+                                                            }
+                                                        
+                                                        }
+                                                       
+                                                    }
+                                                }
+                                             
                                             
                                             
                                             ?>
@@ -648,21 +671,28 @@
                                         <!-- EXCESS PM -->
                                         <td>
                                             <?php 
-                                                if($total_time_out_mins > $sched_time_out_mins && $employee->date_out != NULL)
+                                                if($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
                                                 {
-                                                    $week_day = date('w', strtotime($employee->temp_date));
-                                                    if($week_day != 6 && $week_day != 0)
-                                                    {
-                                                        $total_ot_pm = $total_time_out_mins - $sched_time_out_mins;
-                                                        if($total_ot_pm >= 60)
-                                                        {
-                                                            $hours = intval($total_ot_pm/60);
-                                                            $min_diff = intval($total_ot_pm%60);
-                                                            $minutes = sprintf("%02d", $min_diff);
-                                                            echo $hours.".".$minutes."";
-                                                        }    
-                                                    }    
+                                                    
                                                 }
+                                                else
+                                                {
+                                                    if($total_time_out_mins > $sched_time_out_mins && $employee->date_out != NULL)
+                                                    {
+                                                        $week_day = date('w', strtotime($employee->temp_date));
+                                                        if($week_day != 6 && $week_day != 0)
+                                                        {
+                                                            $total_ot_pm = $total_time_out_mins - $sched_time_out_mins;
+                                                            if($total_ot_pm >= 60)
+                                                            {
+                                                                $hours = intval($total_ot_pm/60);
+                                                                $min_diff = intval($total_ot_pm%60);
+                                                                $minutes = sprintf("%02d", $min_diff);
+                                                                echo $hours.".".$minutes."";
+                                                            }    
+                                                        }    
+                                                    }
+                                                }    
                                             ?>
                                           
                                         </td>
@@ -670,7 +700,7 @@
                                         <td>
                                             <?php 
                                                 $week_day = date('w', strtotime($employee->temp_date));
-                                                if($week_day == 6 || $week_day == 0)
+                                                if($week_day == 6 || $week_day == 0 || $employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
                                                 {
                                                     if($employee->employee_number != '03151077')
                                                     {
@@ -989,6 +1019,8 @@
                                                         echo '<p class="" style="text-align:center;padding:5px;background-color:#38c172;color:white;">'. $employee->type_name . ' ' . $employee->leave_day . '' .'</p>';
                                                     } elseif($employee->type_name == "SL W/O PAY") {
                                                         echo '<p class="" style="text-align:center;padding:5px;background-color:#e3342f;color:white;">'. $employee->type_name . ' ' . $employee->leave_day . '' .'</p>';
+                                                    } elseif($employee->type_name == "SPL") {
+                                                        echo '<p class="" style="text-align:center;padding:5px;background-color:rgb(255,100,0);color:white;">'. $employee->type_name . ' ' . $employee->leave_day . '' .'</p>';
                                                     }
                                                 ?>   
                                             <?php elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut): ?>   
@@ -1026,6 +1058,7 @@
             </div>
         </div>
         <br>
+        <!-- LEAVE LIST -->
         <div class="card">
             <div class="card-header" style="background-color: #38c172; color:white;">
                 <h5> LEAVE OF ABSENCE <a href="<?php echo base_url(); ?>reports/index_slvl" target="_blank" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
@@ -1044,7 +1077,6 @@
                     </thead>
                     <tbody>
                         <?php if($employee_leaves) : ?>
-                            <?php $leave_ab = 0; ?>
                             <?php foreach($employee_leaves as $employee_leave) : ?>
                                 <tr>
                                     <td><?php echo date('D', strtotime($employee_leave->leave_date)); ?></td>
@@ -1053,14 +1085,16 @@
                                     <td><?php echo $employee_leave->type_name; ?></td>
                                     <td><?php echo substr($employee_leave->reason,0,50); ?></td>
                                     <td><?php if($employee_leave->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
-                        </tr>
+                                </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </tbody>
                 </table> 
             </div>
         </div>
+
         <br>
+        <!-- FIELD WORK / WORK FROM HOME LIST -->
         <div class="card">
             <div class="card-header" style="background-color:rgb(127,127,127); color:white;"> 
                 <h5>  FIELD WORK / WORK FROM HOME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ob" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
@@ -1092,7 +1126,9 @@
                 </table> 
             </div>
         </div>
+
         <br>
+        <!-- UNDERTIME LIST -->
         <div class="card">
             <div class="card-header" style="background-color:#067593; color:white;">
                 <h5>UNDERTIME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ut" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
@@ -1134,7 +1170,9 @@
                 </table> 
             </div>
         </div>
+
         <br>
+        <!-- OVERTIME LIST -->
         <div class="card">
             <div class="card-header" style="background-color:#0C2D48; color:white;">
                 <h5> OVERTIME<a target="_blank" href="<?php echo base_url(); ?>reports/index_ot" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
@@ -1156,7 +1194,9 @@
                 </table> 
             </div>
         </div>
+
         <br>
+        <!-- TOTAL SUMMARY -->
         <div class="card">
             <div class="card-header" style="background-color: #3490dc; color:white;">
                 <h5> TOTAL SUMMARY  </h5>
@@ -1203,6 +1243,7 @@
                                
                             ?>
                         </td>
+
                         <!-- UNDERTIME -->
                         <td>
                             <?php 
@@ -1220,31 +1261,120 @@
                             
                             ?>
                         </td>
+
+                        <!-- ABSENCES -->
                         <td>
-                            <?php if($total_absences) : ?>
-                                <?php foreach($total_absences as $absence) : ?>
-                                    <?php echo $absence->leave_absence_total; ?>
+                            <?php $total_ab = 0; ?>
+                            <?php if($employee_leaves) : ?>
+                                <?php foreach($employee_leaves as $employee_leave) : ?>
+                                    <?php  
+                                        if($employee_leave->type == "AB" && $employee_leave->status == 1)
+                                        {
+                                            $total_ab += $employee_leave->leave_num;
+                                        }  
+                                      
+                                    ?>
                                 <?php endforeach; ?>
                             <?php endif; ?>
+                            <?php echo $total_ab; ?>
                         </td>
+
+                        <!-- SICK LEAVE -->
                         <td>
-                            <?php if($total_sl) : ?>
-                                <?php foreach($total_sl as $sl) : ?>
-                                    <?php echo $sl->sick_leave_total; ?>
+                            <?php $total_sl = 0; ?>
+                            <?php if($employee_leaves) : ?>
+                                <?php foreach($employee_leaves as $employee_leave) : ?>
+                                    <?php  
+                                        if($employee_leave->type == "SL" && $employee_leave->status == 1)
+                                        {
+                                            $total_sl += $employee_leave->leave_num;
+                                        }    
+                                    ?>
                                 <?php endforeach; ?>
                             <?php endif; ?>
+                            <?php echo $total_sl; ?>
                         </td>
+
+                        <!-- VACATION LEAVE -->
                         <td>
-                            <?php if($total_vl) : ?>
-                                <?php foreach($total_vl as $vl) : ?>
-                                    <?php echo $vl->vacation_leave_total; ?>
+                            <?php $total_vl = 0; ?>
+                            <?php if($employee_leaves) : ?>
+                                <?php foreach($employee_leaves as $employee_leave) : ?>
+                                    <?php  
+                                        if($employee_leave->type == "VL" && $employee_leave->status == 1)
+                                        {
+                                            $total_vl += $employee_leave->leave_num;
+                                        }    
+                                    ?>
                                 <?php endforeach; ?>
                             <?php endif; ?>
+                            <?php echo $total_vl; ?>
                         </td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+
+                        <!-- MATERNITY LEAVE -->
+                        <td>
+                            <?php $total_ml = 0; ?>            
+                            <?php if($employee_leaves) : ?>
+                                <?php foreach($employee_leaves as $employee_leave) : ?>
+                                    <?php  
+                                        if($employee_leave->type == "ML" && $employee_leave->status == 1)
+                                        {
+                                            $total_ml += $employee_leave->leave_num;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php echo $total_ml; ?>
+                        </td>
+                        
+                        <!-- PATERNITY LEAVE -->
+                        <td>
+                            <?php $total_pl = 0; ?>
+                            <?php if($employee_leaves) : ?>
+                                <?php foreach($employee_leaves as $employee_leave) : ?>
+                                    <?php  
+                                        if($employee_leave->type == "PL" && $employee_leave->status == 1)
+                                        {
+                                            $total_pl += $employee_leave->leave_num;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php echo $total_pl; ?>
+                        </td>
+                        
+                        <!-- BEREAVEMENT LEAVE -->
+                        <td>
+                            <?php $total_bl = 0; ?>
+                            <?php if($employee_leaves) : ?>
+                                <?php foreach($employee_leaves as $employee_leave) : ?>
+                                    <?php  
+                                        if($employee_leave->type == "BL" && $employee_leave->status == 1)
+                                        {
+                                            $total_bl += $employee_leave->leave_num;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php echo $total_bl; ?>
+                        </td>
+                        
+                        <!-- SOLO PARENT LEAVE -->
+                        <td>
+                            <?php $total_spl = 0; ?>
+                            <?php if($employee_leaves) : ?>
+                                <?php foreach($employee_leaves as $employee_leave) : ?>
+                                    <?php  
+                                        if($employee_leave->type == "SPL" && $employee_leave->status == 1)
+                                        {
+                                            $total_spl += $employee_leave->leave_num;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php echo $total_spl; ?>
+                        </td>
+
                         <td>-</td>
                         <!-- NIGHT DIFF -->
                         <td>
@@ -1281,86 +1411,86 @@
     </div>
 </div>
 <?php if($employees) : ?>
-        <?php foreach($employees as $employee) : ?>
-            <div class="modal fade" id="exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">MANUAL ATTENDANCE FORM</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button> 
-                        </div>
-                        <div class="modal-body"> 
-                            <form method="post" action="<?php echo base_url(); ?>attendance/add_individual_manual_attendance" enctype="multipart/form-data">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input type="text" name="date" class="form-control" value="<?php echo $employee->temp_date; ?>" readonly><br>
-                                                <input type="text" name="employee_number" value="<?php echo $employee->employee_number; ?>" hidden>
-                                                <input type="text" name="biometric_id" value="<?php echo $employee->biometric_id; ?>" hidden>
-                                                <select class="form-control attendance"  name="attendance" >
-                                                    <option value="1">ADD</option>
-                                                    <option value="2">UPDATE</option>
-                                                    <option value="3">DELETE</option>
-                                                </select>
-                                                <br>
-                                                <div class="add">
-                                                    <label for="">TIME IN</label>
-                                                    <?php if($employee->time_in != NULL) : ?>
-                                                        <input type="text" name="process" value="1" hidden>
-                                                        <input  type="time" class="form-control "  name="time_in" value="<?php echo $employee->time_in; ?>" readonly><br>
-                                                    <?php else : ?>
-                                                        <input  type="time" class="form-control " name="time_in"><br>
-                                                    <?php endif; ?>   
-                                                    <input type="checkbox" checked class="check" name="no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
-                                                    <input type="time" class="timeOut form-control" name="time_out" value="<?php echo $employee->time_out; ?>">
-                                                </div>
-                                                
-                                                <div class="edit">
+    <?php foreach($employees as $employee) : ?>
+        <div class="modal fade" id="exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">MANUAL ATTENDANCE FORM</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button> 
+                    </div>
+                    <div class="modal-body"> 
+                        <form method="post" action="<?php echo base_url(); ?>attendance/add_individual_manual_attendance" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" name="date" class="form-control" value="<?php echo $employee->temp_date; ?>" readonly><br>
+                                            <input type="text" name="employee_number" value="<?php echo $employee->employee_number; ?>" hidden>
+                                            <input type="text" name="biometric_id" value="<?php echo $employee->biometric_id; ?>" hidden>
+                                            <select class="form-control attendance"  name="attendance" >
+                                                <option value="1">ADD</option>
+                                                <option value="2">UPDATE</option>
+                                                <option value="3">DELETE</option>
+                                            </select>
+                                            <br>
+                                            <div class="add">
+                                                <label for="">TIME IN</label>
+                                                <?php if($employee->time_in != NULL) : ?>
+                                                    <input type="text" name="process" value="1" hidden>
+                                                    <input  type="time" class="form-control "  name="time_in" value="<?php echo $employee->time_in; ?>" readonly><br>
+                                                <?php else : ?>
+                                                    <input  type="time" class="form-control " name="time_in"><br>
+                                                <?php endif; ?>   
+                                                <input type="checkbox" checked class="check" name="no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
+                                                <input type="time" class="timeOut form-control" name="time_out" value="<?php echo $employee->time_out; ?>">
+                                            </div>
+                                            
+                                            <div class="edit">
 
-                                                    <input type="checkbox" class="editCheckIn" name="edit_no_time_in" value="1">&nbsp;<label for="">TIME IN</label>
-                                                    <input  type="time" class="editTimeIn form-control "  name="edit_time_in" value="<?php echo $employee->time_in; ?>"><br>
+                                                <input type="checkbox" class="editCheckIn" name="edit_no_time_in" value="1">&nbsp;<label for="">TIME IN</label>
+                                                <input  type="time" class="editTimeIn form-control "  name="edit_time_in" value="<?php echo $employee->time_in; ?>"><br>
 
-                                                    <input type="checkbox" class="editCheckOut" name="edit_no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
-                                                    <input type="time" disabled class="editTimeOut form-control" name="edit_time_out" value="<?php echo $employee->time_out; ?>"><br>
+                                                <input type="checkbox" class="editCheckOut" name="edit_no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
+                                                <input type="time" disabled class="editTimeOut form-control" name="edit_time_out" value="<?php echo $employee->time_out; ?>"><br>
 
-                                                    <textarea class="form-control" name="edit_remarks" id="" cols="30" rows="4" placeholder="REMARKS EDIT"></textarea>
-                                                </div>
+                                                <textarea class="form-control" name="edit_remarks" id="" cols="30" rows="4" placeholder="REMARKS EDIT"></textarea>
+                                            </div>
 
-                                                <div class="delete">
-                                                
-                                                    <input type="checkbox" class="deleteCheckIn" name="delete_no_time_in" value="1">&nbsp;<label for="">TIME IN</label>
-                                                    <input  type="time" class="deleteTimeIn form-control" readonly  name="delete_time_in" value="<?php echo $employee->time_in; ?>"><br>
+                                            <div class="delete">
+                                            
+                                                <input type="checkbox" class="deleteCheckIn" name="delete_no_time_in" value="1">&nbsp;<label for="">TIME IN</label>
+                                                <input  type="time" class="deleteTimeIn form-control" readonly  name="delete_time_in" value="<?php echo $employee->time_in; ?>"><br>
 
-                                                    <input type="checkbox" class="deleteCheckOut" name="delete_no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
-                                                    <input type="time" class="deleteTimeOut form-control" readonly name="delete_time_out" value="<?php echo $employee->time_out; ?>"><br>
+                                                <input type="checkbox" class="deleteCheckOut" name="delete_no_time_out" value="1">&nbsp;<label for="">TIME OUT</label>
+                                                <input type="time" class="deleteTimeOut form-control" readonly name="delete_time_out" value="<?php echo $employee->time_out; ?>"><br>
 
-                                                    <textarea class="form-control" name="delete_remarks" id="" cols="30" rows="4" placeholder="REMARKS DELETE"></textarea>
-                                                </div>
+                                                <textarea class="form-control" name="delete_remarks" id="" cols="30" rows="4" placeholder="REMARKS DELETE"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" title="Close Manual Attendance Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <div class="add">
-                                        <button type="submit" title="Submit Manual Attendance Form" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
-                                    </div>
-                                    <div class="edit">
-                                        <button type="submit" title="Update Manual Attendance Form" onclick="return confirm('Do you want to update data?');" class="btn btn-info">Update</button>
-                                    </div>
-                                    <div class="delete">
-                                        <button type="submit" title="Delete Manual Attendance Form" onclick="return confirm('Do you want to delete data?');" class="btn btn-danger">Delete</button>
-                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" title="Close Manual Attendance Form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div class="add">
+                                    <button type="submit" title="Submit Manual Attendance Form" onclick="return confirm('Do you want to submit data?');" class="btn btn-info">Submit</button>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="edit">
+                                    <button type="submit" title="Update Manual Attendance Form" onclick="return confirm('Do you want to update data?');" class="btn btn-info">Update</button>
+                                </div>
+                                <div class="delete">
+                                    <button type="submit" title="Delete Manual Attendance Form" onclick="return confirm('Do you want to delete data?');" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        <?php endforeach; ?>
-    <?php endif; ?>  
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>  
 
     <script type="text/javascript">
         $(document).ready(function() {

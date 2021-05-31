@@ -32,10 +32,11 @@
                 <div class="form-group">
                     <label for="">*Type</label> 
                     <select name="ot_type" id="" class="form-control">
-                        <option value="OT"<?php echo $ot->type == 'ROT' ? 'selected' : ''; ?>>REGULAR OT</option>
-                        <option value="RHOT"<?php echo $ot->type == 'RHOT' ? 'selected' : ''; ?>>REGULAR HOLIDAY OT</option>
-                        <option value="SHOT"<?php echo $ot->type == 'SHOT' ? 'selected' : ''; ?>>SPECIAL HOLIDAY OT</option>
-                        <option value="RD"<?php echo $ot->type == 'RD' ? 'selected' : ''; ?>>RESTDAY</option>
+                        <option value="">SELECT TYPE OF OVERTIME</option>
+                        <option value="ROT" <?php echo $ot->type == 'ROT' ? 'selected' : ''; ?>>REGULAR OT</option>
+                        <option value="RD" <?php echo $ot->type == 'RD' ? 'selected' : ''; ?>>RESTDAY</option>
+                        <option value="RH" <?php echo $ot->type == 'RH' ? 'selected' : ''; ?>>REGULAR HOLIDAY</option>
+                        <option value="SH" <?php echo $ot->type == 'SH' ? 'selected' : ''; ?>>SPECIAL HOLIDAY</option>
                     </select>        
                 </div>
             </div>
