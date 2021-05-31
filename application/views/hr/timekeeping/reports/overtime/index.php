@@ -32,11 +32,12 @@
                 <th scope="col">EMPLOYEE NAME</th>
                 <!--<th scope="col">DEPARTMENT</th>-->
                 <!--<th scope="col">TYPE</th>-->
-                <th scope="col">TIME IN</th>
+                <th scope="col">ACTUAL IN</th>
+                <th scope="col">ACTUAL OUT</th>
                 <th scope="col">OT TIME START</th>
                 <th scope="col">OT TIME END</th>
-                <th scope="col">ROTAM</th>
-                <th scope="col">ROTPM</th>
+                <th scope="col">ROT AM</th>
+                <th scope="col">ROT PM</th>
                 <th scope="col">RD</th>
                 <th scope="col">RDOT</th>
                 <th scope="col">RH</th>
@@ -51,12 +52,25 @@
             <?php if($ots) : ?>
                 <?php foreach($ots as $ot) : ?>
                     <tr <?php //echo $actual_total_ot < $total_ot ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>>
-                        <td><?php echo $ot->date_ot; ?></td>
+                        <td title="
+                            <?php 
+                                if($ot->emp_sched_date == $ot->date_ot)
+                                {
+                                    echo $ot->emp_sched_time_in . ' AM | ' . $ot->emp_sched_time_out . ' PM | ' . $ot->emp_sched_grace_period . ' MINS'; 
+                                }
+                                else
+                                {
+                                    echo $ot->sched_time_in . ' AM | ' . $ot->sched_time_out . ' PM | ' . $ot->grace_period . ' MINS'; 
+                                }
+                               
+                            ?>
+                        "><?php echo $ot->date_ot; ?></td>
                         <td><?php echo $ot->fullname; ?></td>
                         <!--<td><?php echo $ot->department; ?></td>-->
-                        <td><?php echo $ot->time_in; ?></td>
-                        <td><?php echo $ot->time_start; ?></td>
-                        <td><?php echo $ot->time_end; ?></td>
+                        <td><?php echo $ot->actual_time_in; ?></td>
+                        <td><?php echo  $ot->actual_time_out; ?></td>
+                        <td><?php if($ot->type == "ROT") { echo $ot->time_in; } else { echo $ot->time_start; } ?></td>
+                        <td><?php if($ot->type == "ROT") { echo $ot->time_out; } else { echo $ot->time_end; } ?></td>
                         <td><?php echo $ot->rotam; ?></td>
                         <td><?php echo $ot->rotpm; ?></td>
                         <td><?php echo $ot->rd; ?></td>
