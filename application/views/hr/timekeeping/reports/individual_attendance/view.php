@@ -41,7 +41,7 @@
             <div class="card-header" style="background-color: #3490dc; color:white;"><h5> DAILY ATTENDANCE  </h5>
             </div>
             <div class="card-body">
-                <table id="" class="table table-bordered no-wrap" >
+                <table id="" class="display" width="100%">
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DAYS</th>
@@ -1197,7 +1197,7 @@
                 <h5> OVERTIME<a target="_blank" href="<?php echo base_url(); ?>reports/index_ot" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
             <div class="card-body">
-                <table id="" class="table table-bordered no-wrap" >
+                <table id="" class="display" width="100%">
                     <thead>
                     <tr style="background-color:#D4F1F4;">
                         <th scope="col">DATE</th>
@@ -1504,7 +1504,7 @@
                 <h5> TOTAL SUMMARY  </h5>
             </div>
             <div class="card-body">
-                <table id="" class="table table-bordered no-wrap" >
+                <table id="" class="display" width="100%">
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">TARDINESS</th>
@@ -1796,8 +1796,21 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-         
-
+            // DAILY ATTENDANCE
+            $('table.display').DataTable( {
+                "order": [[ 0, 'desc' ]],
+                //"bStateSave": true,
+                "fnStateSave": function (oSettings, oData) {
+                    localStorage.setItem('table.display', JSON.stringify(oData));
+                },
+                "fnStateLoad": function (oSettings) {
+                    return JSON.parse(localStorage.getItem('table.display'));
+                },
+                //"scrollY" : '50vh',
+                "scrollX" : true,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'lrtip'
+            } );
             //FOR ADD
             $('.check').prop('checked', true);
             $('.timeOut').prop('disabled', true);
