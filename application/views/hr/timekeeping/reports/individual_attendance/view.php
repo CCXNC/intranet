@@ -1180,17 +1180,300 @@
             <div class="card-body">
                 <table id="" class="table table-bordered no-wrap" >
                     <thead>
-                        <tr style="background-color:#D4F1F4;">
-                            <th scope="col">DAYS</th>
-                            <th scope="col">DATE</th>
-                            <th scope="col">TYPE</th>
-                            <th scope="col">TIME IN</th>
-                            <th scope="col">TIME OUT</th>
-                            <th scope="col">OT HOURS</th>
-                            <th scope="col">NATURE OF WORK</th>
-                            <th scope="col">STATUS</th>
-                        </tr>
+                    <tr style="background-color:#D4F1F4;">
+                        <th scope="col">DATE</th>
+                        <th scope="col">ACTUAL IN</th>
+                        <th scope="col">ACTUAL OUT</th>
+                        <th scope="col">OT TIME START</th>
+                        <th scope="col">OT TIME END</th>
+                        <th scope="col">ROT AM</th>
+                        <th scope="col">ROT PM</th>
+                        <th scope="col">RD</th>
+                        <th scope="col">RDOT</th>
+                        <th scope="col">RH</th>
+                        <th scope="col">RHOT</th>
+                        <th scope="col">SH</th>
+                        <th scope="col">SHOT</th>
+                        <th scope="col">TASK</th>
+                    </tr>
                     </thead>
+                    <tbody>
+                        <?php if($employee_ot) : ?>
+                            <?php foreach($employee_ot as $ot) : ?>
+                                <?php
+                                    if($ot->actual_time_in != NULL && $ot->actual_time_out != NULL)
+                                    {
+                                        $explod_time_in = explode(":",$ot->actual_time_in);
+                                        $explod_time_out = explode(":",$ot->actual_time_out);
+                                    }
+                                    elseif($ot->actual_time_in != NULL && $ot->actual_time_out == NULL)
+                                    {
+                                        $explod_time_in = explode(":",$ot->actual_time_in);
+                                        $explod_time_out = explode(":","00:00");
+                                    }
+                                    elseif($ot->actual_time_in == NULL && $ot->actual_time_out != NULL)
+                                    {
+                                        $explod_time_in =  explode(":","00:00");
+                                        $explod_time_out = explode(":",$ot->actual_time_out);
+                                    }
+                                    else
+                                    {
+                                        $explod_time_in = explode(":","00:00");
+                                        $explod_time_out = explode(":","00:00");
+                                    }
+                                    $explode_time_in_hours = $explod_time_in[0];
+                                    $explode_time_in_mins = $explod_time_in[1];
+            
+                                    $explode_time_out_hours = $explod_time_out[0];
+                                    $explode_time_out_mins = $explod_time_out[1];
+                                    //echo $explode_time_in_hours . 'HOURS |' . $explode_time_in_mins . 'MINS';
+                                    //echo $explode_time_out_hours . 'HOURS |' . $explode_time_out_mins . 'MINS';
+            
+                                    //COMPUTATION OF ACTUAL TIME IN AND TIME OUT TO MINUTES
+                                    $time_in_mins = $explode_time_in_hours * 60;
+                                    $total_time_in_mins = $time_in_mins + $explode_time_in_mins;
+            
+                                    $time_out_mins = $explode_time_out_hours * 60;
+                                    $total_time_out_mins = $time_out_mins + $explode_time_out_mins;
+                                    //echo 'ACTUAL :' . $total_time_in_mins . '|' . $total_time_out_mins . '__';
+
+                                    if($ot->emp_sched_date == $ot->date_ot)
+                                    {
+                                        //EXPLODE SCHEDULE TIME IN AND TIME OUT
+                                        $explod_sched_time_in = explode(":",$ot->emp_sched_time_in);
+                                        $explod_sched_time_out = explode(":",$ot->emp_sched_time_out);
+
+                                        $explode_sched_time_in_hours = $explod_sched_time_in[0];
+                                        $explode_sched_time_in_mins = $explod_sched_time_in[1];
+
+                                        $explode_sched_time_out_hours = $explod_sched_time_out[0];
+                                        $explode_sched_time_out_mins = $explod_sched_time_out[1];
+                                        //echo $explode_sched_time_in_hours . 'HOURS |' . $explode_sched_time_in_mins . 'MINS';
+                                        //echo $explode_sched_time_out_hours . 'HOURS |' . $explode_sched_time_out_mins . 'MINS';
+
+                                        //COMPUTATION OF SCHEDULE TIME IN PLUS GRACE PERIOD AND TIME OUT TO MINUTES
+                                        $sched_time_in_mins = $explode_sched_time_in_hours * 60;
+                                        $total_sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins + $ot->emp_sched_grace_period;
+
+                                        $sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins;
+
+                                        $sched_time_out_mins = $explode_sched_time_out_hours * 60;
+                                        $total_sched_time_out_mins = $sched_time_out_mins + $explode_sched_time_out_mins;
+                                        //echo $sched_time_in_mins . '|' . $total_sched_time_out_mins;
+                                    }
+                                    else
+                                    {
+                                        
+                                        //EXPLODE SCHEDULE TIME IN AND TIME OUT
+                                        $explod_sched_time_in = explode(":",$ot->sched_time_in);
+                                        $explod_sched_time_out = explode(":",$ot->sched_time_out);
+
+                                        $explode_sched_time_in_hours = $explod_sched_time_in[0];
+                                        $explode_sched_time_in_mins = $explod_sched_time_in[1];
+
+                                        $explode_sched_time_out_hours = $explod_sched_time_out[0];
+                                        $explode_sched_time_out_mins = $explod_sched_time_out[1];
+                                        //echo $explode_sched_time_in_hours . 'HOURS |' . $explode_sched_time_in_mins . 'MINS';
+                                        //echo $explode_sched_time_out_hours . 'HOURS |' . $explode_sched_time_out_mins . 'MINS';
+
+                                        //COMPUTATION OF SCHEDULE TIME IN PLUS GRACE PERIOD AND TIME OUT TO MINUTES
+                                        $sched_time_in_mins = $explode_sched_time_in_hours * 60;
+                                        $total_sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins + $ot->grace_period;
+
+                                        $sched_time_in_mins = $sched_time_in_mins + $explode_sched_time_in_mins;
+
+                                        $sched_time_out_mins = $explode_sched_time_out_hours * 60;
+                                        $total_sched_time_out_mins = $sched_time_out_mins + $explode_sched_time_out_mins;
+                                        //echo $sched_time_in_mins . '|' . $total_sched_time_out_mins;
+                                    }
+
+                                    if($ot->type == "ROT") 
+                                    { 
+                                        if($ot->am_time_in != NULL && $ot->am_time_out != NULL)
+                                        {
+                                            //echo $ot->time_in . '|' . $ot->time_out; 
+                                            $ot_time_in = explode(":",$ot->am_time_in);
+                                            $ot_time_out = explode(":",$ot->am_time_out); 
+                                        }
+                                        else
+                                        {
+                                            //echo $ot->time_in . '|' . $ot->time_out; 
+                                            $ot_time_in = explode(":","00:00");
+                                            $ot_time_out = explode(":","00:00"); 
+                                        }
+                                  
+
+                                        $ot_time_in_hours = $ot_time_in[0];
+                                        $ot_time_in_mins = $ot_time_in[1];
+                
+                                        $ot_time_out_hours = $ot_time_out[0];
+                                        $ot_time_out_mins = $ot_time_out[1];
+                
+                                        //COMPUTATION OF ACTUAL TIME IN AND TIME OUT TO MINUTES
+                                        $ot_time_in_hr_to_mins = $ot_time_in_hours * 60;
+                                        $ot_total_am_time_in_mins = $ot_time_in_hr_to_mins + $ot_time_in_mins;
+                
+                                        $ot_time_out_hr_to_mins = $ot_time_out_hours * 60;
+                                        $ot_total_am_time_out_mins = $ot_time_out_hr_to_mins + $ot_time_out_mins;
+                                        //echo 'OT :' .$ot_total_am_time_in_mins . '|' . $ot_total_am_time_out_mins;
+                                    
+                                      
+                                        //echo $total_time_in_mins . ' | ' . $ot_total_am_time_in_mins . ' ---- ' . $sched_time_in_mins .' | ' . $ot_total_am_time_out_mins;
+                                        if($total_time_in_mins <= $ot_total_am_time_in_mins)
+                                        {
+                                            //echo 'sucess';
+                                            $rot_am = 0;
+                                        }
+                                        else
+                                        {
+                                            //echo 'fail';
+                                            $rot_am = 1;
+                                        }
+                                       
+                                        if($ot->pm_time_in != NULL && $ot->pm_time_out != NULL)
+                                        {
+                                            //echo $ot->time_in . '|' . $ot->time_out; 
+                                            $ot_pm_time_in = explode(":",$ot->pm_time_in);
+                                            $ot_pm_time_out = explode(":",$ot->pm_time_out); 
+                                        }
+                                        else
+                                        {
+                                            //echo $ot->time_in . '|' . $ot->time_out; 
+                                            $ot_pm_time_in = explode(":","00:00");
+                                            $ot_pm_time_out = explode(":","00:00"); 
+                                        }
+
+                                        $ot_pm_time_in_hours = $ot_pm_time_in[0];
+                                        $ot_pm_time_in_mins = $ot_pm_time_in[1];
+                
+                                        $ot_pm_time_out_hours = $ot_pm_time_out[0];
+                                        $ot_pm_time_out_mins = $ot_pm_time_out[1];
+                
+                                        //COMPUTATION OF ACTUAL TIME IN AND TIME OUT TO MINUTES
+                                        $ot_pm_time_in_hr_to_mins = $ot_pm_time_in_hours * 60;
+                                        $ot_pm_total_am_time_in_mins = $ot_pm_time_in_hr_to_mins + $ot_pm_time_in_mins;
+                
+                                        $ot_pm_time_out_hr_to_mins = $ot_pm_time_out_hours * 60;
+                                        $ot_pm_total_am_time_out_mins = $ot_pm_time_out_hr_to_mins + $ot_pm_time_out_mins;
+                                        //echo 'OT :' .$ot_total_am_time_in_mins . '|' . $ot_total_am_time_out_mins;
+
+                                        //echo $ot_pm_total_am_time_out_mins. ' <= ' . $total_time_out_mins . '----' . $total_sched_time_out_mins . ' <= ' . $ot_pm_total_am_time_in_mins;
+                                        if($ot_pm_total_am_time_out_mins <= $total_time_out_mins && $total_sched_time_out_mins <= $ot_pm_total_am_time_in_mins)
+                                        {
+                                            //echo '--sucess';
+                                            $rot_pm = 0;
+                                        }
+                                        else
+                                        {
+                                            //echo '--fail';
+                                            $rot_pm = 1;
+                                        }
+
+                                        $restriction = 0;
+                                    } 
+                                 
+                                    else 
+                                    { 
+                                        //echo $ot->time_start . '|' . $ot->time_end; 
+                                        $ot_time_in = explode(":",$ot->time_start);
+                                        $ot_time_out = explode(":",$ot->time_end);  
+
+                                        $ot_time_in_hours = $ot_time_in[0];
+                                        $ot_time_in_mins = $ot_time_in[1];
+                
+                                        $ot_time_out_hours = $ot_time_out[0];
+                                        $ot_time_out_mins = $ot_time_out[1];
+                
+                                        //COMPUTATION OF ACTUAL TIME IN AND TIME OUT TO MINUTES
+                                        $ot_time_in_hr_to_mins = $ot_time_in_hours * 60;
+                                        $ot_total_time_in_mins = $ot_time_in_hr_to_mins + $ot_time_in_mins;
+                
+                                        $ot_time_out_hr_to_mins = $ot_time_out_hours * 60;
+                                        $ot_total_time_out_mins = $ot_time_out_hr_to_mins + $ot_time_out_mins;
+                                        //echo 'OT :' .$ot_total_time_in_mins . '|' . $ot_total_time_out_mins;
+
+                                        if($total_time_in_mins <= $ot_total_time_in_mins && $total_time_out_mins <= $ot_total_time_out_mins)
+                                        {
+                                            //echo ' sucess';
+                                            $restriction = 0;
+                                        }
+                                        else
+                                        {
+                                            //echo ' fail';
+                                            $restriction = 1;
+                                        }
+                                    }
+                                ?>
+                                <tr>
+                                    <td title="
+                                        <?php 
+                                            if($ot->emp_sched_date == $ot->date_ot)
+                                            {
+                                                echo $ot->emp_sched_time_in . ' AM | ' . $ot->emp_sched_time_out . ' PM | ' . $ot->emp_sched_grace_period . ' MINS'; 
+                                            }
+                                            else
+                                            {
+                                                echo $ot->sched_time_in . ' AM | ' . $ot->sched_time_out . ' PM | ' . $ot->grace_period . ' MINS'; 
+                                            }
+                                        
+                                        ?>
+                                    "><?php echo $ot->date_ot; ?></td>
+                                    <td><?php echo $ot->actual_time_in; ?></td>
+                                    <td><?php echo  $ot->actual_time_out; ?></td>
+                                    <td>
+                                        <?php 
+                                            if($ot->type == "ROT") 
+                                            { 
+                                                if($ot->am_time_in != NULL)
+                                                {
+                                                    echo $ot->am_time_in;
+                                                }
+                                                else
+                                                {
+                                                    echo $ot->pm_time_in;
+                                                }
+                                            } 
+                                            else 
+                                            { 
+                                                echo $ot->time_start; 
+                                            } 
+                                        
+                                        ?>
+                                    </td>
+                                    <td>    
+                                        <?php 
+                                            if($ot->type == "ROT") 
+                                            { 
+                                                if($ot->pm_time_out != NULL)
+                                                {
+                                                    echo $ot->pm_time_out;
+                                                }
+                                                else
+                                                {
+                                                    echo $ot->am_time_out;
+                                                }
+                                               
+                                               
+                                            } 
+                                            else 
+                                            { 
+                                                echo $ot->time_end; 
+                                            } 
+                                        ?>
+                                    </td>
+                                    <td <?php echo $rot_am == 1 && $ot->rotam != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rotam; ?></td>
+                                    <td <?php echo $rot_pm == 1 && $ot->rotpm != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rotpm; ?></td>
+                                    <td <?php echo $restriction == 1 && $ot->rd != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rd; ?></td>
+                                    <td <?php echo $restriction == 1 && $ot->rdot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rdot; ?></td>
+                                    <td <?php echo $restriction == 1 && $ot->rh != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rh; ?></td>
+                                    <td <?php echo $restriction == 1 && $ot->rhot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rhot; ?></td>
+                                    <td <?php echo $restriction == 1 && $ot->sh != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->sh; ?></td>
+                                    <td <?php echo $restriction == 1 && $ot->shot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->shot; ?></td>
+                                    <td><?php echo substr($ot->task,0,50); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
                 </table> 
             </div>
         </div>
