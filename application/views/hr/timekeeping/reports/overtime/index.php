@@ -87,7 +87,7 @@
                                     Action
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="">View</a>
+                                    <!--<a class="dropdown-item" href="">View</a>-->
                                     <a class="dropdown-item" href="">Edit</a>
                                     <a class="dropdown-item" onclick="return confirm('Do you want to delete data?');" href="">Delete</a>
                                 </div>

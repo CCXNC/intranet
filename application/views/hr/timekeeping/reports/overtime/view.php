@@ -33,7 +33,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="">Type</label>
-                    <div class="form-control"><?php if($ot->type == 'OT') { echo "REGULAR OVERTIME"; } elseif($ot->type == 'RHOT') { echo "REGULAR HOLIDAY OVERTIME"; } elseif($ot->type == 'SHOT') { echo "SPECIAL HOLIDAY OVERTIME"; } ?></div>
+                    <div class="form-control"><?php if($ot->type == 'ROT') { echo "REGULAR OVERTIME"; } elseif($ot->type == 'RH') { echo "REGULAR HOLIDAY OVERTIME"; } elseif($ot->type == 'SH') { echo "SPECIAL HOLIDAY"; } elseif($ot->type == 'RD') { echo "RESTDAY"; } ?></div>
                 </div>
             </div>
             <div class="col-md-6">
