@@ -2807,8 +2807,12 @@ class Report_model extends CI_Model {
             g.ot_num as shot,
             h.ot_num as rotam,
             i.ot_num as rotpm,
-            h.time_start as time_in,
-            i.time_end as time_out
+            h.time_start as am_time_in,
+			h.time_end as am_time_out,
+			h.day as am_day,
+			i.time_start as pm_time_in,
+            i.time_end as pm_time_out,
+			i.day as pm_day
             FROM blaine_timekeeping.overtime as a
             INNER JOIN blaine_intranet.employees ON blaine_intranet.employees.employee_number = a.employee_number
             LEFT JOIN blaine_timekeeping.attendance_in ON blaine_timekeeping.attendance_in.employee_number = a.employee_number AND blaine_timekeeping.attendance_in.date = a.date_ot

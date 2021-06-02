@@ -41,7 +41,7 @@
             <div class="card-header" style="background-color: #3490dc; color:white;"><h5> DAILY ATTENDANCE  </h5>
             </div>
             <div class="card-body">
-                <table id="" class="display" width="100%">
+                <table id="" class="table table-bordered no-wrap" >
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DAYS</th>
@@ -1197,7 +1197,7 @@
                 <h5> OVERTIME<a target="_blank" href="<?php echo base_url(); ?>reports/index_ot" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
             <div class="card-body">
-                <table id="" class="display" width="100%">
+                <table id="" class="table table-bordered no-wrap" >
                     <thead>
                     <tr style="background-color:#D4F1F4;">
                         <th scope="col">DATE</th>
@@ -1217,6 +1217,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                        <?php $total_rotam = 0; $total_rotpm = 0; $total_rot = 0; $total_rd = 0; $total_rdot = 0; $total_rh = 0; $total_rhot = 0; $total_sh = 0; $total_shot = 0; ?>
                         <?php if($employee_ot) : ?>
                             <?php foreach($employee_ot as $ot) : ?>
                                 <?php
@@ -1480,15 +1481,176 @@
                                             } 
                                         ?>
                                     </td>
-                                    <td <?php echo $rot_am == 1 && $ot->rotam != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rotam; ?></td>
-                                    <td <?php echo $rot_pm == 1 && $ot->rotpm != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rotpm; ?></td>
-                                    <td <?php echo $restriction == 1 && $ot->rd != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rd; ?></td>
-                                    <td <?php echo $restriction == 1 && $ot->rdot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rdot; ?></td>
-                                    <td <?php echo $restriction == 1 && $ot->rh != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rh; ?></td>
-                                    <td <?php echo $restriction == 1 && $ot->rhot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->rhot; ?></td>
-                                    <td <?php echo $restriction == 1 && $ot->sh != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->sh; ?></td>
-                                    <td <?php echo $restriction == 1 && $ot->shot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>><?php echo $ot->shot; ?></td>
+                                    <td 
+                                        <?php echo $rot_am == 1 && $ot->rotam != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>
+                                    >
+                                        <?php echo $ot->rotam; ?>
+                                        <?php 
+                                            if($rot_am == 0 && $ot->rotam != NULL)
+                                            {
+                                                $explode_rotam = explode(".", $ot->rotam);
+                                                $rotam_hr_to_mins = $explode_rotam[0] * 60;
+                                                $rotam_mins = $explode_rotam[1];
+
+                                                $rotam_total_mins = $rotam_hr_to_mins + $rotam_mins;
+                                                //echo $rotam_total_mins;
+                                            }
+                                            else
+                                            {
+                                                $rotam_total_mins = 0;
+                                            }
+                                           
+                                        ?>
+                                    </td>
+                                    <td 
+                                        <?php echo $rot_pm == 1 && $ot->rotpm != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>
+                                    >
+                                        <?php  echo $ot->rotpm; ?>
+                                        <?php 
+                                            if($rot_pm == 0 && $ot->rotpm != NULL)
+                                            {
+                                                $explode_rotpm = explode(".", $ot->rotpm);
+                                                $rotpm_hr_to_mins = $explode_rotpm[0] * 60;
+                                                $rotpm_mins = $explode_rotpm[1];
+
+                                                $rotpm_total_mins = $rotpm_hr_to_mins + $rotpm_mins;
+                                                //echo $rotpm_total_mins;
+                                            }
+                                            else
+                                            {
+                                                $rotpm_total_mins = 0;
+                                            }
+                                           
+                                        ?>
+                                    </td>
+                                    <td 
+                                        <?php echo $restriction == 1 && $ot->rd != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>
+                                    >
+                                        <?php echo $ot->rd; ?>
+                                        <?php 
+                                            if($restriction == 0 && $ot->rd != NULL)
+                                            {
+                                                $explode_rd = explode(".", $ot->rd);
+                                                $rd_hr_to_mins = $explode_rd[0] * 60;
+                                                $rd_mins = $explode_rd[1];
+
+                                                $rd_total_mins = $rd_hr_to_mins + $rd_mins;
+                                                //echo $rd_total_mins;
+                                            }
+                                            else
+                                            {
+                                                $rd_total_mins = 0;
+                                            }
+                                           
+                                        ?>
+                                    </td>
+                                    <td 
+                                        <?php echo $restriction == 1 && $ot->rdot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>
+                                    >
+                                        <?php echo $ot->rdot; ?>
+                                        <?php 
+                                            if($restriction == 0 && $ot->rdot != NULL)
+                                            {
+                                                $explode_rdot = explode(".", $ot->rdot);
+                                                $rdot_hr_to_mins = $explode_rdot[0] * 60;
+                                                $rdot_mins = $explode_rdot[1];
+
+                                                $rdot_total_mins = $rdot_hr_to_mins + $rdot_mins;
+                                                //echo $rdot_total_mins;
+                                            }
+                                            else
+                                            {
+                                                $rdot_total_mins = 0;
+                                            }
+                                           
+                                        ?>
+                                    </td>
+                                    <td 
+                                        <?php echo $restriction == 1 && $ot->rh != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>
+                                    >
+                                        <?php echo $ot->rh; ?>
+                                        <?php 
+                                            if($restriction == 0 && $ot->rh != NULL)
+                                            {
+                                                $explode_rh = explode(".", $ot->rh);
+                                                $rh_hr_to_mins = $explode_rh[0] * 60;
+                                                $rh_mins = $explode_rh[1];
+
+                                                $rh_total_mins = $rh_hr_to_mins + $rh_mins;
+                                                //echo $rh_total_mins;
+                                            }
+                                            else
+                                            {
+                                                $rh_total_mins = 0;
+                                            }
+                                           
+                                        ?>
+                                    </td>
+                                    <td 
+                                        <?php echo $restriction == 1 && $ot->rhot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>
+                                    >
+                                        <?php echo $ot->rhot; ?>
+                                        <?php 
+                                            if($restriction == 0 && $ot->rhot != NULL)
+                                            {
+                                                $explode_rhot = explode(".", $ot->rhot);
+                                                $rhot_hr_to_mins = $explode_rhot[0] * 60;
+                                                $rhot_mins = $explode_rhot[1];
+
+                                                $rhot_total_mins = $rhot_hr_to_mins + $rhot_mins;
+                                                //echo $rhot_total_mins;
+                                            }
+                                            else
+                                            {
+                                                $rhot_total_mins = 0;
+                                            }
+                                           
+                                        ?>
+                                    </td>
+                                    <td 
+                                        <?php echo $restriction == 1 && $ot->sh != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>
+                                    >
+                                        <?php echo $ot->sh; ?>
+                                        <?php 
+                                            if($restriction == 0 && $ot->sh != NULL)
+                                            {
+                                                $explode_sh = explode(".", $ot->sh);
+                                                $sh_hr_to_mins = $explode_sh[0] * 60;
+                                                $sh_mins = $explode_sh[1];
+
+                                                $sh_total_mins = $sh_hr_to_mins + $sh_mins;
+                                                //echo $rhot_total_mins;
+                                            }
+                                            else
+                                            {
+                                                $sh_total_mins = 0;
+                                            }
+                                           
+                                        ?>
+                                    </td>
+                                    <td 
+                                        <?php echo $restriction == 1 && $ot->shot != NULL ? "style='background-color:#e3342f !important;color:white !important;'" : ''; ?>
+                                    >
+                                        <?php echo $ot->shot; ?>
+                                        <?php 
+                                            if($restriction == 0 && $ot->shot != NULL)
+                                            {
+                                                $explode_shot= explode(".", $ot->shot);
+                                                $shot_hr_to_mins = $explode_shot[0] * 60;
+                                                $shot_mins = $explode_shot[1];
+
+                                                $shot_total_mins = $shot_hr_to_mins + $shot_mins;
+                                                //echo $rhot_total_mins;
+                                            }
+                                            else
+                                            {
+                                                $shot_total_mins = 0;
+                                            }
+                                           
+                                        ?>
+                                    </td>
                                     <td><?php echo substr($ot->task,0,50); ?></td>
+                                    <?php $total_rotam += $rotam_total_mins; $total_rotpm += $rotpm_total_mins; $total_rd += $rd_total_mins; $total_rdot += $rdot_total_mins; $total_rh += $rh_total_mins; $total_rhot += $rhot_total_mins; $total_sh += $sh_total_mins; $total_shot += $shot_total_mins; ?>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -1504,7 +1666,7 @@
                 <h5> TOTAL SUMMARY  </h5>
             </div>
             <div class="card-body">
-                <table id="" class="display" width="100%">
+                <table id="" class="table table-bordered no-wrap" >
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">TARDINESS</th>
@@ -1677,7 +1839,19 @@
                             <?php echo $total_spl; ?>
                         </td>
 
-                        <td>-</td>
+                        <td>
+                            <?php 
+                                $total_rot =  $total_rotam + $total_rotpm;
+                                
+                                if($total_rot != 0)
+                                {
+                                    $hours = intval($total_rot/60);
+                                    $min_diff = intval($total_rot%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours . '.' . $minutes;
+                                }
+                            ?>
+                        </td>
                         <!-- NIGHT DIFF -->
                         <td>
                             <?php 
@@ -1699,12 +1873,72 @@
                                
                             ?>
                         </td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>
+                            <?php 
+                                if($total_rd != 0)
+                                {
+                                    $hours = intval($total_rd/60);
+                                    $min_diff = intval($total_rd%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours . '.' . $minutes;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if($total_rdot != 0)
+                                {
+                                    $hours = intval($total_rdot/60);
+                                    $min_diff = intval($total_rdot%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours . '.' . $minutes;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if($total_rh != 0)
+                                {
+                                    $hours = intval($total_rh/60);
+                                    $min_diff = intval($total_rh%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours . '.' . $minutes;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if($total_rhot != 0)
+                                {
+                                    $hours = intval($total_rhot/60);
+                                    $min_diff = intval($total_rhot%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours . '.' . $minutes;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if($total_sh != 0)
+                                {
+                                    $hours = intval($total_sh/60);
+                                    $min_diff = intval($total_sh%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours . '.' . $minutes;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if($total_shot != 0)
+                                {
+                                    $hours = intval($total_shot/60);
+                                    $min_diff = intval($total_shot%60);
+                                    $minutes = sprintf("%02d", $min_diff);
+                                    echo $hours . '.' . $minutes;
+                                }
+                            ?>
+                        </td>
                     </tr>
                     </tbody>
                 </table> 
@@ -1796,21 +2030,6 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            // DAILY ATTENDANCE
-            $('table.display').DataTable( {
-                "order": [[ 0, 'desc' ]],
-                //"bStateSave": true,
-                "fnStateSave": function (oSettings, oData) {
-                    localStorage.setItem('table.display', JSON.stringify(oData));
-                },
-                "fnStateLoad": function (oSettings) {
-                    return JSON.parse(localStorage.getItem('table.display'));
-                },
-                //"scrollY" : '50vh',
-                "scrollX" : true,
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                dom: 'lrtip'
-            } );
             //FOR ADD
             $('.check').prop('checked', true);
             $('.timeOut').prop('disabled', true);

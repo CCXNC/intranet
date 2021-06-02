@@ -998,7 +998,7 @@ class Attendance_model extends CI_Model
             d.ot_num as rh,
             e.ot_num as rhot,
             f.ot_num as sh,
-            g.ot_num as shot,
+            g.ot_num as shot, 
             h.ot_num as rotam,
             i.ot_num as rotpm,
             h.time_start as am_time_in,

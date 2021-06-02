@@ -69,8 +69,47 @@
                         <!--<td><?php echo $ot->department; ?></td>-->
                         <td><?php echo $ot->actual_time_in; ?></td>
                         <td><?php echo  $ot->actual_time_out; ?></td>
-                        <td><?php if($ot->type == "ROT") { echo $ot->time_in; } else { echo $ot->time_start; } ?></td>
-                        <td><?php if($ot->type == "ROT") { echo $ot->time_out; } else { echo $ot->time_end; } ?></td>
+                        <td>
+                            <?php 
+                                if($ot->type == "ROT") 
+                                { 
+                                    if($ot->am_time_in != NULL)
+                                    {
+                                        echo $ot->am_time_in;
+                                    }
+                                    else
+                                    {
+                                        echo $ot->pm_time_in;
+                                    }
+                                } 
+                                else 
+                                { 
+                                    echo $ot->time_start; 
+                                } 
+                            
+                            ?>
+                        </td>
+                        <td>    
+                            <?php 
+                                if($ot->type == "ROT") 
+                                { 
+                                    if($ot->pm_time_out != NULL)
+                                    {
+                                        echo $ot->pm_time_out;
+                                    }
+                                    else
+                                    {
+                                        echo $ot->am_time_out;
+                                    }
+                                    
+                                    
+                                } 
+                                else 
+                                { 
+                                    echo $ot->time_end; 
+                                } 
+                            ?>
+                        </td>
                         <td><?php echo $ot->rotam; ?></td>
                         <td><?php echo $ot->rotpm; ?></td>
                         <td><?php echo $ot->rd; ?></td>
