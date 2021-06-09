@@ -1289,8 +1289,8 @@
             <div class="card-header" style="background-color: #38c172; color:white;">
                 <h5> LEAVE OF ABSENCE <a href="<?php echo base_url(); ?>reports/index_slvl" target="_blank" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
-            <div class="card-body">
-                <table id="" class="table table-bordered no-wrap" >
+            <div class="card-body table-responsive">
+                <table id="" class="table table-bordered no-wrap" width="100%">
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DAYS</th>
@@ -1326,8 +1326,8 @@
             <div class="card-header" style="background-color:rgb(127,127,127); color:white;"> 
                 <h5>  FIELD WORK / WORK FROM HOME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ob" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
-            <div class="card-body">
-                <table id="" class="table table-bordered no-wrap" >
+            <div class="card-body table-responsive">
+                <table id="" class="table table-bordered no-wrap" width="100%">
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DAYS</th>
@@ -1361,8 +1361,8 @@
             <div class="card-header" style="background-color:#067593; color:white;">
                 <h5>UNDERTIME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ut" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
-            <div class="card-body">
-                <table id="" class="table table-bordered no-wrap" >
+            <div class="card-body table-responsive">
+                <table id="" class="table table-bordered no-wrap" width="100%">
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">DAYS</th>
@@ -1406,8 +1406,8 @@
             <div class="card-header" style="background-color:#0C2D48; color:white;">
                 <h5> OVERTIME<a target="_blank" href="<?php echo base_url(); ?>reports/index_ot" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
             </div>
-            <div class="card-body">
-                <table id="" class="table table-bordered no-wrap" >
+            <div class="card-body table-responsive">
+                <table id="" class="table table-bordered no-wrap" width="100%">
                     <thead>
                     <tr style="background-color:#D4F1F4;">
                         <th scope="col">DATE</th>
@@ -1901,8 +1901,8 @@
             <div class="card-header" style="background-color: #3490dc; color:white;">
                 <h5> TOTAL SUMMARY  </h5>
             </div>
-            <div class="card-body">
-                <table id="" class="table table-bordered no-wrap" >
+            <div class="card-body table-responsive">
+                <table id="" class="table table-bordered no-wrap" width="100%">
                     <thead>
                         <tr style="background-color:#D4F1F4;">
                             <th scope="col">TARDINESS</th>
