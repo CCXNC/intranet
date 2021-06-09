@@ -62,7 +62,8 @@ class Schedule_model extends CI_Model {
             schedules.time_in as time_in,
             schedules.time_out as time_out,
             schedules.grace_period as grace_period,
-            schedules.effective_date as effective_date
+            schedules.effective_date as effective_date,
+            schedules.is_flexi as flexible_time
         ");
         $this->db->from('blaine_timekeeping.schedules');
         $this->db->where('blaine_intranet.employees.is_active', 1);
@@ -97,6 +98,8 @@ class Schedule_model extends CI_Model {
 
     public function update_employee_schedule($id)
     {
+        $this->db->trans_start();
+        
         $days = substr(implode(',', $this->input->post('days')), 0); 
         $time_in = $this->input->post('time_in');
         $time_out = $this->input->post('time_out');
@@ -148,6 +151,36 @@ class Schedule_model extends CI_Model {
             'effective_date'  => $effective_date,
             'updated_date'    => $date,
             'updated_by'      => $this->session->userdata('username')
+        );
+
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->where('id', $id);
+        $blaine_timekeeping->update('schedules', $data);
+
+        $trans = $this->db->trans_complete();
+
+        return $trans;
+    }
+
+    public function update_employee_flexi_time($id)
+    {
+         // PROCESS FOR UPDATE
+         $data = array(
+            'is_flexi'  => 1
+        );
+
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->where('id', $id);
+        $query = $blaine_timekeeping->update('schedules', $data);
+
+        return $query;
+    }
+
+    public function update_employee_regular_time($id)
+    {
+         // PROCESS FOR UPDATE
+         $data = array(
+            'is_flexi'  => 0
         );
 
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);

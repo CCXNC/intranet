@@ -303,6 +303,39 @@ class Employee_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function get_employees_wc_otp()
+	{
+		$this->db->select("
+		employees.id as id,
+            employees.picture as picture,
+            employees.employee_number as emp_no,
+            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
+            employment_info.date_hired as date_hired,
+            employee_status.name as employee_status,
+            employment_info.position as position,
+            company.code as company,
+            department.name as department,
+			
+			employment_info.company as company_id,
+			employment_info.department as department_id,
+			employee_biometric.biometric_number as biometric_id,
+			
+		");
+		$this->db->from('blaine_intranet.employees');
+        $this->db->join('blaine_intranet.employment_info', 'blaine_intranet.employment_info.employee_number = blaine_intranet.employees.employee_number');
+        $this->db->join('blaine_intranet.employee_status', 'blaine_intranet.employment_info.employee_status = blaine_intranet.employee_status.id');
+        $this->db->join('blaine_intranet.company', 'blaine_intranet.employment_info.company = blaine_intranet.company.id');
+        $this->db->join('blaine_intranet.department', 'blaine_intranet.employment_info.department = blaine_intranet.department.id');
+		$this->db->join('blaine_timekeeping.employee_biometric', 'blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number', 'left');
+        $this->db->order_by('blaine_intranet.employees.last_name', 'ASC');
+        $this->db->where('blaine_intranet.employees.is_active', 1);
+		$this->db->where('blaine_intranet.employees.is_otp !=', 1);
+		
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
 	public function get_resigned()
 	{
 		$this->db->select("

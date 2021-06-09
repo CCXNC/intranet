@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-<div class="card-header" style="background-color: #0C2D48; color:white;"><h4>OVERTIME LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">ADD</a> </h4></div>
+<div class="card-header" style="background-color: #0C2D48; color:white;"><h4>OVERTIME LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">ADD</a><a href="<?php echo base_url(); ?>reports/cutoff_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">EXTRACTION</a> </h4></div>
 <br>
 <form method="POST" id="" enctype="multipart/form-data">
     <div class="row">
@@ -127,8 +127,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!--<a class="dropdown-item" href="">View</a>-->
-                                    <a class="dropdown-item" href="">Edit</a>
-                                    <a class="dropdown-item" onclick="return confirm('Do you want to delete data?');" href="">Delete</a>
+                                    <a class="dropdown-item" onclick="return confirm('Do you want to delete overtime data?');" href="<?php echo base_url(); ?>reports/delete_employee_ot/<?php echo $ot->employee_number; ?>/<?php echo $ot->date_ot; ?>">Delete</a>
                                 </div>
                             </div>
                         </td>

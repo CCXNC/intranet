@@ -67,7 +67,7 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <a style="width: 70%;" href="" class="btn btn-primary btn-md float-left">SUMMARY LIST</a>
+                <a style="width: 70%;" href="<?php echo base_url(); ?>reports/employees_summary_list" class="btn btn-primary btn-md float-left">SUMMARY LIST</a>
                 <i style="color:rgb(0,123,255);" class="fa fa-file-alt fa-2x float-right"></i>
             </div>
         </div>

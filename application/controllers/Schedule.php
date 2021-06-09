@@ -87,6 +87,24 @@ class Schedule extends CI_Controller {
         }
     }
 
+    public function update_employee_flexi_time($id)
+    {
+        if($this->schedule_model->update_employee_flexi_time($id))
+        {
+            $this->session->set_flashdata('success_msg','EMPLOYEE FLEXIBLE SCHEDULE SUCCESSFULLY UPDATED!');
+            redirect('schedule/index');
+        }
+    }
+
+    public function update_employee_regular_time($id)
+    {
+        if($this->schedule_model->update_employee_regular_time($id))
+        {
+            $this->session->set_flashdata('success_msg','EMPLOYEE REGULAR SCHEDULE SUCCESSFULLY UPDATED!');
+            redirect('schedule/index');
+        }
+    }
+
     public function edit_biometric($employee_number)
     {
         $this->form_validation->set_rules('biometric_id', 'Biometric ID', 'trim|required');

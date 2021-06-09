@@ -131,6 +131,10 @@ class Attendance extends CI_Controller {
 		$data['employee_obs'] = $this->attendance_model->employee_ob();
 		$data['employee_ut'] = $this->attendance_model->employee_ut();
 		$data['employee_ot'] = $this->attendance_model->employee_ot();
+		$data['start_extraction_date'] = $this->attendance_model->get_first_ot_date();
+		$data['end_extraction_date'] = $this->attendance_model->get_last_ot_date();
+		$data['start_daily_attendance'] = $this->attendance_model->get_first_daily_attendance_date();
+		$data['end_daily_attendance'] = $this->attendance_model->get_last_daily_attendance_date();
 		/*$data['total_absences'] = $this->attendance_model->get_total_absences();
 		$data['total_sl'] = $this->attendance_model->get_total_sl();
 		$data['total_vl'] = $this->attendance_model->get_total_vl();

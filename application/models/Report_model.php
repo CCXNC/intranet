@@ -2856,10 +2856,11 @@ class Report_model extends CI_Model {
         return $query->row();
     }
 
-    public function delete_employee_ot($id)
+    public function delete_employee_ot($employee_number,$date)
     {
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-        $blaine_timekeeping->where('id', $id);
+        $blaine_timekeeping->where('overtime.employee_number', $employee_number);
+        $blaine_timekeeping->where('overtime.date_ot', $date);
         $query = $blaine_timekeeping->delete('overtime');
 
         return $query;
