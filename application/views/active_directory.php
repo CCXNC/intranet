@@ -88,6 +88,18 @@
                     exportOptions: {
                         columns: [3]
                     }
+                },
+                {
+                    extend: 'excel',
+                    title: 'Active Directory',
+                    text: 'Extract to Excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    text: 'Filter'
                 }
             ]
         } );
