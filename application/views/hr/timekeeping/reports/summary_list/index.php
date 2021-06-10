@@ -7,7 +7,7 @@
     <div class="card-header" style="background-color: #2E8BC0; border:#2E8BC0; color: white"><h4>SUMMARY LIST<a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
     </div>
     <br>
-    <table id="" class="display" style="width:100%">
+    <table id="" class="display table-responsive" style="width:100%">
         <thead>
             <tr style="background-color:#D4F1F4;">
                 <th scope="col">EMPLOYEE NAME</th>
