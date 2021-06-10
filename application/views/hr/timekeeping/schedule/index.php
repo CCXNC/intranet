@@ -17,6 +17,7 @@
             <th scope="col">Biometric Number</th>
             <th scope="col">Time</th>
             <th scope="col">Grace Period</th>
+            <th scope="col">Schedule</th>
             <th scope="col">Action</th> 
         </tr>
     </thead>
@@ -28,6 +29,18 @@
                     <td data-label="Name"><?php echo $schedule->biometric_number; ?></td>
                     <td><?php echo date('h:i A', strtotime($schedule->time_in)) . ' | ' . date('h:i A', strtotime($schedule->time_out)); ?></td>
                     <td data-label="Name"><?php echo $schedule->grace_period . ' Minutes'; ?></td>
+                    <td data-label="Name">
+                        <?php
+                            if($schedule->flexible_time == 1)
+                            {
+                                echo "Flexible Time";
+                            } 
+                            else
+                            {
+                                echo "Regular Time";
+                            }
+                        ?>
+                    </td>
                     <td data-label="Action">
                         <div class="btn-group">
                             <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

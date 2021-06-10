@@ -37,7 +37,7 @@
     <div class="card-header" style=""><h4><?php echo $employee_name->fullname; ?> ( <?php echo $employee_name->department_name; ?> ) <a href="<?php echo base_url(); ?>attendance/index_individual_attendance" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</h4></a> 
     </div>
     <div class="card-body">
-        <b style="background-color:#e3342f; color:white;"><?php echo date('F j, Y', strtotime($start_daily_attendance->first_date_daily_attendance))  .' - ' . date('F j, Y', strtotime($end_daily_attendance->last_date_daily_attendance)); ?></b>
+        <b style="background-color:#ffed4a; color:rgb(50,50,50);"><?php echo date('F j, Y', strtotime($start_daily_attendance->first_date_daily_attendance))  .' - ' . date('F j, Y', strtotime($end_daily_attendance->last_date_daily_attendance)); ?></b>
         <div class="card">
             <div class="card-header" style="background-color: #3490dc; color:white;"><h5> DAILY ATTENDANCE  </h5>
             </div>
@@ -849,7 +849,7 @@
                                                 $start_nd = 1320;
                                                 $end_nd = 360;
 
-                                                if($change_sched == 1 || $employee->employee_number == $employee->ot_employee_number && $employee->date_ot == $employee->temp_date)
+                                                if($change_sched == 1 || $employee->employee_number == $employee->ot_employee_number && $employee->date_ot == $employee->temp_date || $employee->flexi_time == 1)
                                                 {
                                                     //
                                                     if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $start_nd < $total_time_out_mins && $employee->date_out != NULL)
@@ -1284,7 +1284,7 @@
         </div>
         <br>
         <!-- LEAVE LIST -->
-        <b style="background-color:#e3342f; color:white;"><?php echo date('F j, Y', strtotime($start_daily_attendance->first_date_daily_attendance))  .' - ' . date('F j, Y', strtotime($end_daily_attendance->last_date_daily_attendance)); ?></b>
+        <b style="background-color:#ffed4a; color:rgb(50,50,50);"><?php echo date('F j, Y', strtotime($start_daily_attendance->first_date_daily_attendance))  .' - ' . date('F j, Y', strtotime($end_daily_attendance->last_date_daily_attendance)); ?></b>
         <div class="card">
             <div class="card-header" style="background-color: #38c172; color:white;">
                 <h5> LEAVE OF ABSENCE <a href="<?php echo base_url(); ?>reports/index_slvl" target="_blank" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
@@ -1321,7 +1321,7 @@
 
         <br>
         <!-- FIELD WORK / WORK FROM HOME LIST -->
-        <b style="background-color:#e3342f; color:white;"><?php echo date('F j, Y', strtotime($start_daily_attendance->first_date_daily_attendance))  .' - ' . date('F j, Y', strtotime($end_daily_attendance->last_date_daily_attendance)); ?></b>
+        <b style="background-color:#ffed4a; color:rgb(50,50,50);"><?php echo date('F j, Y', strtotime($start_daily_attendance->first_date_daily_attendance))  .' - ' . date('F j, Y', strtotime($end_daily_attendance->last_date_daily_attendance)); ?></b>
         <div class="card">
             <div class="card-header" style="background-color:rgb(127,127,127); color:white;"> 
                 <h5>  FIELD WORK / WORK FROM HOME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ob" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
@@ -1356,7 +1356,7 @@
 
         <br>
         <!-- UNDERTIME LIST -->
-        <b style="background-color:#e3342f; color:white;"><?php echo date('F j, Y', strtotime($start_daily_attendance->first_date_daily_attendance))  .' - ' . date('F j, Y', strtotime($end_daily_attendance->last_date_daily_attendance)); ?></b>
+        <b style="background-color:#ffed4a; color:rgb(50,50,50);"><?php echo date('F j, Y', strtotime($start_daily_attendance->first_date_daily_attendance))  .' - ' . date('F j, Y', strtotime($end_daily_attendance->last_date_daily_attendance)); ?></b>
         <div class="card">
             <div class="card-header" style="background-color:#067593; color:white;">
                 <h5>UNDERTIME <a target="_blank" href="<?php echo base_url(); ?>reports/index_ut" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
@@ -1401,7 +1401,7 @@
 
         <br>
        <!-- OVERTIME LIST -->
-        <b style="background-color:#e3342f; color:white;"><?php echo date('F j, Y', strtotime($start_extraction_date->first_date_ot))  .' - ' . date('F j, Y', strtotime($end_extraction_date->last_date_ot)); ?></b>
+        <b style="background-color:#ffed4a; color:rgb(50,50,50);"><?php echo date('F j, Y', strtotime($start_extraction_date->first_date_ot))  .' - ' . date('F j, Y', strtotime($end_extraction_date->last_date_ot)); ?></b>
         <div class="card">
             <div class="card-header" style="background-color:#0C2D48; color:white;">
                 <h5> OVERTIME<a target="_blank" href="<?php echo base_url(); ?>reports/index_ot" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">VIEW </a> </h5>
