@@ -263,7 +263,7 @@ class Reports extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function cutoff_ot()
+    /*public function cutoff_ot()
     {
         $this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
         $this->form_validation->set_rules('end_date', 'End Date', 'trim|required');
@@ -282,7 +282,7 @@ class Reports extends CI_Controller {
             }
         }
       
-    }
+    }*/
 
     public function add_ot()
     {
@@ -447,11 +447,44 @@ class Reports extends CI_Controller {
 		redirect('reports/index_ut');
     }
 
+    public function summary_list()
+    {
+        $this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
+		$this->form_validation->set_rules('end_date', 'End Date', 'trim|required');
+
+		if($this->form_validation->run() == FALSE)
+		{
+            $data['main_content'] = 'hr/timekeeping/reports/summary_list/index';
+            $this->load->view('inc/navbar', $data);
+		}
+		else
+		{
+			if($this->attendance_model->generate_cutoff_dates())
+			{
+				redirect('reports/employees_summary_list');
+			}
+		}
+      
+    }
 
     public function employees_summary_list()
     {
+        $data['first_date'] = $this->attendance_model->get_first_cutoff_date();
+		$data['last_date'] = $this->attendance_model->get_last_cutoff_date();
+        $start_date = $data['first_date']->first_date;
+        $end_date = $data['last_date']->last_date;
+
         $data['employees'] = $this->employee_model->get_employees_wc_otp();
-        $data['main_content'] = 'hr/timekeeping/reports/summary_list/index';
+
+        $data['total_absences'] = $this->report_model->get_total_absences($start_date, $end_date);
+        $data['total_sls'] = $this->report_model->get_total_sl($start_date, $end_date);
+        $data['total_vls'] = $this->report_model->get_total_vl($start_date, $end_date);
+        $data['total_mls'] = $this->report_model->get_total_ml($start_date, $end_date);
+		$data['total_pls'] = $this->report_model->get_total_pl($start_date, $end_date);
+		$data['total_bls'] = $this->report_model->get_total_bl($start_date, $end_date);
+		$data['total_spls'] = $this->report_model->get_total_spl($start_date, $end_date);
+      
+        $data['main_content'] = 'hr/timekeeping/reports/summary_list/view';
         $this->load->view('inc/navbar', $data);
     }
 }

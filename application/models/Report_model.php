@@ -1496,8 +1496,30 @@ class Report_model extends CI_Model {
             $explod_time_end = explode(':', $time_end[$i]);
             $time_end_mins = $explod_time_end[0] * 60;
             $time_end_num = $time_end_mins + $explod_time_end[1];
-            
-            $timediff = $time_end_num - $time_start_num;
+
+            if($time_start_num == 01 && $time_end_num == 1439)
+            {
+                $time_start_total = $time_start_hr + $explod_time_start[1] - 1;
+                $time_end_total = $time_end_mins + $explod_time_end[1] + 1;
+            }
+            elseif($time_start_num == 01 && $time_end_num != 1439)
+            {
+                $time_start_total = $time_start_hr + $explod_time_start[1] - 1;
+                $time_end_total = $time_end_mins + $explod_time_end[1];
+            }
+            elseif($time_start_num != 01 && $time_end_num == 1439)
+            {
+                $time_start_total = $time_start_hr + $explod_time_start[1];
+                $time_end_total = $time_end_mins + $explod_time_end[1] + 1;
+            }
+            else
+            {
+                $time_start_total = $time_start_hr + $explod_time_start[1];
+                $time_end_total = $time_end_mins + $explod_time_end[1];
+            }
+
+            // TOTAL COMPUTATION OF FILE OT 
+            $timediff = $time_end_total - $time_start_total;
 
             $w_date = date('w', strtotime($date_ot[$i]));
         
@@ -1510,13 +1532,15 @@ class Report_model extends CI_Model {
                         $less_one_hour = $timediff - 60;
                         $sot = 1;
 
-                        $total_ot = '8.0';
-                        
+                        //$total_ot = '8.0';
+                        $total_ot = 480;
+
                         $rdot_less_rd = $less_one_hour - 480;
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        //$total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        $total_rdot = $rdot_less_rd;
                         /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
@@ -1585,13 +1609,15 @@ class Report_model extends CI_Model {
                         $less_one_hour = $timediff;
                         $sot = 1;
 
-                        $total_ot = '8.0';
-                        
+                        //$total_ot = '8.0';
+                        $total_ot = 480;
+
                         $rdot_less_rd = $less_one_hour - 480;
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        //$total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        $total_rdot = $rdot_less_rd;
                         /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
@@ -1670,7 +1696,8 @@ class Report_model extends CI_Model {
                         $ot_hrs = floor($less_one_hour / 60);
                         $ot_mins = $less_one_hour % 60;
 
-                        $total_ot = $ot_hrs . '.' . $ot_mins;
+                        //$total_ot = $ot_hrs . '.' . $ot_mins;
+                        $total_ot = $less_one_hour;
                         /*if($ot_mins >= 30) {
                             $total_ot = $ot_hrs . '.' . 30;
                         } elseif($ot_mins <= 30) {
@@ -1714,13 +1741,15 @@ class Report_model extends CI_Model {
                         $less_one_hour = $timediff - 60;
                         $sot = 1;
 
-                        $total_ot = '8.0';
-                        
+                        //$total_ot = '8.0';
+                        $total_ot = 480;
+
                         $rdot_less_rd = $less_one_hour - 480;
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        //$total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        $total_rdot = $rdot_less_rd;
                         /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
@@ -1820,13 +1849,15 @@ class Report_model extends CI_Model {
                         $less_one_hour = $timediff;
                         $sot = 1;
 
-                        $total_ot = '8.0';
+                        //$total_ot = '8.0';
+                        $total_ot = 480;
                         
                         $rdot_less_rd = $less_one_hour - 480;
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        $total_rdot = $rdot_less_rd;
+                        //$total_rdot = $rdot_hrs . '.' . $rdot_mins;
                         /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
@@ -1937,7 +1968,8 @@ class Report_model extends CI_Model {
                     $ot_hrs = floor($less_one_hour / 60);
                     $ot_mins = $less_one_hour % 60;
 
-                    $total_ot = $ot_hrs . '.' . $ot_mins;
+                    $total_ot = $less_one_hour;
+                    //$total_ot = $ot_hrs . '.' . $ot_mins;
                     /*if($ot_mins >= 30) {
                         $total_ot = $ot_hrs . '.' . 30;
                     } elseif($ot_mins <= 30) {
@@ -2003,13 +2035,15 @@ class Report_model extends CI_Model {
                         $less_one_hour = $timediff - 60;
                         $sot = 1;
 
-                        $total_ot = '8.0';
-                        
+                        //$total_ot = '8.0';
+                        $total_ot = 480;
+
                         $rdot_less_rd = $less_one_hour - 480;
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        $total_rdot = $rdot_less_rd;
+                        //total_rdot = $rdot_hrs . '.' . $rdot_mins;
                         /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
@@ -2109,13 +2143,15 @@ class Report_model extends CI_Model {
                         $less_one_hour = $timediff;
                         $sot = 1;
 
-                        $total_ot = '8.0';
-                        
+                        //$total_ot = '8.0';
+                        $total_ot = 480;
+
                         $rdot_less_rd = $less_one_hour - 480;
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        $total_rdot = $rdot_less_rd;
+                        //$total_rdot = $rdot_hrs . '.' . $rdot_mins;
                         /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
@@ -2226,7 +2262,8 @@ class Report_model extends CI_Model {
                     $ot_hrs = floor($less_one_hour / 60);
                     $ot_mins = $less_one_hour % 60;
 
-                    $total_ot = $ot_hrs . '.' . $ot_mins;
+                    $total_ot = $less_one_hour;
+                    //$total_ot = $ot_hrs . '.' . $ot_mins;
                     /*if($ot_mins >= 30) {
                         $total_ot = $ot_hrs . '.' . 30;
                     } elseif($ot_mins <= 30) {
@@ -2292,13 +2329,15 @@ class Report_model extends CI_Model {
                         $less_one_hour = $timediff - 60;
                         $sot = 1;
 
-                        $total_ot = '8.0';
-                        
+                        //$total_ot = '8.0';
+                        $total_ot = 480;
+
                         $rdot_less_rd = $less_one_hour - 480;
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        $total_rdot = $rdot_less_rd;
+                        //$total_rdot = $rdot_hrs . '.' . $rdot_mins;
                         /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
@@ -2398,13 +2437,15 @@ class Report_model extends CI_Model {
                         $less_one_hour = $timediff;
                         $sot = 1;
 
-                        $total_ot = '8.0';
-                        
+                        //$total_ot = '8.0';
+                        $total_ot = 480;
+
                         $rdot_less_rd = $less_one_hour - 480;
                         $rdot_hrs = floor($rdot_less_rd / 60);
                         $rdot_mins = $rdot_less_rd % 60;
 
-                        $total_rdot = $rdot_hrs . '.' . $rdot_mins;
+                        $total_rdot = $rdot_less_rd;
+                        //$total_rdot = $rdot_hrs . '.' . $rdot_mins;
                         /*if($rdot_mins >= 30) {
                             $total_rdot = $rdot_hrs . '.' . 30;
                         } elseif($rdot_mins <= 30) {
@@ -2515,7 +2556,8 @@ class Report_model extends CI_Model {
                     $ot_hrs = floor($less_one_hour / 60);
                     $ot_mins = $less_one_hour % 60;
 
-                    $total_ot = $ot_hrs . '.' . $ot_mins;
+                    $total_ot = $less_one_hour;
+                    //$total_ot = $ot_hrs . '.' . $ot_mins;
                     /*if($ot_mins >= 30) {
                         $total_ot = $ot_hrs . '.' . 30;
                     } elseif($ot_mins <= 30) {
@@ -2577,9 +2619,13 @@ class Report_model extends CI_Model {
                 $ot_mins = $less_daily_mins % 60;
 
                 if($ot_mins >= 30) {
-                    $total_ot = $ot_hrs . '.' . 30;
+                    //$total_ot = $ot_hrs . '.' . 30;
+                    $compute_hrs_to_mins = $ot_hrs * 60;
+                    $total_ot = $compute_hrs_to_mins + 30;
+
                 } elseif($ot_mins <= 30) {
-                    $total_ot = $ot_hrs . '.' . 00;
+                    $compute_hrs_to_mins = $ot_hrs * 60;
+                    $total_ot = $compute_hrs_to_mins;
                 }
 
                 $hf = 720;
@@ -2865,4 +2911,117 @@ class Report_model extends CI_Model {
 
         return $query;
     }
+
+    public function get_total_absences($start_date,$end_date)
+	{
+		$this->db->select("slvl.employee_number as employee_number, slvl.type as type, SUM(slvl.leave_num) as leave_num");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->group_by('blaine_timekeeping.slvl.employee_number');
+		$this->db->where('blaine_timekeeping.slvl.type', "AB");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
+		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+    public function get_total_sl($start_date,$end_date)
+	{
+		$this->db->select("slvl.employee_number as employee_number, slvl.type as type, SUM(slvl.leave_num) as leave_num");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->group_by('blaine_timekeeping.slvl.employee_number');
+		$this->db->where('blaine_timekeeping.slvl.type', "SL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
+		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_vl($start_date,$end_date)
+	{
+		$this->db->select("slvl.employee_number as employee_number, slvl.type as type, SUM(slvl.leave_num) as leave_num");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->group_by('blaine_timekeeping.slvl.employee_number');
+		$this->db->where('blaine_timekeeping.slvl.type', "VL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
+		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_ml($start_date,$end_date)
+	{
+		$this->db->select("slvl.employee_number as employee_number, slvl.type as type, SUM(slvl.leave_num) as leave_num");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->group_by('blaine_timekeeping.slvl.employee_number');
+		$this->db->where('blaine_timekeeping.slvl.type', "ML");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
+		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_pl($start_date,$end_date)
+	{
+        $this->db->select("slvl.employee_number as employee_number, slvl.type as type, SUM(slvl.leave_num) as leave_num");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->group_by('blaine_timekeeping.slvl.employee_number');
+		$this->db->where('blaine_timekeeping.slvl.type', "PL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
+		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	public function get_total_bl($start_date,$end_date)
+	{
+        $this->db->select("slvl.employee_number as employee_number, slvl.type as type, SUM(slvl.leave_num) as leave_num");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->group_by('blaine_timekeeping.slvl.employee_number');
+		$this->db->where('blaine_timekeeping.slvl.type', "BL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
+		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+
+	}
+
+	public function get_total_spl($start_date,$end_date)
+	{
+        $this->db->select("slvl.employee_number as employee_number, slvl.type as type, SUM(slvl.leave_num) as leave_num");
+		$this->db->from('blaine_timekeeping.slvl');
+		$this->db->group_by('blaine_timekeeping.slvl.employee_number');
+		$this->db->where('blaine_timekeeping.slvl.type', "SPL");
+		$this->db->where('blaine_timekeeping.slvl.status', 1);
+		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
+		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
 }    

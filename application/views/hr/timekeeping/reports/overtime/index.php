@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-<div class="card-header" style="background-color: #0C2D48; color:white;"><h4>OVERTIME LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">ADD</a><a href="<?php echo base_url(); ?>reports/cutoff_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">EXTRACTION</a> </h4></div>
+<div class="card-header" style="background-color: #0C2D48; color:white;"><h4>OVERTIME LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <!--<a href="<?php echo base_url(); ?>reports/cutoff_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">EXTRACTION</a>--> </h4></div>
 <br>
 <form method="POST" id="" enctype="multipart/form-data">
     <div class="row">
@@ -110,26 +110,248 @@
                                 } 
                             ?>
                         </td>
-                        <td><?php echo $ot->rotam; ?></td>
-                        <td><?php echo $ot->rotpm; ?></td>
-                        <td><?php echo $ot->rd; ?></td>
-                        <td><?php echo $ot->rdot; ?></td>
-                        <td><?php echo $ot->rh; ?></td>
-                        <td><?php echo $ot->rhot; ?></td>
-                        <td><?php echo $ot->sh; ?></td>
-                        <td><?php echo $ot->shot; ?></td>
+                        <!-- ROT AM -->
+                        <td title="
+                            <?php  
+                                if($ot->rotam != NULL)
+                                {
+                                    $rotam_hrs = floor($ot->rotam / 60);
+                                    $rotam_mins = $ot->rotam % 60;
+                                    echo $rotam_hrs . ' HOUR/S AND ' . $rotam_mins .' MINUTES ';
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        ">
+                            <?php  
+                                if($ot->rotam != NULL)
+                                {
+                                    $cnvrt_rot_am = $ot->rotam / 60;
+                                    $roundoff_rot_am = round($cnvrt_rot_am, 2);
+                                    echo $roundoff_rot_am;
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        </td>
+                        
+                        <!-- ROT PM -->
+                        <td title="
+                            <?php  
+                                if($ot->rotpm != NULL)
+                                {
+                                    $rotpm_hrs = floor($ot->rotpm / 60);
+                                    $rotpm_mins = $ot->rotpm % 60;
+                                    echo $rotpm_hrs . ' HOUR/S AND ' . $rotpm_mins .' MINUTES ';
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        ">
+                            <?php  
+                                if($ot->rotpm != NULL)
+                                {
+                                    $cnvrt_rot_pm = $ot->rotpm / 60;
+                                    $roundoff_rot_pm = round($cnvrt_rot_pm, 2);
+                                    echo $roundoff_rot_pm;
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        </td>
+                        
+                        <!-- RD -->
+                        <td title="
+                            <?php  
+                                if($ot->rd != NULL)
+                                {
+                                    $rd_hrs = floor($ot->rd / 60);
+                                    $rd_mins = $ot->rd % 60;
+                                    echo $rd_hrs . ' HOUR/S AND ' . $rd_mins .' MINUTES ';
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        ">
+                            <?php 
+                                if($ot->rd != NULL)
+                                {
+                                    $cnvrt_rd = $ot->rd / 60;
+                                    $roundoff_rd = round($cnvrt_rd, 2);
+                                    echo $roundoff_rd;
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        </td>
+                        
+                        <!-- RDOT -->
+                        <td title="
+                            <?php  
+                                if($ot->rdot != NULL)
+                                {
+                                    $rdot_hrs = floor($ot->rdot / 60);
+                                    $rdot_mins = $ot->rdot % 60;
+                                    echo $rdot_hrs . ' HOUR/S AND ' . $rdot_mins .' MINUTES ';
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        ">
+                            <?php
+
+                                if($ot->rdot != NULL)
+                                {
+                                    $cnvrt_rdot = $ot->rdot / 60;
+                                    $roundoff_rdot = round($cnvrt_rdot, 2);
+                                    echo $roundoff_rdot;
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }     
+                            
+                            ?>
+                        </td>
+
+                        <!-- RH -->
+                        <td title="
+                            <?php  
+                                if($ot->rh != NULL)
+                                {
+                                    $rh_hrs = floor($ot->rh / 60);
+                                    $rh_mins = $ot->rh % 60;
+                                    echo $rh_hrs . ' HOUR/S AND ' . $rh_mins .' MINUTES ';
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        ">
+                            <?php 
+                                if($ot->rh != NULL)
+                                {
+                                    $cnvrt_rh = $ot->rh / 60;
+                                    $roundoff_rh = round($cnvrt_rh, 2);
+                                    echo $roundoff_rh;
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }     
+                            ?>
+                        </td>
+                        
+                        <!-- RHOT -->
+                        <td title="
+                            <?php  
+                                if($ot->rhot != NULL)
+                                {
+                                    $rhot_hrs = floor($ot->rhot / 60);
+                                    $rhot_mins = $ot->rhot % 60;
+                                    echo $rhot_hrs . ' HOUR/S AND ' . $rhot_mins .' MINUTES ';
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        ">
+                            <?php 
+                                if($ot->rhot != NULL)
+                                {
+                                    $cnvrt_rhot = $ot->rhot / 60;
+                                    $roundoff_rhot = round($cnvrt_rhot, 2);
+                                    echo $roundoff_rhot;
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }     
+                            ?>
+                        </td>
+                        
+                         <!-- SH -->
+                        <td title="
+                            <?php  
+                                if($ot->sh != NULL)
+                                {
+                                    $sh_hrs = floor($ot->sh / 60);
+                                    $sh_mins = $ot->sh % 60;
+                                    echo $sh_hrs . ' HOUR/S AND ' . $sh_mins .' MINUTES ';
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        ">
+                            <?php 
+                                if($ot->sh != NULL)
+                                {
+                                    $cnvrt_sh = $ot->sh / 60;
+                                    $roundoff_sh = round($cnvrt_sh, 2);
+                                    echo $roundoff_sh;
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }     
+                            ?>
+                        </td>
+                        <!-- SHOT -->
+                        <td title="
+                            <?php  
+                                if($ot->shot != NULL)
+                                {
+                                    $shot_hrs = floor($ot->shot / 60);
+                                    $shot_mins = $ot->rh % 60;
+                                    echo $shot_hrs . ' HOUR/S AND ' . $shot_mins .' MINUTES ';
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }    
+                            ?>
+                        ">
+                            <?php 
+                                if($ot->shot != NULL)
+                                {
+                                    $cnvrt_shot = $ot->shot / 60;
+                                    $roundoff_shot = round($cnvrt_shot, 2);
+                                    echo $roundoff_shot;
+                                }
+                                else
+                                {
+                                    echo ' ';
+                                }     
+                            ?>
+                        </td>
+                        <!-- TASK -->
                         <td><?php echo substr($ot->task,0,50); ?></td>
+
                         <!--<td> <center><input type="checkbox" name="leave[]" value=""> </center></td>-->
+
+                        <!-- ACTION -->
                         <td data-label="Action">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Action
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <!--<a class="dropdown-item" href="">View</a>-->
-                                    <a class="dropdown-item" onclick="return confirm('Do you want to delete overtime data?');" href="<?php echo base_url(); ?>reports/delete_employee_ot/<?php echo $ot->employee_number; ?>/<?php echo $ot->date_ot; ?>">Delete</a>
-                                </div>
-                            </div>
+                            <center>
+                                <a class="btn btn-danger" onclick="return confirm('Do you want to delete overtime data?');" href="<?php echo base_url(); ?>reports/delete_employee_ot/<?php echo $ot->employee_number; ?>/<?php echo $ot->date_ot; ?>">Delete</a>
+                            </center> 
                         </td>
                     </tr>
                 <?php endforeach; ?>

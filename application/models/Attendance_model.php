@@ -202,27 +202,27 @@ class Attendance_model extends CI_Model
 			$cur_date = date('Y-m-d', strtotime('+' . $k .' days', $conv_date));
 		}	
 
-		$data_temp = array( 
+		/*$data_temp = array( 
 			'employee_number' => $employee_number,
 			'created_by'      => $this->session->userdata('username')
 		);
 
 		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-		$blaine_timekeeping->update('overtime_temp_date', $data_temp);
+		$blaine_timekeeping->update('overtime_temp_date', $data_temp);*/
 
 		$trans = $this->db->trans_complete();
 
 		return $trans;
 	}
 
-	public function generate_overtime_dates()
+	public function generate_cutoff_dates()
 	{
 		$this->db->trans_start();
 
 		// DELETE PREVIOUS TEMPORARY DATE
 		$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
 		$blaine_timekeeping->where('created_by !=', NULL);
-		$blaine_timekeeping->delete('overtime_temp_date');
+		$blaine_timekeeping->delete('cut_off_date');
 
 		$start_date = $this->input->post('start_date');
 		$end_date = $this->input->post('end_date');
@@ -245,7 +245,7 @@ class Attendance_model extends CI_Model
 			);
 			
 			$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-			$blaine_timekeeping->insert('overtime_temp_date', $data);
+			$blaine_timekeeping->insert('cut_off_date', $data);
 			/*print_r('<pre>');
 			print_r($data);
 			print_r('</pre>');*/
@@ -257,6 +257,50 @@ class Attendance_model extends CI_Model
 		$trans = $this->db->trans_complete();
 
 		return $trans;
+	}
+
+	public function get_first_cutoff_date()
+	{
+		$this->db->select('cut_off_date.date as first_date');
+		$this->db->from('blaine_timekeeping.cut_off_date');
+		$this->db->limit('1');
+		$query = $this->db->get();
+
+		return $query->row();
+	}
+	
+	public function get_last_cutoff_date()
+	{
+		$this->db->select('cut_off_date.date as last_date');
+		$this->db->from('blaine_timekeeping.cut_off_date');
+		$this->db->order_by('id', 'DESC');
+		$this->db->limit('1');
+		$query = $this->db->get();
+
+		return $query->row();
+	}
+
+	public function get_first_daily_attendance_date()
+	{
+		$this->db->select('individual_temp_date.date as first_date_daily_attendance');
+		$this->db->from('blaine_timekeeping.individual_temp_date');
+		$this->db->where('individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->limit('1');
+		$query = $this->db->get();
+
+		return $query->row();
+	}
+
+	public function get_last_daily_attendance_date()
+	{
+		$this->db->select('individual_temp_date.date as last_date_daily_attendance');
+		$this->db->from('blaine_timekeeping.individual_temp_date');
+		$this->db->where('individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->order_by('id', 'DESC');
+		$this->db->limit('1');
+		$query = $this->db->get();
+
+		return $query->row();
 	}
 
 	public function myattendance_generate_dates()
@@ -917,6 +961,7 @@ class Attendance_model extends CI_Model
 		$this->db->join('blaine_schedules.employee_holiday', 'blaine_timekeeping.individual_temp_date.date = blaine_schedules.employee_holiday.date AND blaine_timekeeping.individual_temp_date.employee_number = blaine_schedules.employee_holiday.employee_number','left');
 		$this->db->join('blaine_schedules.employee_schedules', 'blaine_schedules.employee_schedules.date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.individual_temp_date.employee_number = blaine_schedules.employee_schedules.employee_number', 'left');
 		$this->db->order_by('blaine_timekeeping.individual_temp_date.date','ASC');
+		$this->db->group_by('blaine_timekeeping.individual_temp_date.date');
 		$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
 		$query = $this->db->get();
 
@@ -1067,7 +1112,7 @@ class Attendance_model extends CI_Model
 			i.day as pm_day
             FROM blaine_timekeeping.overtime as a
             INNER JOIN blaine_intranet.employees ON blaine_intranet.employees.employee_number = a.employee_number
-			INNER JOIN blaine_timekeeping.overtime_temp_date ON blaine_timekeeping.overtime_temp_date.employee_number = a.employee_number AND  blaine_timekeeping.overtime_temp_date.date = a.date_ot
+			INNER JOIN blaine_timekeeping.individual_temp_date ON blaine_timekeeping.individual_temp_date.employee_number = a.employee_number AND  blaine_timekeeping.individual_temp_date.date = a.date_ot
             LEFT JOIN blaine_timekeeping.attendance_in ON blaine_timekeeping.attendance_in.employee_number = a.employee_number AND blaine_timekeeping.attendance_in.date = a.date_ot
             LEFT JOIN blaine_timekeeping.attendance_out ON blaine_timekeeping.attendance_out.employee_number = a.employee_number AND blaine_timekeeping.attendance_out.date = a.date_ot
             LEFT JOIN blaine_timekeeping.schedules ON blaine_timekeeping.schedules.employee_number = a.employee_number
@@ -1080,116 +1125,11 @@ class Attendance_model extends CI_Model
             LEFT JOIN blaine_timekeeping.overtime as g ON a.employee_number = g.employee_number AND a.date_ot = g.date_ot AND g.type = 'SHOT'
             LEFT JOIN blaine_timekeeping.overtime as h ON a.employee_number = h.employee_number AND a.date_ot = h.date_ot AND h.type = 'ROT' AND h.day = 'am'
             LEFT JOIN blaine_timekeeping.overtime as i ON a.employee_number = i.employee_number AND a.date_ot = i.date_ot AND i.type = 'ROT' AND i.day = 'pm'
-			WHERE blaine_timekeeping.overtime_temp_date.created_by = '$test12'
+			WHERE blaine_timekeeping.individual_temp_date.created_by = '$test12'
             GROUP BY a.date_ot,a.employee_number
         ")->result();
 
         return $query;
-	}
-
-	public function get_total_absences()
-	{
-		$this->db->select("SUM(slvl.leave_num) as leave_absence_total");
-		$this->db->from('blaine_timekeeping.slvl');
-		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->where('blaine_timekeeping.slvl.type', "AB");
-		$this->db->where('blaine_timekeeping.slvl.status', 1);
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
-
-	public function get_total_sl()
-	{
-		$this->db->select("SUM(slvl.leave_num) as sick_leave_total");
-		$this->db->from('blaine_timekeeping.slvl');
-		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->where('blaine_timekeeping.slvl.type', "SL");
-		$this->db->where('blaine_timekeeping.slvl.status', 1);
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
-
-	public function get_total_vl()
-	{
-		$this->db->select("SUM(slvl.leave_num) as vacation_leave_total");
-		$this->db->from('blaine_timekeeping.slvl');
-		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->where('blaine_timekeeping.slvl.type', "VL");
-		$this->db->where('blaine_timekeeping.slvl.status', 1);
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
-
-	public function get_total_ml()
-	{
-		$this->db->select("SUM(slvl.leave_num) as maternity_leave_total");
-		$this->db->from('blaine_timekeeping.slvl');
-		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->where('blaine_timekeeping.slvl.type', "ML");
-		$this->db->where('blaine_timekeeping.slvl.status', 1);
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
-
-	public function get_total_pl()
-	{
-		$this->db->select("SUM(slvl.leave_num) as paternity_leave_total");
-		$this->db->from('blaine_timekeeping.slvl');
-		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->where('blaine_timekeeping.slvl.type', "PL");
-		$this->db->where('blaine_timekeeping.slvl.status', 1);
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
-
-	public function get_total_bl()
-	{
-		$this->db->select("SUM(slvl.leave_num) as bereavement_leave_total");
-		$this->db->from('blaine_timekeeping.slvl');
-		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->where('blaine_timekeeping.slvl.type', "BL");
-		$this->db->where('blaine_timekeeping.slvl.status', 1);
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
-
-	public function get_total_spl()
-	{
-		$this->db->select("SUM(slvl.leave_num) as soloparent_leave_total");
-		$this->db->from('blaine_timekeeping.slvl');
-		$this->db->join('blaine_timekeeping.individual_temp_date','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
-		//$this->db->where('blaine_timekeeping.individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->where('blaine_timekeeping.slvl.type', "SPL");
-		$this->db->where('blaine_timekeeping.slvl.status', 1);
-
-		$query = $this->db->get();
-
-		return $query->result();
-
 	}
 	
 	public function employee_name()
@@ -1232,48 +1172,5 @@ class Attendance_model extends CI_Model
 		return $query->row();
 	}
 
-	public function get_first_ot_date()
-	{
-		$this->db->select('overtime_temp_date.date as first_date_ot');
-		$this->db->from('blaine_timekeeping.overtime_temp_date');
-		$this->db->limit('1');
-		$query = $this->db->get();
-
-		return $query->row();
-	}
-
 	
-	public function get_last_ot_date()
-	{
-		$this->db->select('overtime_temp_date.date as last_date_ot');
-		$this->db->from('blaine_timekeeping.overtime_temp_date');
-		$this->db->order_by('id', 'DESC');
-		$this->db->limit('1');
-		$query = $this->db->get();
-
-		return $query->row();
-	}
-
-	public function get_first_daily_attendance_date()
-	{
-		$this->db->select('individual_temp_date.date as first_date_daily_attendance');
-		$this->db->from('blaine_timekeeping.individual_temp_date');
-		$this->db->where('individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->limit('1');
-		$query = $this->db->get();
-
-		return $query->row();
-	}
-
-	public function get_last_daily_attendance_date()
-	{
-		$this->db->select('individual_temp_date.date as last_date_daily_attendance');
-		$this->db->from('blaine_timekeeping.individual_temp_date');
-		$this->db->where('individual_temp_date.created_by', $this->session->userdata('username'));
-		$this->db->order_by('id', 'DESC');
-		$this->db->limit('1');
-		$query = $this->db->get();
-
-		return $query->row();
-	}
 } 

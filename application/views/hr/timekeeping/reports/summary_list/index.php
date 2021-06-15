@@ -1,78 +1,28 @@
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
-<?php if($this->session->flashdata('error_msg')) : ?>
-    <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
-<?php endif; ?> 
-    <div class="card-header" style="background-color: #2E8BC0; border:#2E8BC0; color: white"><h4>SUMMARY LIST<a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
-    </div>
-    <br>
-    <table id="" class="display table-responsive" style="width:100%">
-        <thead>
-            <tr style="background-color:#D4F1F4;">
-                <th scope="col">EMPLOYEE NAME</th>
-                <th scope="col">TARDINESS</th>
-                <th scope="col">UNDERTIME</th>
-                <th scope="col">ABSENCES</th>
-                <th scope="col">SL</th>
-                <th scope="col">VL</th>
-                <th scope="col">ML</th>
-                <th scope="col">PL</th>
-                <th scope="col">BL</th>
-                <th scope="col">SPL</th>
-                <th scope="col">ROT</th>
-                <th scope="col">ND</th>
-                <th scope="col">RD</th>
-                <th scope="col">RDOT</th>
-                <th scope="col">RH</th>
-                <th scope="col">RHOT</th>
-                <th scope="col">SH</th>
-                <th scope="col">SHOT</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if($employees) : ?>
-                <?php foreach($employees as $employee) : ?>
-                    <tr>
-                        <td><?php echo $employee->fullname; ?></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </tbody>
-    </table>  
-    <script type="text/javascript">  
-        $(document).ready(function() {
-            $('.display').DataTable( {
-                "bStateSave": true,
-                dom: 'Blfrtip',
-                "fnStateSave": function (oSettings, oData) {
-                    localStorage.setItem('table.display', JSON.stringify(oData));
-                },
-                "fnStateLoad": function (oSettings) {
-                    return JSON.parse(localStorage.getItem('table.display'));
-                },
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bInfo": false,
-                "bAutoWidth": false
-            } );
-        } );
-    </script>
+<div class="card">
+    <div class="card-header" style="background-color: #007BFF; border: #007BFF; color: white"><h4>SUMMARY LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-body">
+    <div style="color:red"><?php echo validation_errors(); ?> </div>
+    <form method="post" action="<?php echo base_url();?>reports/summary_list" enctype="multipart/form-data"> 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Start Date</label>
+                    <input type="date" class="form-control" min="2018-12-31" max="2030-12-31" name="start_date" value="<?php echo date('Y-m-d'); ?>">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">End Date</label>
+                    <input type="date" class="form-control" min="2018-12-31" max="2030-12-31" name="end_date" value="<?php echo date('Y-m-d'); ?>">
+                </div>
+            </div>
+        </div><br>
+        <center>
+            <input type="submit" title="Submit Date" class="btn btn-info" name="SUBMIT">
+        </center>
+    </form>
+        
+</div>
