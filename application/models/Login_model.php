@@ -15,7 +15,8 @@ class Login_model extends CI_Model {
             employment_info.company as company_id,
             employment_info.department as department_id,
             employees.picture as picture,
-            employees.first_name as first_name
+            employees.first_name as first_name,
+            employment_info.position as position
         "); 
         $this->db->from('users');
         $this->db->join('employees', 'employees.employee_number = users.employee_number','left');
