@@ -11,6 +11,8 @@
         <thead>
             <tr style="background-color:#D4F1F4;">
                 <th scope="col">EMPLOYEE NAME</th>
+                <th scope="col">DEPARTMENT</th>
+                <th scope="col">RANK</th>
                 <th scope="col">TARDINESS</th>
                 <th scope="col">UNDERTIME</th>
                 <th scope="col">ABSENCES</th>
@@ -35,6 +37,8 @@
                 <?php foreach($employees as $employee) : ?>
                     <tr>
                         <td><?php echo $employee->fullname; ?></td>
+                        <td><?php echo $employee->department_name; ?></td>
+                        <td><?php echo $employee->rank_name; ?></td>
                         <td></td>
                         <td></td>
 
@@ -136,7 +140,22 @@
                             <?php endif; ?>
                         </td>
 
-                        <td></td>
+                         <!-- ROT -->
+                        <td>
+                            <?php if($total_rots) : ?>
+                                <?php foreach($total_rots as $total_rot) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $total_rot->employee_number)
+                                        {
+                                            $cnvrt_rot = $total_rot->ot_num / 60;
+                                            $roundoff_rot = round($cnvrt_rot, 2);
+                                            echo $roundoff_rot;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+
                         <td></td>
                         <td></td>
                         <td></td>
