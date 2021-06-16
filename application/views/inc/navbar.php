@@ -222,9 +222,8 @@
 
         .sidebar-wrapper .sidebar-header .user-pic {
             float: left;
-            width: 60px;
+            width: 250px;
             padding: 2px;
-            border-radius: 12px;
             margin-right: 15px;
             overflow: hidden;
         }
@@ -244,7 +243,7 @@
         }
 
         .sidebar-wrapper .sidebar-header .user-info .user-role {
-            font-size: 12px;
+            font-size: 9px;
         }
 
         .sidebar-wrapper .sidebar-header .user-info .user-status {
@@ -616,6 +615,22 @@
                         </a>
                         <div id="close-sidebar">
                             <i class="fas fa-window-minimize"></i>
+                        </div>
+                    </div>
+                    <div class="sidebar-header">
+                        <div class="user-pic">
+                        
+                        <img class="img-responsive img-rounded" src="<?php echo base_url(); ?>uploads/employee/<?php echo $this->session->userdata('picture'); ?>" style="width:25%" alt="">
+                        </div>
+                        <div class="user-info">
+                            <span class="user-role" style="margin-bottom:-2px">HELLO!</span>    
+                            <span class="user-name" style="margin-bottom:-2px"><span><?php echo $this->session->userdata('fullname'); ?></span>
+                            </span>
+                            <span class="user-role"></span>
+                            <!--<span class="user-status">
+                                <i class="fa fa-circle"></i>
+                                <span>Online</span>
+                            </span>-->
                         </div>
                     </div>
                     <div class="sidebar-menu">

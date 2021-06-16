@@ -14,6 +14,8 @@ class Login_model extends CI_Model {
             CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) as fullname,
             employment_info.company as company_id,
             employment_info.department as department_id,
+            employees.picture as picture,
+            employees.first_name as first_name
         "); 
         $this->db->from('users');
         $this->db->join('employees', 'employees.employee_number = users.employee_number','left');

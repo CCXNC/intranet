@@ -36,6 +36,8 @@ class Login extends CI_Controller {
             $company_id = $data['company_id'];
             $department_id = $data['department_id'];
             $fullname = $data['fullname'];
+            $picture = $data['picture'];
+            $first_name = $data['first_name'];
 
             $sesdata = array(
                 'username' => $username,
@@ -45,7 +47,9 @@ class Login extends CI_Controller {
                 'emp_id' => $emp_id,
                 'company_id' => $company_id,
                 'department_id' => $department_id,
-                'fullname' => $fullname
+                'fullname' => $fullname,
+                'picture'   => $picture,
+                'first_name' => $first_name
             );
 
             $this->session->set_userdata($sesdata);
