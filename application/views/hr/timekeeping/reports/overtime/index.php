@@ -6,7 +6,7 @@
 <?php endif; ?> 
 <div class="card-header" style="background-color: #0C2D48; color:white;"><h4>OVERTIME LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a> <a href="<?php echo base_url(); ?>reports/add_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <!--<a href="<?php echo base_url(); ?>reports/cutoff_ot" class="btn btn-dark float-right" title="Add Overtime" style="border:1px solid #ccc; margin-right:10px;">EXTRACTION</a>--> </h4></div>
 <br>
-<form method="POST" id="" enctype="multipart/form-data">
+<form method="POST" id="ot" enctype="multipart/form-data">
     <div class="row">
         &nbsp;&nbsp;&nbsp;<div class="form-group">
             <label for="">START DATE</label>
@@ -20,10 +20,10 @@
             <label for="">&nbsp;</label>
             <input type="submit" title="Submit Date"  value="SUBMIT" class="form-control btn btn-dark">
         </div> &nbsp;
-        <!--<div class="form-group">
+        <div class="form-group">
             <label for="">&nbsp;</label>
-            <input class="form-control btn btn-success" id="" type="submit" value="APPROVAL">
-        </div>-->
+            <input class="form-control btn btn-success" style="background-color:#38c172;color:white;" id="process" type="submit" value="APPROVAL">
+        </div>
     </div>    
     <table id="" class="display" style="width:100%">
         <thead>
@@ -44,6 +44,7 @@
                 <th scope="col">RHOT</th>
                 <th scope="col">SH</th>
                 <th scope="col">SHOT</th>
+                <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
                 <th scope="col">TASK</th>
                 <th scope="col">ACTION</th>
             </tr>
@@ -342,6 +343,10 @@
                                 }     
                             ?>
                         </td>
+
+                        <td><?php if($ot->status != 1) : ?> <center><input type="checkbox" name="ot[]" value="<?php echo $ot->employee_number . '|' . $ot->date_ot; ?>"> <?php endif; ?> </center></td>
+        
+
                         <!-- TASK -->
                         <td><?php echo substr($ot->task,0,50); ?></td>
 
@@ -417,6 +422,7 @@
                     }
                 ]
         } );
+
         $("#checkAll").click(function(){
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
@@ -424,8 +430,8 @@
         $('#process').click(function() {
 			var a = confirm("Are you sure you want to Approved Data?");
 			if (a == true) {
-				$('#ut').attr('action', 'process_ut');
-				$('#ut').submit();
+				$('#ot').attr('action', 'process_ot');
+				$('#ot').submit();
 			} else {
 				return false;
 			} 

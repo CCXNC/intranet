@@ -2833,6 +2833,7 @@ class Report_model extends CI_Model {
             a.time_end as time_end,
             a.task as task,
             a.type as type,
+            a.status as status,
             CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
             attendance_in.time as actual_time_in,
             attendance_out.time as actual_time_out,
@@ -3018,6 +3019,22 @@ class Report_model extends CI_Model {
 		$this->db->where('blaine_timekeeping.slvl.status', 1);
 		$this->db->where('blaine_timekeeping.slvl.leave_date >=', $start_date);
 		$this->db->where('blaine_timekeeping.slvl.leave_date <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+    public function get_total_rot($start_date,$end_date)
+	{
+        $this->db->select("overtime.employee_number as employee_number, overtime.type as type, SUM(overtime .ot_num) as ot_num");
+		$this->db->from('blaine_timekeeping.overtime');
+		$this->db->group_by(array('blaine_timekeeping.overtime.employee_number','blaine_timekeeping.overtime.type'));
+		$this->db->where('blaine_timekeeping.overtime.type', "ROT");
+		$this->db->where('blaine_timekeeping.overtime.status', 1);
+		$this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
+		$this->db->where('blaine_timekeeping.overtime.date_ot <=', $end_date);
 
 		$query = $this->db->get();
 

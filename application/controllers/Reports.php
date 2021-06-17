@@ -328,6 +328,27 @@ class Reports extends CI_Controller {
        
     }
 
+    public function process_ot()
+    {
+        foreach($this->input->post('ot') as $ot)
+		{
+			$explode_data = explode('|', $ot);
+
+			$data = array(  
+				'process_by' 	=> $this->session->userdata('username'),
+				'process_date' => date('Y-m-d H:i:s'),
+				'status'        => '1'
+			);
+
+            $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+            $blaine_timekeeping->where('employee_number', $explode_data[0]);
+            $blaine_timekeeping->where('date_ot', $explode_data[1]);
+			$blaine_timekeeping->update('overtime', $data);
+		}
+        $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY PROCESS!');
+		redirect('reports/index_ot');
+    }
+
     public function delete_employee_ot($employee_number,$date)
     {
         if($this->report_model->delete_employee_ot($employee_number,$date))
@@ -483,6 +504,8 @@ class Reports extends CI_Controller {
 		$data['total_pls'] = $this->report_model->get_total_pl($start_date, $end_date);
 		$data['total_bls'] = $this->report_model->get_total_bl($start_date, $end_date);
 		$data['total_spls'] = $this->report_model->get_total_spl($start_date, $end_date);
+
+        $data['total_rots'] = $this->report_model->get_total_rot($start_date, $end_date);
       
         $data['main_content'] = 'hr/timekeeping/reports/summary_list/view';
         $this->load->view('inc/navbar', $data);
