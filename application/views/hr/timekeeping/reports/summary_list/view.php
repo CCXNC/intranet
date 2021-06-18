@@ -4,6 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
+    <b style="background-color:#ffed4a; color:rgb(50,50,50);"><?php echo date('F j, Y', strtotime($first_date->first_date))  .' - ' . date('F j, Y', strtotime($last_date->last_date)); ?></b>
     <div class="card-header" style="background-color: #2E8BC0; border:#2E8BC0; color: white"><h4>SUMMARY LIST<a href="<?php echo base_url(); ?>reports/summary_list" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4> 
     </div>
     <br>
@@ -140,7 +141,7 @@
                             <?php endif; ?>
                         </td>
 
-                         <!-- ROT -->
+                        <!-- ROT -->
                         <td>
                             <?php if($total_rots) : ?>
                                 <?php foreach($total_rots as $total_rot) : ?>
@@ -156,13 +157,105 @@
                             <?php endif; ?>
                         </td>
 
+                        <!-- ND -->                
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+
+                        <!-- RD -->
+                        <td>
+                            <?php if($total_rds) : ?>
+                                <?php foreach($total_rds as $total_rd) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $total_rd->employee_number)
+                                        {
+                                            $cnvrt_rd = $total_rd->ot_num / 60;
+                                            $roundoff_rd = round($cnvrt_rd, 2);
+                                            echo $roundoff_rd;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+
+                        <!-- RDOT-->
+                        <td>
+                            <?php if($total_rdots) : ?>
+                                <?php foreach($total_rdots as $total_rdot) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $total_rdot->employee_number)
+                                        {
+                                            $cnvrt_rdot = $total_rdot->ot_num / 60;
+                                            $roundoff_rdot = round($cnvrt_rdot, 2);
+                                            echo $roundoff_rdot;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                       
+                        <!-- RH -->
+                        <td>
+                            <?php if($total_rhs) : ?>
+                                <?php foreach($total_rhs as $total_rh) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $total_rh->employee_number)
+                                        {
+                                            $cnvrt_rh = $total_rh->ot_num / 60;
+                                            $roundoff_rh = round($cnvrt_rh, 2);
+                                            echo $roundoff_rh;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                      
+                        <!-- RHOT -->
+                        <td>
+                            <?php if($total_rhots) : ?>
+                                <?php foreach($total_rhots as $total_rhot) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $total_rhot->employee_number)
+                                        {
+                                            $cnvrt_rhot = $total_rhot->ot_num / 60;
+                                            $roundoff_rhot = round($cnvrt_rhot, 2);
+                                            echo $roundoff_rhot;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                        
+                        <!-- SH -->
+                        <td>
+                            <?php if($total_shs) : ?>
+                                <?php foreach($total_shs as $total_sh) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $total_sh->employee_number)
+                                        {
+                                            $cnvrt_sh = $total_sh->ot_num / 60;
+                                            $roundoff_sh = round($cnvrt_sh, 2);
+                                            echo $roundoff_sh;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+
+                         <!-- SH -->
+                       <td>
+                            <?php if($total_shots) : ?>
+                                <?php foreach($total_shots as $total_shot) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $total_shot->employee_number)
+                                        {
+                                            $cnvrt_shot = $total_shot->ot_num / 60;
+                                            $roundoff_shot = round($cnvrt_shot, 2);
+                                            echo $roundoff_shot;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                       
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>

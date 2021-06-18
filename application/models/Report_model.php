@@ -2737,6 +2737,7 @@ class Report_model extends CI_Model {
             a.time_end as time_end,
             a.task as task,
             a.type as type,
+            a.status as status,
             CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
             attendance_in.time as actual_time_in,
             attendance_out.time as actual_time_out,
@@ -2757,8 +2758,12 @@ class Report_model extends CI_Model {
             g.ot_num as shot,
             h.ot_num as rotam,
             i.ot_num as rotpm,
-            h.time_start as time_in,
-            i.time_end as time_out
+            h.time_start as am_time_in,
+			h.time_end as am_time_out,
+			h.day as am_day,
+			i.time_start as pm_time_in,
+            i.time_end as pm_time_out,
+			i.day as pm_day
             FROM blaine_timekeeping.overtime as a
             INNER JOIN blaine_intranet.employees ON blaine_intranet.employees.employee_number = a.employee_number
             LEFT JOIN blaine_timekeeping.attendance_in ON blaine_timekeeping.attendance_in.employee_number = a.employee_number AND blaine_timekeeping.attendance_in.date = a.date_ot
@@ -3032,6 +3037,102 @@ class Report_model extends CI_Model {
 		$this->db->from('blaine_timekeeping.overtime');
 		$this->db->group_by(array('blaine_timekeeping.overtime.employee_number','blaine_timekeeping.overtime.type'));
 		$this->db->where('blaine_timekeeping.overtime.type', "ROT");
+		$this->db->where('blaine_timekeeping.overtime.status', 1);
+		$this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
+		$this->db->where('blaine_timekeeping.overtime.date_ot <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+    public function get_total_rd($start_date,$end_date)
+	{
+        $this->db->select("overtime.employee_number as employee_number, overtime.type as type, SUM(overtime .ot_num) as ot_num");
+		$this->db->from('blaine_timekeeping.overtime');
+		$this->db->group_by(array('blaine_timekeeping.overtime.employee_number','blaine_timekeeping.overtime.type'));
+		$this->db->where('blaine_timekeeping.overtime.type', "RD");
+		$this->db->where('blaine_timekeeping.overtime.status', 1);
+		$this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
+		$this->db->where('blaine_timekeeping.overtime.date_ot <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+    public function get_total_rdot($start_date,$end_date)
+	{
+        $this->db->select("overtime.employee_number as employee_number, overtime.type as type, SUM(overtime .ot_num) as ot_num");
+		$this->db->from('blaine_timekeeping.overtime');
+		$this->db->group_by(array('blaine_timekeeping.overtime.employee_number','blaine_timekeeping.overtime.type'));
+		$this->db->where('blaine_timekeeping.overtime.type', "RDOT");
+		$this->db->where('blaine_timekeeping.overtime.status', 1);
+		$this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
+		$this->db->where('blaine_timekeeping.overtime.date_ot <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+    public function get_total_rh($start_date,$end_date)
+	{
+        $this->db->select("overtime.employee_number as employee_number, overtime.type as type, SUM(overtime .ot_num) as ot_num");
+		$this->db->from('blaine_timekeeping.overtime');
+		$this->db->group_by(array('blaine_timekeeping.overtime.employee_number','blaine_timekeeping.overtime.type'));
+		$this->db->where('blaine_timekeeping.overtime.type', "RH");
+		$this->db->where('blaine_timekeeping.overtime.status', 1);
+		$this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
+		$this->db->where('blaine_timekeeping.overtime.date_ot <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+    public function get_total_rhot($start_date,$end_date)
+	{
+        $this->db->select("overtime.employee_number as employee_number, overtime.type as type, SUM(overtime .ot_num) as ot_num");
+		$this->db->from('blaine_timekeeping.overtime');
+		$this->db->group_by(array('blaine_timekeeping.overtime.employee_number','blaine_timekeeping.overtime.type'));
+		$this->db->where('blaine_timekeeping.overtime.type', "RHOT");
+		$this->db->where('blaine_timekeeping.overtime.status', 1);
+		$this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
+		$this->db->where('blaine_timekeeping.overtime.date_ot <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+    public function get_total_sh($start_date,$end_date)
+	{
+        $this->db->select("overtime.employee_number as employee_number, overtime.type as type, SUM(overtime .ot_num) as ot_num");
+		$this->db->from('blaine_timekeeping.overtime');
+		$this->db->group_by(array('blaine_timekeeping.overtime.employee_number','blaine_timekeeping.overtime.type'));
+		$this->db->where('blaine_timekeeping.overtime.type', "SH");
+		$this->db->where('blaine_timekeeping.overtime.status', 1);
+		$this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
+		$this->db->where('blaine_timekeeping.overtime.date_ot <=', $end_date);
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+    public function get_total_shot($start_date,$end_date)
+	{
+        $this->db->select("overtime.employee_number as employee_number, overtime.type as type, SUM(overtime .ot_num) as ot_num");
+		$this->db->from('blaine_timekeeping.overtime');
+		$this->db->group_by(array('blaine_timekeeping.overtime.employee_number','blaine_timekeeping.overtime.type'));
+		$this->db->where('blaine_timekeeping.overtime.type', "SHOT");
 		$this->db->where('blaine_timekeeping.overtime.status', 1);
 		$this->db->where('blaine_timekeeping.overtime.date_ot >=', $start_date);
 		$this->db->where('blaine_timekeeping.overtime.date_ot <=', $end_date);
