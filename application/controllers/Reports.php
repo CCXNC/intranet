@@ -506,6 +506,12 @@ class Reports extends CI_Controller {
 		$data['total_spls'] = $this->report_model->get_total_spl($start_date, $end_date);
 
         $data['total_rots'] = $this->report_model->get_total_rot($start_date, $end_date);
+        $data['total_rds'] = $this->report_model->get_total_rd($start_date, $end_date);
+        $data['total_rdots'] = $this->report_model->get_total_rdot($start_date, $end_date);
+        $data['total_rhs'] = $this->report_model->get_total_rh($start_date, $end_date);
+        $data['total_rhots'] = $this->report_model->get_total_rhot($start_date, $end_date);
+        $data['total_shs'] = $this->report_model->get_total_sh($start_date, $end_date);
+        $data['total_shots'] = $this->report_model->get_total_shot($start_date, $end_date);
       
         $data['main_content'] = 'hr/timekeeping/reports/summary_list/view';
         $this->load->view('inc/navbar', $data);
