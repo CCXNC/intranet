@@ -2906,6 +2906,55 @@ class Report_model extends CI_Model {
     public function delete_employee_ot($employee_number,$date)
     {
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('employee_number', $employee_number);
+        $blaine_timekeeping->where('date_ot', $date);
+        $datas = $blaine_timekeeping->get('overtime');
+        $employee_ot_id = $datas->row()->id;
+        $employee_ot_employee_number = $datas->row()->employee_number;
+        $employee_ot_company = $datas->row()->company;
+        $employee_ot_department = $datas->row()->department;
+        $employee_ot_type = $datas->row()->type;
+        $employee_ot_day = $datas->row()->day;
+        $employee_ot_date_ot = $datas->row()->date_ot;
+        $employee_ot_time_start = $datas->row()->time_start;
+        $employee_ot_time_end = $datas->row()->time_end;
+        $employee_ot_sot = $datas->row()->sot;
+        $employee_ot_ot_num = $datas->row()->ot_num;
+        $employee_ot_task = $datas->row()->task;
+        $employee_ot_status = $datas->row()->status;
+
+        $entry_data = array(
+            'id'                => $employee_ot_id,
+            'employee_number'   => $employee_ot_employee_number,
+            'company'           => $employee_ot_company,
+            'department'        => $employee_ot_department,
+            'type'              => $employee_ot_type,
+            'day'               => $employee_ot_day,
+            'date_ot'           => $employee_ot_date_ot,
+            'time_start'        => $employee_ot_time_start,
+            'time_end'          => $employee_undertime_time_end,
+            'sot'               => $employee_ot_sot,
+            'ot_num'            => $employee_ot_ot_num,
+            'task'              => $employee_ot_task,
+            'status'            => $employee_ot_status
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Deleted: " . "ID: " . $employee_ot_id . " Employee Number: " . $employee_ot_employee_number,
+            'datas'         => $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => "TIMEKEEPING: OVERTIME",
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $blaine_timekeeping->where('overtime.employee_number', $employee_number);
         $blaine_timekeeping->where('overtime.date_ot', $date);
         $query = $blaine_timekeeping->delete('overtime');
