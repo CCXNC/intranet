@@ -34,12 +34,12 @@
 </script>
 
 <div class="card">
-    <div class="card-header"><h4>HR USER MANAGEMENT<a href="<?php echo base_url(); ?>employee/index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>HR USER MANAGEMENT<a href="<?php echo base_url(); ?>employee/index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
             <div class="card">
-                <div class="card-header">Personal Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Personal Information</div>
                 <div class="card-body">
                     <div class="form-group">
                         <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" width="150px" height="150px" alt="" style=""><br><br>
@@ -131,7 +131,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Parent`s Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Parent`s Information</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -153,7 +153,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Spouse's Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Spouse's Information</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -188,7 +188,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Children's Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Children's Information</div>
                 <div class="card-body" id="children_field">
                     <div class="row">
                         <div class="col-md-12">
@@ -221,7 +221,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Emergency Contact Person's Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Emergency Contact Person's Information</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -247,7 +247,7 @@
             </div>
                 <br>   
             <div class="card">
-                <div class="card-header">Academe Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Academe Information</div>
                 <div class="card-body" id="table_field">
                     <div class="row">
                         <div class="col-md-3">
@@ -281,7 +281,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Employment Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Employment Information</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -397,7 +397,7 @@
             </div>
             <br>                                
             <div class="card">
-                <div class="card-header">Government Mandated IDs</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Government Mandated IDs</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">

@@ -18,7 +18,7 @@
                 <label class="form-check-label"><p>EMPLOYEE NAME</p></label><br>
                 <input type="text" class="form-control col-md-6" readonly value="<?php echo $schedule->fullname; ?>">
             </div>
-            <!--<?php 
+            <?php 
                 $week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]; 
                 $count_week = count($week);
                 $days = explode(',',$schedule->days);
@@ -35,7 +35,7 @@
                     <?php for($a=0; $count_data > $a; $a++) : ?><?php echo $week[$i] == $days[$a] ? 'checked' : ' '; ?><?php endfor; ?>>
                     <label for="vehicle3">&nbsp;<?php echo $week[$i]; ?>&nbsp;</label>
                 <?php endfor; ?>    
-            </div>-->
+            </div>
             <div class="form-group">
                 <label class="form-check-label"><p>TIME IN</p></label>
                 <div class="form-group">

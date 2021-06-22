@@ -24,6 +24,7 @@
                             <option value="ML|ML"<?php echo $leave->type_name == 'ML' ? 'selected' : ''; ?>>Maternity</option>
                             <option value="PL|PL"<?php echo $leave->type_name == 'PL' ? 'selected' : ''; ?>>Paternity</option>
                             <option value="BL|BL"<?php echo $leave->type_name == 'BL' ? 'selected' : ''; ?>>Bereavement Leave</option>
+                            <option value="SPL|SPL"<?php echo $leave->type_name == 'SPL' ? 'selected' : ''; ?>>Solo Parent Leave</option>
                         </select>
                     </div>
                 </div>

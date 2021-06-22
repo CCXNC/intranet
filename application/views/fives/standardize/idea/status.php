@@ -1,9 +1,9 @@
 <div class="card">
-    <div class="card-header" style="background-color:#1C4670; color:white;"><h4>SHARE MY IDEA <a href="<?php echo base_url(); ?>fives/idea" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>SHARE MY IDEA <a href="<?php echo base_url(); ?>fives/idea" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
             <div class="card">
-                <div class="card-header" style="background-color:#1C4670; color:white;">STATUS FORM</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">STATUS FORM</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">

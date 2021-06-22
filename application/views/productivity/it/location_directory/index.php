@@ -4,8 +4,8 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?> 
-<div class="card-header" style="background-color:#1C4670; color:white;"><h4>Location Directory List
-<a href="<?php echo base_url(); ?>productivity/index_it" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a><a href="#"  data-toggle="modal" data-target="#exampleModal" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">ADD</a></h4> 
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>Location Directory List
+<a href="<?php echo base_url(); ?>productivity/index_it" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a><a href="#"  data-toggle="modal" data-target="#exampleModal" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">ADD</a></h4> 
 </div>
 <br>
 <table id="" class="display" width="100%">

@@ -11,7 +11,7 @@ class Schedule_model extends CI_Model {
         $employee_number = $explod_data[0];
         $biometric_id = $explod_data[1];
         $id = $explod_data[2];
-        //$days = substr(implode(',', $this->input->post('days')), 0); | 'days'            => $days,
+        $days = substr(implode(',', $this->input->post('days')), 0);
         $time_in = $this->input->post('time_in');
         $time_out = $this->input->post('time_out');
         $grace_period = $this->input->post('grace_period');
@@ -19,6 +19,7 @@ class Schedule_model extends CI_Model {
         $date = date('Y-m-d H:i:s');
 
         $data = array(
+            'days'            => $days,
             'time_in'         => $time_in,
             'time_out'        => $time_out,
             'grace_period'    => $grace_period,
@@ -31,6 +32,18 @@ class Schedule_model extends CI_Model {
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
         $blaine_timekeeping->where('id', $id);
         $query = $blaine_timekeeping->update('schedules', $data);
+
+        // ACTIVITY LOGS
+        $data_logs = array(
+            'username'  => $this->session->userdata('username'),
+            'activity'  => "Entry Added: Employee Number: " . $employee_number,
+            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+            'type'      => 'TIMEKEEPING: EMPLOYEE SCHEDULE',
+            'date'      => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
 
         return $query;
         /*print_r('<pre>');
@@ -49,7 +62,8 @@ class Schedule_model extends CI_Model {
             schedules.time_in as time_in,
             schedules.time_out as time_out,
             schedules.grace_period as grace_period,
-            schedules.effective_date as effective_date
+            schedules.effective_date as effective_date,
+            schedules.is_flexi as flexible_time
         ");
         $this->db->from('blaine_timekeeping.schedules');
         $this->db->where('blaine_intranet.employees.is_active', 1);
@@ -84,20 +98,89 @@ class Schedule_model extends CI_Model {
 
     public function update_employee_schedule($id)
     {
-        //$days = substr(implode(',', $this->input->post('days')), 0); |   'days'            => $days,
+        $this->db->trans_start();
+        
+        $days = substr(implode(',', $this->input->post('days')), 0); 
         $time_in = $this->input->post('time_in');
         $time_out = $this->input->post('time_out');
         $grace_period = $this->input->post('grace_period');
         $effective_date = $this->input->post('effective_date');
         $date = date('Y-m-d H:i:s');
 
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('id', $id);
+        $datas = $blaine_timekeeping->get('schedules');
+        $employee_schedule_id = $datas->row()->id;
+        $employee_schedule_employee_number = $datas->row()->employee_number;
+        $employee_schedule_time_in = $datas->row()->time_in;
+        $employee_schedule_time_out = $datas->row()->time_out;
+        $employee_schedule_grace_period = $datas->row()->grace_period;
+        $employee_schedule_effective_date = $datas->row()->effective_date;
+
+        $entry_data = array(
+            'id'                => $employee_schedule_id,
+            'time_in'           => $employee_schedule_time_in,
+            'time_out'          => $employee_schedule_time_out,
+            'grace_period'      => $employee_schedule_grace_period,
+            'effective_date'    => $employee_schedule_effective_date
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'  => $this->session->userdata('username'),
+            'activity'  => "Entry Updated: " . 'Employee Number: ' . $employee_schedule_employee_number,
+            'datas'     => "Previous Data: " . $json_data,
+            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+            'type'      => 'TIMEKEEPING: EMPLOYEE SCHEDULE',
+            'date'      => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+        
+        // PROCESS FOR UPDATE
         $data = array(
+            'days'            => $days,
             'time_in'         => $time_in,
             'time_out'        => $time_out,
             'grace_period'    => $grace_period,
             'effective_date'  => $effective_date,
             'updated_date'    => $date,
             'updated_by'      => $this->session->userdata('username')
+        );
+
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->where('id', $id);
+        $blaine_timekeeping->update('schedules', $data);
+
+        $trans = $this->db->trans_complete();
+
+        return $trans;
+    }
+
+    public function update_employee_flexi_time($id)
+    {
+         // PROCESS FOR UPDATE
+         $data = array(
+            'is_flexi'  => 1
+        );
+
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->where('id', $id);
+        $query = $blaine_timekeeping->update('schedules', $data);
+
+        return $query;
+    }
+
+    public function update_employee_regular_time($id)
+    {
+         // PROCESS FOR UPDATE
+         $data = array(
+            'is_flexi'  => 0
         );
 
         $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
@@ -175,6 +258,18 @@ class Schedule_model extends CI_Model {
         $blaine_timekeeping->where('schedules.employee_number', $employee_number);
         $blaine_timekeeping->update('schedules', $data_schedule);
 
+        // ACTIVITY LOGS
+        $data_logs = array(
+            'username'  => $this->session->userdata('username'),
+            'activity'  => "Entry Added: Employee Number: " . $employee_number,
+            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+            'type'      => 'TIMEKEEPING: EMPLOYEE BIOMETRIC',
+            'date'      => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $trans = $this->db->trans_complete();
 
         return $trans;
@@ -203,6 +298,35 @@ class Schedule_model extends CI_Model {
 
         $biometric_id = $this->input->post('biometric_id');
 
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->select('*');
+        $blaine_timekeeping->where('employee_number', $employee_number);
+        $datas = $blaine_timekeeping->get('employee_biometric');
+        $employee_biometric_id = $datas->row()->id;
+        $employee_biometric_number = $datas->row()->biometric_number;
+
+        $entry_data = array(
+            'id'                => $employee_biometric_id,
+            'biometric_number'  => $employee_biometric_number
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'  => $this->session->userdata('username'),
+            'activity'  => "Entry Updated: Employee Number: " . $employee_number,
+            'datas'     => "Previous Data: " .$json_data,
+            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+            'type'      => 'TIMEKEEPING: EMPLOYEE BIOMETRIC',
+            'date'      => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
+        // PROCESS FOR BIOMETRIC UPDATE
         $data_biometric = array(
             'biometric_number' => $biometric_id,
         );
@@ -274,6 +398,18 @@ class Schedule_model extends CI_Model {
 			$conv_date = strtotime($start_date);
 			$cur_date = date('Y-m-d', strtotime('+' . $k .' days', $conv_date));
 		}	
+
+        // ACTIVITY LOGS
+        $data_logs = array(
+            'username'  => $this->session->userdata('username'),
+            'activity'  => "Entry Added: Employee Number: " .$employee_number,
+            'pc_ip'     => $_SERVER['REMOTE_ADDR'],
+            'type'      => 'TIMEKEEPING: EMPLOYEE SCHEDULE - CHANGE SCHEDULE',
+            'date'      => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
 
         $trans = $this->db->trans_complete();
         return $trans;

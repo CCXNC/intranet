@@ -12,12 +12,13 @@
 <br>
 <table id="" class="display" style="width:100%">
     <thead>
-        <tr style="background-color:#D4F1F4;">
+        <tr style="background-color:#D4F1F4;"> 
             <th scope="col">Employee Name</th>
             <th scope="col">Biometric Number</th>
             <th scope="col">Time</th>
             <th scope="col">Grace Period</th>
-            <th scope="col">Action</th>
+            <th scope="col">Schedule</th>
+            <th scope="col">Action</th> 
         </tr>
     </thead>
     <tbody>
@@ -28,6 +29,18 @@
                     <td data-label="Name"><?php echo $schedule->biometric_number; ?></td>
                     <td><?php echo date('h:i A', strtotime($schedule->time_in)) . ' | ' . date('h:i A', strtotime($schedule->time_out)); ?></td>
                     <td data-label="Name"><?php echo $schedule->grace_period . ' Minutes'; ?></td>
+                    <td data-label="Name">
+                        <?php
+                            if($schedule->flexible_time == 1)
+                            {
+                                echo "Flexible Time";
+                            } 
+                            else
+                            {
+                                echo "Regular Time";
+                            }
+                        ?>
+                    </td>
                     <td data-label="Action">
                         <div class="btn-group">
                             <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,12 +49,17 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" title="View Employee Schedule" href="<?php echo base_url(); ?>schedule/view_schedule/<?php echo $schedule->id; ?>/<?php echo $schedule->employee_number; ?>">View</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" title="Edit Employee Biometric" href="<?php echo base_url(); ?>schedule/add_employee_schedule/<?php echo $schedule->employee_number; ?>">Add Schedule</a>
+                                <a class="dropdown-item" title="Change Employee Schedule" href="<?php echo base_url(); ?>schedule/add_employee_schedule/<?php echo $schedule->employee_number; ?>">Change Schedule</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" title="Edit Employee Schedule" href="<?php echo base_url(); ?>schedule/edit_schedule/<?php echo $schedule->id; ?>">Edit Schedule</a>
+                                <a class="dropdown-item" title="Edit Employee Schedule" href="<?php echo base_url(); ?>schedule/edit_schedule/<?php echo $schedule->id; ?>">Edit Default Schedule</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" title="Edit Employee Biometric" href="<?php echo base_url(); ?>schedule/edit_biometric/<?php echo $schedule->employee_number; ?>">Edit Biometric</a>
-                               
+                                <div class="dropdown-divider"></div>
+                                <?php if($schedule->flexible_time != 1) : ?>
+                                    <a class="dropdown-item" title="Edit Employee Biometric" onclick="return confirm('Do you want to change regular schedule to flexible schedule?');" href="<?php echo base_url(); ?>schedule/update_employee_flexi_time/<?php echo $schedule->id; ?>">Flexible Schedule</a>
+                                <?php else : ?>
+                                    <a class="dropdown-item" title="Edit Employee Biometric" onclick="return confirm('Do you want to change flexible schedule to regular schedule?');" href="<?php echo base_url(); ?>schedule/update_employee_regular_time/<?php echo $schedule->id; ?>">Regular Schedule</a>
+                               <?php endif; ?>
                             </div>
                         </div>
                     </td>

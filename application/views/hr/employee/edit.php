@@ -1,10 +1,10 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT EMPLOYEE<a href="<?php echo base_url(); ?>employee/index" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>EDIT EMPLOYEE<a href="<?php echo base_url(); ?>employee/index" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/edit_employee/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>" enctype="multipart/form-data">
             <div class="card">
-                <div class="card-header">Personal Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Personal Information</div>
                 <div class="card-body">
                         <div class="form-group">
                             <?php if($employee->picture != NULL) : ?>
@@ -103,7 +103,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Parent`s Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Parent`s Information</div>
                 <div class="card-body">
                 <input type="text" class="form-control" name="parent_id" value="<?php echo $employee->parent_id; ?>" hidden>
                     <div class="row">
@@ -126,7 +126,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Spouse's Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Spouse's Information</div>
                 <div class="card-body">
                     <?php if($employee->spouse_id != NULL) : ?>
                         <input type="text" class="form-control" name="spouse_id" value="<?php echo $employee->spouse_id; ?>" hidden>
@@ -163,7 +163,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Children's Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Children's Information</div>
                 <div class="card-body" id="children_field">
                     <?php if($children_infos) : ?>
                         <?php foreach($children_infos as $children_info) : ?>
@@ -201,7 +201,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Emergency Contact Person's Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Emergency Contact Person's Information</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -227,7 +227,7 @@
             </div>
                 <br>   
             <div class="card">
-                <div class="card-header">Academe Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Academe Information</div>
                 <div class="card-body" id="table_field">
                     <?php if($academe_infos) : ?>
                         <?php foreach($academe_infos as $academe_info) : ?>
@@ -264,7 +264,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header">Employment Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Employment Information</div>
                 <div class="card-body">
                     <input type="text" class="form-control" name="employment_id" value="<?php echo $employee->employment_id; ?>" hidden>
                     <div class="row">
@@ -384,7 +384,7 @@
             </div>
             <br>                                
             <div class="card">
-                <div class="card-header">Government Mandated IDs</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Government Mandated IDs</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">

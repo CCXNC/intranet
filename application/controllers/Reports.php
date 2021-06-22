@@ -263,10 +263,31 @@ class Reports extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
+    /*public function cutoff_ot()
+    {
+        $this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
+        $this->form_validation->set_rules('end_date', 'End Date', 'trim|required');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['main_content'] = 'hr/timekeeping/reports/overtime/ot_cutoff';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->attendance_model-> generate_overtime_dates())
+            {
+                $this->session->set_flashdata('success_msg', 'OVERTIME EXTRACTION SUCCESSFULLY ADDED!');
+                redirect('reports/index_ot');  
+            }
+        }
+      
+    }*/
+
     public function add_ot()
     {
         $this->form_validation->set_rules('employee', 'Employee Name', 'trim|required');
-        //$this->form_validation->set_rules('date_ot', 'Date of Overtime', 'trim|required');
+        //$this->form_validation->set_rules('ot_type', 'OT TYPE', 'trim|required');
         //$this->form_validation->set_rules('ot_num', 'Estimated Number of Hours', 'trim|required');
         //$this->form_validation->set_rules('task', 'Specific Task To Be Done', 'trim|required');
 
@@ -280,26 +301,69 @@ class Reports extends CI_Controller {
         {
             if($this->report_model->add_overtime())
             {
-                $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY PROCESS!');
-                redirect('reports/index_ot');
+               $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY ADDED!');
+               redirect('reports/index_ot');
             }
         }    
     }
 
-    public function view_employee_ot()
+    public function edit_employee_ot($id)
     {
-        $data['main_content'] = 'hr/timekeeping/reports/overtime/view';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('date_ot', 'Date of Overtime', 'trim|required');
+
+        if($this->form_validation->run() == FALSE) 
+        {
+            $data['ot'] = $this->report_model->get_employee_ot($id);
+            $data['main_content'] = 'hr/timekeeping/reports/overtime/edit';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->report_model->update_overtime($id))
+            {
+                $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY UPDATED!');
+                redirect('reports/index_ot');
+            }
+        }    
+       
     }
 
-    public function delete_employee_ot($id)
+    public function process_ot()
     {
-        if($this->report_model->delete_employee_ot($id))
+        foreach($this->input->post('ot') as $ot)
+		{
+			$explode_data = explode('|', $ot);
+
+			$data = array(  
+				'process_by' 	=> $this->session->userdata('username'),
+				'process_date' => date('Y-m-d H:i:s'),
+				'status'        => '1'
+			);
+
+            $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+            $blaine_timekeeping->where('employee_number', $explode_data[0]);
+            $blaine_timekeeping->where('date_ot', $explode_data[1]);
+			$blaine_timekeeping->update('overtime', $data);
+		}
+        $this->session->set_flashdata('success_msg', 'OVERTIME SUCCESSFULLY PROCESS!');
+		redirect('reports/index_ot');
+    }
+
+    public function delete_employee_ot($employee_number,$date)
+    {
+        if($this->report_model->delete_employee_ot($employee_number,$date))
         {
             $this->session->set_flashdata('error_msg', 'OVERTIME SUCCESSFULLY DELETED!');
             redirect('reports/index_ot');
         }
     }
+    public function view_employee_ot($id)
+    {
+        $data['ot'] = $this->report_model->get_employee_ot($id);
+        $data['main_content'] = 'hr/timekeeping/reports/overtime/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
 
     public function index_ut()
     {
@@ -402,5 +466,54 @@ class Reports extends CI_Controller {
         
         $this->session->set_flashdata('success_msg', 'LEAVE SUCCESSFULLY PROCESS!');
 		redirect('reports/index_ut');
+    }
+
+    public function summary_list()
+    {
+        $this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
+		$this->form_validation->set_rules('end_date', 'End Date', 'trim|required');
+
+		if($this->form_validation->run() == FALSE)
+		{
+            $data['main_content'] = 'hr/timekeeping/reports/summary_list/index';
+            $this->load->view('inc/navbar', $data);
+		}
+		else
+		{
+			if($this->attendance_model->generate_cutoff_dates())
+			{
+				redirect('reports/employees_summary_list');
+			}
+		}
+      
+    }
+
+    public function employees_summary_list()
+    {
+        $data['first_date'] = $this->attendance_model->get_first_cutoff_date();
+		$data['last_date'] = $this->attendance_model->get_last_cutoff_date();
+        $start_date = $data['first_date']->first_date;
+        $end_date = $data['last_date']->last_date;
+
+        $data['employees'] = $this->employee_model->get_employees_wc_otp();
+
+        $data['total_absences'] = $this->report_model->get_total_absences($start_date, $end_date);
+        $data['total_sls'] = $this->report_model->get_total_sl($start_date, $end_date);
+        $data['total_vls'] = $this->report_model->get_total_vl($start_date, $end_date);
+        $data['total_mls'] = $this->report_model->get_total_ml($start_date, $end_date);
+		$data['total_pls'] = $this->report_model->get_total_pl($start_date, $end_date);
+		$data['total_bls'] = $this->report_model->get_total_bl($start_date, $end_date);
+		$data['total_spls'] = $this->report_model->get_total_spl($start_date, $end_date);
+
+        $data['total_rots'] = $this->report_model->get_total_rot($start_date, $end_date);
+        $data['total_rds'] = $this->report_model->get_total_rd($start_date, $end_date);
+        $data['total_rdots'] = $this->report_model->get_total_rdot($start_date, $end_date);
+        $data['total_rhs'] = $this->report_model->get_total_rh($start_date, $end_date);
+        $data['total_rhots'] = $this->report_model->get_total_rhot($start_date, $end_date);
+        $data['total_shs'] = $this->report_model->get_total_sh($start_date, $end_date);
+        $data['total_shots'] = $this->report_model->get_total_shot($start_date, $end_date);
+      
+        $data['main_content'] = 'hr/timekeeping/reports/summary_list/view';
+        $this->load->view('inc/navbar', $data);
     }
 }

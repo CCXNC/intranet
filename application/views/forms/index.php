@@ -4,8 +4,8 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine Form List
-<?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?><a href="#" title="Add Form" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" style="border:1px solid #ccc; margin-right:10px;">ADD</a> <?php endif; ?>
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>Blaine Form List
+<?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?><a href="#" title="Add Form" class="btn btn-info float-right"  data-toggle="modal" data-target="#exampleModal" style="margin-right:10px;">ADD</a> <?php endif; ?>
     </h4> 
 </div>
 <br>
@@ -44,7 +44,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="background-color: #0C2D48; color: white">
             <h5 class="modal-title" id="exampleModalLabel">ADD ATTACHMENT</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>

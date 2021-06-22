@@ -4,8 +4,8 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header" style="background-color:#1C4670; color:white;"><h4>Blaine E-Feedback List
-<a href="#" class="btn btn-dark float-right"  data-toggle="modal" data-target="#exampleModal" title="Add Feedback" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>Blaine E-Feedback List
+<a href="#" class="btn btn-info float-right"  data-toggle="modal" data-target="#exampleModal" title="Add Feedback" style="margin-right:10px;">ADD</a>
     </h4> 
 </div>
 <br> 
@@ -75,7 +75,7 @@
 <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <div class="modal-header" style="background-color:#1C4670; color:white;">
+        <div class="modal-header" style="background-color: #0C2D48; color: white">
             <h5 class="modal-title" id="exampleModalLabel" >E-FEEDBACK FORM</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" style="color:white;">&times;</span>

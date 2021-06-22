@@ -7,6 +7,11 @@
         background-color: #003153 !important;
         color: white;
     }
+    
+    .main {
+        background-color: white !important;
+        color: black;
+    }
 
     .carousel-indicators .cindicator{
         background-color: gray;
@@ -32,7 +37,53 @@
                 <div class="row">
                     <div class="col-md-12">
                         <section>
+                            <!-- Patch Modal -->
+                            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color:#003153; color: white">
+                                            <h5 class="modal-title">Release Update - June 21, 2020</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><b>New and Improved</b></p>
+                                            <small>
+                                                • Employee Profile in Sidebar
+                                                <br>
+                                                • Activity Logs
+                                                <br>
+                                                • Overtime Approval Functionality
+                                                <br>
+                                                • Summary List Fields
+                                            </small>
+                                            <p><b><br>Enhancement</b></p>
+                                            <small>
+                                                • Overtime Computation
+                                                <br>
+                                                • Timekeeping Module
+                                                <br>
+                                                • Bug Fixes and Design Improvements
+                                            </small>
+                                            <hr>
+                                            <small>
+                                                Patch: 21.06.21001
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="container">
+                                <div class="card" style="width: 70%; border-color:black; margin-top: -15px; margin-bottom: -20px">
+                                    <div class="card-body">
+                                        <p class="card-title" style="margin-bottom: 0px; margin-top:-20px; font-size:13px"><i>Quick Links</i></p>
+                                        <p style="margin-bottom: -20px; font-size: 15px; font-family: arial">
+                                            <a href="<?php echo base_url(); ?>homepage/active_directory" class="card-link" style="margin-bottom: 0px">• Active Directory</a>
+                                            <a href="<?php echo base_url(); ?>fives/idea" class="card-link">• 5S Share My Idea</a>
+                                            <a href="<?php echo base_url(); ?>feedback/index" class="card-link">• E-Feedback List</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <br>
                                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
                                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active cindicator"></li>
@@ -90,5 +141,10 @@
             </div>
         </div>
     </div>
+<script>
+	$(document).ready(function(){
+		$("#myModal").modal('show');
+	});
+</script>
         
   

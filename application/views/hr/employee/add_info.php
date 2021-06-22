@@ -34,12 +34,12 @@
 </script>
 
     <div class="card">
-        <div class="card-header"><h4><?php echo $employee->fullname; ?><a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
+        <div class="card-header" style="background-color: #0C2D48; color: white"><h4><?php echo $employee->fullname; ?><a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
         <div class="card-body">
             <div style="color:red"><?php echo validation_errors(); ?> </div>
             <form method="post" action="<?php echo base_url(); ?>employee/add_info/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>" enctype="multipart/form-data">
                 <div class="card">
-                    <div class="card-header">Spouse's Information</div>
+                    <div class="card-header" style="background-color: #0C2D48; color: white">Spouse's Information</div>
                     <div class="card-body">
                         <input type="text" class="form-control" name="employee_number" value="<?php echo $employee->emp_no; ?>" hidden>
                         <div class="row">
@@ -75,7 +75,7 @@
                 </div>
                 <br>
                 <div class="card">
-                    <div class="card-header">Children's Information</div>
+                    <div class="card-header" style="background-color: #0C2D48; color: white">Children's Information</div>
                     <div class="card-body" id="children_field">
                         <div class="row">
                             <div class="col-md-12">
@@ -108,7 +108,7 @@
                 </div>
                  <br>   
                 <div class="card">
-                    <div class="card-header">Academe Information</div>
+                    <div class="card-header" style="background-color: #0C2D48; color: white">Academe Information</div>
                     <div class="card-body" id="table_field">
                         <div class="row">
                             <div class="col-md-3">

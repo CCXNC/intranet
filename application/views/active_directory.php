@@ -1,13 +1,13 @@
-<div class="card-header" style="background-color:#1C4670; color:white;">
+<div class="card-header" style="background-color: #0C2D48; color: white">
     <h4>Active Directory List
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal">
             FAQ
         </button>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header" style="background-color:#1C4670; color:white;">
+                    <div class="modal-header" style="background-color:#0C2D48; color:white;">
                         <h5 class="modal-title" id="exampleModalLabel" >FAQ</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" style="color: white">&times;</span>
@@ -50,16 +50,16 @@
                     <td><?php echo $active_directory->fullname; ?></td>
                     <td><?php echo $active_directory->department; ?></td>
                     <td>
-                        <?php 
-                            if($active_directory->email == NULL){
-                                echo '<p class="" style="text-align:center; padding:15px; background-color: #E7D2CC;"></p>';
+                        <?php  
+                            if ($active_directory->email == NULL){
+                                echo '<p class="" style="text-align:center;padding:15px;background-color:#E7D2CC;"></p>'; 
                             }
                             else{
                                 echo $active_directory->email;
-                            } 
+                            }
                         ?>
                     </td>
-                    <td><?php echo $active_directory->telephone_no; ?></td>
+                    <td><?php  echo $active_directory->telephone_no; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -88,6 +88,18 @@
                     exportOptions: {
                         columns: [3]
                     }
+                },
+                {
+                    extend: 'excel',
+                    title: 'Active Directory',
+                    text: 'Extract to Excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    text: 'Filter'
                 }
             ]
         } );

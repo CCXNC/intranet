@@ -26,7 +26,7 @@
                             <td><?php echo $schedule->biometric_id; ?></td>
                             <td><?php echo date('F j, Y', strtotime($schedule->effective_date)); ?></td>
                             <td><?php echo $schedule->days; ?></td>
-                            <td><?php echo date('h:i A', strtotime($schedule->time_in)) . ' | ' . date('h:i A', strtotime($schedule->time_out)); ?></td>
+                            <td><?php echo $schedule->time_in . ' | ' . $schedule->time_out; ?></td>
                             <td><?php echo $schedule->grace_period; ?></td>
                         </tr>
                     </tbody>

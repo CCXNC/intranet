@@ -4,8 +4,8 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header" style="background-color:#1C4670; color:white;"><h4>5S CONTINUOUS IMPROVEMENT PROJECTS
-    <a href="<?php echo base_url(); ?>fives/idea" title="Go Back" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a>
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>5S CONTINUOUS IMPROVEMENT PROJECTS
+    <a href="<?php echo base_url(); ?>fives/idea" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
     </h4> 
 </div>
 <br>

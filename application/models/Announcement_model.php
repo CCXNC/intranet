@@ -33,7 +33,7 @@ class Announcement_model extends CI_Model {
 			//'activity' => "Announcement added - " . ' title: ' . $title,
 			'activity' => "Entry Added",
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
-			'type'     => 'ANNOUNCEMENT',
+			'type'     => 'HRIS: ANNOUNCEMENT',
 			'date'     => $date
 		);
 
@@ -105,7 +105,7 @@ class Announcement_model extends CI_Model {
 			'activity' => "Entry Updated: " . ' ID: ' . $announcement_id,
 			'datas'    => "Previous Data: " . $json_data,
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
-			'type'     => 'ANNOUNCEMENT',
+			'type'     => 'HRIS: ANNOUNCEMENT',
 			'date'     => $date
 		);
 
@@ -179,7 +179,7 @@ class Announcement_model extends CI_Model {
 			'activity' => "Entry Deleted: " . ' ID: ' . $id,
 			'datas'    => $json_data,
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
-			'type'     => 'ANNOUNCEMENT',
+			'type'     => 'HRIS: ANNOUNCEMENT',
 			'date'     => date('Y-m-d H:i:s')
 		);
 

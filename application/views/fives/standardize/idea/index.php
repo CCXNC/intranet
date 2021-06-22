@@ -11,17 +11,6 @@
     <a href="<?php echo base_url(); ?>fives/idea_add" class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">ADD</a>
     </h4> 
 </div>
-<!--<div class="card-header container-fluid"  style="background-color:#1C4670; color:white;">
-    <div class="row">
-        <div class="col-md-9">
-            <h3 class="">5S SHARE MY IDEA LIST</h3>
-        </div>
-        <div class="col-md-3 float-right">
-            <button class="btn btn-md btn-dark" title="View Implemented Ideas" style="border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/implemented'">IMPLEMENTED</button>
-            <button class="btn btn-md btn-dark" title="Add Idea" style="margin-left: .3em; border:1px solid #ccc;" onclick="location.href='<?php echo base_url(); ?>fives/idea_add'">ADD</button>
-        </div>
-    </div>
-</div>-->
 <br>
 <table id="" class="display" style="width:100%">
     <thead>
