@@ -36,7 +36,7 @@
     $(document).ready(function() {
         $('table.display').DataTable( {
             "order": [[0, "asc" ]],
-            "scrollX": true,
+            //"scrollX": true,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('table.display', JSON.stringify(oData));

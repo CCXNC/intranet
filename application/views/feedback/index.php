@@ -115,8 +115,8 @@
     $(document).ready(function() {
         $('.display').DataTable( {
             "order": [[0, "desc"]],
-            "scrollY" : '70vh',
-            "scrollX": true,
+            //"scrollY" : '70vh',
+            //"scrollX": true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             //"scrollX" : true,
             "bStateSave": true,
