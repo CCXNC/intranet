@@ -1,10 +1,10 @@
 <div class="card">
-    <div class="card-header"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" class="btn btn-info float-right" title="Go Back" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <form method="post"action="<?php echo base_url(); ?>employee/delete_all_information/<?php echo $employee->id; ?>/<?php echo $employee->emp_no; ?>">
             <!-- Personal Information -->
             <div class="card">
-                <div class="card-header">Personal Information<input type="submit" class="btn btn-danger float-right" onclick="return confirm('Do you want to Delete Personal Information?');" title="Delete All Employee Information" value="Delete all Information" ></div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Personal Information<input type="submit" class="btn btn-danger float-right" onclick="return confirm('Do you want to Delete Personal Information?');" title="Delete All Employee Information" value="Delete all Information" ></div>
                 <div class="card-body">
                         <div style="position:absolute;">
                             <div class="form-group">
@@ -102,7 +102,7 @@
             <br>
              <!-- Government Mandated IDs -->
             <div class="card">
-                <div class="card-header">Government Mandated IDs</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Government Mandated IDs</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
@@ -135,7 +135,7 @@
             <br>
             <!-- Emergency Contact Person's Information -->
             <div class="card">
-                <div class="card-header">Emergency Contact Person's Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Emergency Contact Person's Information</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -162,7 +162,7 @@
             <br>
             <!-- Parent`s Information -->
             <div class="card">
-                <div class="card-header">Parent`s Information</div>  
+                <div class="card-header" style="background-color: #0C2D48; color: white">Parent`s Information</div>  
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -183,7 +183,7 @@
             <br>
             <!-- Spouse's Information -->
             <div class="card">
-                <div class="card-header">Spouse's Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Spouse's Information</div>
                 <div class="card-body">
                 <?php if($employee->spouse_name != NULL) :  ?>
                     <div class="row">
@@ -217,7 +217,7 @@
             <br>
             <!-- Employment Information -->
             <div class="card">
-                <div class="card-header">Employment Information</div>
+                <div class="card-header" style="background-color: #0C2D48; color: white">Employment Information</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -286,7 +286,7 @@
 
         <!-- CHILDREN INFORMATION -->
         <div class="card">
-            <div class="card-header">Children Information
+            <div class="card-header" style="background-color: #0C2D48; color: white">Children Information
             </div>
             <div class="card-body">
                 <?php if($children_infos != NULL) : ?>
@@ -323,7 +323,7 @@
         
         <!-- ACADEME INFORMATION -->
         <div class="card">
-            <div class="card-header">Academe Information
+            <div class="card-header" style="background-color: #0C2D48; color: white">Academe Information
             </div>
             <div class="card-body">
                 <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">

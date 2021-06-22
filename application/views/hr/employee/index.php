@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header"><h4>EMPLOYEE LIST
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>EMPLOYEE LIST
     <a href="<?php echo base_url(); ?>employee/reports" title="Generate Reports" class="btn btn-info float-right" style="">REPORTS</a>
     <a href="<?php echo base_url(); ?>employee/resigned" title="View Resigned Employees" class="btn btn-info float-right" style="margin-right:10px;">RESIGNED</a>
     <a href="<?php echo base_url(); ?>employee/add" title="Add Employee Record" class="btn btn-info float-right" style="margin-right:10px;">ADD</a>
@@ -25,7 +25,7 @@
 <br>
 <table id="" class="display" width="100%">
     <thead>
-        <tr>
+        <tr style="background-color:#D4F1F4;">
             <th scope="col">Employee Picture</th>
             <th scope="col">Full Name</th>
             <th scope="col">Business Unit</th>

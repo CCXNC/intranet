@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4>Change Password</h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>Change Password</h4></div>
     <div class="card-body">
         <?php if($this->session->flashdata('error_msg')) : ?>
             <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>

@@ -1,3 +1,8 @@
+<style>
+    input[type=date] {
+        color: black;
+    }
+</style>
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
@@ -10,7 +15,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="">Employee Name</label>
-                        <select name="employee" class="form-control">  
+                        <select style="color:black" name="employee" class="form-control">  
                             <?php if($employees) : ?>
                             <?php foreach($employees as $employee) : ?>
                                 <option value="<?php echo $employee->emp_no; ?>"><?php echo $employee->fullname; ?></option>

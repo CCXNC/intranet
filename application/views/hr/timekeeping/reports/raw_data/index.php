@@ -1,3 +1,8 @@
+<style>
+    input[type=date] {
+        color: black;
+    }
+</style>
 <div class="card">
     <div class="card-header" style="background-color: #2E8BC0; border:#2E8BC0; color: white" ><h4>RAW ATTENDANCE LIST <a href="<?php echo base_url(); ?>attendance/index" class="btn btn-dark float-right" title="Go Back" style="border:1px solid #ccc; margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">

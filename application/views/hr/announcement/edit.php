@@ -1,10 +1,10 @@
 <div class="card">
-    <div class="card-header"><h4>EDIT ANNOUNCEMENT<a href="<?php echo base_url(); ?>announcement/index" title="Go Back" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>EDIT ANNOUNCEMENT<a href="<?php echo base_url(); ?>announcement/index" title="Go Back" id="back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
         <div class="card-body">
             <div style="color:red"><?php echo validation_errors(); ?> </div>
                 <form method="post" action="<?php echo base_url(); ?>announcement/edit/<?php echo $announcement->id; ?>" enctype="multipart/form-data">
                     <div class="card">
-                        <div class="card-header">Announcement</div>
+                        <div class="card-header" style="background-color: #0C2D48; color: white">Announcement</div>
                         <div class="card-body">
                             <div class="form-group">
                                 <center>

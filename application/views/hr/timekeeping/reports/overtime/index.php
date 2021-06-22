@@ -1,3 +1,8 @@
+<style>
+    input[type=date] {
+        color: black;
+    }
+</style>
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>

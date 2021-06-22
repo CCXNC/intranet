@@ -89,10 +89,10 @@
 
 </style>
 <div class="card">
-    <div class="card-header"  style="background-color:#1C4670; color:white;">
+    <div class="card-header" style="background-color: #0C2D48; color: white">
         <h4>VIEW 5S SHARE MY IDEA
-            <a href="<?php echo base_url(); ?>fives/idea" id="back" title="Go Back"  class="btn btn-dark float-right" style="border:1px solid #ccc; margin-right:10px;">BACK</a>
-            <input type="submit" class="btn btn-dark float-right" title="Print Idea" style="border:1px solid #ccc; margin-right:10px;" id="printButton" value="PRINT">
+            <a href="<?php echo base_url(); ?>fives/idea" id="back" title="Go Back"  class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
+            <input type="submit" class="btn btn-info float-right" title="Print Idea" style="margin-right:10px;" id="printButton" value="PRINT">
         </h4>
     </div>
     <!--<div class="card-header container-fluid"  style="background-color:#1C4670; color:white;">
@@ -108,7 +108,7 @@
     </div>-->
     <div class="card-body">
         <div class="card">
-            <div class="card-header" style="background-color:#1C4670; color:white;">My Idea</div>
+            <div class="card-header" style="background-color: #0C2D48; color: white">My Idea</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -128,7 +128,7 @@
         </div>
         <br>
         <div class="card">
-            <div class="card-header" style="background-color:#1C4670; color:white;">Attachments</div>
+            <div class="card-header" style="background-color: #0C2D48; color: white">Attachments</div>
             <div class="card-body">
                 <div class="row">
                     <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -161,7 +161,7 @@
         
         <br><br>
         <div class="card">
-            <div class="card-header" style="background-color:#1C4670; color:white;">User Information</div>
+            <div class="card-header" style="background-color: #0C2D48; color: white">User Information</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3">

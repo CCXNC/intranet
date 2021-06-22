@@ -225,7 +225,6 @@
             width: 60px;
             padding: 2px;
             border-radius: 12px;
-            margin-right: 15px;
             overflow: hidden;
         }
 
@@ -619,18 +618,18 @@
                         </div>
                     </div>
                     <div class="sidebar-header">
-                        <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="<?php echo base_url(); ?>uploads/employee/<?php echo $this->session->userdata('picture'); ?>" alt="">
+                        <div class="col-md-5 user-pic">
+                            <img class="img-responsive img-rounded" src="<?php echo base_url(); ?>uploads/employee/<?php echo $this->session->userdata('picture'); ?>" alt="">
                         </div>
-                        <div class="user-info">
-                        <span style="font-size:10px">Hello!</span>
-                        <span class="user-name" style="font-size:12px"><?php echo $this->session->userdata('first_name'); ?>
-                        </span>
-                        <span class="user-role" style="font-size:8px"><?php echo $this->session->userdata('position'); ?></span>
-                        <span class="user-status">
-                            <i class="fa fa-circle"></i>
-                            <span>Online</span>
-                        </span>
+                        <div class="col-md-7 user-info">
+                            <span style="font-size:10px">Hello!</span>
+                            <span class="user-name" style="font-size:12px"><?php echo $this->session->userdata('first_name'); ?>
+                            </span>
+                            <span class="user-role" style="font-size:8px"><?php echo $this->session->userdata('position'); ?></span>
+                            <span class="user-status">
+                                <i class="fa fa-circle"></i>
+                                <span>Online</span>
+                            </span>
                         </div>
                     </div>
                     <div class="sidebar-menu">
@@ -638,7 +637,7 @@
                             <!--HOMEPAGE-->
                             <li class="sidebar-dropdown">
                                 <a href="#">
-                                    <i class="fa fa-home"></i>
+                                    <i class="fa fa-home" style="background-color:#138B83"></i>
                                     <span>Homepage</span>
                                 </a>
                                 <div class="sidebar-submenu">
@@ -658,7 +657,7 @@
                             <!--DASHBOARD-->
                             <li class="">
                                 <a href="#">
-                                    <i class="fa fa-tachometer"></i>
+                                    <i class="fa fa-tachometer" style="background-color:#138B83"></i>
                                     <span>Dashboard</span>
                                 </a>
                                 <!--<div class="sidebar-submenu">
@@ -675,7 +674,7 @@
                             <!--BLAINE FORMS-->
                             <li class="">
                                 <a href="<?php echo base_url(); ?>forms/index">
-                                    <i class="fa fa-clipboard"></i>
+                                    <i class="fa fa-clipboard" style="background-color:#138B83"></i>
                                     <span>Blaine Forms</span>
                                 </a>
                                 <!--<div class="sidebar-submenu">
@@ -693,7 +692,7 @@
                             <!--HOMEPAGE-->
                             <li class="sidebar-dropdown">
                                 <a href="#">
-                                    <i class="fa fa-home"></i>
+                                    <i class="fa fa-home" style="background-color:#138B83"></i>
                                     <span>5S and EHS</span>
                                 </a>
                                 <div class="sidebar-submenu">
@@ -724,7 +723,7 @@
                                 <!--HR-->
                                 <li class="sidebar-dropdown">
                                     <a href="#">
-                                        <i class="fa fa-address-card"></i>
+                                        <i class="fa fa-address-card" style="background-color:#138B83"></i>
                                         <span>HR</span>
                                     </a>
                                     <div class="sidebar-submenu">
@@ -746,7 +745,7 @@
                             <!--SUPPLY CHAIN-->
                             <li class="">
                                 <a href="#">
-                                    <i class="fa fa-truck"></i>
+                                    <i class="fa fa-truck" style="background-color:#138B83"></i>
                                     <span>Supply Chain</span>
                                 </a>
                                 <!--<div class="sidebar-submenu">
@@ -763,7 +762,7 @@
                             <!--ENGINEERING-->
                             <li class="">
                                 <a href="#">
-                                    <i class="fa fa-cogs"></i>
+                                    <i class="fa fa-cogs" style="background-color:#138B83"></i>
                                     <span>Engineering</span>
                                 </a>
                                 <!--<div class="sidebar-submenu">
@@ -780,7 +779,7 @@
                             <!--DCC-->
                             <li class="">
                                 <a href="#">
-                                    <i class="fa fa-file-alt"></i>
+                                    <i class="fa fa-file-alt" style="background-color:#138B83"></i>
                                     <span>DCC</span>
                                 </a>
                                 <!--<div class="sidebar-submenu">
@@ -799,7 +798,7 @@
                             
                                     <li class="sidebar-dropdown">
                                         <a href="#">
-                                            <i class="fa fa-address-card"></i>
+                                            <i class="fa fa-address-card" style="background-color:#138B83"></i>
                                             <span>Productivity</span>
                                         </a>
                                         <div class="sidebar-submenu">
@@ -819,7 +818,7 @@
                                 <?php endif; ?>
                                 <li class="sidebar">
                                     <a href="<?php echo base_url(); ?>feedback/index">
-                                        <i class="fa fa-clipboard"></i>
+                                        <i class="fa fa-clipboard" style="background-color:#138B83"></i>
                                         <span>E-Feedback Form</span>
                                     </a>
                                 </li>

@@ -36,7 +36,7 @@ input[type="checkbox"]:checked:after {
      */
 }
 </style>
-<div class="card-header"><h4>EMPLOYEE LIST REPORTS
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>EMPLOYEE LIST REPORTS
     <a href="<?php echo base_url(); ?>employee/index" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a>
     </h4> 
 </div>
@@ -158,7 +158,7 @@ input[type="checkbox"]:checked:after {
 
 <table id="employee" width="100%">
     <thead>
-        <tr>
+        <tr style="background-color:#D4F1F4;">
             <th>Employee Number</th>
             <th>Full Name</th>
             <th>Birthday</th>

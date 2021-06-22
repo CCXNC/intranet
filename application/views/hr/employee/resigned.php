@@ -4,11 +4,11 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header"><h4>RESIGNED EMPLOYEE LIST<a href="<?php echo base_url(); ?>employee/index" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>RESIGNED EMPLOYEE LIST<a href="<?php echo base_url(); ?>employee/index" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
 <br>
 <table id="" class="display" width="100%">
     <thead>
-        <tr>
+        <tr style="background-color:#D4F1F4;">
             <th scope="col">Employee Picture</th>
             <th scope="col">Full Name</th>
             <th scope="col">Business Unit</th>

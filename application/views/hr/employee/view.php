@@ -89,10 +89,12 @@
 
 </style>
 <div class="card">
-    <div class="card-header"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" id="printButton" title="Print Employee Information" value="PRINT"></h4></div>
+    <!-- style="background-color: #28968B; background-image: linear-gradient(180deg, #28968B, #A0D6B9); color: white" -->
+    <!-- button bgcolor: background-color:#272463 -->
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>EMPLOYEE INFORMATION<a href="<?php echo base_url(); ?>employee/index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a><input type="submit" style="margin-right:10px;" class="btn btn-info float-right" id="printButton" title="Print Employee Information" value="PRINT"></h4></div>
     <div class="card-body">
         <div class="card">
-            <div class="card-header">Personal Information</div>
+            <div class="card-header" style="background-color: #0C2D48; color: white">Personal Information</div>
             <div class="card-body">
                 <div class="form-group">
                     <center>
@@ -175,7 +177,7 @@
         </div>
         <br>
         <div class="card" id="employmentMargin">
-            <div class="card-header">Employment Information</div>
+            <div class="card-header" style="background-color: #0C2D48; color: white">Employment Information</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -254,7 +256,7 @@
         </div>
         <br>
         <div class="card"  id="governmentMargin">
-            <div class="card-header">Government Mandated IDs</div>
+            <div class="card-header" style="background-color: #0C2D48; color: white">Government Mandated IDs</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3">
@@ -286,7 +288,7 @@
         </div>    
         <br>
         <div class="card" id="parentMargin">
-            <div class="card-header">Parent`s Information</div>
+            <div class="card-header" style="background-color: #0C2D48; color: white">Parent`s Information</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -306,7 +308,7 @@
         </div> 
         <br>
         <div class="card">
-            <div class="card-header">Spouse's Information
+            <div class="card-header" style="background-color: #0C2D48; color: white">Spouse's Information
             </div>
             <div class="card-body">
             <?php if($employee->spouse_name != NULL) :  ?>
@@ -351,7 +353,7 @@
         </div>
         <br>
         <div class="card">
-            <div class="card-header">Children Information
+            <div class="card-header" style="background-color: #0C2D48; color: white">Children Information
             </div>
             <div class="card-body">
                 <?php if($children_infos != NULL) : ?>
@@ -382,7 +384,7 @@
         </div>        
         <br>
         <div class="card">
-            <div class="card-header">Academe Information
+            <div class="card-header" style="background-color: #0C2D48; color: white">Academe Information
             </div>
             <div class="card-body">
                 <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -411,7 +413,7 @@
         </div> 
         <br>
         <div class="card">
-            <div class="card-header">Emergency Contact Person's Information</div>
+            <div class="card-header" style="background-color: #0C2D48; color: white">Emergency Contact Person's Information</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -437,7 +439,7 @@
         </div>
         <br>
         <div class="card">
-            <div class="card-header">Recent Movement / Promotion
+            <div class="card-header" style="background-color: #0C2D48; color: white">Recent Movement / Promotion
             </div>
             <div class="card-body">
                 <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -476,7 +478,7 @@
         </div>  
         <br>
         <div class="card">
-            <div class="card-header">Attachments
+            <div class="card-header" style="background-color: #0C2D48; color: white">Attachments
             </div>
             <div class="card-body">
                 <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">

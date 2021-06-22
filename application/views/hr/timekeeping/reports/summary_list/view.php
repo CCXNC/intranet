@@ -263,6 +263,15 @@
     </table>  
     <script type="text/javascript">  
         $(document).ready(function() {
+                var extractdate = "<?php echo date('F j, Y', strtotime($first_date->first_date))  .' - ' . date('F j, Y', strtotime($last_date->last_date)); ?>";
+                var currentdate = new Date();
+                var datetime = "Date Extracted: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getFullYear() + " | " 
+                + currentdate.getHours() + ":" 
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+                var edate = "Date Range: " + extractdate;
             $('.display').DataTable( {
                 "bStateSave": true,
                 dom: 'Blfrtip',
@@ -276,7 +285,54 @@
                 "bLengthChange": false,
                 "bFilter": true,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": false,
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        messageTop: edate,
+                        title: 'Summary List',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        messageTop: edate,
+                        title: 'Summary List',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        messageTop: edate,
+                        title: 'Summary List',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        messageTop: edate,
+                        title: 'Summary List',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'copy',
+                        messageTop: datetime,
+                        title: 'Summary List',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Filter'
+                    }
+                ]
             } );
         } );
     </script>
