@@ -22,7 +22,7 @@ class Attendance_model extends CI_Model
 			ob.process_by as ob_process_by,
 			ob.created_by as ob_created_by,
 			ob.type as ob_type,
-			slvl.created_by as leave_created_by,
+			slvl.created_by as leave_created_by, 
 			slvl.leave_date as date_leave,
 			slvl.employee_number as leave_employee_number,
 			slvl.process_by as leave_process_by,
@@ -57,6 +57,7 @@ class Attendance_model extends CI_Model
 
 		return $query->result();	
 	}
+
 
 	public function get_raw_datas($start_date,$end_date)
 	{
@@ -967,7 +968,6 @@ class Attendance_model extends CI_Model
 
 		return $query->result();
 	}
-
 	public function my_employee_time()
 	{
 		$this->db->select("
@@ -1171,6 +1171,5 @@ class Attendance_model extends CI_Model
 
 		return $query->row();
 	}
-
 	
 } 

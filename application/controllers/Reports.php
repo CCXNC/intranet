@@ -475,6 +475,9 @@ class Reports extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE)
 		{
+            $data['first_date'] = $this->attendance_model->get_first_cutoff_date();
+            $data['last_date'] = $this->attendance_model->get_last_cutoff_date();
+            $data['employees'] = $this->report_model->summarylist_employee();
             $data['main_content'] = 'hr/timekeeping/reports/summary_list/index';
             $this->load->view('inc/navbar', $data);
 		}
@@ -482,10 +485,42 @@ class Reports extends CI_Controller {
 		{
 			if($this->attendance_model->generate_cutoff_dates())
 			{
-				redirect('reports/employees_summary_list');
+                $this->session->set_flashdata('success_msg', 'EXTRACTION DATE SUCCESSFULLY ADDED!');
+				redirect('reports/summary_list');
 			}
 		}
       
+    }
+
+    public function process_tard_ut_nd()
+    {
+        $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+        $blaine_timekeeping->where('employee_number !=', NULL);
+        $blaine_timekeeping->delete('temp_data');
+
+        $date = $this->input->post('date');
+        $tardiness =  $this->input->post('tardiness');
+        $undertime = $this->input->post('undertime');
+        $night_diff = $this->input->post('night_diff');
+        $i = 0;
+
+        foreach($this->input->post('employee_number') as $emp)
+		{
+			$data = array(  
+				'employee_number' => $emp,
+				'date'            => $date[$i],
+				'tardiness'       => $tardiness[$i],
+                'undertime'       => $undertime[$i],
+                'night_diff'      => $night_diff[$i]
+			);
+
+            $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+			$blaine_timekeeping->insert('temp_data', $data);
+
+            $i++;
+		}
+        
+		redirect('reports/employees_summary_list');
     }
 
     public function employees_summary_list()
@@ -496,6 +531,8 @@ class Reports extends CI_Controller {
         $end_date = $data['last_date']->last_date;
 
         $data['employees'] = $this->employee_model->get_employees_wc_otp();
+
+        $data['emp_computations'] = $this->report_model->get_total_tardiness_undertime_nightdiff($start_date, $end_date);
 
         $data['total_absences'] = $this->report_model->get_total_absences($start_date, $end_date);
         $data['total_sls'] = $this->report_model->get_total_sl($start_date, $end_date);
@@ -512,6 +549,9 @@ class Reports extends CI_Controller {
         $data['total_rhots'] = $this->report_model->get_total_rhot($start_date, $end_date);
         $data['total_shs'] = $this->report_model->get_total_sh($start_date, $end_date);
         $data['total_shots'] = $this->report_model->get_total_shot($start_date, $end_date);
+
+       // $data['employees'] = $this->report_model->summarylist_employee();
+        //$data['emps'] = $this->employee_model->get_employees_wc_otp();
       
         $data['main_content'] = 'hr/timekeeping/reports/summary_list/view';
         $this->load->view('inc/navbar', $data);

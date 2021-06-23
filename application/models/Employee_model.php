@@ -322,6 +322,7 @@ class Employee_model extends CI_Model {
 
 			rank.name as rank_name,
 			department.name as department_name,
+			company.code as company_name
 			
 		");
 		$this->db->from('blaine_intranet.employees');
@@ -329,7 +330,7 @@ class Employee_model extends CI_Model {
         $this->db->join('blaine_intranet.employee_status', 'blaine_intranet.employment_info.employee_status = blaine_intranet.employee_status.id');
         $this->db->join('blaine_intranet.company', 'blaine_intranet.employment_info.company = blaine_intranet.company.id');
 		$this->db->join('rank', 'employment_info.rank = rank.id');
-		$this->db->join('department', 'employment_info.department = department.id');		
+		$this->db->join('department', 'employment_info.department = department.id');
 		$this->db->join('blaine_timekeeping.employee_biometric', 'blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number', 'left');
         $this->db->order_by('blaine_intranet.employees.last_name', 'ASC');
         $this->db->where('blaine_intranet.employees.is_active', 1);

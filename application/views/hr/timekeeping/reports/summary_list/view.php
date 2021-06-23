@@ -12,6 +12,7 @@
         <thead>
             <tr style="background-color:#D4F1F4;">
                 <th scope="col">EMPLOYEE NAME</th>
+                <th scope="col">BUSINESS UNIT</th>
                 <th scope="col">DEPARTMENT</th>
                 <th scope="col">RANK</th>
                 <th scope="col">TARDINESS</th>
@@ -38,10 +39,40 @@
                 <?php foreach($employees as $employee) : ?>
                     <tr>
                         <td><?php echo $employee->fullname; ?></td>
+                        <td><?php echo $employee->company_name; ?></td>
                         <td><?php echo $employee->department_name; ?></td>
                         <td><?php echo $employee->rank_name; ?></td>
-                        <td></td>
-                        <td></td>
+                        <!-- TARDINESS -->
+                        <td>
+                            <?php if($emp_computations) : ?>
+                                <?php foreach($emp_computations as $emp_computation) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $emp_computation->employee_number)
+                                        {
+                                            $cnvrt_tardiness = $emp_computation->total_tardiness / 60;
+                                            $roundoff_tardiness = round($cnvrt_tardiness, 2);
+                                            echo $roundoff_tardiness;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+
+                        <!-- UNDERTIME -->
+                        <td>
+                            <?php if($emp_computations) : ?>
+                                <?php foreach($emp_computations as $emp_computation) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $emp_computation->employee_number)
+                                        {
+                                            $cnvrt_undertime = $emp_computation->total_undertime / 60;
+                                            $roundoff_undertime = round($cnvrt_undertime, 2);
+                                            echo $roundoff_undertime;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
 
                         <!-- ABCENSES -->
                         <td>
@@ -158,7 +189,20 @@
                         </td>
 
                         <!-- ND -->                
-                        <td></td>
+                        <td>
+                            <?php if($emp_computations) : ?>
+                                <?php foreach($emp_computations as $emp_computation) : ?>
+                                    <?php 
+                                        if($employee->emp_no == $emp_computation->employee_number)
+                                        {
+                                            $cnvrt_night_diff = $emp_computation->total_night_diff / 60;
+                                            $roundoff_night_diff = round($cnvrt_night_diff, 2);
+                                            echo $roundoff_night_diff;
+                                        }    
+                                    ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
 
                         <!-- RD -->
                         <td>
