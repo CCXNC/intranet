@@ -19,15 +19,15 @@
                         <input type="date" class="form-control" min="2018-12-31" max="2030-12-31" name="end_date" value="<?php echo $last_date->last_date; ?>">
                     </div>
                 </div>
-            </div><br>
-            <div class="row">
-              
-                <input type="submit" title="Submit Date" class="btn btn-info" value="SUBMIT">
-                </form>
-                <form method="post" action="<?php echo base_url();?>reports/process_tard_ut_nd" enctype="multipart/form-data"> 
+            </div>
+            <div class="container">
+                <div class="row" style="float: right">
+                    <input type="submit" title="Submit Date" class="btn btn-info" value="SUBMIT">
+                    </form> &nbsp;
+                    <form method="post" action="<?php echo base_url();?>reports/process_tard_ut_nd" enctype="multipart/form-data"> 
                     <input class="btn btn-success" id="processTime" type="submit" value="VIEW DATA">
-                  
-        </div> 
+                </div>
+            </div>
     </div>    
 </div>
 <br>

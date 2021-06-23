@@ -610,7 +610,7 @@
             <nav id="sidebar" class="sidebar-wrapper" >
                 <div class="sidebar-content">
                     <div class="sidebar-brand">
-                        <a href="#">
+                        <a href="<?php echo base_url(); ?>homepage/index"">
                             <img id="image" src="<?php echo base_url(); ?>assets/images/glowlogo.png" style="width:60%;" alt="">
                         </a>
                         <div id="close-sidebar">
