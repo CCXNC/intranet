@@ -309,13 +309,12 @@
         $(document).ready(function() {
                 var extractdate = "<?php echo date('F j, Y', strtotime($first_date->first_date))  .' - ' . date('F j, Y', strtotime($last_date->last_date)); ?>";
                 var currentdate = new Date();
-                var datetime = "Date Extracted: " + currentdate.getDate() + "/"
+                var datetime = currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/"
-                + currentdate.getFullYear() + " | " 
-                + currentdate.getHours() + ":" 
-                + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds();
-                var edate = "Date Range: " + extractdate;
+                + currentdate.getFullYear();
+                var edate = extractdate;
+                var dtime = currentdate.toDateString(); 
+                var format = dtime.substr(dtime.indexOf(' ') + 1);
             $('.display').DataTable( {
                 "bStateSave": true,
                 dom: 'Blfrtip',
@@ -334,8 +333,8 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        messageTop: edate,
-                        title: 'Summary List',
+                        messageTop: 'Date Range: ' + edate,
+                        title: 'Summary List for: ' + edate + ' Extracted on: ' + format,
                         exportOptions: {
                             columns: ':visible'
                         }
@@ -343,7 +342,7 @@
                     {
                         extend: 'pdf',
                         messageTop: edate,
-                        title: 'Summary List',
+                        title: datetime,
                         exportOptions: {
                             columns: ':visible'
                         }
