@@ -281,12 +281,14 @@ class Employee_model extends CI_Model {
             employment_info.date_hired as date_hired,
             employee_status.name as employee_status,
             employment_info.position as position,
-            company.code as company,
+            company.code as company, 
             department.name as department,
 			
 			employment_info.company as company_id,
 			employment_info.department as department_id,
 			employee_biometric.biometric_number as biometric_id,
+
+			schedules.is_flexi as flexi_time
 			
 		");
 		$this->db->from('blaine_intranet.employees');
@@ -295,7 +297,8 @@ class Employee_model extends CI_Model {
         $this->db->join('blaine_intranet.company', 'blaine_intranet.employment_info.company = blaine_intranet.company.id');
         $this->db->join('blaine_intranet.department', 'blaine_intranet.employment_info.department = blaine_intranet.department.id');
 		$this->db->join('blaine_timekeeping.employee_biometric', 'blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number', 'left');
-        $this->db->order_by('blaine_intranet.employees.last_name', 'ASC');
+		$this->db->join('blaine_timekeeping.schedules', 'blaine_timekeeping.schedules.employee_number = blaine_intranet.employees.employee_number','left');
+		$this->db->order_by('blaine_intranet.employees.last_name', 'ASC');
         $this->db->where('blaine_intranet.employees.is_active', 1);
 		
 		$query = $this->db->get();
@@ -431,7 +434,7 @@ class Employee_model extends CI_Model {
 			company.name as company_name,
 			rank.name as rank_name,
 			department.name as department_name,
-			work_group.name as work_group
+			work_group.name as work_group,
 
 		");
 		$this->db->from('employees');

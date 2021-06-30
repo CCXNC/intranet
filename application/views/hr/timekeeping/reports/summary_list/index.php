@@ -20,9 +20,9 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row" style="float: right">
-                    <input type="submit" title="Submit Date" class="btn btn-info" value="SUBMIT">
+           <div class="">
+                <div class="row" style="">
+                &nbsp;&nbsp;<input type="submit" title="Submit Date" class="btn btn-info" value="SUBMIT">
                     </form> &nbsp;
                     <form method="post" action="<?php echo base_url();?>reports/process_tard_ut_nd" enctype="multipart/form-data"> 
                     <input class="btn btn-success" id="processTime" type="submit" value="VIEW DATA">
@@ -495,8 +495,20 @@
                                                 }  
                                                 elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
                                                 {
-                                                    echo '0';
-                                                    $late_mins = 0;
+                                                    if($halfday_in_mins > $total_time_in_mins  && $employee->ut_day == 'pm')
+                                                    {
+                                                        $tardiness_mins = $total_time_in_mins - $total_sched_time_in_mins;
+                                                        $hours = intval($tardiness_mins/60);
+                                                        $min_diff = intval($tardiness_mins%60);
+                                                        $minutes = sprintf("%02d", $min_diff);
+                                                        echo $hours."|".$minutes."";
+                                                        $late_mins = $tardiness_mins;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '0';
+                                                        $late_mins = 0;
+                                                    }
                                                 }
                                                 elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
                                                 {
@@ -555,7 +567,7 @@
                                         else
                                         {
                                             $late_mins = 0;
-                                            echo ' ';
+                                            echo '0';
                                         }
                                     ?>
                                     <input type="text" name="tardiness[]" value="<?php echo $late_mins; ?>">

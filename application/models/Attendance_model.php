@@ -30,9 +30,10 @@ class Attendance_model extends CI_Model
 			slvl.type as leave_type,
 			slvl.leave_day as leave_day,
 			department.name as department_name,
-			department.id as department_id,
+			department.id as department_id, 
 			company.id as company_id,
 			company.code as company_name,
+			rank.name as rank_name,
 			ob.purpose as ob_purpose,
 			ob.remarks as ob_remarks,
 			slvl.reason as leave_reason
@@ -48,6 +49,7 @@ class Attendance_model extends CI_Model
 		$this->db->join('employment_info', 'employment_info.employee_number = employees.employee_number');
 		$this->db->join('department', 'employment_info.department = department.id');
 		$this->db->join('company', 'employment_info.company = company.id');
+		$this->db->join('rank', 'employment_info.rank = rank.id');
 
 		$this->db->order_by('employees.last_name','ASC');
 		$this->db->order_by('attendance_in.date','ASC');
@@ -933,8 +935,11 @@ class Attendance_model extends CI_Model
 			undertime.date_ut as date_ut,
 			undertime.ut_num as ut_num,
 			undertime.process_by as ut_process_by,
+			undertime.day as ut_day,
 			overtime.date_ot as date_ot,
 			overtime.employee_number as ot_employee_number,
+			overtime.time_start as ot_time_in,
+			overtime.time_end as ot_time_out,
 			schedules.time_in as sched_time_in,
 			schedules.time_out as sched_time_out,
 			schedules.grace_period as grace_period,
@@ -954,7 +959,7 @@ class Attendance_model extends CI_Model
 		$this->db->join('blaine_timekeeping.employee_biometric', 'blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number', 'left');
 		$this->db->join('blaine_timekeeping.attendance_in', 'blaine_timekeeping.attendance_in.biometric_id = blaine_timekeeping.employee_biometric.biometric_number AND blaine_timekeeping.individual_temp_date.date = blaine_timekeeping.attendance_in.date','left');
 		$this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_out.biometric_id = blaine_timekeeping.employee_biometric.biometric_number AND blaine_timekeeping.individual_temp_date.date = blaine_timekeeping.attendance_out.date','left');
-		$this->db->join('blaine_timekeeping.overtime','blaine_timekeeping.overtime.date_ot = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.overtime.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number','left');
+		$this->db->join('blaine_timekeeping.overtime','blaine_timekeeping.overtime.date_ot = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.ob','blaine_timekeeping.ob.date_ob = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.ob.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.ob.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.slvl','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.slvl.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.undertime','blaine_timekeeping.undertime.date_ut = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.undertime.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.undertime.employee_number = blaine_intranet.employees.employee_number','left');
@@ -1083,6 +1088,7 @@ class Attendance_model extends CI_Model
             a.time_end as time_end,
             a.task as task,
             a.type as type,
+			a.status as status,
             CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
             attendance_in.time as actual_time_in,
             attendance_out.time as actual_time_out,

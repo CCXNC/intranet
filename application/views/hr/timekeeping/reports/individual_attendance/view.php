@@ -303,6 +303,10 @@
                                                         {
                                                             echo $employee->time_in; 
                                                         }
+                                                        elseif($employee->flexi_time == 1)
+                                                        {
+                                                            echo $employee->time_in; 
+                                                        }
                                                         else
                                                         {
                                                             if($days_temp_date == '6' || $days_temp_date == '0' && $employee->employee_number != '03151077') 
@@ -384,6 +388,10 @@
                                                             echo $employee->time_out; 
                                                         }
                                                         elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
+                                                        {
+                                                            echo $employee->time_out; 
+                                                        }
+                                                        elseif($employee->flexi_time == 1)
                                                         {
                                                             echo $employee->time_out; 
                                                         }
@@ -481,8 +489,20 @@
                                                         }  
                                                         elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
                                                         {
-                                                            echo '0';
-                                                            $late_mins = 0;
+                                                            if($halfday_in_mins > $total_time_in_mins  && $employee->ut_day == 'pm')
+                                                            {
+                                                                $tardiness_mins = $total_time_in_mins - $total_sched_time_in_mins;
+                                                                $hours = intval($tardiness_mins/60);
+                                                                $min_diff = intval($tardiness_mins%60);
+                                                                $minutes = sprintf("%02d", $min_diff);
+                                                                echo $hours."|".$minutes."";
+                                                                $late_mins = $tardiness_mins;
+                                                            }
+                                                            else
+                                                            {
+                                                                echo '0';
+                                                                $late_mins = 0;
+                                                            }
                                                         }
                                                         elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
                                                         {
@@ -619,9 +639,23 @@
                                                         }  
                                                         elseif($employee->employee_number == $employee->ut_employee_number && $employee->temp_date == $employee->date_ut)
                                                         {
-                                                            echo '0';
-                                                            $late_mins = 0;
+                                                            //echo $halfday_in_mins .'>'. $total_time_in_mins;
+                                                            if($halfday_in_mins > $total_time_in_mins  && $employee->ut_day == 'pm')
+                                                            {
+                                                                $tardiness_mins = $total_time_in_mins - $total_sched_time_in_mins;
+                                                                $hours = intval($tardiness_mins/60);
+                                                                $min_diff = intval($tardiness_mins%60);
+                                                                $minutes = sprintf("%02d", $min_diff);
+                                                                echo $hours."|".$minutes."";
+                                                                $late_mins = $tardiness_mins;
+                                                            }
+                                                            else
+                                                            {
+                                                                echo '0';
+                                                                $late_mins = 0;
+                                                            }
                                                         }
+                                                     
                                                         elseif($employee->employee_number == $employee->holiday_employee_number && $employee->temp_date == $employee->holiday_date)
                                                         {
                                                             echo '0';
@@ -1284,529 +1318,46 @@
                                             ?>
                                         </td>
                                         <!-- NIGHT DIFF -->
-                                        <td title="
+                                        <td>
                                             <?php
                                                 $start_nd = 1320;
                                                 $end_nd = 360;
                                                 //if($employee->employee_number == $employee->ot_employee_number && $employee->date_ot == $employee->temp_date)
                                                 if($change_sched == 1 || $employee->employee_number == $employee->ot_employee_number && $employee->date_ot == $employee->temp_date || $employee->flexi_time == 1)
                                                 {
-                                                    //
-                                                    if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $start_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                    {
-                                                        $total_nd_am = $end_nd - $total_time_in_mins;
-                                                        $total_nd_pm = $total_time_out_mins - $start_nd;
-
-                                                        if($total_time_in_mins == 01 && $total_time_out_mins == 1439)
-                                                        {
-                                                            $total_nd_am = $end_nd - $total_time_in_mins + 1;
-                                                            $total_nd_pm = $total_time_out_mins - $start_nd + 1;
-                                                        }
-                                                        elseif($total_time_in_mins == 01 && $total_time_out_mins != 1439)
-                                                        {
-                                                            $total_nd_am = $end_nd - $total_time_in_mins + 1;
-                                                            $total_nd_pm = $total_time_out_mins - $start_nd;
-                                                        }
-                                                        elseif($total_time_in_mins != 01 && $total_time_out_mins == 1439)
-                                                        {
-                                                            $total_nd_am = $end_nd - $total_time_in_mins;
-                                                            $total_nd_pm = $total_time_out_mins - $start_nd + 1;
-                                                        }
-                                                        else
-                                                        {
-                                                            $total_nd_am = $end_nd - $total_time_in_mins;
-                                                            $total_nd_pm = $total_time_out_mins - $start_nd;
-                                                        }
-
-                                                        $total_nd = $total_nd_am + $total_nd_pm;
-
-                                                        $hours = intval($total_nd/60);
-                                                        $min_diff = intval($total_nd%60);
-                                                        if($total_nd >= 30)
-                                                        {
-                                                            if($min_diff >= 30) {
-                                                                echo $hours . ' HOUR/S AND ' . ' 30 MINUTES';
-                                                                $hr_diff = $hours * 60;
-                                                                $nd = $hr_diff + 30;
-                                                                $nd_compute =  $nd;
-                                                            } 
-                                                            elseif($min_diff <= 30) {
-                                                                echo $hours . ' HOUR/S AND ' . ' 00 MINUTES';
-                                                                $hr_diff = $hours * 60;
-                                                                $nd = $hr_diff + 00;
-                                                                $nd_compute =  $nd;
-                                                            }
-                                                            else
-                                                            {
-                                                                $nd_compute = 0;
-                                                                //echo 0;
-                                                            }
-                                                            
-                                                        }
-                                                        else
-                                                        {
-                                                            $nd_compute = 0;
-                                                            //echo 0;
-                                                        }
-                                                    
-                                                    }
-                                                    else
-                                                    {
-                                                        if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd > $total_time_out_mins && $employee->date_out != NULL)
-                                                        {
-                                                            if($total_time_in_mins == 01)
-                                                            {
-                                                                $total_nd_am = $total_time_out_mins - $total_time_in_mins + 1;
-                                                            }
-                                                            else
-                                                            {
-                                                                $total_nd_am = $total_time_out_mins - $total_time_in_mins;
-                                                            }    
-
-                                                            $hours = intval($total_nd_am/60);
-                                                            $min_diff = intval($total_nd_am%60);
-                                                            
-                                                            //echo $total_nd_am;
-                                                            if($total_nd_am >= 30)
-                                                            {
-                                                                if($min_diff >= 30) {
-                                                                    echo $hours . ' HOUR/S AND ' . ' 30 MINUTES';
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 30;
-                                                                    $nd_compute =  $nd;
-                                                                } 
-                                                                elseif($min_diff <= 30) 
-                                                                {
-                                                                    echo $hours . ' HOUR/S AND ' . ' 00 MINUTES';
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 00;
-                                                                    $nd_compute =  $nd;
-                                                                }
-                                                                else
-                                                                {
-                                                                    $nd_compute = 0;
-                                                                    //echo 0;
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                $nd_compute = 0;
-                                                                //echo 0;
-                                                            }
-                                                        
-                                                        }
-                                                        elseif($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                        {
-                                                            if($total_time_in_mins == 01)
-                                                            {
-                                                                $total_nd_am = $end_nd - $total_time_in_mins + 1;
-                                                            }
-                                                            else
-                                                            {
-                                                                $total_nd_am = $end_nd - $total_time_in_mins;
-                                                            }    
-
-                                                            $hours = intval($total_nd_am/60);
-                                                            $min_diff = intval($total_nd_am%60);
-                                                            
-                                                            //echo $total_nd_am;
-                                                            if($total_nd_am >= 30)
-                                                            {
-                                                                if($min_diff >= 30) {
-                                                                    echo $hours . ' HOUR/S AND ' . ' 30 MINUTES';
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 30;
-                                                                    $nd_compute =  $nd;
-                                                                } 
-                                                                elseif($min_diff <= 30) {
-                                                                    echo $hours . ' HOUR/S AND ' . ' 00 MINUTES';
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 00;
-                                                                    $nd_compute =  $nd;
-                                                                }
-                                                                else
-                                                                {
-                                                                    $nd_compute = 0;
-                                                                    //echo 0;
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                $nd_compute = 0;
-                                                                //echo 0;
-                                                            }
-                                                        
-                                                        }
-                                                        elseif($start_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                        {
-
-                                                            if($total_time_out_mins == 1439)
-                                                            {
-                                                                $total_nd_pm = $total_time_out_mins - $start_nd + 1;
-                                                            }
-                                                            else
-                                                            {
-                                                                $total_nd_pm = $total_time_out_mins - $start_nd;
-                                                            }
-                                                            
-                                                            $hours = intval($total_nd_pm/60);
-                                                            $min_diff = intval($total_nd_pm%60);
-
-                                                            if($total_nd_pm >= 30)
-                                                            {
-                                                                if($min_diff >= 30) {
-                                                                    echo $hours . ' HOUR/S AND ' . ' 30 MINUTES';
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 30;
-                                                                    $nd_compute =  $nd;
-                                                                } 
-                                                                elseif($min_diff <= 30) {
-                                                                    echo $hours . ' HOUR/S AND ' . ' 00 MINUTES';
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 00;
-                                                                    $nd_compute =  $nd;
-                                                                }
-                                                                else
-                                                                {
-                                                                    $nd_compute = 0;
-                                                                    //echo 0;
-                                                                }   
-                                                            
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            $nd_compute = 0;
-                                                            //echo 0;
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    echo ' ';
-                                                    $nd_compute = 0;
-                                                }
-                                            ?>
-                                        ">
-                                            <?php
-                                                $start_nd = 1320;
-                                                $end_nd = 360;
-                                                //if($employee->employee_number == $employee->ot_employee_number && $employee->date_ot == $employee->temp_date)
-                                                if($change_sched == 1 || $employee->employee_number == $employee->ot_employee_number && $employee->date_ot == $employee->temp_date || $employee->flexi_time == 1)
-                                                {
-                                                    //
-                                                    if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $start_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                    {
-                                                        $total_nd_am = $end_nd - $total_time_in_mins;
-                                                        $total_nd_pm = $total_time_out_mins - $start_nd;
-
-                                                        if($total_time_in_mins == 01 && $total_time_out_mins == 1439)
-                                                        {
-                                                            $total_nd_am = $end_nd - $total_time_in_mins + 1;
-                                                            $total_nd_pm = $total_time_out_mins - $start_nd + 1;
-                                                        }
-                                                        elseif($total_time_in_mins == 01 && $total_time_out_mins != 1439)
-                                                        {
-                                                            $total_nd_am = $end_nd - $total_time_in_mins + 1;
-                                                            $total_nd_pm = $total_time_out_mins - $start_nd;
-                                                        }
-                                                        elseif($total_time_in_mins != 01 && $total_time_out_mins == 1439)
-                                                        {
-                                                            $total_nd_am = $end_nd - $total_time_in_mins;
-                                                            $total_nd_pm = $total_time_out_mins - $start_nd + 1;
-                                                        }
-                                                        else
-                                                        {
-                                                            $total_nd_am = $end_nd - $total_time_in_mins;
-                                                            $total_nd_pm = $total_time_out_mins - $start_nd;
-                                                        }
-
-                                                        $total_nd = $total_nd_am + $total_nd_pm;
-
-                                                        $hours = intval($total_nd/60);
-                                                        $min_diff = intval($total_nd%60);
-                                                        if($total_nd >= 30)
-                                                        {
-                                                            if($min_diff >= 30) {
-                                                                echo $hours . '.' . 5;
-                                                                $hr_diff = $hours * 60;
-                                                                $nd = $hr_diff + 30;
-                                                                $nd_compute =  $nd;
-                                                            } 
-                                                            elseif($min_diff <= 30) {
-                                                                echo $hours . '.' . 00;
-                                                                $hr_diff = $hours * 60;
-                                                                $nd = $hr_diff + 00;
-                                                                $nd_compute =  $nd;
-                                                            }
-                                                            else
-                                                            {
-                                                                $nd_compute = 0;
-                                                                //echo 0;
-                                                            }
-                                                            
-                                                        }
-                                                        else
-                                                        {
-                                                            $nd_compute = 0;
-                                                            //echo 0;
-                                                        }
-                                                    
-                                                    }
-                                                    else
-                                                    {
-                                                        if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd > $total_time_out_mins && $employee->date_out != NULL)
-                                                        {
-                                                            if($total_time_in_mins == 01)
-                                                            {
-                                                                $total_nd_am = $total_time_out_mins - $total_time_in_mins + 1;
-                                                            }
-                                                            else
-                                                            {
-                                                                $total_nd_am = $total_time_out_mins - $total_time_in_mins;
-                                                            }    
-
-                                                            $hours = intval($total_nd_am/60);
-                                                            $min_diff = intval($total_nd_am%60);
-                                                            
-                                                            //echo $total_nd_am;
-                                                            if($total_nd_am >= 30)
-                                                            {
-                                                                if($min_diff >= 30) {
-                                                                    echo $hours . '.' . 5;
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 30;
-                                                                    $nd_compute =  $nd;
-                                                                } 
-                                                                elseif($min_diff <= 30) 
-                                                                {
-                                                                    echo $hours . '.' . 00;
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 00;
-                                                                    $nd_compute =  $nd;
-                                                                }
-                                                                else
-                                                                {
-                                                                    $nd_compute = 0;
-                                                                    //echo 0;
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                $nd_compute = 0;
-                                                                //echo 0;
-                                                            }
-                                                        
-                                                        }
-                                                        elseif($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                        {
-                                                            if($total_time_in_mins == 01)
-                                                            {
-                                                                $total_nd_am = $end_nd - $total_time_in_mins + 1;
-                                                            }
-                                                            else
-                                                            {
-                                                                $total_nd_am = $end_nd - $total_time_in_mins;
-                                                            }    
-
-                                                            $hours = intval($total_nd_am/60);
-                                                            $min_diff = intval($total_nd_am%60);
-                                                            
-                                                            //echo $total_nd_am;
-                                                            if($total_nd_am >= 30)
-                                                            {
-                                                                if($min_diff >= 30) {
-                                                                    echo $hours . '.' . 5;
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 30;
-                                                                    $nd_compute =  $nd;
-                                                                } 
-                                                                elseif($min_diff <= 30) {
-                                                                    echo $hours . '.' . 00;
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 00;
-                                                                    $nd_compute =  $nd;
-                                                                }
-                                                                else
-                                                                {
-                                                                    $nd_compute = 0;
-                                                                    //echo 0;
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                $nd_compute = 0;
-                                                                //echo 0;
-                                                            }
-                                                        
-                                                        }
-                                                        elseif($start_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                        {
-
-                                                            if($total_time_out_mins == 1439)
-                                                            {
-                                                                $total_nd_pm = $total_time_out_mins - $start_nd + 1;
-                                                            }
-                                                            else
-                                                            {
-                                                                $total_nd_pm = $total_time_out_mins - $start_nd;
-                                                            }
-                                                            
-                                                            $hours = intval($total_nd_pm/60);
-                                                            $min_diff = intval($total_nd_pm%60);
-
-                                                            if($total_nd_pm >= 30)
-                                                            {
-                                                                if($min_diff >= 30) {
-                                                                    echo $hours . '.' . 5;
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 30;
-                                                                    $nd_compute =  $nd;
-                                                                } 
-                                                                elseif($min_diff <= 30) {
-                                                                    echo $hours . '.' . 00;
-                                                                    $hr_diff = $hours * 60;
-                                                                    $nd = $hr_diff + 00;
-                                                                    $nd_compute =  $nd;
-                                                                }
-                                                                else
-                                                                {
-                                                                    $nd_compute = 0;
-                                                                    //echo 0;
-                                                                }   
-                                                            
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            $nd_compute = 0;
-                                                            //echo 0;
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    echo ' ';
-                                                    $nd_compute = 0;
-                                                }
-                                                /*if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $start_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                {
-                                                    $total_nd_am = $end_nd - $total_time_in_mins;
-                                                    $total_nd_pm = $total_time_out_mins - $start_nd;
-                                                    $total_nd = $total_nd_am + $total_nd_pm;
-
-                                                    $hours = intval($total_nd/60);
-                                                    $min_diff = intval($total_nd%60);
-                                                    if($total_nd >= 30)
-                                                    {
-                                                        if($min_diff >= 30) {
-                                                            echo $hours . '.' . 5;
-                                                            $hr_diff = $hours * 60;
-                                                            $nd = $hr_diff + 30;
-                                                            $nd_compute =  $nd;
-                                                        } 
-                                                        elseif($min_diff <= 30) {
-                                                            echo $hours . '.' . 00;
-                                                            $hr_diff = $hours * 60;
-                                                            $nd = $hr_diff + 00;
-                                                            $nd_compute =  $nd;
-                                                        }
-                                                        else
-                                                        {
-                                                            $nd_compute = 0;
-                                                            //echo 0;
-                                                        }
-                                                        
-                                                    }
-                                                    else
-                                                    {
-                                                        $nd_compute = 0;
-                                                        //echo 0;
-                                                    }
                                                    
-                                                }
-                                                else
-                                                {
-                                                    if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd > $total_time_out_mins && $employee->date_out != NULL)
+                                                     //echo $total_time_out_mins;
+                                                    if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $start_nd < $total_time_out_mins && $employee->date_out != NULL)
                                                     {
-                                                        $total_nd_am = $total_time_out_mins - $total_time_in_mins;
-
-                                                        $hours = intval($total_nd_am/60);
-                                                        $min_diff = intval($total_nd_am%60);
-                                                        
-                                                        //echo $total_nd_am;
-                                                        if($total_nd_am >= 30)
-                                                        {
-                                                            if($min_diff >= 30) {
-                                                                echo $hours . '.' . 5;
-                                                                $hr_diff = $hours * 60;
-                                                                $nd = $hr_diff + 30;
-                                                                $nd_compute =  $nd;
-                                                            } 
-                                                            elseif($min_diff <= 30) 
-                                                            {
-                                                                echo $hours . '.' . 00;
-                                                                $hr_diff = $hours * 60;
-                                                                $nd = $hr_diff + 00;
-                                                                $nd_compute =  $nd;
-                                                            }
-                                                            else
-                                                            {
-                                                                $nd_compute = 0;
-                                                                //echo 0;
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            $nd_compute = 0;
-                                                            //echo 0;
-                                                        }
-                                                       
-                                                    }
-                                                    elseif($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                    {
-                                                       
                                                         $total_nd_am = $end_nd - $total_time_in_mins;
-
-                                                        $hours = intval($total_nd_am/60);
-                                                        $min_diff = intval($total_nd_am%60);
-                                                        
-                                                        //echo $total_nd_am;
-                                                        if($total_nd_am >= 30)
-                                                        {
-                                                            if($min_diff >= 30) {
-                                                                echo $hours . '.' . 5;
-                                                                $hr_diff = $hours * 60;
-                                                                $nd = $hr_diff + 30;
-                                                                $nd_compute =  $nd;
-                                                            } 
-                                                            elseif($min_diff <= 30) {
-                                                                echo $hours . '.' . 00;
-                                                                $hr_diff = $hours * 60;
-                                                                $nd = $hr_diff + 00;
-                                                                $nd_compute =  $nd;
-                                                            }
-                                                            else
-                                                            {
-                                                                $nd_compute = 0;
-                                                                //echo 0;
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            $nd_compute = 0;
-                                                            //echo 0;
-                                                        }
-                                                       
-                                                    }
-                                                    elseif($start_nd < $total_time_out_mins && $employee->date_out != NULL)
-                                                    {
                                                         $total_nd_pm = $total_time_out_mins - $start_nd;
 
-                                                        $hours = intval($total_nd_pm/60);
-                                                        $min_diff = intval($total_nd_pm%60);
+                                                        if($total_time_in_mins == 01 && $total_time_out_mins == 1439)
+                                                        {
+                                                            $total_nd_am = $end_nd - $total_time_in_mins + 1;
+                                                            $total_nd_pm = $total_time_out_mins - $start_nd + 1;
+                                                        }
+                                                        elseif($total_time_in_mins == 01 && $total_time_out_mins != 1439)
+                                                        {
+                                                            $total_nd_am = $end_nd - $total_time_in_mins + 1;
+                                                            $total_nd_pm = $total_time_out_mins - $start_nd;
+                                                        }
+                                                        elseif($total_time_in_mins != 01 && $total_time_out_mins == 1439)
+                                                        {
+                                                            $total_nd_am = $end_nd - $total_time_in_mins;
+                                                            $total_nd_pm = $total_time_out_mins - $start_nd + 1;
+                                                        }
+                                                        else
+                                                        {
+                                                            $total_nd_am = $end_nd - $total_time_in_mins;
+                                                            $total_nd_pm = $total_time_out_mins - $start_nd;
+                                                        }
 
-                                                        if($total_nd_pm >= 30)
+                                                        $total_nd = $total_nd_am + $total_nd_pm;
+
+                                                        $hours = intval($total_nd/60);
+                                                        $min_diff = intval($total_nd%60);
+                                                        if($total_nd >= 30)
                                                         {
                                                             if($min_diff >= 30) {
                                                                 echo $hours . '.' . 5;
@@ -1824,18 +1375,152 @@
                                                             {
                                                                 $nd_compute = 0;
                                                                 //echo 0;
-                                                            }   
-                                                          
+                                                            }
+                                                            
                                                         }
+                                                        else
+                                                        {
+                                                            $nd_compute = 0;
+                                                            //echo 0;
+                                                        }
+                                                    
                                                     }
                                                     else
                                                     {
-                                                        $nd_compute = 0;
-                                                        //echo 0;
-                                                    }
-                                                }*/
+                                                        if($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd > $total_time_out_mins && $employee->date_out != NULL)
+                                                        {
+                                                            if($total_time_in_mins == 01)
+                                                            {
+                                                                $total_nd_am = $total_time_out_mins - $total_time_in_mins + 1;
+                                                            }
+                                                            else
+                                                            {
+                                                                $total_nd_am = $total_time_out_mins - $total_time_in_mins;
+                                                            }    
 
-                                               
+                                                            $hours = intval($total_nd_am/60);
+                                                            $min_diff = intval($total_nd_am%60);
+                                                            
+                                                            //echo $total_nd_am;
+                                                            if($total_nd_am >= 30)
+                                                            {
+                                                                if($min_diff >= 30) {
+                                                                    echo $hours . '.' . 5;
+                                                                    $hr_diff = $hours * 60;
+                                                                    $nd = $hr_diff + 30;
+                                                                    $nd_compute =  $nd;
+                                                                } 
+                                                                elseif($min_diff <= 30) 
+                                                                {
+                                                                    echo $hours . '.' . 00;
+                                                                    $hr_diff = $hours * 60;
+                                                                    $nd = $hr_diff + 00;
+                                                                    $nd_compute =  $nd;
+                                                                }
+                                                                else
+                                                                {
+                                                                    $nd_compute = 0;
+                                                                    //echo 0;
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                $nd_compute = 0;
+                                                                //echo 0;
+                                                            }
+                                                        
+                                                        }
+                                                        elseif($end_nd > $total_time_in_mins && $employee->date_in != NULL && $end_nd < $total_time_out_mins && $employee->date_out != NULL)
+                                                        {
+                                                            if($total_time_in_mins == 01)
+                                                            {
+                                                                $total_nd_am = $end_nd - $total_time_in_mins + 1;
+                                                            }
+                                                            else
+                                                            {
+                                                                $total_nd_am = $end_nd - $total_time_in_mins;
+                                                            }    
+
+                                                            $hours = intval($total_nd_am/60);
+                                                            $min_diff = intval($total_nd_am%60);
+                                                            
+                                                            //echo $total_nd_am;
+                                                            if($total_nd_am >= 30)
+                                                            {
+                                                                if($min_diff >= 30) {
+                                                                    echo $hours . '.' . 5;
+                                                                    $hr_diff = $hours * 60;
+                                                                    $nd = $hr_diff + 30;
+                                                                    $nd_compute =  $nd;
+                                                                } 
+                                                                elseif($min_diff <= 30) {
+                                                                    echo $hours . '.' . 00;
+                                                                    $hr_diff = $hours * 60;
+                                                                    $nd = $hr_diff + 00;
+                                                                    $nd_compute =  $nd;
+                                                                }
+                                                                else
+                                                                {
+                                                                    $nd_compute = 0;
+                                                                    //echo 0;
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                $nd_compute = 0;
+                                                                //echo 0;
+                                                            }
+                                                        
+                                                        }
+                                                        elseif($start_nd < $total_time_out_mins && $employee->date_out != NULL)
+                                                        {
+
+                                                            if($total_time_out_mins == 1439)
+                                                            {
+                                                                $total_nd_pm = $total_time_out_mins - $start_nd + 1;
+                                                            }
+                                                            else
+                                                            {
+                                                                $total_nd_pm = $total_time_out_mins - $start_nd;
+                                                            }
+                                                            
+                                                            $hours = intval($total_nd_pm/60);
+                                                            $min_diff = intval($total_nd_pm%60);
+
+                                                            if($total_nd_pm >= 30)
+                                                            {
+                                                                if($min_diff >= 30) {
+                                                                    echo $hours . '.' . 5;
+                                                                    $hr_diff = $hours * 60;
+                                                                    $nd = $hr_diff + 30;
+                                                                    $nd_compute =  $nd;
+                                                                } 
+                                                                elseif($min_diff <= 30) {
+                                                                    echo $hours . '.' . 00;
+                                                                    $hr_diff = $hours * 60;
+                                                                    $nd = $hr_diff + 00;
+                                                                    $nd_compute =  $nd;
+                                                                }
+                                                                else
+                                                                {
+                                                                    $nd_compute = 0;
+                                                                    //echo 0;
+                                                                }   
+                                                            
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            $nd_compute = 0;
+                                                            //echo 0;
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                   echo ' ';
+                                                   $nd_compute = 0;
+                                                }
                                             ?>
                                             <?php  $total_night_diff += $nd_compute; ?>
                                         </td>
@@ -2110,6 +1795,7 @@
                         <th scope="col">SH</th>
                         <th scope="col">SHOT</th>
                         <th scope="col">TASK</th>
+                        <th scope="col">REMARKS</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -2235,8 +1921,9 @@
                                         $ot_total_am_time_out_mins = $ot_time_out_hr_to_mins + $ot_time_out_mins;
                                         //echo 'OT :' .$ot_total_am_time_in_mins . '|' . $ot_total_am_time_out_mins;
                                     
-                                        //echo $total_time_in_mins . ' | ' . $ot_total_am_time_in_mins . ' ---- ' . $sched_time_in_mins .' | ' . $ot_total_am_time_out_mins;
-                                        if($total_time_in_mins <= $ot_total_am_time_in_mins)
+                                        
+                                        //echo $total_time_in_mins . ' < ' . $ot_total_am_time_in_mins . ' ---- ' . $sched_time_in_mins .' > ' . $ot_total_am_time_out_mins . ')';
+                                        if($total_time_in_mins <= $ot_total_am_time_in_mins && $sched_time_in_mins >= $ot_total_am_time_out_mins)
                                         {
                                             //echo 'sucess';
                                             $rot_am = 0;
@@ -2323,9 +2010,9 @@
                 
                                         $ot_time_out_hr_to_mins = $ot_time_out_hours * 60;
                                         $ot_total_time_out_mins = $ot_time_out_hr_to_mins + $ot_time_out_mins;
-                                        //echo 'OT :' .$ot_total_time_in_mins . '|' . $ot_total_time_out_mins;
+                                        //echo 'OT :' .$ot_total_time_in_mins . '>' . $total_time_in_mins . '|' . $ot_total_time_out_mins . '<' . $total_time_out_mins;
 
-                                        if($total_time_in_mins <= $ot_total_time_in_mins && $total_time_out_mins <= $ot_total_time_out_mins)
+                                        if($ot_total_time_in_mins >= $total_time_in_mins && $ot_total_time_out_mins <= $total_time_out_mins)
                                         {
                                             //echo ' sucess';
                                             $restriction = 0;
@@ -2751,6 +2438,7 @@
                                         ?>
                                     </td>
                                     <td><?php echo substr($ot->task,0,50); ?></td>
+                                    <td><?php if($ot->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
                                     <?php $total_rotam += $rotam_total_mins; $total_rotpm += $rotpm_total_mins; $total_rd += $rd_total_mins; $total_rdot += $rdot_total_mins; $total_rh += $rh_total_mins; $total_rhot += $rhot_total_mins; $total_sh += $sh_total_mins; $total_shot += $shot_total_mins; ?>
                                 </tr>
                             <?php endforeach; ?>

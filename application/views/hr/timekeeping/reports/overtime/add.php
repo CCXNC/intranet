@@ -24,6 +24,7 @@
     <form method="post" action="<?php echo base_url(); ?>reports/add_ot" enctype="multipart/form-data"> 
         <div class="card-body" id="table_field">
             <div class="row" >
+                
                 <div class="col-md-12"> 
                     <div class="form-group">
                         <label class="">*Employee Name </label>
@@ -31,7 +32,7 @@
                             <option value="">SELECT EMPLOYEE</option>
                             <?php if($employees) : ?>
                             <?php foreach($employees as $employee) : ?>
-                                <option value="<?php echo $employee->emp_no . '|' . $employee->department_id . '|' . $employee->company_id; ?>"><?php echo $employee->fullname; ?></option>
+                                <option value="<?php echo $employee->emp_no . '|' . $employee->department_id . '|' . $employee->company_id . '|' . $employee->flexi_time; ?>"><?php echo $employee->fullname; ?></option>
                             <?php endforeach; ?>
                             <?php endif; ?>
                         </select>

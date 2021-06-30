@@ -1468,7 +1468,7 @@ class Report_model extends CI_Model {
         $blaine_timekeeping->where('id', $id);
         $query = $blaine_timekeeping->delete('undertime');
 
-        return $query;
+        return $query; 
     }
 
     public function add_overtime()
@@ -1479,6 +1479,7 @@ class Report_model extends CI_Model {
         $employee_number = $explod_data[0];
         $department = $explod_data[1];
         $company = $explod_data[2];
+        $is_flexi = $explod_data[3];
         $date_ot = $this->input->post('date_ot');
         $time_start = $this->input->post('time_start');
         $time_end = $this->input->post('time_end');
@@ -2613,59 +2614,119 @@ class Report_model extends CI_Model {
             }
             else
             {
-                //Delivery Drivers Helper Collectors
-                $less_daily_mins = $timediff;
-                $ot_hrs = floor($less_daily_mins / 60);
-                $ot_mins = $less_daily_mins % 60;
-
-                if($ot_mins >= 30) {
-                    //$total_ot = $ot_hrs . '.' . 30;
-                    $compute_hrs_to_mins = $ot_hrs * 60;
-                    $total_ot = $compute_hrs_to_mins + 30;
-
-                } elseif($ot_mins <= 30) {
-                    $compute_hrs_to_mins = $ot_hrs * 60;
-                    $total_ot = $compute_hrs_to_mins;
-                }
-
-                $hf = 720;
-                
-                if($w_date != 6 && $w_date != 0)
+                if($is_flexi != 1)
                 {
-                    if($time_start_num < 720)
+                    //NORMAL EMPLOYEE
+                    $less_daily_mins = $timediff;
+                    $ot_hrs = floor($less_daily_mins / 60);
+                    $ot_mins = $less_daily_mins % 60;
+
+                    if($ot_mins >= 30) {
+                        //$total_ot = $ot_hrs . '.' . 30;
+                        $compute_hrs_to_mins = $ot_hrs * 60;
+                        $total_ot = $compute_hrs_to_mins + 30;
+
+                    } elseif($ot_mins <= 30) {
+                        $compute_hrs_to_mins = $ot_hrs * 60;
+                        $total_ot = $compute_hrs_to_mins;
+                    }
+
+                    $hf = 720;
+                    
+                    if($w_date != 6 && $w_date != 0)
                     {
-                        $day = 'am';
+                        if($time_start_num < 720)
+                        {
+                            $day = 'am';
+                        }
+                        else
+                        {
+                            $day = 'pm';
+                        }
                     }
                     else
                     {
-                        $day = 'pm';
+                        $day = 'wd';
                     }
+                    $data = array(
+                        'employee_number' => $employee_number,
+                        'company'         => $company,
+                        'department'      => $department,
+                        'type'            => $type,
+                        'day'             => $day,
+                        'date_ot'         => $date_ot[$i],
+                        'time_start'      => $time_start[$i],
+                        'time_end'        => $time_end[$i],
+                        'sot'             => 0,
+                        'ot_num'          => $total_ot,
+                        'task'            => $task[$i],
+                        'created_by'      => $this->session->userdata('username'),
+                        'created_date'    => date('Y-m-d H:i:s')
+                    );
+
+                    $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                    $blaine_timekeeping->insert('overtime', $data);
+                    /*print_r('<pre>');
+                    print_r($data);
+                    print_r('</pre>');*/
                 }
                 else
                 {
-                    $day = 'wd';
-                }
-                $data = array(
-                    'employee_number' => $employee_number,
-                    'company'         => $company,
-                    'department'      => $department,
-                    'type'            => $type,
-                    'day'             => $day,
-                    'date_ot'         => $date_ot[$i],
-                    'time_start'      => $time_start[$i],
-                    'time_end'        => $time_end[$i],
-                    'sot'             => 0,
-                    'ot_num'          => $total_ot,
-                    'task'            => $task[$i],
-                    'created_by'      => $this->session->userdata('username'),
-                    'created_date'    => date('Y-m-d H:i:s')
-                );
+                    //Delivery Drivers Helper Collectors
+                    $less_daily_mins = $timediff - 600;
+                    $ot_hrs = floor($less_daily_mins / 60);
+                    $ot_mins = $less_daily_mins % 60;
 
-                $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-                $blaine_timekeeping->insert('overtime', $data);
-                /*print_r('<pre>');
-                print_r($data);
-                print_r('</pre>');*/
+                    if($ot_mins >= 30) {
+                        //$total_ot = $ot_hrs . '.' . 30;
+                        $compute_hrs_to_mins = $ot_hrs * 60;
+                        $total_ot = $compute_hrs_to_mins + 30;
+
+                    } elseif($ot_mins <= 30) {
+                        $compute_hrs_to_mins = $ot_hrs * 60;
+                        $total_ot = $compute_hrs_to_mins;
+                    }
+
+                    $hf = 720;
+                    
+                    if($w_date != 6 && $w_date != 0)
+                    {
+                        if($time_start_num < 720)
+                        {
+                            $day = 'am';
+                        }
+                        else
+                        {
+                            $day = 'pm';
+                        }
+                    }
+                    else
+                    {
+                        $day = 'wd';
+                    }
+                    $data = array(
+                        'employee_number' => $employee_number,
+                        'company'         => $company,
+                        'department'      => $department,
+                        'type'            => $type,
+                        'day'             => $day,
+                        'date_ot'         => $date_ot[$i],
+                        'time_start'      => $time_start[$i],
+                        'time_end'        => $time_end[$i],
+                        'sot'             => 0,
+                        'ot_num'          => $total_ot,
+                        'task'            => $task[$i],
+                        'created_by'      => $this->session->userdata('username'),
+                        'created_date'    => date('Y-m-d H:i:s')
+                    );
+
+                    $blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
+                    $blaine_timekeeping->insert('overtime', $data);
+                    /*print_r('<pre>');
+                    print_r($data);
+                    print_r('</pre>');*/
+                }
+               
             }
            
             $i++;
@@ -3250,7 +3311,7 @@ class Report_model extends CI_Model {
 			schedules.grace_period as grace_period,
 			schedules.is_flexi as flexi_time,
 			employee_holiday.employee_number as holiday_employee_number,
-			employee_holiday.date as holiday_date,
+			employee_holiday.date as holiday_date, 
 			employee_holiday.type as holiday_type,
 			employee_holiday.created_by as holiday_created_by,
             employee_schedules.employee_number as emp_sched_employee_number,
@@ -3267,7 +3328,7 @@ class Report_model extends CI_Model {
         $this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_out.biometric_id = blaine_timekeeping.employee_biometric.biometric_number AND blaine_timekeeping.cut_off_date.date = blaine_timekeeping.attendance_out.date','left');
 		$this->db->join('blaine_timekeeping.ob','blaine_timekeeping.ob.date_ob = blaine_timekeeping.cut_off_date.date AND blaine_timekeeping.ob.status = blaine_timekeeping.cut_off_date.batch AND blaine_timekeeping.ob.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.slvl','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.cut_off_date.date AND blaine_timekeeping.slvl.status = blaine_timekeeping.cut_off_date.batch AND blaine_timekeeping.slvl.employee_number = blaine_intranet.employees.employee_number','left');
-        $this->db->join('blaine_timekeeping.overtime','blaine_timekeeping.overtime.date_ot = blaine_timekeeping.cut_off_date.date AND blaine_timekeeping.overtime.status = blaine_timekeeping.cut_off_date.batch AND blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number','left');
+		$this->db->join('blaine_timekeeping.overtime','blaine_timekeeping.overtime.date_ot = blaine_timekeeping.cut_off_date.date AND blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number','left');
         $this->db->join('blaine_timekeeping.undertime','blaine_timekeeping.undertime.date_ut = blaine_timekeeping.cut_off_date.date AND blaine_timekeeping.undertime.status = blaine_timekeeping.cut_off_date.batch AND blaine_timekeeping.undertime.employee_number = blaine_intranet.employees.employee_number','left');
         $this->db->join('blaine_timekeeping.schedules', 'blaine_timekeeping.schedules.employee_number = blaine_intranet.employees.employee_number','left');
         $this->db->join('blaine_schedules.employee_holiday', 'blaine_timekeeping.cut_off_date.date = blaine_schedules.employee_holiday.date AND blaine_intranet.employees.employee_number = blaine_schedules.employee_holiday.employee_number','left');

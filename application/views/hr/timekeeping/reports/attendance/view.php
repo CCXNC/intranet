@@ -42,6 +42,7 @@
                 <th scope="col">NAME</th>
                 <th scope="col">BUSINESS UNIT</th>
                 <th scope="col">DEPARTMENT</th>
+                <th scope="col">RANK</th>
                 <th scope="col">DATE</th>
                 <th scope="col">TIME IN</th>
                 <th scope="col">TIME OUT</th>
@@ -61,6 +62,8 @@
                         <td><?php echo $employee->company_name; ?></td>
                         <!-- DEPARTMENT -->
                         <td><?php echo $employee->department_name; ?></td>
+                         <!-- DEPARTMENT -->
+                         <td><?php echo $employee->rank_name; ?></td>
                         <!-- DATE -->
                         <td>
                             <?php 

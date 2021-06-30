@@ -50,6 +50,7 @@
                 <th scope="col">SH</th>
                 <th scope="col">SHOT</th>
                 <th scope="col"><center><input type="checkbox" id="checkAll" name=""></center></th>
+                <th scope="col">REMARKS</th>
                 <th scope="col">TASK</th>
                 <th scope="col">ACTION</th>
             </tr>
@@ -176,15 +177,16 @@
                             $ot_total_am_time_out_mins = $ot_time_out_hr_to_mins + $ot_time_out_mins;
                             //echo 'OT :' .$ot_total_am_time_in_mins . '|' . $ot_total_am_time_out_mins;
                         
-                            //echo $total_time_in_mins . ' | ' . $ot_total_am_time_in_mins . ' ---- ' . $sched_time_in_mins .' | ' . $ot_total_am_time_out_mins;
-                            if($total_time_in_mins <= $ot_total_am_time_in_mins)
+                            
+                            //echo $total_time_in_mins . ' < ' . $ot_total_am_time_in_mins . ' ---- ' . $sched_time_in_mins .' > ' . $ot_total_am_time_out_mins . ')';
+                            if($total_time_in_mins <= $ot_total_am_time_in_mins && $sched_time_in_mins >= $ot_total_am_time_out_mins)
                             {
-                               //echo 'sucess';
+                                //echo 'sucess';
                                 $rot_am = 0;
                             }
                             else
                             {
-                               //echo 'fail';
+                                //echo 'fail';
                                 $rot_am = 1;
                             }
                             
@@ -210,7 +212,7 @@
                             $ot_pm_time_out_hours = $ot_pm_time_out[0];
                             $ot_pm_time_out_mins = $ot_pm_time_out[1];
     
-                            //COMPUTATION OF ROT PM TIME IN AND TIME OUT TO MINUTES
+                                //COMPUTATION OF ROT PM TIME IN AND TIME OUT TO MINUTES
                             $ot_pm_time_in_hr_to_mins = $ot_pm_time_in_hours * 60;
                             $ot_pm_total_am_time_in_mins = $ot_pm_time_in_hr_to_mins + $ot_pm_time_in_mins;
     
@@ -228,7 +230,7 @@
                                 $sched_out_total = $total_sched_time_out_mins;
                             }
                             //echo $ot_pm_total_am_time_out_mins. ' <= ' . $total_time_out_mins . '----' . $sched_out_total . ' <= ' . $ot_pm_total_am_time_in_mins;
-                            if($ot_pm_total_am_time_out_mins <= $total_time_out_mins && $sched_out_total <= $ot_pm_total_am_time_in_mins )
+                            if($ot_pm_total_am_time_out_mins <= $total_time_out_mins && $sched_out_total <= $ot_pm_total_am_time_in_mins)
                             {
                                 //echo '--sucess';
                                 $rot_pm = 0;
@@ -264,9 +266,9 @@
     
                             $ot_time_out_hr_to_mins = $ot_time_out_hours * 60;
                             $ot_total_time_out_mins = $ot_time_out_hr_to_mins + $ot_time_out_mins;
-                            //echo 'OT :' .$ot_total_time_in_mins . '|' . $ot_total_time_out_mins;
+                            //echo 'OT :' .$ot_total_time_in_mins . '>' . $total_time_in_mins . '|' . $ot_total_time_out_mins . '<' . $total_time_out_mins;
 
-                            if($total_time_in_mins <= $ot_total_time_in_mins && $total_time_out_mins <= $ot_total_time_out_mins)
+                            if($ot_total_time_in_mins >= $total_time_in_mins && $ot_total_time_out_mins <= $total_time_out_mins)
                             {
                                 //echo ' sucess';
                                 $restriction = 0;
@@ -281,7 +283,7 @@
                             $rot_am = 0;
                             $rot_pm = 0;
                         }
-                    ?> 
+                    ?>
                     <tr>
                         <td title="
                             <?php 
@@ -577,6 +579,7 @@
 
                         <td><?php if($ot->status != 1) : ?> <center><input type="checkbox" name="ot[]" value="<?php echo $ot->employee_number . '|' . $ot->date_ot; ?>"> <?php endif; ?> </center></td>
         
+                        <td><?php if($ot->status == 0) {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#e3342f;color:white;">FOR APPROVAL</p>';  } else {  echo '<p class="" style="text-align:center;padding:5px;margin-top:15px;background-color:#38c172;color:white;">APPROVED</p>'; } ?></td>
 
                         <!-- TASK -->
                         <td><?php echo substr($ot->task,0,50); ?></td>
