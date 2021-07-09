@@ -114,4 +114,20 @@ class Productivity extends CI_Controller {
         $data['main_content'] = 'productivity/softdev/index';
         $this->load->view('inc/navbar', $data);
     }
+
+    public function index_user_account()
+    {
+        $data['users'] = $this->softdev_model->get_user_account();
+        $data['main_content'] = 'productivity/softdev/user_account/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function reset_password($employee_number)
+    {
+        if($this->softdev_model->reset_to_default_password($employee_number))
+        {
+            $this->session->set_flashdata('success_msg', 'CHANGE PASSWORD SUCCESSFULLY UPDATED!');
+            redirect('productivity/index_user_account');
+        }
+    }
 }     

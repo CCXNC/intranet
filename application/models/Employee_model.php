@@ -266,6 +266,23 @@ class Employee_model extends CI_Model {
 
 		$this->db->insert('active_directory', $active_directory_data);
 
+		// USER ACCOUNT
+		$fname = strtolower($this->input->post('first_name'));
+		$first_letter_name = substr($fname, 0, 1);
+		$username_last_name = strtolower($this->input->post('last_name'));
+		$password = $this->input->post('employee_number');
+		$username = $first_letter_name . '' . $username_last_name;
+
+		$user_account_data = array(
+			'employee_number'  => $password,
+			'username'         => $username,
+			'default_password' => $password,
+			'password'         => md5($password),
+			'access_level_id'  => 3
+		);
+
+		$this->db->insert('users', $user_account_data);
+
 		$trans = $this->db->trans_complete();
 		return $trans;
 	
@@ -1159,7 +1176,7 @@ class Employee_model extends CI_Model {
 		print_r($employee_data);
 		print_r('</pre>');*/
 		
-
+		// UPDATE EMPLOYMENT INFO
 		$data = array(
 			'employee_status'   => $employee_status,
 			'date_termination'  => $date_termination,
@@ -1177,6 +1194,9 @@ class Employee_model extends CI_Model {
 		print_r($data);
 		print_r('</pre>');*/
 
+		// DELETE USER ACCOUNT
+		$this->db->where('employee_number', $employee_number);
+		$this->db->delete('users');
 
 		$trans = $this->db->trans_complete();
 		return $trans;

@@ -52,16 +52,7 @@ class User extends CI_Controller {
             }
            
         }
-    }
-
-    public function reset_password($employee_number)
-    {
-        if($this->user_model->reset_to_default_password($employee_number))
-        {
-            $this->session->set_flashdata('success_msg', 'RESET PASSWORD SUCCESSFULLY UPDATED!');
-            redirect('employee/index');
-        }
-    }
+    } 
 
     public function index_my_attendance()
     {
