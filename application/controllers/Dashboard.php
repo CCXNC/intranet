@@ -13,6 +13,10 @@ class Dashboard extends CI_Controller {
     function index() {
         $data['main_content'] = 'dashboard';
         $this->load->view('inc/navbar', $data);
-    
+    }
+
+    function hr_dashboard() {
+        $data['main_content'] = 'hr/dashboard/index';
+        $this->load->view('inc/navbar', $data);
     }
 }

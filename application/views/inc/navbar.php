@@ -610,7 +610,7 @@
             <nav id="sidebar" class="sidebar-wrapper" >
                 <div class="sidebar-content">
                     <div class="sidebar-brand">
-                        <a href="<?php echo base_url(); ?>homepage/index"">
+                        <a href="<?php echo base_url(); ?>homepage/index">
                             <img id="image" src="<?php echo base_url(); ?>assets/images/glowlogo.png" style="width:60%;" alt="">
                         </a>
                         <div id="close-sidebar">
@@ -736,6 +736,9 @@
                                             </li>
                                             <li>
                                                 <a href="<?php echo base_url(); ?>timekeeping/index">Timekeeping</a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo base_url(); ?>dashboard/hr_dashboard">HR</a>
                                             </li>
                                         </ul>
                                     </div>
