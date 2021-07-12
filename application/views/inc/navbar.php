@@ -656,7 +656,7 @@
                             </li>
                             <!--DASHBOARD-->
                             <li class="">
-                                <a href="#">
+                                <a href="<?php echo base_url(); ?>announcement/test">
                                     <i class="fa fa-tachometer" style="background-color:#138B83"></i>
                                     <span>Dashboard</span>
                                 </a>

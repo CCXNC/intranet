@@ -200,4 +200,24 @@ class Announcement extends CI_Controller {
         }
         
     }
+
+
+    public function test()
+    {
+        $data['main_content'] = 'dashboard';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function get_rank()
+    {
+        $result = $this->dashboard_model->get_rank();
+        echo json_encode($result);
+    }
+
+    public function get_gender()
+    {
+        $result = $this->dashboard_model->get_gender();
+        echo json_encode($result);
+       
+    }
 }
