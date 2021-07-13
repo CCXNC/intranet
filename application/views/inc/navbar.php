@@ -719,7 +719,6 @@
                                 </div>
                             </li>
                             
-                            <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 10 || $this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?>
                                 <!--HR-->
                                 <li class="sidebar-dropdown">
                                     <a href="#">
@@ -727,7 +726,9 @@
                                         <span>HR</span>
                                     </a>
                                     <div class="sidebar-submenu">
+                                        
                                         <ul>
+                                            <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 10 || $this->session->userdata('department_id') == 25 && $this->session->userdata('access_level_id') == 1) : ?>
                                             <li>
                                                 <a href="<?php echo base_url(); ?>employee/index">201</a>
                                             </li>
@@ -737,13 +738,14 @@
                                             <li>
                                                 <a href="<?php echo base_url(); ?>timekeeping/index">Timekeeping</a>
                                             </li>
+                                            <?php endif; ?>
                                             <li>
-                                                <a href="<?php echo base_url(); ?>dashboard/hr_dashboard">HR</a>
+                                                <a href="<?php echo base_url(); ?>dashboard/hr_dashboard">Dashboard</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
-                            <?php endif; ?>
+                          
                            
                             <!--SUPPLY CHAIN-->
                             <li class="">
