@@ -767,7 +767,7 @@ class Attendance_model extends CI_Model
 
 				// UPDATE TIME IN 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-				$blaine_timekeeping->where('attendance_in.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_in.biometric_id', $biometric_id);
 				$blaine_timekeeping->where('attendance_in.date', $date);
 				$blaine_timekeeping->update('attendance_in', $update_data);
 				
@@ -819,7 +819,7 @@ class Attendance_model extends CI_Model
 
 				// UPDATE TIME IN 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-				$blaine_timekeeping->where('attendance_out.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_out.biometric_id', $biometric_id);
 				$blaine_timekeeping->where('attendance_out.date', $date);
 				$blaine_timekeeping->update('attendance_out', $update_data);
 			}
@@ -854,7 +854,7 @@ class Attendance_model extends CI_Model
 				
 				// DELETE TIME IN 
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-				$blaine_timekeeping->where('attendance_in.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_in.biometric_id', $biometric_id);
 				$blaine_timekeeping->where('attendance_in.date', $date);
 				$blaine_timekeeping->delete('attendance_in');
 
@@ -889,7 +889,7 @@ class Attendance_model extends CI_Model
 				
 				// DELETE TIME OUT
 				$blaine_timekeeping = $this->load->database('blaine_timekeeping', TRUE);
-				$blaine_timekeeping->where('attendance_out.employee_number', $employee_number);
+				$blaine_timekeeping->where('attendance_out.biometric_id', $biometric_id);
 				$blaine_timekeeping->where('attendance_out.date', $date);
 				$blaine_timekeeping->delete('attendance_out');
 			}
