@@ -426,7 +426,18 @@
                     </div>
                 </div>
             </div>
-
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="checkbox" name="req_email" value="1">
+                        <label for="vehicle1"><b>Does He/She require email?</b></label><br>
+                        <input type="checkbox" name="req_unit" value="1">
+                        <label for="vehicle2"><b>Does He/She require pc/laptop?</label><br>
+                    </div>
+                </div>
+            </div>  
+           
             <br>
             <center>
                 <div class="form-group">
