@@ -746,22 +746,22 @@
                                 </li>
                           
                            
-                            <!--SUPPLY CHAIN-->
-                            <li class="">
+                            <!--PROCUREMENT-->
+                            <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fa fa-truck" style="background-color:#138B83"></i>
-                                    <span>Supply Chain</span>
+                                    <span>Procurement</span>
                                 </a>
-                                <!--<div class="sidebar-submenu">
+                                <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                        <a href="#">Add Movies</a>
+                                        <a href="<?php echo base_url(); ?>procurement/local_procurement">Local Procurement</a>
                                         </li>
                                         <li>
-                                        <a href="#">View Movies</a>
+                                        <a href="#">Importations</a>
                                         </li>
                                     </ul>
-                                </div>-->
+                                </div>
                             </li>
                             <!--ENGINEERING-->
                             <li class="">
