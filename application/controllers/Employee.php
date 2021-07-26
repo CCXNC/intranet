@@ -109,12 +109,29 @@ class Employee extends CI_Controller {
             $fullname = strtoupper($this->input->post('last_name')) . ', ' . strtoupper($this->input->post('first_name')) . ' ' . strtoupper($this->input->post('middle_name'));
             $department = strtoupper($department_name);
             $position = strtoupper($this->input->post('position'));
+            $req_email = $this->input->post('req_email');
+            $req_unit = $this->input->post('req_unit');
             $email = ('jesa.lacambra@blainegroup.com.ph, christian.guarin@blainegroup.com.ph');
             //$cc = "";
             //$bcc = $this->input->post('bcc');
 
             //<p style="margin: 0;"><IMG width="75" height="50" src="http://blainegroup.com.ph/wp-content/uploads/2016/08/BLAINE-RECREATE.png">Blaine Intranet</p>
-
+            if($req_email == 1 && $req_unit == 1)
+            {
+                $info_message = 'Please create email and computer account for:';
+            }
+            elseif($req_email == 1 && $req_unit == 0)
+            {
+                $info_message = 'Please create email account for:';
+            }
+            elseif($req_email == 0 && $req_unit == 1)
+            {
+                $info_message = 'Please create computer account for:';
+            }
+            else
+            {
+                $info_message = '';
+            }
             $format = '
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -247,7 +264,7 @@ class Employee extends CI_Controller {
                                     padding-top: 25px; 
                                     color: #000000;
                                     font-family: sans-serif;" class="paragraph">
-                                        Please create email and computer account for:
+                                        ' . $info_message . '
                                 </td>
                             </tr>
 
