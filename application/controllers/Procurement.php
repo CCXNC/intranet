@@ -83,4 +83,35 @@ class Procurement extends CI_Controller {
         $data['main_content'] = 'procurement/local/ecanvass/comparative/view';
         $this->load->view('inc/navbar', $data);
     }
+
+    public function add_transmittal()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/transmittal/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function add_ecanvass_report_generation()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function add_ecanvass_report_generation1()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/add1';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function ecanvass_cost_saving()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/cost_saving/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_canvass()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_canvass/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
 }
