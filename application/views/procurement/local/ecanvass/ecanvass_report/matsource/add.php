@@ -7,7 +7,7 @@
     }
 </style>
 <div class="card" style="font-size:12px;">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION<a href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
@@ -18,20 +18,18 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >Canvass No.</label>
-                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase" >
+                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label >Material Source ID.</label>
-                                <select name="" id=""  class="form-control" style="font-size:12px;height:32px">
-                                    <option value=" ">SELECT</option>
-                                </select>
+                                <label >Material Source ID</label>
+                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label >Canvass Request Date.</label>
+                                <label >Canvass Request Date</label>
                                 <input type="date" class="form-control" name="first_name" value="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div>
@@ -106,7 +104,7 @@
                 </div>
             </div>
             <br>
-            <a href="<?php echo base_url(); ?>procurement/add_ecanvass_report_generation1" style="margin-left:10px;" class="float-right btn btn-info">NEXT</a>
+            <a href="<?php echo base_url(); ?>procurement/report_matsource_add1" style="margin-left:10px;" class="float-right btn btn-info">NEXT</a>
         </form>
     </div>
 </div>

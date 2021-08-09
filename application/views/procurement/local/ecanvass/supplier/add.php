@@ -1,8 +1,8 @@
-<div class="card">
+<div class="card" style="font-size:12px">
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>SUPPLIER LIST ENROLLMENT<a href="<?php echo base_url(); ?>procurement/supplier_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url(); ?>procurement/supplier_add" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">SUPPLIER DETAILS</div>
                 <div class="card-body" style="background-color: #E9FAFD;color:black">
@@ -14,7 +14,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="vendor_code" style="" >
+                                <input type="text" class="form-control" name="vendor_code" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="supplier_name" style="" >
+                                <input type="text" class="form-control" name="supplier_name" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="contact_name" style="" >
+                                <input type="text" class="form-control" name="contact_name" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="contact_designation" style="" >
+                                <input type="text" class="form-control" name="contact_designation" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="contact_number" style="" >
+                                <input type="number" class="form-control" name="contact_number" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="email" class="form-control" name="email" style="" >
+                                <input type="email" class="form-control" name="email" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -74,7 +74,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="address" style="" >
+                                <input type="text" class="form-control" name="address" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="supplier_profile" style="" >
+                                <input type="text" class="form-control" name="supplier_profile" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">

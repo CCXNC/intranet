@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         
-        var form = '<div id="form"><br><div class="row"><div class="col-md-4"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><textarea class="form-control" id="" name="description[]" rows="1"></textarea></div></div><div class="col-md-8"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea class="form-control" id="" name="specification[]" rows="1"></textarea></div></div></div><div class="row"><div class="col-md-4"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder=""></div></div><div class="col-md-4"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" id="exampleFormControlSelect1"><option value="" disabled selected>Select UOM</option><option>Kilogram/s</option><option>Meter/s</option><option>Box/es</option><option>Pack/s</option><option>Bag/s</option></select></div></div><div class="col-md-4"><div class="form-group"><label>Shelf Life</label><input type="number" class="form-control" name="shelf_life[]" placeholder=""></div></div></div><div class="row"><div class="col-md-4"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" id="" name="purpose[]" rows="1"></textarea></div></div><div class="col-md-4"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" name="item_application[]" rows="1"></textarea></div></div><div class="col-md-4"><div class="form-group"><label for="exampleFormControlSelect1">Sourcing Category</label><select class="form-control" id="exampleFormControlSelect1" name="sourcing_category[]"><option value="" disabled selected>Select Category</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div></div></div><div class="row"><div class="col-md-4"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" id="exampleFormControlTextarea1" name="required_document[]" rows="1"></textarea></div></div><div class="col-md-4"><div class="form-group"><label for="exampleFormControlSelect1">Material Category</label><select class="form-control" id="exampleFormControlSelect1" name="material_category[]"><option value="" disabled selected>Select Category</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div></div><div class="col-md-4"><div class="form-group"><label>File Attachment</label><input type="file" name="image[]" size="20" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
+        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><textarea class="form-control" id="" name="description[]" rows="1"></textarea></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea class="form-control" id="" name="specification[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder=""></div></div></div><div class="row"><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" id="exampleFormControlSelect1"><option value="" disabled selected>Select UOM</option><option>Kilogram/s</option><option>Meter/s</option><option>Box/es</option><option>Pack/s</option><option>Bag/s</option></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="number" class="form-control" name="shelf_life[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" id="" name="purpose[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" name="item_application[]" rows="1"></textarea></div></div></div><div class="row"><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" id="exampleFormControlTextarea1" name="required_document[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Category</label><select class="form-control" id="exampleFormControlSelect1" name="material_category[]"><option value="" disabled selected>Select Category</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="image[]" size="20" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
         var fmax = 20;
         var f = 1;
 
@@ -18,11 +18,22 @@
 
     });
 </script>
+<style>
+    input[type=text] {
+        font-size: 12px;
+    }
+    input[type=date] {
+        font-size: 12px;
+    }
+    input[type=number] {
+        font-size: 12px;
+    }
+</style>
 <div class="card" style="font-size:12px">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST FORM<a href="<?php echo base_url(); ?>procurement/form_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST FORM<a href="<?php echo base_url(); ?>procurement/material_sourcing" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">REQUEST DETAILS</div>
                 <div class="card-body" style="background-color: #E9FAFD;color:black">
@@ -34,21 +45,30 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control" id="exampleFormControlSelect1" name="sourcing_category[]" style="font-size:12px;height:32px">
-                                <option value="" selected>Select Company</option>
-                                <option>BMC</option>
-                                <option>RRLC</option>
-                                </select>
+                                <div class="row">
+                                    <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            <p>BMC</p>
+                                        </label>
+                                    </div>
+                                    <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            <p>RRLC</p>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>*Reference Number</label>
+                                <label>*Material Source ID</label>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white" readonly>
+                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white" >
                             </div>
                         </div>
                     </div>
@@ -75,21 +95,32 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white" readonly>
+                                <input type="date" class="form-control" name="first_name" style="background-color:white" >
                             </div>
                         </div>
                     </div>
-                </div>   
+                </div>    
             </div>
             <br>
             <div class="card">
-            <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">MATERIAL DETAILS</div>
+                <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">MATERIAL DETAILS</div>
                 <div class="card-body" id="form_field" style="background-color: #E9FAFD;color:black">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
+                                <label>Material Code</label>
+                                <input type="text" class="form-control" name="quantity[]" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Description</label>
-                                <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="description[]" rows="1" ></textarea>
+                                <select class="form-control" id="exampleFormControlSelect1" name="sourcing_category[]" style="font-size:12px;height:32px">
+                                    <option value="" selected>Select Description</option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -104,8 +135,6 @@
                                 <input type="number" class="form-control" name="quantity[]" placeholder="">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">UOM</label>
@@ -137,8 +166,6 @@
                                 <textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1"></textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Required Document</label>
@@ -167,11 +194,94 @@
                     </div>
                     <input class="btn btn-success" title="Add Form" type="button" name="add" id="fadd" value="ADD">
                     <br>
-                </div>   
+                </div>
+                <!--<div class="card-body" id="form_field" style="background-color: #E9FAFD;color:black">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Description</label>
+                                <textarea style="background-color:white" class="form-control" id="" name="description[]" rows="1" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Specification</label>
+                                <textarea style="background-color:white" class="form-control" id="" name="specification[]" rows="1" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Item Application</label>
+                                <textarea style="background-color:white" class="form-control" id="" name="item_application[]" rows="1" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input style="background-color:white" type="number" class="form-control" name="quantity[]" placeholder="" >
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">UOM</label>
+                                <select class="form-control" name="uom[]" id="exampleFormControlSelect1">
+                                <option value="" disabled selected>Select UOM</option>
+                                <option>Kilogram/s</option>
+                                <option>Meter/s</option>
+                                <option>Box/es</option>
+                                <option>Pack/s</option>
+                                <option>Bag/s</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Purpose/Remarks</label>
+                                <textarea style="background-color:white" class="form-control" id="" name="purpose[]" rows="1" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Required Document</label>
+                                <textarea style="background-color:white" class="form-control" id="exampleFormControlTextarea1" name="required_document[]" rows="1" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Material Category</label>
+                                <select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="font-size:12px">
+                                <option value="" disabled selected>Select Category</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Shelf Life (Months)</label>
+                                <input style="background-color:white" type="number" class="form-control" name="shelf_life[]" placeholder="" >
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>File Attachment</label>
+                                <input type='file' name='image[]' size='20' />
+                            </div>
+                        </div>
+                    </div>
+                    <input class="btn btn-success" title="Add Form" type="button" name="add" id="fadd" value="ADD">
+                    <br>
+                </div>-->       
             </div>
             <br>
             <div class="card">
-            <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">APPROVAL DETAILS</div>
+                <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">APPROVAL DETAILS</div>
                 <div class="card-body" style="background-color: #E9FAFD;color:black">
                     <div class="row">
                         <div class="col-md-12">

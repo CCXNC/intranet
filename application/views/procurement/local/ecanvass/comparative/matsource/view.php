@@ -1,22 +1,12 @@
 <div class="card" style="font-size:12px">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>COMPARATIVE STATEMENT OF QUOTATIONS: CHOOSING OF SUPPLIER<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>COMPARATIVE STATEMENT OF QUOTATIONS: CHOOSING OF SUPPLIER<a href="<?php echo base_url(); ?>procurement/report_matsource_add1" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
             <div class="card">
-                <div class="card-header" style="background-color: #0C2D48;"><h4></h4></div>
+                <div class="card-header" style="background-color: #0D635D;"><h4></h4></div>
                 <div class="card-body" style="background-color: #E9FAFD;color:black">
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Company</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; font-size:12px; background-color:white" readonly>
-                            </div>
-                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Canvass Number</label>
@@ -25,6 +15,16 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; font-size:12px;background-color:white" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Company</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; font-size:12px; background-color:white" readonly>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
             <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center;">
                 <thead>
                     <tr>
-                        <th colspan="7" style="background-color: #0C2D48; color: white; ">Previous Purchase</th>
+                        <th colspan="8" style="background-color: #0C2D48; color: white; ">Previous Purchase</th>
                         <th colspan="" style="background-color: #0C2D48; color: white">Quotation 1</th>
                         <th colspan="" style="background-color: #0C2D48; color: white">Quotation 2</th>
                         <th colspan="" style="background-color: #0C2D48; color: white">Quotation 3</th>
@@ -66,6 +66,7 @@
                         <th scope="col" style="background-color: #0C2D48; color: white">Material</th>
                         <th scope="col" style="background-color: #0C2D48; color: white">QTY</th>
                         <th scope="col" style="background-color: #0C2D48; color: white">UOM</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white">MOQ</th>
                         <th scope="col" style="background-color: #0C2D48; color: white">Price</th>
                         <th scope="col" style="background-color: #0C2D48; color: white">Currency</th>
                         <th scope="col" style="background-color: #0C2D48; color: white">Year</th>
@@ -83,6 +84,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                         <td>1,000 PHP</td>
                         <td>990 PHP</td>
                         <td>900 PHP</td>
@@ -92,6 +94,7 @@
                         <td>Latex Gloves</td>
                         <td>1,000</td>
                         <td>Pack/s</td>
+                        <td></td>
                         <td>100</td>
                         <td>USD</td>
                         <td>2021</td>
@@ -104,6 +107,7 @@
                         <td>Nitrile Gloves</td>
                         <td>1,000</td>
                         <td>Pack/s</td>
+                        <td></td>
                         <td>3,000</td>
                         <td>PHP</td>
                         <td>2021</td>
@@ -120,6 +124,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: white; border:none"></th>
@@ -129,33 +134,37 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: white; border:none"></th>
                         <td style="background-color: white; border:none"></td>
                         <td style="background-color: white; border:none"></td>
                         <td colspan="3" style="background-color: #0C2D48; color: white; ">DEL (Days)</td>
-                        <td style="background-color: white"></td>
-                        <td style="background-color: white"></td>
-                        <td style="background-color: white"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: white; border:none"></th>
                         <td style="background-color: white; border:none"></td>
                         <td style="background-color: white; border:none"></td>
                         <td colspan="3" style="background-color: #0C2D48; color: white; ">WRT</td>
-                        <td style="background-color: white"></td>
-                        <td style="background-color: white"></td>
-                        <td style="background-color: white"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: white; border:none"></th>
                         <td style="background-color: white; border:none"></td>
                         <td style="background-color: white; border:none"></td>
                         <td colspan="3" style="background-color: #0C2D48; color: white; ">Notes</td>
-                        <td style="background-color: white"></td>
-                        <td style="background-color: white"></td>
-                        <td style="background-color: white"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -174,6 +183,7 @@
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Material</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">QTY</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">UOM</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">MOQ</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Supplier</th>
                         <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Saving</th>
                         <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Avoidance</th>
@@ -196,12 +206,14 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th scope="row">2</th>
                         <td>Latex Gloves</td>
                         <td>1,000</td>
                         <td>Pack/s</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -218,6 +230,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -225,7 +238,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Buyer Disposition</label>
+                        <label>Buyer Recommendation</label>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -241,6 +254,7 @@
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Material</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">QTY</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">UOM</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">MOQ</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Supplier</th>
                         <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Saving</th>
                         <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Avoidance</th>
@@ -258,6 +272,7 @@
                         <td >Packaging Tape</td>
                         <td>100</td>
                         <td>Pack/s</td>
+                        <td></td>
                         <td>
                             <select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="height: 10px;font-size:12px">
                                 <option value="" disabled selected style="font-size:10px"></option>
@@ -278,6 +293,7 @@
                         <td>Latex Gloves</td>
                         <td>1,000</td>
                         <td>Pack/s</td>
+                        <td></td>
                         <td>
                             <select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="height: 10px;font-size:12px">
                                 <option value="" disabled selected style="font-size:10px"></option>
@@ -298,6 +314,7 @@
                         <td>Nitrile Gloves</td>
                         <td>1,000</td>
                         <td>Pack/s</td>
+                        <td></td>
                         <td>
                             <select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="height: 10px;font-size:12px">
                                 <option value="" disabled selected style="font-size:10px"></option>
@@ -315,6 +332,14 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="">Remarks</label>
+                        <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" ></textarea>
+                    </div>
+                </div>
+            </div>
             <br>
             <center>
                 <div class="form-group">

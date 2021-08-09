@@ -46,16 +46,16 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="form-check" style="margin-right: 30px; margin-left: 15px">
+                                    <div class="form-check" style="margin-right: 20px; margin-left: 15px">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                         <label class="form-check-label" for="flexRadioDefault1">
-                                            RRLC
+                                            <p>BMC</p>
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                        <label class="form-check-label" for="flexRadioDefault2">
-                                            BMC
+                                    <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            <p>RRLC</p>
                                         </label>
                                     </div>
                                 </div>
@@ -80,8 +80,8 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control" id="exampleFormControlSelect1" name="sourcing_category[]" style="font-size:12px">
-                                <option value="" disabled selected>Select Category</option>
+                                <select class="form-control" id="exampleFormControlSelect1" name="sourcing_category[]" style="font-size:12px;height:32px">
+                                <option value="" selected>Select Category</option>
                                 <option>Price Only</option>
                                 <option>Sample Only</option>
                                 <option>Price w/ Sample</option>
@@ -95,7 +95,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="first_name" style="background-color:white" >
+                                <input type="date" class="form-control" name="first_name" style="background-color:white" >
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">UOM</label>
-                                <select class="form-control" name="uom[]" style="font-size:12px" id="exampleFormControlSelect1">
+                                <select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1">
                                 <option value="" disabled selected>Select UOM</option>
                                 <option>Kilogram/s</option>
                                 <option>Meter/s</option>
@@ -168,7 +168,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Material Category</label>
-                                <select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="font-size:12px">
+                                <select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="font-size:12px;height:32px">
                                 <option value="" disabled selected>Select Category</option>
                                 <option>1</option>
                                 <option>2</option>

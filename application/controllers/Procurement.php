@@ -44,6 +44,7 @@ class Procurement extends CI_Controller {
 
     function form_edit()
     {
+        $data['employees'] = $this->employee_model->get_employees();
         $data['main_content'] = 'procurement/local/ecanvass/form/edit';
         $this->load->view('inc/navbar', $data);
     }
@@ -56,6 +57,30 @@ class Procurement extends CI_Controller {
 
     function supplier_add()
     {
+        if(!empty($_FILES['image']['name']))
+        { 
+            $imageName = $_FILES['image']['name']; 
+                
+            // File upload configuration 
+            $config['upload_path'] = './uploads/announcement/'; 
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
+            $config['max_size'] = '100000000'; 
+            $config['overwrite'] = True;   
+            
+            // Load and initialize upload library 
+            $this->load->library('upload', $config); 
+            $this->upload->initialize($config); 
+                
+            // Upload file to server 
+            if($this->upload->do_upload('image')){ 
+                // Uploaded file data 
+                $fileData = $this->upload->data(); 
+                $imgData['file_name'] = $fileData['file_name']; 
+            }else{ 
+                $error = $this->upload->display_errors();  
+            } 
+        } 
+
         $data['main_content'] = 'procurement/local/ecanvass/supplier/add';
         $this->load->view('inc/navbar', $data);
     }
@@ -78,15 +103,21 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    function comparative_quotation_view()
+    function comparative()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/comparative/view';
+        $data['main_content'] = 'procurement/local/ecanvass/comparative/index';
         $this->load->view('inc/navbar', $data);
     }
 
-    public function add_transmittal()
+    function comparative_matsource_view()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/transmittal/add';
+        $data['main_content'] = 'procurement/local/ecanvass/comparative/matsource/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    function comparative_pr_view()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/comparative/pr/view';
         $this->load->view('inc/navbar', $data);
     }
 
@@ -110,8 +141,121 @@ class Procurement extends CI_Controller {
 
     public function material_canvass()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/material_canvass/index';
+        $data['main_content'] = 'procurement/local/ecanvass/material_history/index';
         $this->load->view('inc/navbar', $data);
     }
 
+    public function material_sourcing()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/form';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_sourcing_index()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_sourcing_matcode()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/w_matcode/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_sourcing_nomatcode()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/wo_matcode/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_sourcing_edit()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/edit';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_sourcing_view()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function ecanvass_report_generation()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function report_matsource_add()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/matsource/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function report_matsource_add1()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/matsource/add1';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function report_pr_add()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/pr/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function report_pr_add1()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/pr/add1';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function transmittal()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/transmittal/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function transmittal_pr_add()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/transmittal/pr/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function transmittal_matsource_add()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/transmittal/matsource/add';
+        $this->load->view('inc/navbar', $data);
+    }
+    
+    public function material_enrollment_add()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/add';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_enrollment()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_enrollment_edit()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/edit';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_enrollment_view()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_enrollment_csv()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/csv';
+        $this->load->view('inc/navbar', $data);
+    }
 }

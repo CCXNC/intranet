@@ -19,7 +19,7 @@
     });
 </script>
 <div class="card" style="font-size:12px">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST FORM<a href="<?php echo base_url(); ?>procurement/form_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST FORM<a href="<?php echo base_url(); ?>procurement/material_sourcing_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>*Reference Number</label>
+                                <label>*Material Source ID</label>
                             </div>
                         </div>
                         <div class="col-md-3">

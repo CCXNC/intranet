@@ -1,25 +1,21 @@
 <div class="card-header" style="background-color: #0C2D48; color: white">
-    <h4>COST SAVING / AVOIDANCE REPORT SUMMARY</h4> 
+    <h4>CANVASS LIST<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-left:10px;">BACK</a></h4> 
 </div>
 <br>
 <div class="row">
     <div class="col-md-3">
-        <div class="card h-100">
-            <div class="card-header h-100" style="background-color: #0C2D48; color: white;">
-                <p style="font-size: 14px; text-align: center">COST SAVING</p>
+        <div class="card" style="font-size:12px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center">COST SAVING
             </div>
-            <div class="card-body">
-                <p style="text-align:center">Jul 26, 2021</p>
+            <div class="card-body" style="background-color:#5488A5; color: white; border-radius: 2px;text-align:center; ">15,000
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card h-100">
-            <div class="card-header h-100" style="background-color: #0C2D48; color: white;">
-                <p style="font-size: 14px; text-align: center">COST AVIODANCE</p>
+        <div class="card" style="font-size:12px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center">COST AVOIDANCE
             </div>
-            <div class="card-body">
-                <p style="text-align:center">15</p>
+            <div class="card-body" style="text-align:center;background-color:#5DBDEA; color: white; border-radius: 2px;">20,000
             </div>
         </div>
     </div>

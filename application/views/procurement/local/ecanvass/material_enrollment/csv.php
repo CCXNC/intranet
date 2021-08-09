@@ -12,7 +12,7 @@
 </style>
 	<div class="container box">  
 	
-		<h3 align="center">UPLOAD SUPPLIER INFORMATION</h3>
+		<h3 align="center">UPLOAD MATERIAL INFORMATION</h3>
 		<br />
 		<center>
 			

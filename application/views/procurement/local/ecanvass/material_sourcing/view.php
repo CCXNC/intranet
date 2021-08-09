@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST<a href="<?php echo base_url(); ?>procurement/form_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST<a href="<?php echo base_url(); ?>procurement/material_sourcing_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body" style="font-size:12px">
         <div class="card">
             <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">REQUEST DETAILS</div>
@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>*Reference Number</label>
+                            <label>*Material Source ID</label>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -142,6 +142,7 @@
                     <th scope="col">Alternate Approver</th>
                     <th scope="col">Status</th>
                     <th scope="col">Date Sign-off</th>
+                    <th scope="col">Date CT</th>
                     <th scope="col">Sign-off By</th>
                     <th scope="col">Remarks</th>
                     </tr>
@@ -153,8 +154,9 @@
                         <td>John</td>
                         <td>Done</td>
                         <td>20-Jul-2021 13:05</td>
+                        <td>5</td>
                         <td>John</td>
-                        <td></td>
+                        <td>Lorem ipsum sit amet dolor</td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #0C2D48; color:white">Immediate Superior Approval</th>
@@ -162,8 +164,9 @@
                         <td>Paul</td>
                         <td>Pending</td>
                         <td>20-Jul-2021 13:05</td>
+                        <td>3</td>
                         <td>Paul</td>
-                        <td></td>
+                        <td>Lorem ipsum sit amet dolor</td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #0C2D48; color:white">Procurement Request Acceptance</th>
@@ -171,8 +174,9 @@
                         <td>Paul</td>
                         <td>Pending</td>
                         <td>20-Jul-2021 13:05</td>
+                        <td>4</td>
                         <td>John</td>
-                        <td></td>
+                        <td>Lorem ipsum sit amet dolor</td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #0C2D48; color:white">Procurement Report Generation</th>
@@ -180,8 +184,9 @@
                         <td>Mark</td>
                         <td>Pending</td>
                         <td>20-Jul-2021 13:05</td>
+                        <td>10</td>
                         <td>Peter</td>
-                        <td></td>
+                        <td>Lorem ipsum sit amet dolor</td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #0C2D48; color:white">Requestor Feedback</th>
@@ -189,8 +194,9 @@
                         <td>Phillip</td>
                         <td>Pending</td>
                         <td>20-Jul-2021 13:05</td>
+                        <td>2</td>
                         <td>Phillip</td>
-                        <td></td>
+                        <td>Lorem ipsum sit amet dolor</td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #0C2D48; color:white">Procurement Request Closure</th>
@@ -198,8 +204,9 @@
                         <td>David</td>
                         <td>Pending</td>
                         <td>20-Jul-2021 13:05</td>
+                        <td>1</td>
                         <td>David</td>
-                        <td></td>
+                        <td>Lorem ipsum sit amet dolor</td>
                     </tr>
                 </tbody>
             </table>

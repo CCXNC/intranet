@@ -7,7 +7,7 @@
     }
 </style>
 <div class="card" style="font-size:12px;">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION 2<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION 2<a href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
@@ -15,13 +15,32 @@
                 <div class="card-header" style="background-color: #0D635D; color: white"><h5>Comparative Statement Quotations</h5></div>
                 <div class="card-body" style="background-color: #E9FAFD;">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-2">
+                            <label for="">Select Supplier</label>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <select name="supplier" class="form-control" id="" style="font-size:12px;">
-                                    <option value="">SELECT SUPPLIER</option>
-                                </select>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                <p>Accredited</p>
+                                            </label>
+                                        </div>
+                                        <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                <p>Others</p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">   
                             <table id="" class="table table-striped"  style="width:100%">
                                 <thead>
                                     <tr style="background-color:#0D635D; color:white;">
@@ -88,9 +107,7 @@
                                 </tbody>
                             </table>
                         </div>
-
                         <div class="col-md-4">
-                            <br><br><br>
                             <div style="background-color: #0D635D; color: white; padding:7px 5px 4px 5px; border-radius:5px; font-size:14px;">Purchase Term</div>
                             <div class="row" style="margin-top:10px;">
                                 <div class="col-md-6">
@@ -145,7 +162,7 @@
                 </div>    
             </div>
             <br>
-            <a href="<?php echo base_url(); ?>procurement/ecanvass_index" style="margin-left:10px;" class="float-right btn btn-info">SUBMIT</a>
+            <a href="<?php echo base_url(); ?>procurement/comparative_matsource_view" style="margin-left:10px;" class="float-right btn btn-info">NEXT</a>
         </form>
     </div>
 </div>
