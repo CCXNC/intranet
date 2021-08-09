@@ -73,18 +73,27 @@ class Attendance_model extends CI_Model
 		$this->db->from('blaine_timekeeping.raw_data');
 		$this->db->join('blaine_timekeeping.employee_biometric','blaine_timekeeping.raw_data.biometric_id = blaine_timekeeping.employee_biometric.biometric_number','left');
 		$this->db->join('blaine_intranet.employees','blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number','left');
-		$this->db->where('raw_data.date >=', $start_date);
-		$this->db->where('raw_data.date <=', $end_date);
+		$this->db->where('blaine_timekeeping.raw_data.date >=', $start_date);
+		$this->db->where('blaine_timekeeping.raw_data.date <=', $end_date);
 		$query = $this->db->get();
-		/*$query = $this->db->query("
-			SELECT raw_data.biometric_id as biometric_id, raw_data.date as date, raw_data.time as time, raw_data.status as status , CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) AS fullname, employee_biometric.employee_number as employee_number
-			FROM blaine_timekeeping.raw_data
-				LEFT JOIN blaine_timekeeping.employee_biometric
-				ON blaine_timekeeping.raw_data.biometric_id = blaine_timekeeping.employee_biometric.biometric_number
-				LEFT JOIN blaine_intranet.employees
-				ON blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number
-				WHERE raw_data.date >= $start_date AND raw_data.date <= $end_date
-				")->result();*/
+
+		return $query->result();
+	} 
+
+	public function get_raw_datas_individual($raw_employee_number,$start_date,$end_date)
+	{
+		$this->db->select("
+			raw_data.biometric_id as biometric_id, 
+			raw_data.date as date, raw_data.time as time, 
+			raw_data.status as status , 
+			employee_biometric.employee_number as employee_number
+		");
+		$this->db->from('blaine_timekeeping.raw_data');
+		$this->db->join('blaine_timekeeping.employee_biometric','blaine_timekeeping.raw_data.biometric_id = blaine_timekeeping.employee_biometric.biometric_number','left');
+		$this->db->where('blaine_timekeeping.raw_data.date >=', $start_date);
+		$this->db->where('blaine_timekeeping.raw_data.date <=', $end_date);
+		$this->db->where('blaine_timekeeping.raw_data.employee_number', $raw_employee_number);
+		$query = $this->db->get();
 
 		return $query->result();
 	} 
@@ -285,7 +294,7 @@ class Attendance_model extends CI_Model
 
 	public function get_first_daily_attendance_date()
 	{
-		$this->db->select('individual_temp_date.date as first_date_daily_attendance');
+		$this->db->select('individual_temp_date.employee_number as raw_employee_number, individual_temp_date.date as first_date_daily_attendance');
 		$this->db->from('blaine_timekeeping.individual_temp_date');
 		$this->db->where('individual_temp_date.created_by', $this->session->userdata('username'));
 		$this->db->limit('1');
@@ -953,12 +962,18 @@ class Attendance_model extends CI_Model
 			employee_schedules.date as emp_sched_date,
 			employee_schedules.grace_period as emp_sched_grace_period,
 			employee_schedules.is_flexi as emp_flexi_time,
+
+			raw_data.employee_number as raw_data_employee_number,
+			raw_data.date as raw_data_date,
+			raw_data.time as raw_data_time
+
 		");
 		$this->db->from('blaine_timekeeping.individual_temp_date');
 		$this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_timekeeping.individual_temp_date.employee_number');
 		$this->db->join('blaine_timekeeping.employee_biometric', 'blaine_timekeeping.employee_biometric.employee_number = blaine_intranet.employees.employee_number', 'left');
 		$this->db->join('blaine_timekeeping.attendance_in', 'blaine_timekeeping.attendance_in.biometric_id = blaine_timekeeping.employee_biometric.biometric_number AND blaine_timekeeping.individual_temp_date.date = blaine_timekeeping.attendance_in.date','left');
 		$this->db->join('blaine_timekeeping.attendance_out', 'blaine_timekeeping.attendance_out.biometric_id = blaine_timekeeping.employee_biometric.biometric_number AND blaine_timekeeping.individual_temp_date.date = blaine_timekeeping.attendance_out.date','left');
+		$this->db->join('blaine_timekeeping.raw_data', 'blaine_timekeeping.raw_data.biometric_id = blaine_timekeeping.employee_biometric.biometric_number AND blaine_timekeeping.individual_temp_date.date = blaine_timekeeping.raw_data.date');
 		$this->db->join('blaine_timekeeping.overtime','blaine_timekeeping.overtime.date_ot = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.overtime.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.ob','blaine_timekeeping.ob.date_ob = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.ob.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.ob.employee_number = blaine_intranet.employees.employee_number','left');
 		$this->db->join('blaine_timekeeping.slvl','blaine_timekeeping.slvl.leave_date = blaine_timekeeping.individual_temp_date.date AND blaine_timekeeping.slvl.status = blaine_timekeeping.individual_temp_date.batch AND blaine_timekeeping.slvl.employee_number = blaine_intranet.employees.employee_number','left');
