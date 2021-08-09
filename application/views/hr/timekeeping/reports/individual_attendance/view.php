@@ -204,7 +204,7 @@
                                                 {
                                                     if($employee->emp_sched_date == $employee->temp_date)
                                                     {
-                                                        echo $employee->emp_sched_time_in . ' AM | ' . $employee->emp_sched_time_out . ' PM | ' . $employee->emp_sched_grace_period . ' MINS ' . $employee->emp_flexi_time;; 
+                                                        echo $employee->emp_sched_time_in . ' AM | ' . $employee->emp_sched_time_out . ' PM | ' . $employee->emp_sched_grace_period . ' MINS ' . $employee->emp_flexi_time; 
                                                     }
                                                     else
                                                     {
@@ -2959,6 +2959,33 @@
                                 </div>
                             </div>
                         </form>
+
+                        <div class="card-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">RAW DATA</h5>
+                        </div>   
+                        <br>          
+                        <table >
+                            <thead>
+                                <tr style="background-color:#D4F1F4;">
+                                    <th scope="col" style="padding:5px 5px 5px 25px;">TIME</th>
+                                    <th scope="col" style="padding:5px 5px 5px 25px;">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if($datas) : ?>
+                                    <?php foreach($datas as $data) : ?>
+                                        <?php if($data->date == $employee->temp_date && $data->employee_number == $employee->employee_number) : ?>
+                                            <tr>
+                                                <td style="padding:5px 5px 5px 25px;"><?php echo $data->time; ?></td>
+                                                <td style="padding:5px 5px 5px 25px;"><?php echo $data->status; ?></td>
+                                            </tr>
+                                        <?php endif; ?>  
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                
+                            </tbody>
+                        </table>            
+                      
                     </div>
                 </div>
             </div>

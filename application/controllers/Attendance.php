@@ -99,7 +99,7 @@ class Attendance extends CI_Controller {
 			}
 		
 		}
-	}
+	} 
 	
 
 	public function index_individual_attendance()
@@ -134,6 +134,12 @@ class Attendance extends CI_Controller {
 	
 		$data['start_daily_attendance'] = $this->attendance_model->get_first_daily_attendance_date();
 		$data['end_daily_attendance'] = $this->attendance_model->get_last_daily_attendance_date();
+
+		$start_date = $data['start_daily_attendance']->first_date_daily_attendance;
+		$end_date = $data['end_daily_attendance']->last_date_daily_attendance;
+		$raw_employee_number = $data['start_daily_attendance']->raw_employee_number;
+
+		$data['datas'] = $this->attendance_model->get_raw_datas_individual($raw_employee_number,$start_date,$end_date);
 		//$data['start_extraction_date'] = $this->attendance_model->get_first_ot_date();
 		//$data['end_extraction_date'] = $this->attendance_model->get_last_ot_date();
 		/*$data['total_absences'] = $this->attendance_model->get_total_absences();
