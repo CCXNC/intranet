@@ -23,21 +23,19 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label >Company</label>
+                                <label >PR Number</label>
+                                <input type="text" class="form-control" name="first_name" style="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label >PR Date</label>
                                 <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label >PR Number</label>
-                                <input type="text" class="form-control" name="first_name" style="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label >PR Date</label>
+                                <label >Company</label>
                                 <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
                             </div>
                         </div>

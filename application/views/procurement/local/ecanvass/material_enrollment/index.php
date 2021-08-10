@@ -5,7 +5,7 @@
 <table id="" class="display" style="width:100%;font-size:14px">
     <thead>
         <tr style="background-color:#D4F1F4;">
-            <th scope="col">Material No</th>
+            <th scope="col">Material Code</th>
             <th scope="col">Material Description</th>
             <th scope="col">Material Category</th>
             <th scope="col">Action</th>

@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label >Material Source ID.</label>
+                                <label >Material Source ID</label>
                                 <select name="" id=""  class="form-control" style="font-size:12px;height:32px">
                                     <option value=" ">SELECT</option>
                                 </select>
@@ -31,12 +31,10 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label >Canvass Request Date.</label>
+                                <label >Material Source Request Date</label>
                                 <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >Company</label>

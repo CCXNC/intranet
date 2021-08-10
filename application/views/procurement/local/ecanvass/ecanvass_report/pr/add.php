@@ -23,18 +23,6 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Material Source ID</label>
-                                <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Company</label>
-                                <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
                                 <label >PR Number</label>
                                 <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
                             </div>
@@ -43,6 +31,12 @@
                             <div class="form-group">
                                 <label >PR Date</label>
                                 <input type="date" class="form-control" name="first_name" value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
                             </div>
                         </div>
                     </div>

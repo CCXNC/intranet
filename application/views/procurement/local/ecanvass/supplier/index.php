@@ -5,7 +5,7 @@
 <table id="" class="display" style="width:100%;font-size:14px">
     <thead>
         <tr style="background-color:#D4F1F4;">
-            <th scope="col">Vendor Code</th>
+            <th scope="col">Supplier Code</th>
             <th scope="col">Supplier Name</th>
             <th scope="col">Contact Name</th>
             <th scope="col">Contact Designation</th>

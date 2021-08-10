@@ -82,7 +82,7 @@
     <thead>
         <tr style="background-color:#0D635D;color:white">
             <th scope="col">Material Source ID</th>
-            <th scope="col">Date Requested</th>
+            <th scope="col">Material Source Request Date</th>
             <th scope="col">Date Required</th>
             <th scope="col">Requestor</th>
             <th scope="col">Department</th>

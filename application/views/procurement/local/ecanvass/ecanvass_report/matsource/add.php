@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label >Canvass Request Date</label>
+                                <label >Material Source Request Date</label>
                                 <input type="date" class="form-control" name="first_name" value="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div>
@@ -77,8 +77,8 @@
                                 <td data-label="Mat Code"> 01010101 </td>
                                 <td data-label="QTY">1000</td>
                                 <td data-label="UOM"></td>
-                                <td data-label="Previous Purchase"></td>
-                                <td data-label="Year"></td>
+                                <td data-label="Price"><input type="text" class="form-control" name="price"></td>
+                                <td data-label="Price"><input type="text" class="form-control" name="price"></td>
                                 <td> <div class="btn btn-sm btn-danger">Remove</div></td>
                             </tr>
                             <tr>
@@ -86,8 +86,8 @@
                                 <td data-label="Mat Code"> 02020202 </td>
                                 <td data-label="QTY">1000</td>
                                 <td data-label="UOM"></td>
-                                <td data-label="Previous Purchase"></td>
-                                <td data-label="Year"></td>
+                                <td data-label="Price"><input type="text" class="form-control" name="price"></td>
+                                <td data-label="Price"><input type="text" class="form-control" name="price"></td>
                                 <td> <div class="btn btn-sm btn-danger">Remove</div></td>
                             </tr>
                             <tr>
@@ -95,8 +95,8 @@
                                 <td data-label="Mat Code"> 03030303 </td>
                                 <td data-label="QTY">1000</td>
                                 <td data-label="UOM"></td>
-                                <td data-label="Previous Purchase"></td>
-                                <td data-label="Year"></td>
+                                <td data-label="Price"><input type="text" class="form-control" name="price"></td>
+                                <td data-label="Price"><input type="text" class="form-control" name="price"></td>
                                 <td> <div class="btn btn-sm btn-danger">Remove</div></td>
                             </tr>
                         </tbody>

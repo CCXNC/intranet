@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Material No</label>
+                                <label>Material Code</label>
                             </div>
                         </div>
                         <div class="col-md-8">

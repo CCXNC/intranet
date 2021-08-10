@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>*Date Requested</label>
+                            <label>*Material Source Request Date</label>
                         </div>
                     </div>
                     <div class="col-md-3">
