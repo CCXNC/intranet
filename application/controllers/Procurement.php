@@ -4,6 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Procurement extends CI_Controller {
     public function __construct() {
         parent::__construct();
+        $this->load->model('csv_import_model');
+		$this->load->library('csvimport');
+		ini_set('max_execution_time',0);
+		ini_set('memory_limit','2048M');
+
         date_default_timezone_set('Asia/Manila');
 
         if($this->session->userdata('logged_in') !== TRUE){
@@ -85,11 +90,32 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    function supplier_import()
+    function supplier_import_view()
     {
         $data['main_content'] = 'procurement/local/ecanvass/supplier/csv';
         $this->load->view('inc/navbar', $data);
     }
+
+    function supplier_import()
+	{
+		$file_data = $this->csvimport->get_array($_FILES["csv_file"]["tmp_name"]);
+		foreach($file_data as $row)
+		{
+			$data[] = array( 
+				'scode'	              => $row["VendorCode"],
+				'name'		          => $row["SupplierName"],
+				'contact_name'        => $row["ContactName"],
+                'contact_designation' => $row["ContactDesignation"],
+                'contact_number'      => $row["ContactDetail"],
+                'email'               => $row["Email"],
+                'address'             => $row["Address"],
+                'supplier_profile'    => $row["SupplierProfile"]
+			);
+			
+		}
+		$this->csv_import_model->insert_supplier($data);
+	}
+ 
 
     function supplier_view()
     {

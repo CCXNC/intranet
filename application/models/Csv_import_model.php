@@ -19,6 +19,13 @@ class Csv_import_model extends CI_Model
 		$activity_log->insert('blaine_logs', $data);
 	}
 
+	public function insert_supplier($data)
+	{
+		$blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+		$blaine_local_procurement->insert_batch('supplier', $data);
+	}
+
+
 	public function get_last_in()
 	{
 		$this->db->select('attendance_logs.id as id,attendance_logs.date_time as date');
