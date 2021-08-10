@@ -45,6 +45,7 @@
                             <th scope="col">TIME IN</th>
                             <th scope="col">TIME OUT</th>
                             <th scope="col">DAILY HOURS</th>
+                            <th scope="col">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -186,7 +187,7 @@
                                                 } 
                                             ?>
                                         </td>
-                                         <!--  PROCESS -->
+                                         <!--  DAILY HOURS -->
                                          <td>
                                             <?php 
                                                 if($total_time_in_mins != NULL && $total_time_out_mins != NULL)
@@ -203,7 +204,14 @@
                                                 }
                                             ?>
                                         </td>
-                                    <?php endif; ?>
+                                        
+                                        <!-- ACTION -->
+                                        <td>
+                                            <button title="Add Manual Attendance" type="button" id="test" class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>">
+                                                    VIEW
+                                            </button>
+                                        </td>
+                                    <?php endif; ?> 
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -213,6 +221,47 @@
         </div>
     </div>
 </div>
+<?php if($employees) : ?>
+    <?php foreach($employees as $employee) : ?>
+        <div class="modal fade" id="exampleModalCenter_<?php echo $employee->employee_number; ?>_<?php echo $employee->temp_date; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">ATTENDANCE LOGS</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button> 
+                    </div>
+                    <div class="modal-body"> 
+                        <center style="background-color: #3490dc; color:white; padding:10px;"><b><?php echo date('F j, Y', strtotime($employee->temp_date)); ?></b></center>
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr style="background-color:#D4F1F4;">
+                                    <th scope="col" style="padding:5px 5px 5px 25px;">TIME</th>
+                                    <th scope="col" style="padding:5px 5px 5px 25px;">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if($datas) : ?>
+                                    <?php foreach($datas as $data) : ?>
+                                        <?php if($data->date == $employee->temp_date && $data->employee_number == $employee->employee_number) : ?>
+                                            <tr>
+                                                <td style="padding:5px 5px 5px 25px;"><?php echo $data->time; ?></td>
+                                                <td style="padding:5px 5px 5px 25px;"><?php echo $data->status; ?></td>
+                                            </tr>
+                                        <?php endif; ?>  
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>            
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?> 
 
     
    

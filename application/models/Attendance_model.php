@@ -84,7 +84,7 @@ class Attendance_model extends CI_Model
 	{
 		$this->db->select("
 			raw_data.biometric_id as biometric_id, 
-			raw_data.date as date, raw_data.time as time, 
+			raw_data.date as date, raw_data.time as time,  
 			raw_data.status as status , 
 			employee_biometric.employee_number as employee_number
 		");
@@ -308,6 +308,29 @@ class Attendance_model extends CI_Model
 		$this->db->select('individual_temp_date.date as last_date_daily_attendance');
 		$this->db->from('blaine_timekeeping.individual_temp_date');
 		$this->db->where('individual_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->order_by('id', 'DESC');
+		$this->db->limit('1');
+		$query = $this->db->get();
+
+		return $query->row();
+	}
+
+	public function get_first_my_daily_attendance_date()
+	{
+		$this->db->select('myattendance_temp_date.employee_number as raw_employee_number, myattendance_temp_date.date as first_date_daily_attendance');
+		$this->db->from('blaine_timekeeping.myattendance_temp_date');
+		$this->db->where('myattendance_temp_date.created_by', $this->session->userdata('username'));
+		$this->db->limit('1');
+		$query = $this->db->get();
+
+		return $query->row();
+	}
+
+	public function get_last_my_daily_attendance_date()
+	{
+		$this->db->select('myattendance_temp_date.date as last_date_daily_attendance');
+		$this->db->from('blaine_timekeeping.myattendance_temp_date');
+		$this->db->where('myattendance_temp_date.created_by', $this->session->userdata('username'));
 		$this->db->order_by('id', 'DESC');
 		$this->db->limit('1');
 		$query = $this->db->get();
