@@ -747,22 +747,24 @@
                           
                            
                             <!--PROCUREMENT-->
-                            <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-truck" style="background-color:#138B83"></i>
-                                    <span>Procurement</span>
-                                </a>
-                                <div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                        <a href="<?php echo base_url(); ?>procurement/local_procurement">Local Procurement</a>
-                                        </li>
-                                        <li>
-                                        <a href="#">Importations</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                            <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
+                                <li class="sidebar-dropdown">
+                                    <a href="#">
+                                        <i class="fa fa-truck" style="background-color:#138B83"></i>
+                                        <span>Procurement</span>
+                                    </a>
+                                    <div class="sidebar-submenu">
+                                        <ul>
+                                            <li>
+                                            <a href="<?php echo base_url(); ?>procurement/local_procurement">Local Procurement</a>
+                                            </li>
+                                            <li>
+                                            <a href="#">Importations</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php endif; ?>    
                             <!--ENGINEERING-->
                             <li class="">
                                 <a href="#">
