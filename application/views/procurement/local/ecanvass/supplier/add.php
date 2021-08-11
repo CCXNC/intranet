@@ -14,7 +14,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="vendor_code" style="font-size:12px" >
+                                <input type="text" class="form-control" name="scode" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="supplier_name" style="font-size:12px" >
+                                <input type="text" class="form-control" name="name" style="font-size:12px" >
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type='file' name='attachments' size='20' />
+                                <input type='file' name='attachment' size='20' />
                             </div>
                         </div>
                     </div>

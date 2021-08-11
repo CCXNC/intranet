@@ -2,7 +2,7 @@
     <h4>SUPPLIER LIST SUMMARY<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-left:10px;">BACK</a><a href="<?php echo base_url(); ?>procurement/supplier_add" title="Add Form" class="btn btn-info float-right">ADD</a><a href="<?php echo base_url(); ?>procurement/supplier_import_view" title="Add Form" class="btn btn-info float-right" style="margin-right: 10px">IMPORT</a></h4> 
 </div>
 <br>
-<table id="" class="display" style="width:100%;font-size:14px">
+<table id="" class="display table-responsive" style="width:100%;font-size:14px">
     <thead>
         <tr style="background-color:#D4F1F4;">
             <th scope="col">Supplier Code</th>
@@ -17,72 +17,32 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td data-label="Vendor Code"><a href="<?php echo base_url();?>procurement/supplier_view">00001001</a></td>
-            <td data-label="Supplier Name">KJ Packaging</td>
-            <td data-label="Contact Name">Juan San Miguel</td>
-            <td data-label="Contact Designation">Sales & Marketing</td>
-            <td data-label="Contact Number">0909092909</td>
-            <td data-label="Email">juanmiguel@gmail.com</td>
-            <td data-label="Address">San Juan, Manila</td>
-            <td data-label="Supplier Profile">Lorem Ipsum</td>
-            <td data-label="Action">
-                <div class="btn-group">
-                    <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Action
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/supplier_view">View</a>
-                        <a class="dropdown-item" title="Edit Request" href="<?php echo base_url(); ?>procurement/supplier_edit">Edit</a>
-                        <a class="dropdown-item" title="Delete Request" href="">Delete</a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td data-label="Vendor Code"><a href="<?php echo base_url();?>procurement/supplier_view">00001002</a></td>
-            <td data-label="Supplier Name">ABC Consumables</td>
-            <td data-label="Contact Name">Louis Ruiz</td>
-            <td data-label="Contact Designation">Sales</td>
-            <td data-label="Contact Number">0921092909</td>
-            <td data-label="Email">ruiz.louis@gmail.com</td>
-            <td data-label="Address">Malate, Manila</td>
-            <td data-label="Supplier Profile">Lorem Ipsum</td>
-            <td data-label="Action">
-                <div class="btn-group">
-                    <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Action
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/supplier_view">View</a>
-                        <a class="dropdown-item" title="Edit Request" href="<?php echo base_url(); ?>procurement/supplier_edit">Edit</a>
-                        <a class="dropdown-item" title="Delete Request" href="">Delete</a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td data-label="Vendor Code"><a href="<?php echo base_url();?>procurement/supplier_view">00001002</a></td>
-            <td data-label="Supplier Name">JGC Chemicals</td>
-            <td data-label="Contact Name">Karleen Gregorio</td>
-            <td data-label="Contact Designation">Sales</td>
-            <td data-label="Contact Number">0990092909</td>
-            <td data-label="Email">kgregorio@gmail.com</td>
-            <td data-label="Address">Richville, Alabang, Muntinlupa</td>
-            <td data-label="Supplier Profile">Lorem Ipsum</td>
-            <td data-label="Action">
-                <div class="btn-group">
-                    <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Action
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/supplier_view">View</a>
-                        <a class="dropdown-item" title="Edit Request" href="<?php echo base_url(); ?>procurement/supplier_edit">Edit</a>
-                        <a class="dropdown-item" title="Delete Request" href="">Delete</a>
-                    </div>
-                </div>
-            </td>
-        </tr>
+        <?php if($suppliers) : ?>
+            <?php foreach($suppliers as $supplier) : ?>
+                <tr>
+                    <td><?php echo $supplier->scode; ?></td>
+                    <td><?php echo $supplier->name;?></td>
+                    <td><?php echo $supplier->contact_name;?></td>
+                    <td><?php echo $supplier->contact_designation;?></td>
+                    <td><?php echo $supplier->contact_number;?></td>
+                    <td><?php echo $supplier->email;?></td>
+                    <td><?php echo $supplier->address;?></td>
+                    <td><?php echo $supplier->supplier_profile;?></td>
+                    <td data-label="Action">
+                        <div class="btn-group">
+                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" title="View Idea" href="<?php echo base_url(); ?>procurement/supplier_view"> View</a>
+                                <a class="dropdown-item" title="Edit Supplier" href="<?php echo base_url(); ?>procurement/supplier_edit">Edit</a>
+                                <a class="dropdown-item" title="Delete Supplier" href="">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </tbody>
 </table>
 <script type="text/javascript">  

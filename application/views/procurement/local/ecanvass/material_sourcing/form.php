@@ -19,7 +19,7 @@
     </div>-->
     <div class="col-sm-6">
         <div class="card" style="background-color:#E9FAFD">
-            <p style="text-align:center; padding-top:10px"><img class="card-img-top" style="width:90%; border-radius:2%" src="<?php echo base_url(); ?>assets/images/matcode.jpg" alt=""></p>
+            <p style="text-align:center; padding-top:10px"><img class="card-img-top" style="width:50%; border-radius:2%" src="<?php echo base_url(); ?>assets/images/matcode.png" alt=""></p>
             <div class="card-body">
                 <a style="width: 100%; background-color:#18A558; border:white" href="<?php echo base_url(); ?>procurement/material_sourcing_matcode" class="btn btn-primary btn-md float-left"><h4>With Matcode</h4></a>
                 <p style="font-size:18px" class="card-text"><br><br><br>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -28,7 +28,7 @@
     </div>
     <div class="col-sm-6">
         <div class="card" style="background-color:#E9FAFD">
-            <p style="text-align:center; padding-top:10px"><img class="card-img-top" style="width:90%; border-radius:2%" src="<?php echo base_url(); ?>assets/images/nomatcode.jpg" alt=""></p>
+            <p style="text-align:center; padding-top:10px"><img class="card-img-top" style="width:50%; border-radius:2%" src="<?php echo base_url(); ?>assets/images/nomatcode.png" alt=""></p>
             <div class="card-body">
                 <a style="width: 100%; background-color:#082E90; border:white" href="<?php echo base_url(); ?>procurement/material_sourcing_nomatcode" class="btn btn-primary btn-md float-left"><h4>Without Matcode</h4></a>
                 <p style="font-size:18px" class="card-text"><br><br><br>Some quick example text to build on the card title and make up the bulk of the card's content.</p>

@@ -56,38 +56,53 @@ class Procurement extends CI_Controller {
 
     function supplier_index()
     {
+        $data['suppliers'] = $this->local_procurement_model->get_suppliers();
         $data['main_content'] = 'procurement/local/ecanvass/supplier/index';
         $this->load->view('inc/navbar', $data);
     }
 
     function supplier_add()
     {
-        if(!empty($_FILES['image']['name']))
-        { 
-            $imageName = $_FILES['image']['name']; 
-                
-            // File upload configuration 
-            $config['upload_path'] = './uploads/announcement/'; 
-            $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf'; 
-            $config['max_size'] = '100000000'; 
-            $config['overwrite'] = True;   
-            
-            // Load and initialize upload library 
-            $this->load->library('upload', $config); 
-            $this->upload->initialize($config); 
-                
-            // Upload file to server 
-            if($this->upload->do_upload('image')){ 
-                // Uploaded file data 
-                $fileData = $this->upload->data(); 
-                $imgData['file_name'] = $fileData['file_name']; 
-            }else{ 
-                $error = $this->upload->display_errors();  
-            } 
-        } 
+        $this->form_validation->set_rules('scode', 'Supplier Code', 'required|trim');
 
-        $data['main_content'] = 'procurement/local/ecanvass/supplier/add';
-        $this->load->view('inc/navbar', $data);
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['suppliers'] = $this->local_procurement_model->get_suppliers();
+            $data['main_content'] = 'procurement/local/ecanvass/supplier/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if(!empty($_FILES['attachment']['name']))
+            {
+                $imageName = $_FILES['attachment']['name'];
+
+                // File upload configuration
+                $config['upload_path'] = './uploads/supplier_attachment/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
+                $config['max_size'] = '100000000';
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                // Upload file to server
+                if($this->upload->do_upload('attachment')){
+                    // Upload file data
+                    $fileData = $this->upload->data();
+                    $imgData['file_name'] = $fileData['file_name'];
+                }
+                else{
+                    $error = $this->upload->display_errors();
+                }
+            }
+            if($this->local_procurement_model->add_supplier())
+            {
+                $this->session->set_flashdata('success_msg', 'Supplier Successfully Added!');
+                redirect('procurement/supplier_index');
+            }
+        }
     }
 
     function supplier_import_view()

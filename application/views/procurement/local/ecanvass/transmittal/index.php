@@ -2,18 +2,20 @@
 <br>
 <div class="row">
     <div class="col-sm-6">
-        <div class="card">
+        <div class="card" style="background-color:#E9FAFD">
+            <p style="text-align:center; padding-top:10px"><img class="card-img-top" style="width:50%; border-radius:2%" src="<?php echo base_url(); ?>assets/images/matsource.png" alt=""></p>
             <div class="card-body">
-                <a style="width: 70%" href="<?php echo base_url(); ?>procurement/transmittal_matsource_add" class="btn btn-primary btn-md float-left">WITH MATSOURCE</a>
-                <i style="" class="fa fa-file-alt fa-2x float-right"></i>
+                <a style="width: 100%; background-color:#18A558; border:white" href="<?php echo base_url(); ?>procurement/transmittal_matsource_add" class="btn btn-primary btn-md float-left"><h4>With Matsource</h4></a>
+                <p style="font-size:18px" class="card-text"><br><br><br>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card">
+        <div class="card" style="background-color:#E9FAFD">
+            <p style="text-align:center; padding-top:10px"><img class="card-img-top" style="width:50%; border-radius:2%" src="<?php echo base_url(); ?>assets/images/pr.png" alt=""></p>
             <div class="card-body">
-                <a style="width: 70%" href="<?php echo base_url(); ?>procurement/transmittal_pr_add" class="btn btn-primary btn-md float-left">PR ONLY</a>
-                <i style="" class="fa fa-file-alt fa-2x float-right"></i>
+                <a style="width: 100%; background-color:#082E90; border:white" href="<?php echo base_url(); ?>procurement/transmittal_pr_add" class="btn btn-primary btn-md float-left"><h4>PR Only</h4></a>
+                <p style="font-size:18px" class="card-text"><br><br><br>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
         </div>
     </div>

@@ -45,7 +45,7 @@
                             <th scope="col">TIME IN</th>
                             <th scope="col">TIME OUT</th>
                             <th scope="col">DAILY HOURS</th>
-                            <th scope="col">ACTION</th>
+                            <th scope="col">RAW DATA</th>
                         </tr>
                     </thead>
                     <tbody>
