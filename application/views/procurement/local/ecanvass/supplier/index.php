@@ -34,8 +34,8 @@
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" title="View Idea" href="<?php echo base_url(); ?>procurement/supplier_view"> View</a>
-                                <a class="dropdown-item" title="Edit Supplier" href="<?php echo base_url(); ?>procurement/supplier_edit">Edit</a>
+                                <a class="dropdown-item" title="View Supplier" href="<?php echo base_url(); ?>procurement/supplier_view/<?php echo $supplier->id;?>">View</a>
+                                <a class="dropdown-item" title="Edit Supplier" href="<?php echo base_url(); ?>procurement/supplier_edit/<?php echo $supplier->id; ?>">Edit</a>
                                 <a class="dropdown-item" title="Delete Supplier" href="">Delete</a>
                             </div>
                         </div>

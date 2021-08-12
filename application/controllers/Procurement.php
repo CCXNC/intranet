@@ -132,16 +132,72 @@ class Procurement extends CI_Controller {
 	}
  
 
-    function supplier_view()
+    function supplier_view($id)
     {
+        $data['supplier'] = $this->local_procurement_model->get_supplier($id);
         $data['main_content'] = 'procurement/local/ecanvass/supplier/view';
         $this->load->view('inc/navbar', $data);
     }
-
-    function supplier_edit()
+    
+    function download_attachment()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/supplier/edit';
-        $this->load->view('inc/navbar', $data);
+        $this->load->helper('download');
+        $data = file_get_contents('uploads/supplier_attachment/'.$this->uri->segment(3));
+        $name = $this->uri->segment(3);
+        force_download($name, $data);
+    }
+
+    //EDIT
+    public function supplier_edit($id)
+    {
+        $this->form_validation->set_rules('scode', 'Supplier Code', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['supplier'] = $this->local_procurement_model->get_supplier($id);
+            $data['main_content'] = 'procurement/local/ecanvass/supplier/edit';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            // GET PREVIOUS DATA
+            $attachment_file = $this->local_procurement_model->get_supplier($id);
+            $prevImage = $attachment_file->attachment;
+
+            if(!empty($_FILES['attachment']['name'])){
+                $imageName = $_FILES['attachment']['name'];
+
+                // File upload configuration
+                $config['upload_path'] = './uploads/supplier_attachment/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docs|xls|xlsx|pdf';
+
+                //Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if(!empty($prevImage) || !empty($imageName)){ 
+                    // Remove old file from the server 
+                    @unlink('./uploads/supplier_attachment/'.$prevImage);  
+
+                    // Upload file to server 
+                    if($this->upload->do_upload('attachment')){ 
+                        // Uploaded file data 
+                        $fileData = $this->upload->data(); 
+                        $imgData['file_name'] = $fileData['file_name']; 
+                    
+                    }else{ 
+                        $error = $this->upload->display_errors(); 
+                    } 
+                } 
+            }
+
+            if($this->local_procurement_model->update_supplier($id))
+            {
+                $this->session->set_flashdata('success_msg', 'Supplier Successfully Updated!');
+                redirect('procurement/supplier_index');
+            }
+        }
+        
     }
 
     function comparative()
