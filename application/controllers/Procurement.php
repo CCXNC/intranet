@@ -130,6 +130,21 @@ class Procurement extends CI_Controller {
 		}
 		$this->csv_import_model->insert_supplier($data);
 	}
+
+    function material_import()
+	{
+		$file_data = $this->csvimport->get_array($_FILES["csv_file"]["tmp_name"]);
+		foreach($file_data as $row)
+		{
+			$data[] = array( 
+				'mcode'	              => $row["material_code"],
+				'description'		  => $row["material_description"],
+                'group_code'          => $row["material_group_code"]
+			);
+			
+		}
+		$this->csv_import_model->insert_material($data);
+	}
  
 
     function supplier_view()

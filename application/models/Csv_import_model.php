@@ -25,6 +25,14 @@ class Csv_import_model extends CI_Model
 		$blaine_local_procurement->insert_batch('supplier', $data);
 	}
 
+	
+	public function insert_material($data)
+	{
+		$blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+		$blaine_local_procurement->insert_batch('material', $data);
+	}
+
+
 
 	public function get_last_in()
 	{

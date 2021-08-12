@@ -25,7 +25,6 @@
 					<input type="file" style="font-size:12px" name="csv_file" id="csv_file" required accept=".csv" />
 				</div>
 				<button type="submit" name="import_csv" class="btn btn-info" id="import_csv_btn" style="font-size:12px">Import</button>
-                <a href="<?php echo base_url(); ?>csv_import/view" class="btn btn-info" style="font-size:12px">View Data</a><br><br>
 			</form>
 		</center>
 	</div>
@@ -36,9 +35,9 @@ $(document).ready(function(){
 		event.preventDefault();
 		//document.getElementById('loadarea').src = '<?php echo base_url(); ?>csv_import/import';
 		$.ajax({
-			url:"<?php echo base_url(); ?>csv_import/import",
+			url:"<?php echo base_url(); ?>procurement/material_import",
 			method:"POST",
-			data:new FormData(this),
+			data:new FormData(this), 
 			contentType:false,
 			cache:false,
 			processData:false,
