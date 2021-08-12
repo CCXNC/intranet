@@ -62,8 +62,8 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $total_tardiness = 0; $total_undertime = 0; $total_night_diff = 0; ?>
                         <?php if($employees) : ?>
-                            <?php $total_tardiness = 0; $total_undertime = 0; $total_night_diff = 0; ?>
                             <?php foreach($employees as $employee) : ?>
                                 <tr>
                                     <?php $w_date = date('w', strtotime($employee->temp_date)); ?>
