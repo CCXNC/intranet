@@ -2,7 +2,7 @@
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>UPDATE SUPPLIER INFORMATION<a href="<?php echo base_url(); ?>procurement/supplier_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url();?> procurement/supplier_edit/<?php echo $supplier->id;?>" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url();?>procurement/supplier_edit/<?php echo $supplier->id;?>" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">SUPPLIER DETAILS</div>
                 <div class="card-body" style="background-color: #E9FAFD;color:black">
@@ -11,7 +11,7 @@
                             <div class="form-group">
                                 <label>Supplier Code</label>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-md-8">
                             <div class="form-group">
                                 <input type="text" class="form-control"  name="scode" value="<?php echo $supplier->scode; ?>">

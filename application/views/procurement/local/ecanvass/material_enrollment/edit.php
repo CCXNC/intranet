@@ -5,7 +5,7 @@
         <form method="post" action="<?php echo base_url(); ?>procurement/supplier_add" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">MATERIAL DETAILS</div>
-                <div class="card-body" style="background-color: #E9FAFD;color:black">
+                <div class="card-body" style="background-color: #E9FAFD; color:black;">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
