@@ -10,8 +10,8 @@ class Local_procurement_model extends CI_Model {
             supplier.scode as scode,
             supplier.name as name,
             supplier.contact_name as contact_name,
-            supplier.contact_designation as contact_designation,
-            supplier.contact_number as contact_number,
+            supplier.contact_designation as contact_designation,    
+            supplier.contact_number as contact_number, 
             supplier.email as email,
             supplier.address as address,
             supplier.supplier_profile as supplier_profile
@@ -112,9 +112,14 @@ class Local_procurement_model extends CI_Model {
                 'updated_by'            => $this->session->userdata('username')
             );
 
-            /*$blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+           
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
             $blaine_local_procurement->where('supplier.id',$id);
-            $blaine_local_procurement->update('supplier', $data_supplier);*/
+            $blaine_local_procurement->update('supplier', $data_supplier);
+
+            /*print_r('<pre>');
+            print_r($data_supplier);
+            print_r('</pre>');*/
             
         }
         else
@@ -128,13 +133,19 @@ class Local_procurement_model extends CI_Model {
                 'email'                 => $email,
                 'address'               => $address,
                 'supplier_profile'      => $supplier_profile,
+                'attachment'            => $attachment,
                 'updated_date'          => $date,
                 'updated_by'            => $this->session->userdata('username')
             );
 
-            /*$blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+           
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
             $blaine_local_procurement->where('supplier.id',$id);
-            $blaine_local_procurement->update('supplier', $data_supplier);*/
+            $blaine_local_procurement->update('supplier', $data_supplier);
+
+            /*print_r('<pre>');
+            print_r($data_supplier);
+            print_r('</pre>');*/
         }
         $trans = $this->db->trans_complete();
         return $trans;
@@ -188,6 +199,69 @@ class Local_procurement_model extends CI_Model {
         return $query->row();
     }
 
+    
+
+    public function get_material_group()
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->order_by('name', 'ASC');
+        $query = $blaine_local_procurement->get('material_group');
+
+        return $query->result();
+    }
+
+    public function add_material()
+    {
+        $mcode1 = $this->input->post('mcode1');
+        $mcode2 = $this->input->post('mcode2');
+        $mcode3 = $this->input->post('mcode3');
+        $mcode4 = $this->input->post('mcode4');
+        $mcode = $mcode1 . '-' . $mcode2 . '-' . $mcode3 . '-' . $mcode4;
+        $description = $this->input->post('description');
+        $material_group = $this->input->post('material_group');
+        $date = date('Y-m-d H:i:s');
+
+        $data = array(
+            'mcode'        => $mcode,
+            'description'  => $description,
+            'group_code'   => $material_group,
+            'created_by'   => $this->session->userdata('username'),
+            'created_date' => $date
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $query = $blaine_local_procurement->insert('material', $data);
+
+        /*print_r('<pre>');
+        print_r($data);
+        print_r('</pre>');*/
+
+        return $query;
+    }
+
+    public function update_material($id)
+    {
+        $mcode = $this->input->post('mcode');
+        $description = $this->input->post('description');
+        $material_group = $this->input->post('material_group');
+        $date = date('Y-m-d H:i:s');
+
+        $data = array(
+            'mcode'        => $mcode,
+            'description'  => $description,
+            'group_code'   => $material_group,
+            'created_by'   => $this->session->userdata('username'),
+            'created_date' => $date
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $id);
+        $query = $blaine_local_procurement->update('material', $data);
+
+        return $query;
+
+    }
+
     public function delete_material($id)
     {
         $data_material = array(
@@ -197,7 +271,5 @@ class Local_procurement_model extends CI_Model {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('id', $id);
         $query = $blaine_local_procurement->update('material', $data_material);
-
-        return $query;
     }
 }

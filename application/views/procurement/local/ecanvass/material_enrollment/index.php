@@ -31,7 +31,7 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" title="View Material" href="<?php echo base_url();?>procurement/material_enrollment_view/<?php echo $material->id;?>">View</a>
-                                <a class="dropdown-item" title="Edit Material" >Edit</a>
+                                <a class="dropdown-item" title="Edit Material" href="<?php echo base_url();?>procurement/material_enrollment_edit/<?php echo $material->id;?>">Edit</a>
                                 <a onclick="return confirm('Are you sure you want to delete data?');" title="Delete Material" class="dropdown-item" href="<?php echo base_url(); ?>procurement/material_enrollment_delete/<?php echo $material->id?>">Delete</a>
                             </div>
                         </div>

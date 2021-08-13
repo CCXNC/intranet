@@ -352,8 +352,22 @@ class Procurement extends CI_Controller {
     
     public function material_enrollment_add()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/add';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('mcode1', 'Material Code', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['material_groups'] = $this->local_procurement_model->get_material_group();
+            $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->add_material())
+            {
+                $this->session->set_flashdata('success_msg', 'Material Successfully Added!');
+                redirect('procurement/material_enrollment');
+            }
+        }
     }
 
     public function material_enrollment()
@@ -363,10 +377,26 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function material_enrollment_edit()
+    public function material_enrollment_edit($id)
     {
-        $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/edit';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('mcode', 'Material Code', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['material'] = $this->local_procurement_model->get_material($id);
+            $data['material_groups'] = $this->local_procurement_model->get_material_group();
+            $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/edit';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->update_material($id))
+            {
+                $this->session->set_flashdata('success_msg', 'Material Successfully Updated!');
+                redirect('procurement/material_enrollment');
+            }
+        }
+       
     }
 
     public function material_enrollment_view($id)
@@ -390,4 +420,5 @@ class Procurement extends CI_Controller {
         $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/csv';
         $this->load->view('inc/navbar', $data);
     }
+
 }
