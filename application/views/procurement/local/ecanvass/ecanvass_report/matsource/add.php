@@ -66,7 +66,7 @@
                                 <th scope="col">Mat Code</th>
                                 <th scope="col">QTY</th>
                                 <th scope="col">UOM</th>
-                                <th scope="col">Previous Purchase</th>
+                                <th scope="col">Previous Purchase Per Unit</th>
                                 <th scope="col">Year</th>
                                 <th>Action</th>
                             </tr>

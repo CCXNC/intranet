@@ -48,7 +48,7 @@
                                         <th scope="col">QTY</th>
                                         <th scope="col">UOM</th>
                                         <th scope="col">MOQ</th>
-                                        <th scope="col">Price</th>
+                                        <th scope="col">Price Per UOM</th>
                                         <th scope="col">Currency</th>
                                     </tr>
                                 </thead>

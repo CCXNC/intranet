@@ -1,3 +1,9 @@
+<?php if($this->session->flashdata('success_msg')) : ?>
+    <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
+<?php endif; ?>
+<?php if($this->session->flashdata('error_msg')) : ?>
+    <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
+<?php endif; ?>
 <div class="card-header" style="background-color: #0C2D48; color: white;">
     <h4>SUPPLIER LIST SUMMARY<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-left:10px;">BACK</a><a href="<?php echo base_url(); ?>procurement/supplier_add" title="Add Form" class="btn btn-info float-right">ADD</a><a href="<?php echo base_url(); ?>procurement/supplier_import_view" title="Add Form" class="btn btn-info float-right" style="margin-right: 10px">IMPORT</a></h4> 
 </div>
@@ -36,7 +42,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" title="View Supplier" href="<?php echo base_url(); ?>procurement/supplier_view/<?php echo $supplier->id;?>">View</a>
                                 <a class="dropdown-item" title="Edit Supplier" href="<?php echo base_url(); ?>procurement/supplier_edit/<?php echo $supplier->id; ?>">Edit</a>
-                                <a class="dropdown-item" title="Delete Supplier" href="">Delete</a>
+                                <a onclick="return confirm('Are you sure you want to delete data?');" title="Delete Supplier" class="dropdown-item" href="<?php echo base_url(); ?>procurement/supplier_delete/<?php echo $supplier->id;?>">Delete</a>
                             </div>
                         </div>
                     </td>

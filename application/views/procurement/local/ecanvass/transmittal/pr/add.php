@@ -21,7 +21,7 @@
                                 <input type="text" class="form-control" name="first_name" style="text-transform:uppercase" >
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <!--<div class="col-md-4">
                             <div class="form-group">
                                 <label >PR Number</label>
                                 <input type="text" class="form-control" name="first_name" style="">
@@ -32,7 +32,7 @@
                                 <label >PR Date</label>
                                 <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >Company</label>

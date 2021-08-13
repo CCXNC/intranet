@@ -17,6 +17,8 @@ class Local_procurement_model extends CI_Model {
             supplier.supplier_profile as supplier_profile
         ");
         $this->db->from('blaine_local_procurement.supplier');
+        $this->db->where('blaine_local_procurement.supplier.is_active', 1);
+
         $query = $this->db->get();
         return $query->result();
     }
@@ -136,5 +138,66 @@ class Local_procurement_model extends CI_Model {
         }
         $trans = $this->db->trans_complete();
         return $trans;
+    }
+
+    public function delete_supplier($id)
+    {
+        $data_supplier = array(
+            'is_active' => 0
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $id);
+        $query = $blaine_local_procurement->update('supplier', $data_supplier);
+
+        return $query;
+    }
+
+    public function get_materials()
+    {
+        $this->db->select("
+            material.id as id,
+            material.mcode as mcode,
+            material.description as description,
+            material.group_code as code_id,
+            material_group.name as group_name
+        ");
+
+        $this->db->from('blaine_local_procurement.material');
+        $this->db->join('blaine_local_procurement.material_group', 'blaine_local_procurement.material.group_code = blaine_local_procurement.material_group.code');
+        $this->db->where('blaine_local_procurement.material.is_active', 1);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_material($id)
+    {
+        $this->db->select("
+            material.id as id,
+            material.mcode as mcode,
+            material.description as description,
+            material.group_code as code_id,
+            material_group.name as group_name
+        ");
+        $this->db->from('blaine_local_procurement.material');
+        $this->db->join('blaine_local_procurement.material_group', 'blaine_local_procurement.material.group_code = blaine_local_procurement.material_group.code');
+        $this->db->where('blaine_local_procurement.material.id', $id);
+
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    public function delete_material($id)
+    {
+        $data_material = array(
+            'is_active' => 0
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $id);
+        $query = $blaine_local_procurement->update('material', $data_material);
+
+        return $query;
     }
 }

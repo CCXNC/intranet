@@ -14,7 +14,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="vendor_code" style="font-size:12px; background-color:white" readonly>
+                                <div class="form-control" style="font-size:12px"><?php echo $material->mcode; ?></div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -24,17 +24,17 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="supplier_name" style="font-size:12px; background-color:white" readonly>
+                                <div class="form-control" style="font-size:12px"><?php echo $material->description; ?></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Material Category</label>
+                                <label>Material Group</label>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="contact_name" style="font-size:12px; background-color:white" readonly>
+                                <div class="form-control" style="font-size:12px"><?php echo $material->group_name; ?></div>
                             </div>
                         </div>
                     </div>

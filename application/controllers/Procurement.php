@@ -215,6 +215,15 @@ class Procurement extends CI_Controller {
         
     }
 
+    public function supplier_delete($id)
+    {
+        if($this->local_procurement_model->delete_supplier($id))
+        {
+            $this->session->set_flashdata('error_msg', 'Supplier Successfully Deleted!');
+            redirect('procurement/supplier_index');
+        }
+    }
+
     function comparative()
     {
         $data['main_content'] = 'procurement/local/ecanvass/comparative/index';
@@ -349,6 +358,7 @@ class Procurement extends CI_Controller {
 
     public function material_enrollment()
     {
+        $data['materials'] = $this->local_procurement_model->get_materials();
         $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/index';
         $this->load->view('inc/navbar', $data);
     }
@@ -359,10 +369,20 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function material_enrollment_view()
+    public function material_enrollment_view($id)
     {
+        $data['material'] = $this->local_procurement_model->get_material($id);
         $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/view';
         $this->load->view('inc/navbar', $data);
+    }
+
+    public function material_enrollment_delete($id)
+    {
+        if($this->local_procurement_model->delete_material($id))
+        {
+            $this->session->set_flashdata('error_msg', 'Material Successfully Deleted!');
+            redirect('procurement/material_enrollment');
+        }
     }
 
     public function material_enrollment_csv()
