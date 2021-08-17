@@ -199,8 +199,6 @@ class Local_procurement_model extends CI_Model {
         return $query->row();
     }
 
-    
-
     public function get_material_group()
     {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);

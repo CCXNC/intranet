@@ -283,6 +283,13 @@ class Procurement extends CI_Controller {
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/w_matcode/add';
         $this->load->view('inc/navbar', $data);
     }
+ 
+    public function json_material()
+    {
+        $data = $this->local_procurement_model->get_materials();
+
+        echo json_encode($data);
+    }
 
     public function material_sourcing_nomatcode()
     {
