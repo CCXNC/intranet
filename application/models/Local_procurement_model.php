@@ -3,6 +3,272 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Local_procurement_model extends CI_Model {
     
+    public function add_material_sourcing_matcode()
+    {
+        $this->db->trans_start();
+
+        // Material Sourcing 
+        $msid = $this->input->post('msid');
+        $company = $this->input->post('company');
+        $sourcing_category = $this->input->post('sourcing_category');
+        $date_required = $this->input->post('date_required');
+
+        // Material list
+        $description = $this->input->post('description');
+        $specification = $this->input->post('specification');
+        $quantity = $this->input->post('quantity');
+        $uom =  $this->input->post('uom');
+        $shelf_life =  $this->input->post('shelf_life');
+        $item_application =  $this->input->post('item_application');
+        $required_document = $this->input->post('required_document');
+        $material_category = $this->input->post('material_category');
+        $purpose = $this->input->post('purpose');
+        $i = 0;
+
+        // APPROVAL DETAILS
+        $date = date('Y-m-d H:i:s');
+        $remarks = $this->input->post('remarks');
+        $requestor_alternate = $this->input->post('requestor_alternate');
+        $role_status = ['Requestor','Superior'];
+        $status = ['Done','Pending'];
+        $signoff_by = [$this->session->userdata('username'),' '];
+        $signoff_date = [$date,' '];
+        $material_source_status = $status[1]. ' '. '(' .$role_status[1].')' ;
+        $j = 0;
+       
+
+        /** MATERIAL SOURCING INSERT **/ 
+        $data_material_source = array(
+            'msid'          => $msid,
+            'company_id'    => $company,
+            'category'      => $sourcing_category,
+            'date_required' => $date_required,
+            'role_status'   => $material_source_status,
+            'created_by'    => $this->session->userdata('username'),
+            'created_date'  => $date
+        );
+
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->insert('material_sourcing', $data_material_source);
+
+        /*print_r('<pre>');
+        print_r($data_material_source);
+        print_r('</pre>');*/
+
+
+         /** MATERIAL LIST INSERT **/ 
+        foreach($this->input->post('material_code') as $mcode)
+        {
+            $data_material = array(
+                'msid'              => $msid,
+                'mcode'             => $mcode,
+                'description'       => $description[$i],
+                'specification'     => $specification[$i],
+                'quantity'          => $quantity[$i],
+                'uom'               => $uom[$i],
+                'shelf_life'        => $shelf_life[$i],
+                'item_application'  => $item_application[$i],
+                'required_document' => $required_document[$i],
+                'category'          => $material_category[$i],
+                'remarks'           => $purpose[$i],
+                'created_by'        => $this->session->userdata('username'),
+                'created_date'      => $date
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('material_sourcing_list', $data_material);
+
+            /*print_r('<pre>');
+            print_r($data_material);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+
+        /** APPROVER LIST INSERT **/ 
+        foreach($this->input->post('requestor_primary') as $primary_approver)
+        {
+            $data_material_approver = array(
+                'msid' => $msid,
+                'primary_approver'   => $primary_approver,
+                'alternate_approver' => $requestor_alternate[$j],
+                'remarks'            => $remarks[$j],
+                'role_status'        => $role_status[$j],
+                'status'             => $status[$j],
+                'signoff_by'         => $signoff_by[$j],
+                'signoff_date'       => $signoff_date[$j],
+                'created_by'         => $this->session->userdata('username'),
+                'created_date'       => $date
+            );
+
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('material_approval_list', $data_material_approver);
+
+            /*print_r('<pre>');
+            print_r($data_material_approver);
+            print_r('</pre>');*/
+
+            $j++;
+        }
+
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+
+    }
+
+    public function add_material_sourcing_nomatcode()
+    {
+        $this->db->trans_start();
+
+        // Material Sourcing 
+        $msid = $this->input->post('msid');
+        $company = $this->input->post('company');
+        $sourcing_category = $this->input->post('sourcing_category');
+        $date_required = $this->input->post('date_required');
+
+        // Material list
+        $specification = $this->input->post('specification');
+        $quantity = $this->input->post('quantity');
+        $uom =  $this->input->post('uom');
+        $shelf_life =  $this->input->post('shelf_life');
+        $item_application =  $this->input->post('item_application');
+        $required_document = $this->input->post('required_document');
+        $material_category = $this->input->post('material_category');
+        $purpose = $this->input->post('purpose');
+        $i = 0;
+
+        // APPROVAL DETAILS
+        $date = date('Y-m-d H:i:s');
+        $remarks = $this->input->post('remarks');
+        $requestor_alternate = $this->input->post('requestor_alternate');
+        $role_status = ['Requestor','Superior'];
+        $status = ['Done','Pending'];
+        $material_source_status = $status[1]. ' '. '(' .$role_status[1].')' ;
+        $signoff_by = [$this->session->userdata('username'),' '];
+        $signoff_date = [$date,' '];
+        $j = 0;
+       
+
+        /** MATERIAL SOURCING INSERT **/ 
+        $data_material_source = array(
+            'msid'          => $msid,
+            'company_id'    => $company,
+            'category'      => $sourcing_category,
+            'date_required' => $date_required,
+            'role_status'   => $material_source_status,
+            'created_by'    => $this->session->userdata('username'),
+            'created_date'  => $date
+        );
+
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->insert('material_sourcing', $data_material_source);
+
+        /*print_r('<pre>');
+        print_r($data_material_source);
+        print_r('</pre>');*/
+
+
+         /** MATERIAL LIST INSERT **/ 
+        foreach($this->input->post('description') as $description)
+        {
+            $data_material = array(
+                'msid'              => $msid,
+                'description'       => $description,
+                'specification'     => $specification[$i],
+                'quantity'          => $quantity[$i],
+                'uom'               => $uom[$i],
+                'shelf_life'        => $shelf_life[$i],
+                'item_application'  => $item_application[$i],
+                'required_document' => $required_document[$i],
+                'category'          => $material_category[$i],
+                'remarks'           => $purpose[$i],
+                'created_by'        => $this->session->userdata('username'),
+                'created_date'      => $date
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('material_sourcing_list', $data_material);
+
+            /*print_r('<pre>');
+            print_r($data_material);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+
+        /** APPROVER LIST INSERT **/ 
+        foreach($this->input->post('requestor_primary') as $primary_approver)
+        {
+            $data_material_approver = array(
+                'msid' => $msid,
+                'primary_approver'   => $primary_approver,
+                'alternate_approver' => $requestor_alternate[$j],
+                'remarks'            => $remarks[$j],
+                'role_status'        => $role_status[$j],
+                'status'             => $status[$j],
+                'signoff_by'         => $signoff_by[$j],
+                'signoff_date'       => $signoff_date[$j],
+                'created_by'         => $this->session->userdata('username'),
+                'created_date'       => $date
+            );
+
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('material_approval_list', $data_material_approver);
+
+            /*print_r('<pre>');
+            print_r($data_material_approver);
+            print_r('</pre>');*/
+
+            $j++;
+        }
+
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+
+    }
+
+    public function get_material_sourcing_list()
+    {
+        $this->db->select("
+            material_sourcing.msid as msid,
+            material_sourcing.created_date as request_date,
+            CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) as requestor_name,
+            material_sourcing.date_required as date_required,
+            COUNT(material_sourcing_list.msid) as total_material,
+            department.name as department_name,
+            material_sourcing.role_status as role_status
+            
+        ");
+        $this->db->from('blaine_local_procurement.material_sourcing');
+        $this->db->join('blaine_local_procurement.material_sourcing_list', 'blaine_local_procurement.material_sourcing_list.msid = blaine_local_procurement.material_sourcing.msid','left');
+
+        $this->db->join('blaine_intranet.users', 'blaine_intranet.users.username = blaine_local_procurement.material_sourcing.created_by');
+        $this->db->join('blaine_intranet.employees', 'blaine_intranet.employees.employee_number = blaine_intranet.users.employee_number');
+        $this->db->join('blaine_intranet.employment_info', 'blaine_intranet.employment_info.employee_number = blaine_intranet.employees.employee_number');
+        $this->db->join('blaine_intranet.department', 'blaine_intranet.employment_info.department = blaine_intranet.department.id');
+        $this->db->where('blaine_local_procurement.material_sourcing.is_active', 1);
+        $this->db->group_by('blaine_local_procurement.material_sourcing_list.msid');
+
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+    
+    public function first_msid()
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->order_by('id', 'DESC');
+        $query = $blaine_local_procurement->get('material_sourcing');
+
+        return $query->row();
+
+    }
     public function get_suppliers()
     {
         $this->db->select("
@@ -176,7 +442,9 @@ class Local_procurement_model extends CI_Model {
 
         $this->db->from('blaine_local_procurement.material');
         $this->db->join('blaine_local_procurement.material_group', 'blaine_local_procurement.material.group_code = blaine_local_procurement.material_group.code');
+        
         $this->db->where('blaine_local_procurement.material.is_active', 1);
+        $this->db->group_by('mcode');
 
         $query = $this->db->get();
         return $query->result();
@@ -198,8 +466,6 @@ class Local_procurement_model extends CI_Model {
         $query = $this->db->get();
         return $query->row();
     }
-
-    
 
     public function get_material_group()
     {

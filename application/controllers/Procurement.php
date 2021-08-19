@@ -274,20 +274,59 @@ class Procurement extends CI_Controller {
 
     public function material_sourcing_index()
     {
+        $data['material_sourcings'] = $this->local_procurement_model->get_material_sourcing_list();
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/index';
         $this->load->view('inc/navbar', $data);
     }
 
     public function material_sourcing_matcode()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/w_matcode/add';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('date_required', 'Company', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['batch_number'] = $this->local_procurement_model->first_msid();
+            $data['employees'] = $this->employee_model->get_employees();
+            $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/w_matcode/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->add_material_sourcing_matcode())
+            {
+                $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
+                redirect('procurement/material_sourcing_index');
+            }
+        }
+       
+    }
+
+    public function json_material()
+    {
+        $data = $this->local_procurement_model->get_materials();
+        echo json_encode($data);
     }
 
     public function material_sourcing_nomatcode()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/wo_matcode/add';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('date_required', 'Company', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['batch_number'] = $this->local_procurement_model->first_msid();
+            $data['employees'] = $this->employee_model->get_employees();
+            $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/wo_matcode/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->add_material_sourcing_nomatcode())
+            {
+                $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
+                redirect('procurement/material_sourcing_index');
+            }
+        }
+       
     }
 
     public function material_sourcing_edit()
