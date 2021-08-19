@@ -1,23 +1,3 @@
-<script type="text/javascript">
-    $(document).ready(function(){
-        
-        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-3"><div class="form-group"><label>Material Code</label><input type="text" class="form-control" name="material_code[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><select class="form-control" id="exampleFormControlSelect1" name="description[]" style="font-size:12px;height:32px"><option value="" selected>Select Description</option><option></option><option></option><option></option></select></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" ></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1"><option value="" disabled selected>Select UOM</option><option>Kilogram/s</option><option>Meter/s</option><option>Box/es</option><option>Pack/s</option><option>Bag/s</option></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="number" class="form-control" name="shelf_life[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Category</label><select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="font-size:12px;height:32px"><option value="" disabled selected>Select Category</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="image[]" size="20" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
-        var fmax = 20;
-        var f = 1;
-
-        $("#fadd").click(function(){
-        if(f <= fmax){
-            $("#form_field").append(form);
-            f++;
-        }
-        });
-        $("#form_field").on('click','#fremove',function(){
-        $(this).closest('#form').remove();
-        f--;
-        });
-
-    });
-</script>
 <style>
     input[type=text] {
         font-size: 12px;
@@ -33,7 +13,7 @@
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST FORM<a href="<?php echo base_url(); ?>procurement/material_sourcing" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url(); ?>procurement/material_sourcing_matcode" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">REQUEST DETAILS</div>
                 <div class="card-body" style="background-color: #E9FAFD;color:black">
@@ -47,13 +27,13 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" name="company" id="flexRadioDefault1" value="2">
                                         <label class="form-check-label" for="flexRadioDefault1">
                                             <p>BMC</p>
                                         </label>
                                     </div>
                                     <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" name="company" id="flexRadioDefault1" value="1">
                                         <label class="form-check-label" for="flexRadioDefault1">
                                             <p>RRLC</p>
                                         </label>
@@ -68,7 +48,12 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white" >
+                                <?php 
+                                    $arr2 = str_split($batch_number->msid, 9);
+                                    $i = $arr2[0] + 1;
+                                   	$batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+                                ?>
+                                <input type="text" class="form-control" name="msid" readonly value="<?php echo $batch_number; ?>">
                             </div>
                         </div>
                     </div>
@@ -80,11 +65,11 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control" id="exampleFormControlSelect1" name="sourcing_category[]" style="font-size:12px;height:32px">
+                                <select class="form-control" id="exampleFormControlSelect1"  name="sourcing_category" style="font-size:12px;height:32px">
                                 <option value="" selected>Select Category</option>
-                                <option>Price Only</option>
-                                <option>Sample Only</option>
-                                <option>Price w/ Sample</option>
+                                <option value="Price Only">Price Only</option>
+                                <option value="Sample Only">Sample Only</option>
+                                <option value="Price w/ Sample">Price w/ Sample</option>
                                 </select>
                             </div>
                         </div>
@@ -95,7 +80,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="date" class="form-control" name="first_name" style="background-color:white" >
+                                <input type="date" class="form-control" min="08/17/2021" name="date_required" style="background-color:white" value="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div>
                     </div>
@@ -108,14 +93,14 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Material Code</label>
-                                <input type="text" class="form-control" id="myTextbox" name="quantity[]" placeholder="">
+                                <label>Material Code</label>&nbsp;<i class="verified" style="color:green;"></i>
+                                <input type="text" class="form-control" id="myTextbox" id="check" name="material_code[]" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Description</label>
-                                <input type="text" class="form-control" id="description" name="description[]" placeholder="">
+                                <input type="text" class="form-control"  id="description" readonly name="description[]" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -172,20 +157,20 @@
                                 <label for="exampleFormControlSelect1">Material Category</label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="font-size:12px;height:32px">
                                 <option value="" disabled selected>Select Category</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>File Attachment</label>
-                                <input type='file' name='image[]' size='20' />
+                                <input type='file' name='attachment[]' size='20' />
                             </div>
-                        </div>
+                        </div> 
                     </div>
                     <input class="btn btn-success" title="Add Form" type="button" name="add" id="fadd" value="ADD">
                     <br>
@@ -198,7 +183,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">Other Notes</label>
-                            <textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" rows="1"></textarea>
+                            <textarea class="form-control" style="font-size:12px" name="remarks[]" id="exampleFormControlTextarea1" rows="1"></textarea>
+                            <input type="text" hidden name="remarks[]">
                         </div>
                     </div>
                     <br>
@@ -219,11 +205,11 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select style="color:black;font-size:12px" name="requestorprimary" class="form-control" > 
+                                <select style="color:black;font-size:12px" name="requestor_primary[]" class="form-control" > 
                                     <option value="">Select Primary Approver</option> 
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
-                                        <option value="<?php echo $employee->emp_no; ?>"><?php echo $employee->fullname; ?></option>
+                                        <option value="<?php echo $employee->emp_no; ?>"<?php echo $this->session->userdata('employee_number') ==  $employee->emp_no ? 'selected' : ''; ?>><?php echo $employee->fullname; ?></option>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
@@ -231,7 +217,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select style="color:black;font-size:12px" name="requestoralternate" class="form-control">
+                                <select style="color:black;font-size:12px" name="requestor_alternate[]" class="form-control">
                                     <option value="">Select Alternate Approver</option>
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
@@ -248,7 +234,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select style="color:black;font-size:12px" name="requestoralternate" class="form-control">
+                                <select style="color:black;font-size:12px" name="requestor_primary[]" class="form-control">
                                     <option value="">Select Primary Approver</option>
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
@@ -260,7 +246,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select style="color:black;font-size:12px" name="requestoralternate" class="form-control">
+                                <select style="color:black;font-size:12px" name="requestor_alternate[]" class="form-control">
                                     <option value="">Select Alternate Approver</option>
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
@@ -273,7 +259,8 @@
                     </div>
                 </div>    
             </div>
-            <br>
+            <br>                    
+
             <center>
                 <div class="form-group">
                     <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
@@ -285,30 +272,68 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        //$('#btnList').click(function(e){
-            $.ajax({
-                url:"<?php echo base_url();?>/procurement/json_material",
-                dataType:'text',
-                type:"POST",
-                success: function(result){
-                    var obj = $.parseJSON(result);
-                    //console.log(obj);
-                    $.each(obj,function(index,object){
-                        $("#myTextbox").blur(function(e) {
-                            var test = $('#myTextbox').val();
-                            if(test == object['mcode']) {
-                                console.log('SUCCESS');
-                                $('#decription').val(object['description']);
-                            }
+
+        // FIRST MATERIAL POST
+        $.ajax({
+            url:"<?php echo base_url();?>/procurement/json_material",
+            dataType:'text',
+            type:"POST",
+            success: function(result){
+                var obj = $.parseJSON(result);
+                $.each(obj,function(index,object){
+                    $('#myTextbox').blur(function(e) {
+                        var mcodeType = $(this).val();
+                        if(mcodeType == object['mcode']) {
+                            console.log('SUCCESS');
+                            $('#description').val(object['description']);
+                            $('.verified').addClass("fas fa-check");
+                        }
+                    });
+                });
+                
+            }
+        })
+
+        // LIMIT OF ADD MATERIAL CODE class="fa fa-times"
+        var fmax = 20;
+        var f = 1;
+
+        $("#fadd").click(function(){
+            if(f <= fmax) {
+                $.ajax({
+                    url:"<?php echo base_url();?>/procurement/json_material",
+                    dataType:'text',
+                    type:"POST",
+                    success: function(result){
                         
-                           
+                        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-3"><div class="form-group"><label>Material Code</label>&nbsp;<i class="verified'+f+'" style="color:green;"></i><input type="text" class="form-control" id="myTextbox'+f+'" name="material_code[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><input type="text" class="form-control" readonly id="description'+f+'" name="description[]" placeholder=""></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" ></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1"><option value="" disabled selected>Select UOM</option><option value="Kilogram/s">Kilogram/s</option><option value="Meter/s">Meter/s</option><option value="Box/s">Box/es</option><option value="Pack/s">Pack/s</option><option value="Bag/s">Bag/s</option></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="number" class="form-control" name="shelf_life[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Category</label><select class="form-control" id="exampleFormControlSelect1" name="material_category[]" style="font-size:12px;height:32px"><option value="" disabled selected>Select Category</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="attachment[]" size="20" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
+                        $("#form_field").append(form);
+
+                        var obj = $.parseJSON(result);
+                        $.each(obj,function(index,object){
+                            $('#myTextbox'+f+'').blur(function(e) {
+                                var mcodeType = $(this).val();
+                                if(mcodeType == object['mcode']) {
+                                    console.log('SUCCESS');
+                                    $('#description'+f+'').val(object['description']);
+                                    $('.verified'+f+'').addClass("fas fa-check");
+                                } 
+                            });
                         });
-                        //$('ul').append('<li>' +object['name']+ '</li>');
-                        //console.log(object['scode'] + ' ' + object['name']);
-                    })
-                }
-            })
-        //})
+                       
+                    }
+                })
+              
+                f++;
+            }
+        });
+        $("#form_field").on('click','#fremove',function(){
+            $(this).closest('#form').remove();
+            f--;
+        });
+       
+          
+      
       
     });
 </script>
