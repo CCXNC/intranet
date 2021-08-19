@@ -1,3 +1,5 @@
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS</h4></div>
+<br>
 <div class="row">
     <div class="col-sm-6">
         <div class="card" >

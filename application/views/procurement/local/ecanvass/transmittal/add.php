@@ -7,7 +7,7 @@
     }
 </style>
 <div class="card" style="font-size:12px;">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>MATERIAL SAMPLE TRANSMITTAL<a href="<?php echo base_url(); ?>procurement/transmittal" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>MATERIAL SAMPLE TRANSMITTAL<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
         <form method="post" action="" enctype="multipart/form-data">
@@ -19,6 +19,26 @@
                             <div class="form-group">
                                 <label >Transmittal No.</label>
                                 <input type="text" class="form-control" name="first_name" style="text-transform:uppercase" >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label >Material Source ID</label>
+                                <select name="" id=""  class="form-control" style="font-size:12px;height:32px">
+                                    <option value=" ">SELECT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label >Material Source Request Date</label>
+                                <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label >Company</label>
+                                <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
                             </div>
                         </div>
                         <!--<div class="col-md-4">
@@ -33,12 +53,6 @@
                                 <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
                             </div>
                         </div>-->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label >Company</label>
-                                <input type="text" class="form-control" name="first_name" style="background-color:white" readonly>
-                            </div>
-                        </div>
                     </div>
                 </div>    
             </div>
@@ -97,23 +111,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td data-label="Department">
-                                    <input type='file' class name='image[]' size='20' />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
+                                <td data-label="Business Unit">Material 1</td>
                                 <td>
                                     <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
                                 </td>
@@ -125,9 +123,19 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td data-label="Business Unit">Material 2</td>
                                 <td>
                                     <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
                                 </td>
+                                <td>
+                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                </td>
+                                <td data-label="Department">
+                                    <input type='file' class name='image[]' size='20' />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Business Unit">Material 3</td>
                                 <td>
                                     <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
                                 </td>

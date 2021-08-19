@@ -1,4 +1,4 @@
-<canvas id="myChart" width="50px" height="50px"></canvas>
+<!--<canvas id="myChart" width="50px" height="50px"></canvas>
 
 <canvas id="myPie" width="100px" height="50px"></canvas>
 
@@ -69,7 +69,24 @@
         });    
     });
    
-</script>
-
+</script>-->
+<div class="card-header" style="background-color: #0C2D48; color: white">
+    <h5>DASHBOARD</h5> 
+</div>
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <a href="<?php echo base_url(); ?>dashboard/hr_dashboard" style="text-decoration:none">
+            <div class="card">
+                <img class="card-img-top" src="<?php echo base_url(); ?>assets/images/hrdashboard.png" alt="Card image cap">
+                <div class="card-body">
+                    <center>
+                        <h5 class="card-title">HR Dashboard</h5>
+                    </center>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
             
 

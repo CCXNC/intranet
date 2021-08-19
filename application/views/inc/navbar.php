@@ -656,7 +656,7 @@
                             </li>
                             <!--DASHBOARD-->
                             <li class="">
-                                <a href="<?php echo base_url(); ?>announcement/test">
+                                <a href="<?php echo base_url(); ?>dashboard/index">
                                     <i class="fa fa-tachometer" style="background-color:#138B83"></i>
                                     <span>Dashboard</span>
                                 </a>
@@ -756,7 +756,7 @@
                                     <div class="sidebar-submenu">
                                         <ul>
                                             <li>
-                                            <a href="<?php echo base_url(); ?>procurement/local_procurement">Local Procurement</a>
+                                            <a href="<?php echo base_url(); ?>procurement/ecanvass_index">Local Procurement</a>
                                             </li>
                                             <li>
                                             <a href="#">Importations</a>

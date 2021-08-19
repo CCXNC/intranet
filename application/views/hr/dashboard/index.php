@@ -205,7 +205,6 @@
             </div>
             <div class="card-body">
                 <b>&nbsp;</b>
-                <br><br>
                 <div class="row">
                     <?php if($hr_teams) : ?>
                         <?php foreach($hr_teams as $hr_team) :  ?>
@@ -231,23 +230,40 @@
 <!--HR-->
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
+        <div class="card" style="background-image: url('../assets/images/bday.png');background-size:contain;">
             <div class="card-header" style="background-color: #0C2D48; color: white">
                 <h5><?php echo date('F'); ?> Celebrants</h5>
             </div>
             <div class="card-body">
-                <b>Happy Birthday! <i class="fa fa-birthday-cake" aria-hidden="true"></i></b>
-                <br><br>
+                <center><h1 style="color:#C85250"><b>Happy Birthday! <i class="fa fa-birthday-cake" aria-hidden="true"></i></b></h1></center>
+                <br>
                 <div class="row">
                     <?php if($employee_bdays) : ?>
                         <?php foreach($employee_bdays as $employee_bday) :  ?>
-                            <div class="col-md-2" style="padding:10px; text-align:center;">
+                            <div class="col-md-3" style="padding:5px; text-align:center;">
                                 <?php if($employee_bday->picture != NULL) : ?>
-                                    <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee_bday->picture; ?>" style="width:120px;height: 120px;border:1px solid #cccccc;border-radius: 50%;" alt="">
+                                    <center>
+                                    <div class="card" style="height:200px;width: 180px; border-radius:5%; border: solid #0B514C 2px; color:black; background-color:#E8FCFB;">
+                                        <center>
+                                            <br>
+                                            <img class="card-img-top" src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee_bday->picture; ?>" style="border-radius:20%;width:100px;height: 100px;border:1px solid #cccccc;box-shadow:0 12px 15px 0 rgba(0,0,0,.50),0 17px 50px 0 rgba(0,0,0,.30);" alt="">
+                                            <div class="card-body">
+                                                <b style="font-size:12px;"><?php echo $employee_bday->fullname; ?>  </b>
+                                            </div>
+                                        </center>
+                                    </div>
+                                    </center>
                                 <?php else : ?>
-                                    <img src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="width:120px;height: 120px;border:1px solid #cccccc;border-radius: 50%;"  alt="">
-                                <?php endif; ?>  
-                                <center><b style="font-size:12px;"><?php echo $employee_bday->fullname; ?>  </b>  </center>
+                                    <div class="card" style="height:200px">
+                                        <center>
+                                            <br>
+                                            <img class="card-img-top" src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="border-radius:50%;width:100px;height: 100px;border:1px solid #cccccc;box-shadow:0 12px 15px 0 rgba(0,0,0,.50),0 17px 50px 0 rgba(0,0,0,.30);"  alt="">
+                                            <div class="card-body">
+                                                <b style="font-size:11px;"><?php echo $employee_bday->fullname; ?>  </b>
+                                            </div>
+                                        </center>
+                                    </div>
+                                <?php endif; ?> 
                             </div>   
                         <?php endforeach; ?>
                     <?php endif;  ?>

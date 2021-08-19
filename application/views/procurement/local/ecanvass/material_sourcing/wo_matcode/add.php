@@ -16,6 +16,20 @@
         f--;
         });
 
+        var required_date_input = document.getElementById("#required_date")
+
+        var n =  new Date();
+        var y = n.getFullYear();
+        var m = n.getMonth() + 1;
+        var d = n.getDate() + 1;
+        if(m < 12)
+        m = '0' + m.toString();
+        else if(d < 12)
+        d = '0' + d.toString();
+
+        var minDate = y + '-' + m + '-' + d
+
+        required_date_input.setAttribute("min",minDate)
     });
 </script>
 <style>
@@ -95,7 +109,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="date" class="form-control" name="first_name" style="background-color:white" >
+                                <input name="required_date" type="date" class="form-control" id="#required_date">
                             </div>
                         </div>
                     </div>

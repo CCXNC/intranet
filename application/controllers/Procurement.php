@@ -334,19 +334,7 @@ class Procurement extends CI_Controller {
 
     public function transmittal()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/transmittal/index';
-        $this->load->view('inc/navbar', $data);
-    }
-
-    public function transmittal_pr_add()
-    {
-        $data['main_content'] = 'procurement/local/ecanvass/transmittal/pr/add';
-        $this->load->view('inc/navbar', $data);
-    }
-
-    public function transmittal_matsource_add()
-    {
-        $data['main_content'] = 'procurement/local/ecanvass/transmittal/matsource/add';
+        $data['main_content'] = 'procurement/local/ecanvass/transmittal/add';
         $this->load->view('inc/navbar', $data);
     }
     
@@ -421,4 +409,15 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
+    public function email_format()
+    {
+        $data['main_content'] = 'procurement/local/email';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function transmittal_format()
+    {
+        $data['main_content'] = 'procurement/local/transmittalemail';
+        $this->load->view('inc/navbar', $data);
+    }
 }
