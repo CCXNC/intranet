@@ -103,7 +103,7 @@
         <?php if($material_sourcings) : ?>
             <?php foreach($material_sourcings as $material_source) : ?>
                 <tr>
-                    <td><a href="<?php echo base_url(); ?>procurement/material_sourcing_view"><?php echo $material_source->msid; ?></a></td>
+                    <td><a href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>"><?php echo $material_source->msid; ?></a></td>
                     <td><?php echo date('Y-m-d', strtotime($material_source->request_date)); ?></td>
                     <td><?php echo $material_source->date_required; ?></td>
                     <td><?php echo $material_source->requestor_name; ?></td>
@@ -123,7 +123,7 @@
                                 Action
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/material_sourcing_view">View</a>
+                                <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>">View</a>
                                 <a class="dropdown-item" title="Edit Request" href="<?php echo base_url(); ?>procurement/material_sourcing_edit">Edit</a>
                                 <a class="dropdown-item" title="Delete Request" href="">Delete</a>
                             </div>

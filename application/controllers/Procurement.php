@@ -136,14 +136,14 @@ class Procurement extends CI_Controller {
 		$file_data = $this->csvimport->get_array($_FILES["csv_file"]["tmp_name"]);
 		foreach($file_data as $row)
 		{
-			$data[] = array( 
+            $data[] = array( 
 				'mcode'	              => $row["material_code"],
 				'description'		  => $row["material_description"],
                 'group_code'          => $row["material_group_code"]
 			);
 			
 		}
-		$this->csv_import_model->insert_material($data);
+		$this->csv_import_model->insert_uom($data);
 	}
  
 
@@ -275,6 +275,7 @@ class Procurement extends CI_Controller {
     public function material_sourcing_index()
     {
         $data['material_sourcings'] = $this->local_procurement_model->get_material_sourcing_list();
+
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/index';
         $this->load->view('inc/navbar', $data);
     }
@@ -285,8 +286,10 @@ class Procurement extends CI_Controller {
 
         if($this->form_validation->run() == FALSE)
         {
-            $data['batch_number'] = $this->local_procurement_model->first_msid();
             $data['employees'] = $this->employee_model->get_employees();
+            $data['uoms'] = $this->local_procurement_model->get_uom();
+            $data['batch_number'] = $this->local_procurement_model->first_msid();
+           
             $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/w_matcode/add';
             $this->load->view('inc/navbar', $data);
         }
@@ -313,8 +316,10 @@ class Procurement extends CI_Controller {
 
         if($this->form_validation->run() == FALSE)
         {
-            $data['batch_number'] = $this->local_procurement_model->first_msid();
             $data['employees'] = $this->employee_model->get_employees();
+            $data['uoms'] = $this->local_procurement_model->get_uom();
+            $data['material_groups'] = $this->local_procurement_model->get_material_group();
+            $data['batch_number'] = $this->local_procurement_model->first_msid();
             $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/wo_matcode/add';
             $this->load->view('inc/navbar', $data);
         }
@@ -333,10 +338,14 @@ class Procurement extends CI_Controller {
     {
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/edit';
         $this->load->view('inc/navbar', $data);
-    }
+    } 
 
-    public function material_sourcing_view()
+    public function material_sourcing_view($id,$msid)
     {
+        $data['material_source'] = $this->local_procurement_model->get_material_source($id);
+        $data['materials'] = $this->local_procurement_model->get_materials_by_material_sourcing_id($msid);
+        $data['approval_lists'] = $this->local_procurement_model->get_approval_by_material_sourcing_id($msid);
+
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/view';
         $this->load->view('inc/navbar', $data);
     }
