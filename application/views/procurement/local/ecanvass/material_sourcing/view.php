@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly>
+                            <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly value="<?php echo $material_source->company_name; ?>">
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                        <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly>
+                        <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly value="<?php echo $material_source->msid; ?>">
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly>
+                            <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly value="<?php echo $material_source->category; ?>">
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly>
+                            <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly  value="<?php echo $material_source->date_required; ?>">
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly>
+                            <input type="text" class="form-control" name="first_name" style="text-transform:uppercase; background-color:white; font-size:12px" readonly value="<?php echo date('Y-m-d', strtotime($material_source->created_date)); ?>">
                         </div>
                     </div>
                 </div>
@@ -66,71 +66,83 @@
         <div class="card">
             <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">MATERIAL DETAILS</div>
                 <div class="card-body" id="form_field" style="background-color: #E9FAFD;color:black">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Description</label>
-                                <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="description[]" rows="1" readonly></textarea>
+                <?php if($materials) : ?>
+                    <?php foreach($materials as $material) : ?>
+                        <div class="row">
+                            <?php if($material->mcode != NULL) : ?>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Material Code</label>
+                                        <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly  value="<?php echo $material->mcode; ?>">
+                                    </div>
+                                </div>
+                            <?php endif; ?>    
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Description</label>
+                                    <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="description[]" rows="1" readonly> <?php echo $material->description; ?></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Specification</label>
+                                    <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" readonly><?php echo $material->specification; ?></textarea>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly  value="<?php echo $material->quantity; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">UOM</label>
+                                    <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly value="<?php echo $material->uom; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Shelf Life (Months)</label>
+                                    <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly value="<?php echo $material->shelf_life; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Purpose/Remarks</label>
+                                    <textarea class="form-control" style="font-size:12px; background-color: white" id="" name="purpose[]" rows="1" readonly><?php echo $material->remarks; ?></textarea>
+                                </div>
+                            </div>
+                       
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Item Application</label>
+                                    <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="item_application[]" rows="1" readonly><?php echo $material->item_application; ?></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Required Document</label>
+                                    <textarea class="form-control" style="font-size:12px; background-color:white" id="exampleFormControlTextarea1" name="required_document[]" rows="1" readonly><?php echo $material->required_document; ?></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Material Category</label>
+                                    <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly value="<?php echo $material->category; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>File Attachment</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Specification</label>
-                                <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Quantity</label>
-                                <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">UOM</label>
-                                <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Shelf Life (Months)</label>
-                                <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Purpose/Remarks</label>
-                                <textarea class="form-control" style="font-size:12px; background-color: white" id="" name="purpose[]" rows="1" readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Item Application</label>
-                                <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="item_application[]" rows="1" readonly></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Required Document</label>
-                                <textarea class="form-control" style="font-size:12px; background-color:white" id="exampleFormControlTextarea1" name="required_document[]" rows="1" readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Material Category</label>
-                                <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>File Attachment</label>
-                            </div>
-                        </div>
-                    </div>
+                        <hr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                
                 </div>    
             </div>
             <br>
@@ -147,68 +159,22 @@
                     <th scope="col">Remarks</th>
                     </tr>
                 </thead>
-                <tbody style="line-height:12px; background-color: #F5F5F5">
-                    <tr >
-                        <th scope="row" style="background-color: #0C2D48; color:white">Request Submission</th>
-                        <td >Mark</td>
-                        <td>John</td>
-                        <td>Done</td>
-                        <td>20-Jul-2021 13:05</td>
-                        <td>5</td>
-                        <td>John</td>
-                        <td>Lorem ipsum sit amet dolor</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: #0C2D48; color:white">Immediate Superior Approval</th>
-                        <td>Jacob</td>
-                        <td>Paul</td>
-                        <td>Pending</td>
-                        <td>20-Jul-2021 13:05</td>
-                        <td>3</td>
-                        <td>Paul</td>
-                        <td>Lorem ipsum sit amet dolor</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: #0C2D48; color:white">Procurement Request Acceptance</th>
-                        <td>John</td>
-                        <td>Paul</td>
-                        <td>Pending</td>
-                        <td>20-Jul-2021 13:05</td>
-                        <td>4</td>
-                        <td>John</td>
-                        <td>Lorem ipsum sit amet dolor</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: #0C2D48; color:white">Procurement Report Generation</th>
-                        <td>Peter</td>
-                        <td>Mark</td>
-                        <td>Pending</td>
-                        <td>20-Jul-2021 13:05</td>
-                        <td>10</td>
-                        <td>Peter</td>
-                        <td>Lorem ipsum sit amet dolor</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: #0C2D48; color:white">Requestor Feedback</th>
-                        <td>Matthew</td>
-                        <td>Phillip</td>
-                        <td>Pending</td>
-                        <td>20-Jul-2021 13:05</td>
-                        <td>2</td>
-                        <td>Phillip</td>
-                        <td>Lorem ipsum sit amet dolor</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: #0C2D48; color:white">Procurement Request Closure</th>
-                        <td>Jude</td>
-                        <td>David</td>
-                        <td>Pending</td>
-                        <td>20-Jul-2021 13:05</td>
-                        <td>1</td>
-                        <td>David</td>
-                        <td>Lorem ipsum sit amet dolor</td>
-                    </tr>
-                </tbody>
+                <?php if($approval_lists) : ?>
+                    <?php foreach($approval_lists as $approval_list) : ?>
+                        <tr>
+                            <th scope="row" style="background-color: #0C2D48; color:white"><?php echo $approval_list->step_of_approval; ?></th>
+                            <td><?php echo $approval_list->primary_approver; ?></td>
+                            <td><?php echo $approval_list->alternate_approver; ?></td>
+                            <td><?php echo $approval_list->status; ?></td>
+                            <td><?php echo $approval_list->signoff_date; ?></td>
+                            <td><?php echo ' ' ?></td>
+                            <td><?php echo $approval_list->signoff_by; ?></td>
+                            <td><?php echo $approval_list->remarks; ?></td>
+                        </tr>
+                    
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            
             </table>
             <br>
             <div class="card">
