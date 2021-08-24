@@ -66,7 +66,10 @@
             //"scrollX" : true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Blfrtip',
+            
             buttons: [
+            <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25) : ?>
+                //EXCEL
                 {
                     extend: 'excel',
                     title: 'E-Canvass',
@@ -74,13 +77,7 @@
                         columns: ':visible'
                     }
                 },
-                {
-                    extend: 'pdf',
-                    title: 'E-Canvass',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
+                //PRINT
                 {
                     extend: 'print',
                     title: 'E-Canvass',
@@ -88,6 +85,7 @@
                         columns: ':visible'
                     }
                 },
+                //COPY
                 {
                     extend: 'copy',
                     title: 'E-Canvass',
@@ -95,6 +93,16 @@
                         columns: ':visible'
                     }
                 },
+            <?php endif; ?>  
+                //PDF
+                {
+                    extend: 'pdf',
+                    title: 'E-Canvass',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                //FILTER
                 {
                     extend: 'colvis',
                     text: 'Filter'

@@ -13,27 +13,12 @@
                                 <label>Material Code</label>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="mcode1" style="font-size:12px" maxlength="2" placeholder="00">
-                            </div>
-                        </div>
-                 
-                        <div class="col-md-1">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="mcode2" style="font-size:12px" maxlength="2" placeholder="00">
-                            </div>
-                        </div>
-                      
-                        <div class="col-md-1">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="mcode3" style="font-size:12px" maxlength="2" placeholder="00">
-                            </div>
-                        </div>
-                   
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="mcode4" style="font-size:12px" maxlength="9" value="000000000">
+                        <div class="col-md-8">
+                            <div class="input-group" > 
+                                <input style="font-size:12px; margin-right:15px;" name="mcode1" type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" />-
+                                <input style="font-size:12px; margin-right:15px; margin-left:15px;" name="mcode2" type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" />-
+                                <input style="font-size:12px; margin-right:15px; margin-left:15px;" name="mcode3" type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" />-
+                                <input style="font-size:12px; margin-left:15px;" type="number" name="mcode4" class="form-control" onKeyPress="if(this.value.length==9) return false;" />
                             </div>
                         </div>
                     </div>    

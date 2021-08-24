@@ -450,6 +450,26 @@ class Local_procurement_model extends CI_Model {
         return $query->result();
     }
 
+    public function get_material_type()
+    {
+
+        $this->db->select("
+            material_type.id as id,
+            material_type.code as code,
+            material_type.type_name as type_name
+        ");
+        $this->db->from('blaine_local_procurement.material_type');
+
+        $query = $this->db->get();
+        return $query->result();
+
+        //$blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        //$blaine_local_procurement->order_by('name', 'ASC');
+        //$query = $blaine_local_procurement->get('material_type');
+
+        //return $query->result();
+    }
+
     public function get_material($id)
     {
         $this->db->select("
@@ -537,5 +557,7 @@ class Local_procurement_model extends CI_Model {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('id', $id);
         $query = $blaine_local_procurement->update('material', $data_material);
+    
+        return $query;
     }
 }

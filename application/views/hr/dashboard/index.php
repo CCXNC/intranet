@@ -209,7 +209,7 @@
                     <?php if($hr_teams) : ?>
                         <?php foreach($hr_teams as $hr_team) :  ?>
                             <?php if($hr_team->emp_no == "03171124" || $hr_team->emp_no == "04212104" || $hr_team->emp_no == "06212105") : ?>
-                                <div class="col-md-4" style="padding:10px; text-align:center;">
+                                <div class="col-md-4" style="text-align:center;">
                                     <?php if($hr_team->picture != NULL) : ?>
                                         <img src="<?php echo base_url(); ?>uploads/employee/<?php echo $hr_team->picture; ?>" style="width:120px;height: 120px;border:1px solid #cccccc;border-radius: 50%;" alt="">
                                     <?php else : ?>
@@ -243,26 +243,28 @@
                             <div class="col-md-3" style="padding:5px; text-align:center;">
                                 <?php if($employee_bday->picture != NULL) : ?>
                                     <center>
-                                    <div class="card" style="height:200px;width: 180px; border-radius:5%; border: solid #0B514C 2px; color:black; background-color:#E8FCFB;">
-                                        <center>
-                                            <br>
-                                            <img class="card-img-top" src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee_bday->picture; ?>" style="border-radius:20%;width:100px;height: 100px;border:1px solid #cccccc;box-shadow:0 12px 15px 0 rgba(0,0,0,.50),0 17px 50px 0 rgba(0,0,0,.30);" alt="">
-                                            <div class="card-body">
-                                                <b style="font-size:12px;"><?php echo $employee_bday->fullname; ?>  </b>
-                                            </div>
-                                        </center>
-                                    </div>
+                                        <div class="card" style="height:200px;width: 180px; border-radius:5%; border: solid #0B514C 2px; color:black; background-color:#E8FCFB;">
+                                            <center>
+                                                <br>
+                                                <img class="card-img-top" src="<?php echo base_url(); ?>uploads/employee/<?php echo $employee_bday->picture; ?>" style="border-radius:20%;width:100px;height: 100px;border:1px solid #cccccc;box-shadow:0 12px 15px 0 rgba(0,0,0,.50),0 17px 50px 0 rgba(0,0,0,.30);" alt="">
+                                                <div class="card-body">
+                                                    <b style="font-size:12px;"><?php echo $employee_bday->fullname; ?>  </b>
+                                                </div>
+                                            </center>
+                                        </div>
                                     </center>
                                 <?php else : ?>
-                                    <div class="card" style="height:200px">
-                                        <center>
-                                            <br>
-                                            <img class="card-img-top" src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="border-radius:50%;width:100px;height: 100px;border:1px solid #cccccc;box-shadow:0 12px 15px 0 rgba(0,0,0,.50),0 17px 50px 0 rgba(0,0,0,.30);"  alt="">
-                                            <div class="card-body">
-                                                <b style="font-size:11px;"><?php echo $employee_bday->fullname; ?>  </b>
-                                            </div>
-                                        </center>
-                                    </div>
+                                    <center>
+                                        <div class="card" style="height:200px;width: 180px; border-radius:5%; border: solid #0B514C 2px; color:black; background-color:#E8FCFB;">
+                                            <center>
+                                                <br>
+                                                <img class="card-img-top" src="<?php echo base_url(); ?>uploads/employee/user.jpg" style="border-radius:20%;width:100px;height: 100px;border:1px solid #cccccc;box-shadow:0 12px 15px 0 rgba(0,0,0,.50),0 17px 50px 0 rgba(0,0,0,.30);"  alt="">
+                                                <div class="card-body">
+                                                    <b style="font-size:12px;"><?php echo $employee_bday->fullname; ?>  </b>
+                                                </div>
+                                            </center>
+                                        </div>
+                                    </center>
                                 <?php endif; ?> 
                             </div>   
                         <?php endforeach; ?>

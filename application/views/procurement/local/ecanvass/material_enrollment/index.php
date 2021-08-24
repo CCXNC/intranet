@@ -14,6 +14,7 @@
             <th scope="col">Material Code</th>
             <th scope="col">Material Description</th>
             <th scope="col">Material Group</th>
+            <th scope="col">Material Type</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -24,6 +25,22 @@
                     <td><?php echo $material->mcode;?></td>
                     <td><?php echo $material->description;?></td>
                     <td><?php echo $material->group_name;?></td>
+                    <td>
+                        <?php if ($types) : ?>
+                            <?php foreach($types as $type) :?>
+                                <?php 
+                                    $explode_data = explode("-", $material->mcode); 
+                                    $matcode = $explode_data[0];
+
+                                    if($matcode == $type->code)
+                                    {
+                                        echo $type->type_name;
+                                    }
+                                ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </td>
+
                     <td>
                         <div class="btn-group">
                             <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -39,6 +56,7 @@
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>
+        
     </tbody>
 </table>
 <script type="text/javascript">  

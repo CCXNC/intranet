@@ -399,6 +399,7 @@ class Procurement extends CI_Controller {
 
     public function material_enrollment()
     {
+        $data['types'] = $this->local_procurement_model->get_material_type();
         $data['materials'] = $this->local_procurement_model->get_materials();
         $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/index';
         $this->load->view('inc/navbar', $data);
@@ -428,6 +429,7 @@ class Procurement extends CI_Controller {
 
     public function material_enrollment_view($id)
     {
+        $data['types'] = $this->local_procurement_model->get_material_type();
         $data['material'] = $this->local_procurement_model->get_material($id);
         $data['main_content'] = 'procurement/local/ecanvass/material_enrollment/view';
         $this->load->view('inc/navbar', $data);

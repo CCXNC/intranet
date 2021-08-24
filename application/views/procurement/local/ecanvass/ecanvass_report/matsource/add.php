@@ -6,6 +6,7 @@
         font-size: 12px;
     }
 </style>
+<p style="text-align:left"><img class="card-img-top" style="" src="<?php echo base_url(); ?>assets/images/step2.png" alt=""></p>
 <div class="card" style="font-size:12px;">
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION<a href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">

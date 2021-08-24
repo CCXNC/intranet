@@ -77,17 +77,12 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>*Material Source ID</label>
+                                <label>*Date Required</label>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <?php 
-                                    $arr2 = str_split($batch_number->msid, 9);
-                                    $i = $arr2[0] + 1;
-                                   	$batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
-                                ?>
-                                <input type="text" class="form-control" name="msid" style="text-transform:uppercase;" readonly value="<?php echo $batch_number; ?>">
+                                <input name="date_required" type="date" class="form-control" id="#required_date">
                             </div>
                         </div>
                     </div> 
@@ -105,16 +100,6 @@
                                 <option value="Sample Only">Sample Only</option>
                                 <option value="Price w/ Sample">Price w/ Sample</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>*Date Required</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input name="date_required" type="date" class="form-control" id="#required_date">
                             </div>
                         </div>
                     </div>
