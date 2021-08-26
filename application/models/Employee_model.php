@@ -294,7 +294,7 @@ class Employee_model extends CI_Model {
 		employees.id as id,
             employees.picture as picture,
             employees.employee_number as emp_no,
-            CONCAT(employees.last_name, ' ', employees.first_name , ' ', employees.middle_name) AS fullname,
+            CONCAT(employees.last_name, ',', employees.first_name , ' ', employees.middle_name) as fullname,
             employment_info.date_hired as date_hired,
             employee_status.name as employee_status,
             employment_info.position as position,
@@ -304,7 +304,7 @@ class Employee_model extends CI_Model {
 			employment_info.company as company_id,
 			employment_info.department as department_id,
 			employee_biometric.biometric_number as biometric_id,
-
+    
 			schedules.is_flexi as flexi_time
 			
 		");

@@ -19,6 +19,7 @@
     </div>
 </div>
 <br>
+<?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
 <div class="row">
     <!--<div class="col-sm-6">
         <div class="card">
@@ -83,3 +84,4 @@
         </div>
     </div>
 </div>
+<?php endif; ?>
