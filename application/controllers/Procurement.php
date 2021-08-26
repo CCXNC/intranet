@@ -143,7 +143,7 @@ class Procurement extends CI_Controller {
 			);
 			
 		}
-		$this->csv_import_model->insert_uom($data);
+		$this->csv_import_model->insert_material($data);
 	}
  
 
