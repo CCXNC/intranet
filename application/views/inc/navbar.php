@@ -35,7 +35,9 @@
             crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-    
+        
+        <!-- AUTO FORMAT INPUT -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
     </head>
     <style>
         @keyframes swing {
@@ -766,29 +768,19 @@
                                 </li>
                             <?php endif; ?>    
                             <!--ENGINEERING-->
-                            <li class="">
+                            <!--<li class="">
                                 <a href="#">
                                     <i class="fa fa-cogs" style="background-color:#138B83"></i>
                                     <span>Engineering</span>
                                 </a>
-                                <!--<div class="sidebar-submenu">
-                                    <ul>
-                                        <li>
-                                        <a href="#">Add Movies</a>
-                                        </li>
-                                        <li>
-                                        <a href="#">View Movies</a>
-                                        </li>
-                                    </ul>
-                                </div>-->
-                            </li>
+                            </li>-->
                             <!--DCC-->
-                            <li class="">
+                            <!--<li class="">
                                 <a href="#">
                                     <i class="fa fa-file-alt" style="background-color:#138B83"></i>
                                     <span>DCC</span>
                                 </a>
-                                <!--<div class="sidebar-submenu">
+                                <div class="sidebar-submenu">
                                     <ul>
                                         <li>
                                         <a href="#">Add Movies</a>
@@ -797,8 +789,8 @@
                                         <a href="#">View Movies</a>
                                         </li>
                                     </ul>
-                                </div>-->
-                            </li>
+                                </div>-
+                            </li>-->
                             <!--PRODUCTIVITY-->
                                 <?php if($this->session->userdata('department_id') == 25) : ?>
                             

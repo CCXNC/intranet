@@ -1,3 +1,4 @@
+<p style="text-align:left"><img class="card-img-top" style="" src="<?php echo base_url(); ?>assets/images/sourcing_step1.png" alt=""></p>
 <div class="card-header" style="background-color: #0C2D48; color: white"><h4>MATERIAL SOURCING FORM<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
 <br>
 <div class="row">

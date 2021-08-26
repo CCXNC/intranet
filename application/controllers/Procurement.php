@@ -388,7 +388,7 @@ class Procurement extends CI_Controller {
     
     public function material_enrollment_add()
     {
-        $this->form_validation->set_rules('mcode1', 'Material Code', 'required|trim');
+        $this->form_validation->set_rules('mcode', 'Material Code', 'required|trim');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -468,6 +468,12 @@ class Procurement extends CI_Controller {
     public function transmittal_format()
     {
         $data['main_content'] = 'procurement/local/transmittalemail';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function ecanvass_user_index()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/user_index';
         $this->load->view('inc/navbar', $data);
     }
 }

@@ -15,10 +15,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group" > 
-                                <input style="font-size:12px; margin-right:15px;" name="mcode1" type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" />-
-                                <input style="font-size:12px; margin-right:15px; margin-left:15px;" name="mcode2" type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" />-
-                                <input style="font-size:12px; margin-right:15px; margin-left:15px;" name="mcode3" type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" />-
-                                <input style="font-size:12px; margin-left:15px;" type="number" name="mcode4" class="form-control" onKeyPress="if(this.value.length==9) return false;" />
+                                <input style="font-size:12px" name="mcode" class="form-control" id="matcode"/>
                             </div>
                         </div>
                     </div>    
@@ -63,3 +60,8 @@
         </form>
     </div>
 </div>
+<script type="text/javascript">  
+    $(document).ready(function() {
+        $('#matcode').mask("99-99-99-999999999");
+    } );
+</script>

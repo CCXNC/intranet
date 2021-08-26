@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="mcode" style="font-size:12px" value="<?php echo $material->mcode; ?>">
+                                <input class="form-control" name="mcode" style="font-size:12px" id="matcode" value="<?php echo $material->mcode; ?>">
                             </div>
                         </div>
                     </div>    
@@ -60,3 +60,8 @@
         </form>
     </div>
 </div>
+<script type="text/javascript">  
+    $(document).ready(function() {
+        $('#matcode').mask("99-99-99-999999999");
+    } );
+</script>

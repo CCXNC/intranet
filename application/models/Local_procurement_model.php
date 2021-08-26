@@ -581,11 +581,7 @@ class Local_procurement_model extends CI_Model {
 
     public function add_material()
     {
-        $mcode1 = $this->input->post('mcode1');
-        $mcode2 = $this->input->post('mcode2');
-        $mcode3 = $this->input->post('mcode3');
-        $mcode4 = $this->input->post('mcode4');
-        $mcode = $mcode1 . '-' . $mcode2 . '-' . $mcode3 . '-' . $mcode4;
+        $mcode = $this->input->post('mcode');
         $description = $this->input->post('description');
         $material_group = $this->input->post('material_group');
         $date = date('Y-m-d H:i:s');
