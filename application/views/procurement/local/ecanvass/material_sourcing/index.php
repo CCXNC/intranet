@@ -102,34 +102,41 @@
     <tbody>
         <?php if($material_sourcings) : ?>
             <?php foreach($material_sourcings as $material_source) : ?>
-                <tr>
-                    <td><a href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>"><?php echo $material_source->msid; ?></a></td>
-                    <td><?php echo date('Y-m-d', strtotime($material_source->request_date)); ?></td>
-                    <td><?php echo $material_source->date_required; ?></td>
-                    <td><?php echo $material_source->requestor_name; ?></td>
-                    <td><?php echo $material_source->department_name; ?></td>
-                    <td><?php echo $material_source->total_material; ?></td>
-                    <td><?php echo  '7 Days'; ?></td>
-                    <td><?php echo  '7 Days'; ?></td>
-                    <?php $arr_explode = explode(' ', $material_source->role_status); ?>
-                    <td>
-                        <?php if($arr_explode[0] == "Pending") : ?>
-                            <p style="background-color:#E12A2A; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
-                        <?php endif; ?>    
-                        </td>
-                    <td data-label="Action">
-                        <div class="btn-group">
-                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>">View</a>
-                                <a class="dropdown-item" title="Edit Request" href="<?php echo base_url(); ?>procurement/material_sourcing_edit">Edit</a>
-                                <a class="dropdown-item" title="Delete Request" href="">Delete</a>
+                <?php $explode_data_access = explode('|', $material_source->emp_access); ?>
+                <?php if($this->session->userdata('employee_number') == $explode_data_access[0] || $this->session->userdata('employee_number') == $explode_data_access[1] || $this->session->userdata('employee_number') == $explode_data_access[2] || $this->session->userdata('employee_number') == $explode_data_access[3] || $this->session->userdata('employee_number') ==  '06181150' || $this->session->userdata('employee_number') ==  '03191174' || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
+                    <tr>
+                        <td><a href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>"><?php echo $material_source->msid; ?></a></td>
+                        <td><?php echo date('Y-m-d', strtotime($material_source->request_date)); ?></td>
+                        <td><?php echo $material_source->date_required; ?></td>
+                        <td><?php echo $material_source->requestor_name; ?></td>
+                        <td><?php echo $material_source->department_name; ?></td>
+                        <td><?php echo $material_source->total_material; ?></td>
+                        <td><?php echo  '7 Days'; ?></td>
+                        <td><?php echo  '7 Days'; ?></td>
+                        <?php $arr_explode = explode(' ', $material_source->role_status); ?>
+                        <td>
+                            <?php if($arr_explode[0] == "Pending") : ?>
+                                <p style="background-color:#E12A2A; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
+                            <?php elseif($arr_explode[0] == "Open") : ?>    
+                                <p style="background-color:#FAD02C; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
+                            <?php endif; ?>    
+                            </td>
+                        <td data-label="Action">
+                            <div class="btn-group">
+                                <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>">View</a>
+                                    <?php if($arr_explode[0] == "Pending" && $arr_explode[1] == "(Requestor)") : ?>
+                                        <a class="dropdown-item" title="Edit Request" href="<?php echo base_url(); ?>procurement/material_sourcing_edit">Edit</a>
+                                    <?php endif; ?>    
+                                    <a class="dropdown-item" title="Delete Request" href="">Delete</a>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                <?php endif; ?>    
             <?php endforeach; ?>
         <?php endif; ?>
     </tbody>

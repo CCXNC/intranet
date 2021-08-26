@@ -275,7 +275,6 @@ class Procurement extends CI_Controller {
     public function material_sourcing_index()
     {
         $data['material_sourcings'] = $this->local_procurement_model->get_material_sourcing_list();
-
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/index';
         $this->load->view('inc/navbar', $data);
     }
@@ -345,9 +344,20 @@ class Procurement extends CI_Controller {
         $data['material_source'] = $this->local_procurement_model->get_material_source($id);
         $data['materials'] = $this->local_procurement_model->get_materials_by_material_sourcing_id($msid);
         $data['approval_lists'] = $this->local_procurement_model->get_approval_by_material_sourcing_id($msid);
+        $data['first_entry'] = $this->local_procurement_model->get_first_approval_by_material_sourcing_id($msid);
+        $data['last_entry'] = $this->local_procurement_model->get_last_approval_by_material_sourcing_id($msid);
 
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/view';
         $this->load->view('inc/navbar', $data);
+    }
+
+    public function materialsource_approval_process()
+    {
+        if($this->local_procurement_model->material_source_approval_process())
+        {
+            $this->session->set_flashdata('success_msg', 'Approve material sourcing successfully updated!');
+            redirect('procurement/material_sourcing_index');
+        }
     }
 
     public function ecanvass_report_generation()
