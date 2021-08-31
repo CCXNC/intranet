@@ -68,12 +68,13 @@
                 <div class="card-body" id="form_field" style="background-color: #E9FAFD;color:black">
                 <?php if($materials) : ?>
                     <?php foreach($materials as $material) : ?>
+                        <br>
                         <div class="row">
                             <?php if($material->mcode != NULL) : ?>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Material Code</label>
-                                        <input type="text" class="form-control" style="font-size:12px; background-color:white" name="quantity[]" placeholder="" readonly  value="<?php echo $material->mcode; ?>">
+                                        <input type="text" class="form-control" style="font-size:12px; background-color:white" name="material_code[]" placeholder="" readonly  value="<?php echo $material->mcode; ?>">
                                     </div>
                                 </div>
                             <?php endif; ?>    
@@ -139,6 +140,7 @@
                                 </div>
                             </div>
                         </div>
+                        <br>
                         <hr>
                     <?php endforeach; ?>
                 <?php endif; ?>

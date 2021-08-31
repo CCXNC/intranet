@@ -336,6 +336,56 @@ class Local_procurement_model extends CI_Model {
 
     }
 
+    public function update_material_sourcing_matcode()
+    {
+        $this->db->trans_start();
+
+        $description = $this->input->post('description');
+        $specification = $this->input->post('specification');
+        $quantity = $this->input->post('quantity');
+        $uom =  $this->input->post('uom');
+        $shelf_life =  $this->input->post('shelf_life');
+        $item_application =  $this->input->post('item_application');
+        $required_document = $this->input->post('required_document');
+        $material_category = $this->input->post('material_category');
+        $purpose = $this->input->post('purpose');
+        $mcode = $this->input->post('material_code');
+        $date = date('Y-m-d H:i:s');
+        $i = 0;
+
+        foreach($this->input->post('mid') as $id)
+        {
+            $data_material = array(
+                'mcode'             => $mcode[$i],
+                'description'       => $description[$i],
+                'specification'     => $specification[$i],
+                'quantity'          => $quantity[$i],
+                'uom'               => $uom[$i],
+                'shelf_life'        => $shelf_life[$i],
+                'item_application'  => $item_application[$i],
+                'required_document' => $required_document[$i],
+                'category'          => $material_category[$i],
+                'remarks'           => $purpose[$i],
+                'updated_by'        => $this->session->userdata('username'),
+                'updated_date'      => $date
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->where('id', $id);
+            $blaine_local_procurement->update('material_sourcing_list', $data_material);
+
+            /*print_r('<pre>');
+            print_r($data_material);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+        
+        $trans = $this->db->trans_complete();
+        return $trans;
+
+    }
+
     public function get_material_sourcing_list()
     {
         $this->db->select("
