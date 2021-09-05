@@ -1,3 +1,6 @@
+<?php if($this->session->flashdata('success_msg')) : ?>
+    <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
+<?php endif; ?>
 <div class="card">
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST<a href="<?php echo base_url(); ?>procurement/material_sourcing_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body" style="font-size:12px">
@@ -200,6 +203,11 @@
                                 <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">
                                 <input type="text" hidden name="primary_approver1" value="<?php echo $last_entry->primary_approver; ?>">
                                 <input type="text" hidden name="alternate_approver1" value="<?php echo $last_entry->alternate_approver; ?>">
+
+                                <?php $destination_approval = explode(' ', $last_entry->created_by); ?>
+                                <?php if($destination_approval[1] != null) : ?>
+                                    <input type="text" hidden name="destination_approval" value="<?php echo $destination_approval[1]; ?>">
+                                <?php endif; ?>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Sign Off:</label>

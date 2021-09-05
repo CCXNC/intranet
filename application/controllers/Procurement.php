@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Procurement extends CI_Controller {
+
     public function __construct() {
         parent::__construct();
         $this->load->model('csv_import_model');
@@ -296,8 +297,13 @@ class Procurement extends CI_Controller {
         {
             if($this->local_procurement_model->add_material_sourcing_matcode())
             {
+                $data = $this->local_procurement_model->first_msid();
+                
+                $id = $data->id;
+                $msid = $data->msid;
+
                 $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
-                redirect('procurement/material_sourcing_index');
+                redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
             }
         }
        
@@ -326,8 +332,13 @@ class Procurement extends CI_Controller {
         {
             if($this->local_procurement_model->add_material_sourcing_nomatcode())
             {
+                $data = $this->local_procurement_model->first_msid();
+                
+                $id = $data->id;
+                $msid = $data->msid;
+                
                 $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
-                redirect('procurement/material_sourcing_index');
+                redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
             }
         }
        
