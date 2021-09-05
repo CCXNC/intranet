@@ -36,6 +36,9 @@
         document.body.innerHTML = originalContents;
     }
 </script>
+<?php if($this->session->flashdata('success_msg')) : ?>
+    <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
+<?php endif; ?>
 <div class="card" id="printableArea">
     <p style="text-align:center" class="printMe"><img class="card-img-top" style="width:40%" src="<?php echo base_url(); ?>assets/images/header.png" alt=""></p>
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST<a href="<?php echo base_url(); ?>procurement/material_sourcing_index" id="back" title="Go Back" class="btn btn-info float-right d-print-none" style="margin-right:10px;">BACK</a><button type="button" style="margin-right:5px;" class="btn btn-info float-right d-print-none" onclick="printDiv('printableArea')" value="print a div!">PRINT</button></h4></div>
@@ -107,12 +110,18 @@
                 <div class="card-body" id="form_field" style="background-color: #E9FAFD;color:black">
                 <?php if($materials) : ?>
                     <?php foreach($materials as $material) : ?>
+                        <br>
                         <div class="row">
                             <?php if($material->mcode != NULL) : ?>
                                 <div class="col-md-3">
                                     <div class="form-group">
+<<<<<<< HEAD
                                         <label><b>Material Code:</b></label>
                                         <p><?php echo $material->mcode; ?></p>
+=======
+                                        <label>Material Code</label>
+                                        <input type="text" class="form-control" style="font-size:12px; background-color:white" name="material_code[]" placeholder="" readonly  value="<?php echo $material->mcode; ?>">
+>>>>>>> editmaterialsource
                                     </div>
                                 </div>
                             <?php endif; ?>    
@@ -178,6 +187,7 @@
                                 </div>
                             </div>
                         </div>
+                        <br>
                         <hr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -245,6 +255,11 @@
                                 <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">
                                 <input type="text" hidden name="primary_approver1" value="<?php echo $last_entry->primary_approver; ?>">
                                 <input type="text" hidden name="alternate_approver1" value="<?php echo $last_entry->alternate_approver; ?>">
+
+                                <?php $destination_approval = explode(' ', $last_entry->created_by); ?>
+                                <?php if($destination_approval[1] != null) : ?>
+                                    <input type="text" hidden name="destination_approval" value="<?php echo $destination_approval[1]; ?>">
+                                <?php endif; ?>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Sign Off:</label>

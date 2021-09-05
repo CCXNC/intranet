@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Procurement extends CI_Controller {
+
     public function __construct() {
         parent::__construct();
         $this->load->model('csv_import_model');
@@ -296,8 +297,13 @@ class Procurement extends CI_Controller {
         {
             if($this->local_procurement_model->add_material_sourcing_matcode())
             {
+                $data = $this->local_procurement_model->first_msid();
+                
+                $id = $data->id;
+                $msid = $data->msid;
+
                 $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
-                redirect('procurement/material_sourcing_index');
+                redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
             }
         }
        
@@ -326,17 +332,41 @@ class Procurement extends CI_Controller {
         {
             if($this->local_procurement_model->add_material_sourcing_nomatcode())
             {
+                $data = $this->local_procurement_model->first_msid();
+                
+                $id = $data->id;
+                $msid = $data->msid;
+                
                 $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
-                redirect('procurement/material_sourcing_index');
+                redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
             }
         }
        
     }
 
-    public function material_sourcing_edit()
+    public function material_sourcing_edit($id,$msid) 
     {
-        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/edit';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('msid', 'Description', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['material_source'] = $this->local_procurement_model->get_material_source($id);
+            $data['materials'] = $this->local_procurement_model->get_materials_by_material_sourcing_id($msid);
+            $data['material_groups'] = $this->local_procurement_model->get_material_group();
+            $data['uoms'] = $this->local_procurement_model->get_uom();
+            $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/edit';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->update_material_sourcing_matcode())
+            {
+                $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Updated!');
+                redirect('procurement/material_sourcing_index');
+            }
+        }
+
+      
     } 
 
     public function material_sourcing_view($id,$msid)

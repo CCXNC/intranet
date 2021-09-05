@@ -128,8 +128,8 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>">View</a>
-                                    <?php if($arr_explode[0] == "Pending" && $arr_explode[1] == "(Requestor)") : ?>
-                                        <a class="dropdown-item" title="Edit Request" href="<?php echo base_url(); ?>procurement/material_sourcing_edit">Edit</a>
+                                    <?php if($arr_explode[0] == "Pending" && $arr_explode[1] == "Requestor") : ?>
+                                        <a class="dropdown-item" title="Edit Request" href="<?php echo base_url(); ?>procurement/material_sourcing_edit/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>">Edit</a>
                                     <?php endif; ?>    
                                     <a class="dropdown-item" title="Delete Request" href="">Delete</a>
                                 </div>

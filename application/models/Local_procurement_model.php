@@ -144,7 +144,7 @@ class Local_procurement_model extends CI_Model {
             'status'             => 'Pending',
             'signoff_by'         => NULL,
             'signoff_date'       => NULL,
-            'created_by'         => $this->session->userdata('username'),
+            'created_by'         => $this->session->userdata('username'). ' 0',
             'created_date'       => $date,
             'step_approval'      => 2
         );
@@ -311,7 +311,7 @@ class Local_procurement_model extends CI_Model {
             'status'             => 'Pending',
             'signoff_by'         => NULL,
             'signoff_date'       => NULL,
-            'created_by'         => $this->session->userdata('username'),
+            'created_by'         => $this->session->userdata('username'). ' 0',
             'created_date'       => $date,
             'step_approval'      => 2
         );
@@ -331,6 +331,56 @@ class Local_procurement_model extends CI_Model {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->insert('material_restriction', $data_restriction_access);
 
+        $trans = $this->db->trans_complete();
+        return $trans;
+
+    }
+
+    public function update_material_sourcing_matcode()
+    {
+        $this->db->trans_start();
+
+        $description = $this->input->post('description');
+        $specification = $this->input->post('specification');
+        $quantity = $this->input->post('quantity');
+        $uom =  $this->input->post('uom');
+        $shelf_life =  $this->input->post('shelf_life');
+        $item_application =  $this->input->post('item_application');
+        $required_document = $this->input->post('required_document');
+        $material_category = $this->input->post('material_category');
+        $purpose = $this->input->post('purpose');
+        $mcode = $this->input->post('material_code');
+        $date = date('Y-m-d H:i:s');
+        $i = 0;
+
+        foreach($this->input->post('mid') as $id)
+        {
+            $data_material = array(
+                'mcode'             => $mcode[$i],
+                'description'       => $description[$i],
+                'specification'     => $specification[$i],
+                'quantity'          => $quantity[$i],
+                'uom'               => $uom[$i],
+                'shelf_life'        => $shelf_life[$i],
+                'item_application'  => $item_application[$i],
+                'required_document' => $required_document[$i],
+                'category'          => $material_category[$i],
+                'remarks'           => $purpose[$i],
+                'updated_by'        => $this->session->userdata('username'),
+                'updated_date'      => $date
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->where('id', $id);
+            $blaine_local_procurement->update('material_sourcing_list', $data_material);
+
+            /*print_r('<pre>');
+            print_r($data_material);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+        
         $trans = $this->db->trans_complete();
         return $trans;
 
@@ -736,6 +786,7 @@ class Local_procurement_model extends CI_Model {
             material_approval_list.alternate_approver as alternate_approver,
             material_approval_list.status as status,
             material_approval_list.role_status as role_status,
+            material_approval_list.created_by as created_by
         ");
 
         $this->db->from('blaine_local_procurement.material_approval_list');
@@ -764,7 +815,6 @@ class Local_procurement_model extends CI_Model {
         return $query->row();
     }
 
-
     public function material_source_approval_process()
     {
         $this->db->trans_start();
@@ -782,6 +832,7 @@ class Local_procurement_model extends CI_Model {
 
         $primary_approver_superior = $this->input->post('primary_approver_superior');
         $alternate_approver_superior = $this->input->post('alternate_approver_superior');
+        $destination_approval = $this->input->post('destination_approval');
 
         $primary_approver_procurement = $this->input->post('primary_approver1');
         $alternate_approver_procurement = $this->input->post('alternate_approver1');
@@ -791,18 +842,7 @@ class Local_procurement_model extends CI_Model {
         {
             if($role_status == "Requestor")
             {
-                $data_material_source = array(
-                    'role_status' => 'Pending Superior'
-                );
-    
-                $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-                $blaine_local_procurement->where('msid', $msid);
-                $blaine_local_procurement->update('material_sourcing', $data_material_source);
-    
-                /*print_r('<pre>');
-                print_r($data_material_source);
-                print_r('</pre>');*/
-    
+               
                 $data_update_last_entry = array(
                     'status'       => 'Done',
                     'signoff_by'   => $this->session->userdata('username'),
@@ -818,25 +858,73 @@ class Local_procurement_model extends CI_Model {
                 print_r($data_update_last_entry);
                 print_r('</pre>');*/
         
+                if($destination_approval == 1)
+                {
+                    $data_material_source = array(
+                        'role_status' => 'Pending Superior'
+                    );
+        
+                    $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+                    $blaine_local_procurement->where('msid', $msid);
+                    $blaine_local_procurement->update('material_sourcing', $data_material_source);
+        
+                    /*print_r('<pre>');
+                    print_r($data_material_source);
+                    print_r('</pre>');*/
 
-                $data_action_required = array(
-                    'msid'               => $msid,
-                    'primary_approver'   => $primary_approver_superior,
-                    'alternate_approver' => $alternate_approver_superior,
-                    'role_status'        => 'Superior',
-                    'status'             => 'Pending',
-                    'created_by'         => $this->session->userdata('username'),
-                    'created_date'       => $date,
-                    'step_approval'      => 2
-    
-                );
-    
-                $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-                $blaine_local_procurement->insert('material_approval_list', $data_action_required);
-    
-                /*print_r('<pre>');
-                print_r($data_action_required);
-                print_r('</pre>');*/
+                    $data_action_required = array(
+                        'msid'               => $msid,
+                        'primary_approver'   => $primary_approver_superior,
+                        'alternate_approver' => $alternate_approver_superior,
+                        'role_status'        => 'Superior',
+                        'status'             => 'Pending',
+                        'created_by'         => $this->session->userdata('username') . ' 0',
+                        'created_date'       => $date,
+                        'step_approval'      => 2
+        
+                    );
+        
+                    $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+                    $blaine_local_procurement->insert('material_approval_list', $data_action_required);
+        
+                    /*print_r('<pre>');
+                    print_r($data_action_required);
+                    print_r('</pre>');*/
+                }
+                elseif($destination_approval == 2)
+                {
+                    $data_material_source = array(
+                        'role_status' => 'Pending Procurement'
+                    );
+        
+                    $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+                    $blaine_local_procurement->where('msid', $msid);
+                    $blaine_local_procurement->update('material_sourcing', $data_material_source);
+        
+                    /*print_r('<pre>');
+                    print_r($data_material_source);
+                    print_r('</pre>');*/
+
+                    $data_action_required = array(
+                        'msid'               => $msid,
+                        'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
+                        'alternate_approver' => "MONTEMAYOR, JASMINE DENISSE SANCHEZ",
+                        'role_status'        => "Procurement",
+                        'status'             => 'Pending',
+                        'created_by'         => $this->session->userdata('username') . ' 0',
+                        'created_date'       => $date,
+                        'step_approval'      => 9
+        
+                    );
+        
+                    $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+                    $blaine_local_procurement->insert('material_approval_list', $data_action_required);
+        
+                    /*print_r('<pre>');
+                    print_r($data_action_required);
+                    print_r('</pre>');*/
+                }
+               
                
             }
             elseif($role_status == 'Superior')
@@ -875,7 +963,7 @@ class Local_procurement_model extends CI_Model {
                     'alternate_approver' => "MONTEMAYOR, JASMINE DENISSE SANCHEZ",
                     'role_status'        => "Procurement",
                     'status'             => 'Pending',
-                    'created_by'         => $this->session->userdata('username'),
+                    'created_by'         => $this->session->userdata('username') . ' 0',
                     'created_date'       => $date,
                     'step_approval'      => 3
     
@@ -925,7 +1013,7 @@ class Local_procurement_model extends CI_Model {
                     'alternate_approver' => $alternate_approver_procurement,
                     'role_status'        => 'Procurement',
                     'status'             => 'Pending',
-                    'created_by'         => $this->session->userdata('username'),
+                    'created_by'         => $this->session->userdata('username') . ' 0',
                     'created_date'       => $date,
                     'step_approval'      => 4
     
@@ -971,24 +1059,45 @@ class Local_procurement_model extends CI_Model {
             print_r($data_update_last_entry);
             print_r('</pre>');*/
     
-            $data_action_required = array(
-                'msid'               => $msid,
-                'primary_approver'   => $primary_approver,
-                'alternate_approver' => $alternate_approver,
-                'role_status'        => 'Requestor',
-                'status'             => 'Pending',
-                'created_by'         => $this->session->userdata('username'),
-                'created_date'       => $date,
-                'step_approval'      => 7
-
-            );
-
-            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-            $blaine_local_procurement->insert('material_approval_list', $data_action_required);
-
-            /*print_r('<pre>');
-            print_r($data_action_required);
-            print_r('</pre>');*/
+            if($role_status == 'Superior')
+            {
+                $data_action_required = array(
+                    'msid'               => $msid,
+                    'primary_approver'   => $primary_approver,
+                    'alternate_approver' => $alternate_approver,
+                    'role_status'        => 'Requestor',
+                    'status'             => 'Pending',
+                    'created_by'         => $this->session->userdata('username') . ' 1',
+                    'created_date'       => $date,
+                    'step_approval'      => 7
+    
+                );
+    
+                $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+                $blaine_local_procurement->insert('material_approval_list', $data_action_required);
+    
+                /*print_r('<pre>');
+                print_r($data_action_required);
+                print_r('</pre>');*/
+            }
+            elseif($role_status == 'Procurement')
+            {
+                $data_action_required = array(
+                    'msid'               => $msid,
+                    'primary_approver'   => $primary_approver,
+                    'alternate_approver' => $alternate_approver,
+                    'role_status'        => 'Requestor',
+                    'status'             => 'Pending',
+                    'created_by'         => $this->session->userdata('username') . ' 2',
+                    'created_date'       => $date,
+                    'step_approval'      => 7
+    
+                );
+    
+                $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+                $blaine_local_procurement->insert('material_approval_list', $data_action_required);
+            }
+        
         }
 
         $trans = $this->db->trans_complete();
