@@ -115,13 +115,8 @@
                             <?php if($material->mcode != NULL) : ?>
                                 <div class="col-md-3">
                                     <div class="form-group">
-<<<<<<< HEAD
                                         <label><b>Material Code:</b></label>
                                         <p><?php echo $material->mcode; ?></p>
-=======
-                                        <label>Material Code</label>
-                                        <input type="text" class="form-control" style="font-size:12px; background-color:white" name="material_code[]" placeholder="" readonly  value="<?php echo $material->mcode; ?>">
->>>>>>> editmaterialsource
                                     </div>
                                 </div>
                             <?php endif; ?>    
