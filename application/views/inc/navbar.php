@@ -647,14 +647,31 @@
                                         <li>
                                             <a href="<?php echo base_url(); ?>homepage/index">Announcement</a>
                                         </li>
-                                        <li>
+                                        <!--<li>
                                             <a href="<?php echo base_url(); ?>homepage/active_directory">Active Directory</a>
-                                        </li>
+                                        </li>-->
                                         <li>
                                             <a href="<?php echo base_url(); ?>homepage/location_directory">Location Directory</a>
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                            <!--ACTIVE DIRECTORY-->
+                            <li class="">
+                                <a href="<?php echo base_url(); ?>homepage/active_directory">
+                                    <i class="fa fa-phone" style="background-color:#138B83"></i>
+                                    <span>Active Directory</span>
+                                </a>
+                                <!--<div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                        <a href="#">Add Movies</a>
+                                        </li>
+                                        <li>
+                                        <a href="#">View Movies</a>
+                                        </li>
+                                    </ul>
+                                </div>-->
                             </li>
                             <!--DASHBOARD-->
                             <li class="">

@@ -6,6 +6,29 @@
         font-size: 12px;
     }
 </style>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+
+        var children = '<tr id="child"><br><td><input type="text" class="form-control" name="mat_code[]"></td><td><input type="text" class="form-control" name="description[]"></td><td><input type="text" class="form-control" name="qty[]"></td><td><input type="text" class="form-control" name="uom[]"></td><td><input type="text" class="form-control" name="previous[]"></td><td><input type="text" class="form-control" name="year[]" style="text-transform:uppercase"></td><td> <input class="btn btn-danger btn-sm" style="width: 80px" type="button" name="remove" id="cremove" value="Remove"></td></tr>';
+
+        var cmax = 10;
+        var c = 1;
+
+
+        $("#cadd").click(function(){
+        if(c <= cmax){
+            $("#children_field").append(children);
+            c++;
+        }
+        });
+        $("#children_field").on('click','#cremove',function(){
+        $(this).closest('#child').remove();
+        c--;
+        });
+
+    });
+</script>
 <p style="text-align:left"><img class="card-img-top" style="" src="<?php echo base_url(); ?>assets/images/step2.png" alt=""></p>
 <div class="card" style="font-size:12px;">
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION<a href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
@@ -58,69 +81,29 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="children_field">
+                            <tr >
                                 <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                    <input type="text" class="form-control" name="mat_code[]">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                    <input type="text" class="form-control" name="description[]">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                    <input type="text" class="form-control" name="qty[]">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                    <input type="text" class="form-control" name="uom[]">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                    <input type="text" class="form-control" name="previous[]">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td> <div class="btn btn-sm btn-danger">Remove</div></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                    <input type="text" class="form-control" name="year[]" style="text-transform:uppercase">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                    <input class="btn btn-success btn-sm" style="width:80px" title="Add Children" type="button" name="add" id="cadd" value="Add">
                                 </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td> <div class="btn btn-sm btn-danger">Remove</div></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
-                                </td>
-                                <td> <div class="btn btn-sm btn-danger">Remove</div></td>
                             </tr>
                         </tbody>
                     </table>
