@@ -16,20 +16,25 @@
         f--;
         });
 
-        var required_date_input = document.getElementById("#required_date")
+        $(function(){
+            var dtToday = new Date();
+            
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate() + 1;
+            var year = dtToday.getFullYear();
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+            
+            var maxDate = year + '-' + month + '-' + day;
 
-        var n =  new Date();
-        var y = n.getFullYear();
-        var m = n.getMonth() + 1;
-        var d = n.getDate() + 1;
-        if(m < 12)
-        m = '0' + m.toString();
-        else if(d < 12)
-        d = '0' + d.toString();
+            // or instead:
+            // var maxDate = dtToday.toISOString().substr(0, 10);
 
-        var minDate = y + '-' + m + '-' + d
-
-        required_date_input.setAttribute("min",minDate)
+            //alert(maxDate);
+            $('#date_required').attr('min', maxDate);
+        });
     });
 </script>
 <style>
@@ -83,7 +88,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input name="date_required" type="date" class="form-control" id="#required_date">
+                                <input name="date_required" type="date" class="form-control" id="date_required">
                             </div>
                         </div>
                     </div> 
@@ -101,6 +106,25 @@
                                 <option value="Sample Only">Sample Only</option>
                                 <option value="Price w/ Sample">Price w/ Sample</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3" hidden>
+                            <div class="form-group">
+                                <label>Material Source ID</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3" hidden>
+                            <div class="form-group">
+                                <?php
+                                    $s_id = $batch_number->id;
+                                    $source_id = $s_id[0] + 1;
+
+                                    $arr2 = str_split($batch_number->msid, 9);
+                                    $i = $arr2[0] + 1;
+                                    $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+                                ?>
+                                <input type="text" class="form-control" id="msid"  name="msid" value="<?php echo $batch_number;?>" readonly>
+                                <input type="text" class="form-control" id="source_id"  name="source_id" value="<?php echo $source_id;?>" readonly>
                             </div>
                         </div>
                     </div>
@@ -222,7 +246,7 @@
                                     <option value="">Select Primary Approver</option> 
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
-                                        <option value="<?php echo $employee->fullname.'|'. $employee->emp_no ; ?>"<?php echo $this->session->userdata('employee_number') ==  $employee->emp_no ? 'selected' : ''; ?>><?php echo $employee->fullname; ?></option>
+                                        <option value="<?php echo $employee->fullname.'|'. $employee->emp_no .'|'. $employee->email ; ?>"<?php echo $this->session->userdata('employee_number') ==  $employee->emp_no ? 'selected' : ''; ?>><?php echo $employee->fullname; ?></option>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
@@ -234,7 +258,7 @@
                                     <option value="">Select Alternate Approver</option>
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
-                                        <option value="<?php echo $employee->fullname.'|'. $employee->emp_no ; ?>"><?php echo $employee->fullname;?></option>
+                                        <option value="<?php echo $employee->fullname.'|'. $employee->emp_no .'|' . $employee->email ; ?>"><?php echo $employee->fullname;?></option>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
@@ -251,7 +275,7 @@
                                     <option value="">Select Primary Approver</option>
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
-                                        <option value="<?php echo $employee->fullname.'|'. $employee->emp_no ; ?>"><?php echo $employee->fullname;?></option>
+                                        <option value="<?php echo $employee->fullname.'|'. $employee->emp_no .'|' .$employee->email ; ?>"><?php echo $employee->fullname;?></option>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
@@ -263,7 +287,7 @@
                                     <option value="">Select Alternate Approver</option>
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
-                                        <option value="<?php echo $employee->fullname.'|'. $employee->emp_no ; ?>"><?php echo $employee->fullname;?></option>
+                                        <option value="<?php echo $employee->fullname.'|'. $employee->emp_no.'|'. $employee->email ; ?>"><?php echo $employee->fullname;?></option>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>

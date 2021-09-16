@@ -111,7 +111,7 @@ class Employee extends CI_Controller {
             $position = strtoupper($this->input->post('position'));
             $req_email = $this->input->post('req_email');
             $req_unit = $this->input->post('req_unit');
-            $email = ('jesa.lacambra@blainegroup.com.ph, christian.guarin@blainegroup.com.ph');
+            $email = ('jesa.lacambra@blainegroup.com.ph');
             //$cc = "";
             //$bcc = $this->input->post('bcc');
 

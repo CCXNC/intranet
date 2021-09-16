@@ -300,6 +300,7 @@ class Employee_model extends CI_Model {
             employment_info.position as position,
             company.code as company, 
             department.name as department,
+			active_directory.email as email,
 			
 			employment_info.company as company_id,
 			employment_info.department as department_id,
@@ -309,6 +310,7 @@ class Employee_model extends CI_Model {
 			
 		");
 		$this->db->from('blaine_intranet.employees');
+		$this->db->join('blaine_intranet.active_directory', 'blaine_intranet.active_directory.employee_number = blaine_intranet.employees.employee_number');
         $this->db->join('blaine_intranet.employment_info', 'blaine_intranet.employment_info.employee_number = blaine_intranet.employees.employee_number');
         $this->db->join('blaine_intranet.employee_status', 'blaine_intranet.employment_info.employee_status = blaine_intranet.employee_status.id');
         $this->db->join('blaine_intranet.company', 'blaine_intranet.employment_info.company = blaine_intranet.company.id');

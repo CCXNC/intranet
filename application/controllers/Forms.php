@@ -139,4 +139,10 @@ class Forms extends CI_Controller {
        // readfile($data, $name);
 
     }
+
+    public function acronyms()
+    {
+        $data['main_content'] = 'forms/acronyms';
+        $this->load->view('inc/navbar', $data);
+    }
 }     

@@ -179,6 +179,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label><b>File Attachment:</b></label>
+                                    <p><a href="<?php echo base_url(); ?>procurement/download_material_attachment/<?php echo $material->attachment; ?>"><?php echo $material->attachment; ?></a></p>
                                 </div>
                             </div>
                         </div>
@@ -236,6 +237,16 @@
                         <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">APPROVAL DETAILS</div>
                         <div class="card-body" style="background-color: #E9FAFD">
                             <div class="row">
+
+                                <!-- Get material details for email -->
+                                <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
+                                <input type="text" hidden name="company" value="<?php echo $material_source->company_name; ?>">
+                                <input type="text" hidden name="category" value="<?php echo $material_source->category; ?>">
+                                <input type="text" hidden name="date_required" value="<?php echo $material_source->date_required; ?>">
+                                <input type="text" hidden name="date_requested" value="<?php echo date('Y-m-d', strtotime($material_source->created_date)); ?>">
+                                <input type="text" hidden name="email_accounts" value="<?php echo $material_source->email; ?>">
+                                <!-- End of get material details for email -->
+
                                 <?php $data_explod = explode(' ', $material_source->role_status); ?>
                                 <input type="text" hidden name="primary_approver_superior" value="<?php echo $material_source->primary_approver; ?>">
                                 <input type="text" hidden name="alternate_approver_superior" value="<?php echo $material_source->alternate_approver; ?>">
@@ -244,7 +255,8 @@
 
                                 <input type="text" hidden name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">
                                 <input type="text" hidden name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">
-                               
+                                <input type="text" hidden name="req_signoff_by" value="<?php echo $first_entry->signoff_by; ?>">
+                                <input type="text" hidden name="req_remarks" value="<?php echo $first_entry->remarks; ?>">
 
                                 <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
                                 <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">

@@ -38,6 +38,10 @@
         
         <!-- AUTO FORMAT INPUT -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    
+        <!-- LETTER SEARCH FOR ACRONYMS -->
+        <link type="text/css" href="//gyrocode.github.io/jquery-datatables-alphabetSearch/1.2.5/css/dataTables.alphabetSearch.css" rel="stylesheet" />
+        <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-alphabetSearch/1.2.5/js/dataTables.alphabetSearch.min.js"></script>
     </head>
     <style>
         @keyframes swing {

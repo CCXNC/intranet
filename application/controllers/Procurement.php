@@ -163,6 +163,14 @@ class Procurement extends CI_Controller {
         force_download($name, $data);
     }
 
+    function download_material_attachment()
+    {
+        $this->load->helper('download');
+        $data = file_get_contents('uploads/material_sourcing_attachment/'.$this->uri->segment(3));
+        $name = $this->uri->segment(3);
+        force_download($name, $data);
+    }
+
     //EDIT
     public function supplier_edit($id)
     {
@@ -295,6 +303,31 @@ class Procurement extends CI_Controller {
         }
         else
         {
+            /*if(!empty($_FILES['attachment']['name']))
+            {
+                $imageName = $_FILES['attachment']['name'];
+
+                // File upload configuration
+                $config['upload_path'] = './uploads/material_sourcing_attachment/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip';
+                $config['max_size'] = '100000000';
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                // Upload file to server
+                if($this->upload->do_upload('attachment')){
+                    // Upload file data
+                    $fileData = $this->upload->data();
+                    $imgData['file_name'] = $fileData['file_name'];
+                }
+                else{
+                    $error = $this->upload->display_errors();
+                }
+            }*/
+                
             if($this->local_procurement_model->add_material_sourcing_matcode())
             {
                 $data = $this->local_procurement_model->first_msid();
@@ -330,6 +363,30 @@ class Procurement extends CI_Controller {
         }
         else
         {
+            /*if(!empty($_FILES['attachment']['name']))
+            {
+                $imageName = $_FILES['attachment']['name'];
+
+                // File upload configuration
+                $config['upload_path'] = './uploads/material_sourcing_attachment/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip';
+                $config['max_size'] = '100000000';
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                // Upload file to server
+                if($this->upload->do_upload('attachment')){
+                    // Upload file data
+                    $fileData = $this->upload->data();
+                    $imgData['file_name'] = $fileData['file_name'];
+                }
+                else{
+                    $error = $this->upload->display_errors();
+                }
+            }*/
             if($this->local_procurement_model->add_material_sourcing_nomatcode())
             {
                 $data = $this->local_procurement_model->first_msid();

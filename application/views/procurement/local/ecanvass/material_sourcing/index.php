@@ -103,7 +103,7 @@
         <?php if($material_sourcings) : ?>
             <?php foreach($material_sourcings as $material_source) : ?>
                 <?php $explode_data_access = explode('|', $material_source->emp_access); ?>
-                <?php if($this->session->userdata('employee_number') == $explode_data_access[0] || $this->session->userdata('employee_number') == $explode_data_access[1] || $this->session->userdata('employee_number') == $explode_data_access[2] || $this->session->userdata('employee_number') == $explode_data_access[3] || $this->session->userdata('employee_number') ==  '06181150' || $this->session->userdata('employee_number') ==  '03191174' || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
+                <?php //if($this->session->userdata('employee_number') == $explode_data_access[0] || $this->session->userdata('employee_number') == $explode_data_access[1] || $this->session->userdata('employee_number') == $explode_data_access[2] || $this->session->userdata('employee_number') == $explode_data_access[3] || $this->session->userdata('employee_number') ==  '06181150' || $this->session->userdata('employee_number') ==  '03191174' || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
                     <tr>
                         <td><a href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>"><?php echo $material_source->msid; ?></a></td>
                         <td><?php echo date('Y-m-d', strtotime($material_source->request_date)); ?></td>
@@ -136,7 +136,7 @@
                             </div>
                         </td>
                     </tr>
-                <?php endif; ?>    
+                <?php // endif; ?>    
             <?php endforeach; ?>
         <?php endif; ?>
     </tbody>
