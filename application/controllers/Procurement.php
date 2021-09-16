@@ -245,8 +245,12 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    function comparative_pr_view()
+    function comparative_pr_view($canvass_no)
     {
+        $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
+        $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
+        $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
+        $data['supplier_materials'] = $this->local_procurement_model->supplier_materials($canvass_no);
         $data['main_content'] = 'procurement/local/ecanvass/comparative/pr/view';
         $this->load->view('inc/navbar', $data);
     }
@@ -459,6 +463,18 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
+    public function json_material_sourcing_list()
+    {
+        $data = $this->local_procurement_model->get_material_list();
+        echo json_encode($data);
+    }
+
+    public function json_material_sourcing()
+    {
+        $data = $this->local_procurement_model->get_material_source_list();
+        echo json_encode($data);
+    }
+
     public function report_matsource_add1()
     {
         $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/matsource/add1';
@@ -467,14 +483,52 @@ class Procurement extends CI_Controller {
 
     public function report_pr_add()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/pr/add';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('pr_no', 'PR NUMBER', 'required|trim');   
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['uoms'] = $this->local_procurement_model->get_uom();
+            $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/pr/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->add_report_generation())
+            {
+                
+
+                $data = $this->local_procurement_model->last_canvass_no();
+                
+                $canvass_no = $data->canvass_no;
+                $material_pr_no = $data->material_pr_no;
+                
+                redirect('procurement/report_pr_add_supplier/'.$canvass_no.'/'.$material_pr_no.'');
+            }
+        }
+     
     }
 
-    public function report_pr_add1()
+    public function report_pr_add_supplier($canvass_no,$material_pr_no)
     {
-        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/pr/add1';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('canvass_no', 'Canvass Number', 'required|trim');   
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['canvass'] = $this->local_procurement_model->report_generation($canvass_no);
+            $data['suppliers'] = $this->local_procurement_model->get_suppliers();
+            $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
+            $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/pr/add1';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->add_report_generation_with_supplier())
+            {
+                $canvass_no = $this->input->post('canvass_no');
+                redirect('procurement/comparative_pr_view/'.$canvass_no.'');
+            }
+        }
+       
     }
 
     public function transmittal()
