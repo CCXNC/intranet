@@ -67,16 +67,16 @@
                         <?php endif; ?>
                     </tr>
                     <tr>
-                        <th scope="col" style="background-color: #0C2D48; color: white;">No</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white">Material</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white">QTY</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white">UOM</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white">Previous Purchase Per Unit	</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white">Currency</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white">Year</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">No</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Material</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">QTY</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">UOM</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Previous Purchase Per Unit	</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Currency</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Year</th>
                         <?php if($suppliers) : ?>  
                             <?php foreach($suppliers as $supplier) : ?>  
-                                <th colspan="" style="background-color:#0D635D; color:white"><?php echo $supplier->supplier_name; ?></th>
+                                <th colspan="" style="background-color:#0D635D; color:white; width:10%"><?php echo $supplier->supplier_name; ?></th>
                             <?php endforeach; ?>    
                         <?php endif; ?>  
                     </tr>
@@ -176,21 +176,21 @@
             <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center; display:none" id="comprecom">
                 <thead>
                     <tr>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">No</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Material</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">QTY</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">UOM</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">MOQ</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Quotation</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Supplier</th>
-                        <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Saving</th>
-                        <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Avoidance</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">No</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Material</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">QTY</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">UOM</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">MOQ</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Quotation</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Supplier</th>
+                        <th colspan="2" style="background-color: #0C2D48; color: white;width: 10%">Cost Saving</th>
+                        <th colspan="2" style="background-color: #0C2D48; color: white;width: 10%">Cost Avoidance</th>
                     </tr>
                     <tr>
-                        <th colspan="" style="background-color:#0D635D; color:white">Reduction Per Unit</th>
-                        <th colspan="" style="background-color:#0D635D; color:white">Total Reduction</th>
-                        <th colspan="" style="background-color:#0D635D; color:white">Savings/Unit</th>
-                        <th colspan="" style="background-color:#0D635D; color:white">Total Savings</th>
+                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Reduction Per Unit</th>
+                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Reduction</th>
+                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Savings/Unit</th>
+                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Savings</th>
                     </tr>
                 </thead>
                 <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
@@ -254,21 +254,21 @@
             <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center;">
                 <thead>
                     <tr>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">No</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Material</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">QTY</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">UOM</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Quotation</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Supplier</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">MOQ</th>
-                        <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Saving</th>
-                        <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Avoidance</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">No</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Material</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">QTY</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">UOM</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Quotation</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Supplier</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">MOQ</th>
+                        <th colspan="2" style="background-color: #0C2D48; color: white; width: 10%">Cost Saving</th>
+                        <th colspan="2" style="background-color: #0C2D48; color: white; width: 10%">Cost Avoidance</th>
                     </tr>
                     <tr>
-                        <th colspan="" style="background-color:#0D635D; color:white">Reduction Per Unit</th>
-                        <th colspan="" style="background-color:#0D635D; color:white">Total Reduction</th>
-                        <th colspan="" style="background-color:#0D635D; color:white">Savings/Unit</th>
-                        <th colspan="" style="background-color:#0D635D; color:white">Total Savings</th>
+                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Reduction Per Unit</th>
+                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Reduction</th>
+                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Savings/Unit</th>
+                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Savings</th>
                     </tr>
                 </thead>
                 <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
