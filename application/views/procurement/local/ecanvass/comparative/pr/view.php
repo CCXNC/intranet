@@ -258,9 +258,11 @@
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Material</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">QTY</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">UOM</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Quotation</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Supplier</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Quatation</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Supplier Name</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">MOQ</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Price Per UOM</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle">Total Price</th>
                         <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Saving</th>
                         <th colspan="2" style="background-color: #0C2D48; color: white;">Cost Avoidance</th>
                     </tr>
@@ -278,21 +280,29 @@
                             <tr >
                                 <th scope="row"><?php echo $y; ?></th>
                                 <td ><?php echo $material->description; ?></td>
-                                <td><?php echo $material->quantity; ?></td>
+                                <td><?php echo $material->quantity.'|'.$material->prev_purchase_unit; ?></td>
                                 <td><?php echo $material->uom; ?></td>
-                                <td><p id="quatation<?php echo $y; ?>"></p></td>
                                 <td>
+                                    <?php $p = 1; ?>
                                     <select name="" class="form-control" id="selectSupplier<?php echo $y; ?>" style="font-size:12px; height:32px" id="">
-                                        <option value=" ">Select Supplier</option>
+                                        <option value=" ">Select Quatation</option>
                                         <?php if($supplier_materials) : ?>  
                                             <?php foreach($supplier_materials as $supplier_material) : ?>  
-                                                <?php if($supplier_material->material_id == $material->id) : ?> 
-                                                    <option value="<?php echo $supplier_material->moq. '|'.$supplier_material->price_per_unit . '|' .$material->quantity; ?>"><?php echo $supplier_material->supplier_name; ?></option>
+                                                <?php if($supplier_material->material_id == $material->id && $supplier_material->price_per_unit != 0) : ?> 
+                                                    <option value="<?php echo $supplier_material->moq. '|'.$supplier_material->price_per_unit . '|' .$material->quantity.'|'.$material->prev_purchase_unit.'|'.$supplier_material->supplier_name; ?>"><?php echo 'Quatation '.$p.''; ?></option>
+                                                    <?php $p++; ?>
                                                 <?php endif; ?> 
                                             <?php endforeach; ?>    
                                         <?php endif; ?> 
                                     </select>
                                 </td>
+                                <td><p id="supplierName<?php echo $y; ?>"></p></td>
+                                <td><p id="moq<?php echo $y; ?>"></p></td>
+                                <td><p id="perUnit<?php echo $y; ?>"></p></td>
+                                <td><p id="totalPriceUnit<?php echo $y; ?>"></p></td>
+                                <td><p id="costSavingPerUnit<?php echo $y; ?>"></p></td>
+                                <td><p id="costSavingTotalReduction<?php echo $y; ?>"></p></td>
+                                <td><p id="moq<?php echo $y; ?>"></p></td>
                                 <td><p id="moq<?php echo $y; ?>"></p></td>
                             </tr>
                             <?php $y++; ?>
@@ -339,10 +349,22 @@
            
             $('#selectSupplier'+incVal+'').on('change', function() {
                 var dta =  $('#selectSupplier'+incVal+'').val().split('|');
-                var computeQuatation =  dta[1] * dta[2];
+                var moq = dta[0];
+                var pricePerUnit = dta[1];
+                var materialQuantity = dta[2];
+                var prevPurchaseUnit = dta[3];
+                var supplierName = dta[4];
+
+                var computeQuatation =  pricePerUnit * materialQuantity;
+                var reductionPerUnit = prevPurchaseUnit - pricePerUnit;
+                var totalReduction = reductionPerUnit * materialQuantity;
                 
-                $('#moq'+incVal+'').text(dta[0]); 
-                $('#quatation'+incVal+'').text(computeQuatation); 
+                $('#supplierName'+incVal+'').text(supplierName); 
+                $('#moq'+incVal+'').text(moq); 
+                $('#perUnit'+incVal+'').text(pricePerUnit); 
+                $('#totalPriceUnit'+incVal+'').text(computeQuatation); 
+                $('#costSavingPerUnit'+incVal+'').text(reductionPerUnit);
+                $('#costSavingTotalReduction'+incVal+'').text(totalReduction);
             });
         }
     });            
