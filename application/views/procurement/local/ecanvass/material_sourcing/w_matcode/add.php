@@ -87,7 +87,7 @@
                                 <input type="text" class="form-control" id="msid"  name="msid" value="<?php echo $batch_number;?>" readonly>
                                 <input type="text" class="form-control" id="source_id"  name="source_id" value="<?php echo $source_id;?>" readonly>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>    
             </div>
