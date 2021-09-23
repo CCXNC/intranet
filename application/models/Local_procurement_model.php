@@ -2809,6 +2809,85 @@ class Local_procurement_model extends CI_Model {
         return $trans;
     } 
 
+    public function add_report_generation_msid()
+    {
+        $this->db->trans_start();
+
+        $msid = $this->input->post('msid');
+        $pr_no = $this->input->post('pr_no');
+        $pr_date = $this->input->post('pr_date');
+        $company = $this->input->post('company');
+        $date = date('Y-m-d H:i:s');
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->order_by('id','DESC');
+		$blaine_local_procurement->select('canvass_no');
+		$datas = $blaine_local_procurement->get('report_generation');
+		$inc_number = $datas->row()->canvass_no;
+
+        $arr2 = str_split($inc_number, 9);
+        $i = $arr2[0] + 1;
+        $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+
+        $data = array(
+            'canvass_no'     => $batch_number,
+            'msid'           => $msid,
+            'material_pr_no' => $pr_no,
+            'pr_date'        => $pr_date,
+            'company'        => $company,
+            'created_by'     => $this->session->userdata('username'),
+            'created_date'   => $date
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->insert('report_generation', $data);
+
+        /*print_r('<pre>');
+        print_r($data);
+        print_r('</pre>');*/
+
+
+        // REPORT GENETATION LIST
+        $description = $this->input->post('description');
+        $quantity = $this->input->post('qty');
+        $uom = $this->input->post('uom');
+        $prev_purchase_unit = $this->input->post('previous');
+        $year = $this->input->post('year');
+        $currency = $this->input->post('currency');
+        $i = 0;
+
+        foreach($this->input->post('mat_code') as $mcode)
+        {
+            $data_list = array(
+                'canvass_no'         => $batch_number,
+                'material_pr_no'     => $pr_no,
+                'mcode'              => $mcode,
+                'description'        => $description[$i],
+                'quantity'           => $quantity[$i],
+                'uom'                => $uom[$i],
+                'prev_purchase_unit' => $prev_purchase_unit[$i],
+                'currency'           => $currency[$i],
+                'year'               => $year[$i],
+                'created_by'         => $this->session->userdata('username'),
+                'created_date'       => $date
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('material_report_generation_list', $data_list);
+
+            /*print_r('<pre>');
+            print_r($data_list);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+    } 
+
+
+
     public function last_canvass_no()
     {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -2958,6 +3037,22 @@ class Local_procurement_model extends CI_Model {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('canvass_no', $canvass_no);
         $query = $blaine_local_procurement->get('supplier_material_list');
+
+        return $query->result();
+    }
+
+    public function get_supplier_materials($canvass_no)
+    {
+        $this->db->select('
+            SUM(supplier_material_list.price_per_unit) AS total_price_per_material,
+            COUNT(supplier_material_list.material_id) AS count_per_material
+        ');
+        $this->db->from('blaine_local_procurement.supplier_material_list');
+        $this->db->where('blaine_local_procurement.supplier_material_list.canvass_no', $canvass_no);
+        $this->db->where('blaine_local_procurement.supplier_material_list.price_per_unit !=', 0);
+        $this->db->group_by('blaine_local_procurement.supplier_material_list.material_id');
+
+        $query = $this->db->get();
 
         return $query->result();
     }

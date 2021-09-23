@@ -11,27 +11,27 @@
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION<a href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>employee/add" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url(); ?>procurement/report_matsource_add" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px;"><h5>Comparative Statement Quotations</h5></div>
                 <div class="card-body" style="background-color: #E9FAFD;">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4"> 
                             <div class="form-group">
                                 <label >Material Source ID</label>
-                                <input type="text" class="form-control" name="first_name"  id="myTextbox" style="text-transform:uppercase; background-color:white">
+                                <input type="text" class="form-control" name="msid"  id="myTextbox" style="text-transform:uppercase; background-color:white">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >Material Source Request Date</label>
-                                <input type="date" class="form-control" name="first_name" id="dateRequested" style="background-color:white" readonly>
+                                <input type="date" class="form-control" name="msid_date" id="dateRequested" style="background-color:white" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Company</label>
-                                <input type="text" class="form-control" name="first_name" id="company" style="background-color:white" readonly>
+                                <input type="text" class="form-control" name="company" id="company" style="background-color:white" readonly>
                             </div>
                         </div>
                     </div>
@@ -40,13 +40,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >PR Number</label>
-                                <input type="text" class="form-control" name="first_name" style="text-transform:uppercase">
+                                <input type="text" class="form-control" name="pr_no" style="text-transform:uppercase">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >PR Date</label>
-                                <input type="date" class="form-control" name="first_name" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="date" class="form-control" name="pr_date" value="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div>
                     </div>
@@ -84,11 +84,11 @@
                 </div>
             </div>
             <br>
-            <a href="<?php echo base_url(); ?>procurement/report_matsource_add1" style="margin-left:10px;" class="float-right btn btn-info">NEXT</a>
+            <input type="submit" style="margin-left:10px;" class="float-right btn btn-info" value="NEXT">
         </form>
     </div>
-</div>
-<script>
+</div> 
+<script> 
      $(document).ready(function(){
 
         $.ajax({
@@ -102,7 +102,7 @@
                     $('#myTextbox').blur(function(e) {
                         var mcodeType = $(this).val();
                         if(mcodeType == object['msid']) {
-                            var form = ' <tr id="child"><td data-label="Mat Code">'+object['mcode']+'</td><td data-label="Description & Specs">'+object['description']+'</td> <td data-label="QTY">'+object['quantity']+'</td> <td data-label="UOM">'+object['uom']+'</td><td data-label="Currency"><input type="text" class="form-control" name="currency[]"></td><td data-label="Price"><input type="text" class="form-control" name="price_per_unit[]"></td><td data-label="Year"><input type="text" class="form-control" name="year"></td><td> <input class="btn btn-danger btn-sm" style="width: 80px" type="button" name="remove" id="cremove" value="Remove"></td>></tr>';
+                            var form = ' <tr id="child"><td data-label="Mat Code"><input type="text" name="mat_code[]" hidden value="'+object['mcode']+'">'+object['mcode']+'</td><td data-label="Description & Specs"><input type="text" name="description[]" hidden value="'+object['description']+'">'+object['description']+'</td> <td data-label="QTY"><input type="text" name="qty[]" hidden value="'+object['quantity']+'">'+object['quantity']+'</td> <td data-label="UOM"><input type="text" name="uom[]" hidden value="'+object['uom']+'">'+object['uom']+'</td><td data-label="Currency"><select name="currency[]" class="form-control" style="font-size:12px; height:32px" style="font-size:12px;"><option value=""></option><option selected="selected" value="PHP">PHP</option><option value="USD">USD</option><option value="POUND">POUND</option><option value="YUAN">YUAN</option><option value="EURO">EURO</option></select></td><td data-label="Price"><input type="text" class="form-control" name="previous[]"></td><td data-label="Year"><input type="text" class="form-control" name="year[]"></td><td> <input class="btn btn-danger btn-sm" style="width: 80px" type="button" name="remove" id="cremove" value="Remove"></td>></tr>';
                             $("#form_field").append(form);
                         }
                     });

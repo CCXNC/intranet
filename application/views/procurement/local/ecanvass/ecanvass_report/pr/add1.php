@@ -71,8 +71,8 @@
                                                 <td data-label="Description & Specs"><input type="text" name="description[]" hidden value="<?php echo $material->description; ?>"><?php echo $material->description; ?></td>
                                                 <td data-label="QTY"><input type="text" name="quantity[]" hidden value="<?php echo $material->quantity; ?>"><?php echo $material->quantity; ?></td>
                                                 <td data-label="UOM"><input type="text" name="uom[]" hidden value="<?php echo $material->uom; ?>"><?php echo $material->uom; ?></td>
-                                                <td data-label="MOQ"><input type="number" class="form-control" name="moq[]"></td>
-                                                <td data-label="Price"><input type="number" class="form-control" name="price[]"></td>
+                                                <td data-label="MOQ"><input type="number" class="form-control" name="moq[]" value="0"></td>
+                                                <td data-label="Price"><input type="number" class="form-control" name="price[]" value="0"></td>
                                                 <td data-label="Currency">
                                                     <select name="currency[]" class="form-control" style="font-size:12px; height:32px" style="font-size:12px;">
                                                         <option value=""></option>
