@@ -84,4 +84,15 @@
         </div>
     </div>
 </div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <a style="width: 70%;background-color: #175873; border:white" href="<?php echo base_url(); ?>procurement/transmittal_list" class="btn btn-primary btn-md float-left">TRANSMITTAL LIST</a>
+                <i style="" class="fa fa-chart-bar fa-2x float-right"></i>
+            </div>
+        </div>
+    </div>
+</div>
 <?php endif; ?>

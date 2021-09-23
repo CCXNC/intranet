@@ -4,57 +4,26 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header" style="background-color: #0C2D48; color: white"><h4>Blaine Acronyms<a href="<?php echo base_url(); ?>forms/index" id="back" title="Go Back" class="btn btn-info float-right d-print-none" style="margin-right:10px;">BACK</a></h4></div>
+<div class="card-header" style="background-color: #0C2D48; color: white"><h4>Blaine Acronyms<a href="<?php echo base_url(); ?>forms/index" id="back" title="Go Back" class="btn btn-info float-right d-print-none" style="margin-right:10px;">Back</a></h4></div>
 <br>
 <table id="" class="display" width="100%">
     <thead>
         <tr style="background-color:#D4F1F4;">
-            <th scope="col">Department</th>
             <th scope="col">Abbreviation</th>
+            <th scope="col">Department</th>
             <th scope="col">Description</th>
         </tr>
     </thead>
     <tbody>
-            <tr>
-                <td>Productivity</td>
-                <td>CIT</td>
-                <td>Continuous Improvement Team</td>
-            </tr> 
-            <tr>
-                <td>Productivity</td>
-                <td>IT</td>
-                <td>Information Technology</td>
-            </tr> 
-            <tr>
-                <td>Productivity</td>
-                <td>KPI</td>
-                <td>Key Performance Indicator</td>
-            </tr> 
-            <tr>
-                <td>Warehouse</td>
-                <td>Bx</td>
-                <td>Box</td>
-            </tr> 
-            <tr>
-                <td>Warehouse</td>
-                <td>Cm</td>
-                <td>Centimeters</td>
-            </tr> 
-            <tr>
-                <td>Accounting</td>
-                <td>FS</td>
-                <td>Financial Statement</td>
-            </tr> 
-            <tr>
-                <td>Accounting</td>
-                <td>AR</td>
-                <td>Accounts Receivable</td>
-            </tr> 
-            <tr>
-                <td>Accounting</td>
-                <td>Accr</td>
-                <td>Accrued</td>
-            </tr> 
+        <?php if($acronyms) : ?>
+            <?php foreach($acronyms as $acronym) : ?>
+                <tr>
+                    <td data-label="Abbreviation"><?php echo $acronym->abbreviation;  ?></td>
+                    <td data-label="Department"><?php echo $acronym->department;  ?></td>
+                    <td data-label="Definition"><?php echo $acronym->definition;  ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </tbody>
 </table>
 <script type="text/javascript">  
@@ -64,6 +33,11 @@
             alphabetSearch: {
                 column: 0
             },
+            aLengthMenu: [
+                [25, 50, 100, 200, -1],
+                [25, 50, 100, 200, "All"]
+            ],
+            iDisplayLength: -1,
             "bStateSave": true,
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('table.display', JSON.stringify(oData));

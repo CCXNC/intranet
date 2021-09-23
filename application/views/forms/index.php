@@ -4,8 +4,10 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<div class="card-header" style="background-color: #0C2D48; color: white"><h4>Blaine Form List
-<?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?><a href="#" title="Add Form" class="btn btn-info float-right"  data-toggle="modal" data-target="#exampleModal" style="margin-right:10px;">ADD</a> <?php endif; ?>
+<h4><a href="<?php echo base_url(); ?>forms/acronyms" title="Edit Form" class="btn btn-info " style="">Blaine Acronyms</a></h4>
+<div class="card-header" style="background-color: #0C2D48; color: white">
+    <h4>Blaine Form List
+        <?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?><a href="#" title="Add Form" class="btn btn-info float-right"  data-toggle="modal" data-target="#exampleModal" style="margin-right:10px;">Add</a> <?php endif; ?>
     </h4> 
 </div>
 <br>
@@ -26,13 +28,17 @@
         <?php foreach($attachments as $attachment) : ?>
             <tr>
                 <td data-label="Name"><?php echo $attachment->name;  ?></td>
-                <td data-label="Attachment"><a href="<?php echo base_url(); ?>forms/download_attachment/<?php echo $attachment->attachment; ?>"><?php echo $attachment->attachment; ?></a></td></td>
+                <td data-label="Attachment">
+                    <a href="<?php echo base_url(); ?>forms/download_attachment/<?php echo $attachment->attachment; ?>" value="<?php echo $attachment->attachment; ?>">
+                        Download Attachment
+                    </a>
+                </td>
                 <td data-label="Category"><?php echo $attachment->category;  ?></td>               
                 <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 10 || $this->session->userdata('department_id') == 25) : ?>
                     <td data-label="Date"><?php echo date('F j, Y',strtotime($attachment->date)); ?></td>
                     <td data-label="Action">
-                        <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" title="Edit Form" class="btn btn-info " style="margin-right:10px; width: 100%">EDIT</a>
-                        <a href="<?php echo base_url(); ?>forms/delete_form/<?php echo $attachment->id; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-danger " style="margin-right:10px; width: 100%">DELETE</a>
+                        <a href="<?php echo base_url(); ?>forms/edit_forms/<?php echo $attachment->id; ?>" title="Edit Form" class="btn btn-info " style=""><span class="fa fa-pencil"></span></a>
+                        <a href="<?php echo base_url(); ?>forms/delete_form/<?php echo $attachment->id; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-danger " style=""><span class="fa fa-trash"></span></a>
                     </td>
                 <?php endif; ?>    
             </tr>        
