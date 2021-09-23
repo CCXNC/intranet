@@ -196,4 +196,12 @@ class Forms_model extends CI_Model {
 		$trans = $this->db->trans_complete();
 		return $trans;
 	}
+
+	public function get_acronyms()
+	{
+		$blaine_forms = $this->load->database('blaine_forms', TRUE);
+		$query = $blaine_forms->get('acronyms');
+
+		return $query->result();
+	}
 }    

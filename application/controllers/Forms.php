@@ -142,6 +142,7 @@ class Forms extends CI_Controller {
 
     public function acronyms()
     {
+        $data['acronyms'] = $this->forms_model->get_acronyms();
         $data['main_content'] = 'forms/acronyms';
         $this->load->view('inc/navbar', $data);
     }

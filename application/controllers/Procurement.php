@@ -533,8 +533,23 @@ class Procurement extends CI_Controller {
 
     public function transmittal()
     {
-        $data['main_content'] = 'procurement/local/ecanvass/transmittal/add';
-        $this->load->view('inc/navbar', $data);
+        $this->form_validation->set_rules('msid', 'Material Source ID', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+
+        if($this->form_validation->run() == FALSE){
+            $data['material_sourcings'] = $this->local_procurement_model->get_material_sourcing_list();
+            $data['suppliers'] = $this->local_procurement_model->get_suppliers();
+            $data['main_content'] = 'procurement/local/ecanvass/transmittal/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else{
+            if($this->local_procurement_model->add_transmittal())
+            {
+                $this->session->set_flashdata('success_msg', 'Transmittal Successfully Added!');
+                redirect('procurement/ecanvass_index');
+            }
+        }
+        
     }
     
     public function material_enrollment_add()
@@ -627,4 +642,19 @@ class Procurement extends CI_Controller {
         $data['main_content'] = 'procurement/local/ecanvass/user_index';
         $this->load->view('inc/navbar', $data);
     }
+
+    public function transmittal_list()
+    {
+        $data['transmittal_lists'] = $this->local_procurement_model->get_transmittal_lists();
+        $data['main_content'] = 'procurement/local/ecanvass/transmittal/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    public function transmittal_view($id, $trans_batch_number)
+    {
+        $data['transmittal_materials'] = $this->local_procurement_model->get_transmittal_material_list($trans_batch_number);
+        $data['transmittal_lists'] = $this->local_procurement_model->get_transmittal_list($id);
+        $data['main_content'] = 'procurement/local/ecanvass/transmittal/view';
+        $this->load->view('inc/navbar', $data);
+    }    
 }

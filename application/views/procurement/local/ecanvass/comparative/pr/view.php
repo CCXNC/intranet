@@ -258,7 +258,7 @@
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Material</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">QTY</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">UOM</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Quatation</th>
+                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Quotation</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Supplier Name</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">MOQ</th>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Price Per UOM</th>
@@ -285,11 +285,11 @@
                                 <td>
                                     <?php $p = 1; ?>
                                     <select name="" class="form-control" id="selectSupplier<?php echo $y; ?>" style="font-size:12px; height:32px" id="">
-                                        <option value=" ">Select Quatation</option>
+                                        <option value=" ">Select Quotation</option>
                                         <?php if($supplier_materials) : ?>  
                                             <?php foreach($supplier_materials as $supplier_material) : ?>  
                                                 <?php if($supplier_material->material_id == $material->id && $supplier_material->price_per_unit != 0) : ?> 
-                                                    <option value="<?php echo $supplier_material->moq. '|'.$supplier_material->price_per_unit . '|' .$material->quantity.'|'.$material->prev_purchase_unit.'|'.$supplier_material->supplier_name; ?>"><?php echo 'Quatation '.$p.''; ?></option>
+                                                    <option value="<?php echo $supplier_material->moq. '|'.$supplier_material->price_per_unit . '|' .$material->quantity.'|'.$material->prev_purchase_unit.'|'.$supplier_material->supplier_name; ?>"><?php echo 'Quotation '.$p.''; ?></option>
                                                     <?php $p++; ?>
                                                 <?php endif; ?> 
                                             <?php endforeach; ?>    
