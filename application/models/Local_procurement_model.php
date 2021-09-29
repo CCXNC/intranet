@@ -3386,4 +3386,167 @@ class Local_procurement_model extends CI_Model {
 
         return $query->result();
     }
+
+    public function add_quotation_materials($canvass_no)
+    {
+        $this->db->trans_start();
+
+        $canvass_no = $this->input->post('canvass_no');
+        $buyer_name = $this->input->post('buyer_name');
+        $remarks = $this->input->post('remarks');
+        $qty = $this->input->post('qty');
+        $uom = $this->input->post('uom');
+        $supplier_name = $this->input->post('supplier_name');
+        $moq = $this->input->post('moq');
+        $price_per_unit = $this->input->post('price_per_unit');
+        $currency = $this->input->post('currency');
+        $total_price = $this->input->post('total_price');
+        $reduction_per_unit = $this->input->post('reduction_per_unit');
+        $total_reduction = $this->input->post('total_reduction');
+        $saving_unit = $this->input->post('saving_unit');
+        $total_saving = $this->input->post('total_saving');
+        $i = 0;
+
+        $data_canvass = array(
+            'buyer_name' => $buyer_name,
+            'remarks'    => $remarks,
+            'is_active'  => 1
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $blaine_local_procurement->update('report_generation', $data_canvass);
+
+        /*print_r('<pre>');
+        print_r($data_canvass);
+        print_r('</pre>');*/
+
+        foreach($this->input->post('material_name') as $material_name)
+        {
+            $data_material = array(
+                'canvass_no'         => $canvass_no,
+                'material_name'      => $material_name,
+                'quantity'           => $qty[$i],
+                'uom'                => $uom[$i],
+                'supplier_name'      => $supplier_name[$i],
+                'moq'                => $moq[$i],
+                'price_per_unit'     => $price_per_unit[$i],
+                'currency'           => $currency[$i],
+                'total_price'        => $total_price[$i],
+                'reduction_per_unit' => $reduction_per_unit[$i],
+                'total_reduction'    => $total_reduction[$i],
+                'saving_per_unit'    => $saving_unit[$i],
+                'total_saving'       => $total_saving[$i],
+                'created_by'         => $this->session->userdata('username'),
+                'created_date'       => date('Y-m-d H:i:s')
+
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('quotation_material_list', $data_material);
+
+            /*print_r('<pre>');
+            print_r($data_material);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+
+    }
+
+    public function get_material_canvass()
+    {
+        $this->db->select('
+            quotation_material_list.material_name as material_name,
+            quotation_material_list.supplier_name as supplier_name,
+            quotation_material_list.total_price as total_price,
+            quotation_material_list.created_by as buyer_name,
+            quotation_material_list.canvass_no as canvass_no,
+            report_generation.material_pr_no as pr_no,
+            report_generation.msid as msid,
+            supplier_report_generation.pmt as terms
+        ');
+        $this->db->from('blaine_local_procurement.quotation_material_list');
+        $this->db->join('blaine_local_procurement.report_generation', 'blaine_local_procurement.report_generation.canvass_no = blaine_local_procurement.quotation_material_list.canvass_no');
+        $this->db->join('blaine_local_procurement.supplier_report_generation', 'blaine_local_procurement.supplier_report_generation.supplier_name = blaine_local_procurement.quotation_material_list.supplier_name AND blaine_local_procurement.supplier_report_generation.canvass_no = blaine_local_procurement.quotation_material_list.canvass_no');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    public function get_canvass_list()
+    {
+        $this->db->select('
+            report_generation.canvass_no as canvass_no,
+            report_generation.msid as msid,
+            report_generation.material_pr_no as pr_no,
+            report_generation.company as company,
+            report_generation.buyer_name as buyer_name,
+            report_generation.created_date as canvass_date,
+            SUM(quotation_material_list.total_reduction) as cost_saving,
+            SUM(quotation_material_list.total_saving) as cost_avoidance
+        ');
+
+        $this->db->from('blaine_local_procurement.report_generation');
+        $this->db->join('blaine_local_procurement.quotation_material_list', 'blaine_local_procurement.report_generation.canvass_no = blaine_local_procurement.quotation_material_list.canvass_no');
+        $this->db->group_by('blaine_local_procurement.quotation_material_list.canvass_no');
+        $this->db->where('blaine_local_procurement.report_generation.is_active', 1);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    public function get_net_cost_saving()
+    {
+        $this->db->select('
+            SUM(quotation_material_list.total_reduction) as net_cost_saving
+        ');
+
+        $this->db->from('blaine_local_procurement.quotation_material_list');
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    public function get_cost_avoidance()
+    {
+        $this->db->select('
+            SUM(quotation_material_list.total_saving) as total_saving
+        ');
+
+        $this->db->from('blaine_local_procurement.quotation_material_list');
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    public function get_cost_saving_negative()
+    {
+        $this->db->select('
+            SUM(quotation_material_list.total_reduction) as cost_saving
+        ');
+
+        $this->db->from('blaine_local_procurement.quotation_material_list');
+        $this->db->where('quotation_material_list.total_reduction <', 0);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    public function get_cost_saving()
+    {
+        $this->db->select('
+            SUM(quotation_material_list.total_reduction) as cost_saving
+        ');
+
+        $this->db->from('blaine_local_procurement.quotation_material_list');
+        $this->db->where('quotation_material_list.total_reduction >', 0);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
 }
