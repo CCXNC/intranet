@@ -11,21 +11,26 @@
             <th scope="col">Terms</th>
             <th scope="col">Buyer</th>
             <th scope="col">Canvass No.</th>
-            <th scope="col">Reference PR</th>
-            <th scope="col">Reference Canvass Request</th>
+            <th scope="col">PR No.</th>
+            <th scope="col">Material Source No.</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td data-label="Material"></td>
-            <td data-label="Supplier"></td>
-            <td data-label="Price"></td>
-            <td data-label="Terms"></td>
-            <td data-label="Buyer"></td>
-            <td data-label="Canvass No."></td>
-            <td data-label="Reference PR"></td>
-            <td data-label="Reference Canvass Request"></td>
-        </tr>
+        <?php if($materials) : ?>
+            <?php foreach($materials as $material) : ?>
+                <tr>
+                    <td data-label="Material"><?php echo $material->material_name; ?></td>
+                    <td data-label="Supplier"><?php echo $material->supplier_name; ?></td>
+                    <td data-label="Price"><?php echo $material->total_price; ?></td>
+                    <td data-label="Terms"><?php echo $material->terms; ?></td>
+                    <td data-label="Buyer"><?php echo $material->buyer_name; ?></td>
+                    <td data-label="Canvass No."><?php echo $material->canvass_no; ?></td>
+                    <td data-label="Reference PR"><?php echo $material->pr_no; ?></td>
+                    <td data-label="Reference Canvass Request"><?php echo $material->msid; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif;  ?>
+       
     </tbody>
 </table>
 <script type="text/javascript">  

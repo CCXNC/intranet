@@ -236,14 +236,29 @@ class Procurement extends CI_Controller {
 
     function comparative_view($canvass_no) 
     {
-        $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
-        $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
-        $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
-        $data['supplier_materials'] = $this->local_procurement_model->supplier_materials($canvass_no);
-        $data['cost_aviodances'] = $this->local_procurement_model->get_supplier_materials($canvass_no);
+        $this->form_validation->set_rules('canvass_no', 'Canvass Number', 'required|trim');
 
-        $data['main_content'] = 'procurement/local/ecanvass/comparative/view';
-        $this->load->view('inc/navbar', $data);
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
+            $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
+            $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
+            $data['supplier_materials'] = $this->local_procurement_model->supplier_materials($canvass_no);
+            $data['cost_aviodances'] = $this->local_procurement_model->get_supplier_materials($canvass_no);
+    
+            $data['main_content'] = 'procurement/local/ecanvass/comparative/view';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->add_quotation_materials($canvass_no))
+            {
+                $this->session->set_flashdata('success_msg', 'Your Data Successfully Added!');
+                redirect('procurement/ecanvass_cost_saving');
+            }
+        }
+
+      
     }
 
     public function add_ecanvass_report_generation()
@@ -260,13 +275,20 @@ class Procurement extends CI_Controller {
 
     public function ecanvass_cost_saving()
     {
+        $data['net_cost_saving'] = $this->local_procurement_model->get_net_cost_saving();
+        $data['net_cost_avoidance'] = $this->local_procurement_model->get_cost_avoidance();
+        $data['cost_saving'] = $this->local_procurement_model->get_cost_saving();
+        $data['cost_saving_negative'] = $this->local_procurement_model->get_cost_saving_negative();
+        $data['canvass_lists'] = $this->local_procurement_model->get_canvass_list();
         $data['main_content'] = 'procurement/local/ecanvass/cost_saving/index';
         $this->load->view('inc/navbar', $data);
     }
 
-    public function material_canvass()
+    public function material_canvass()    
     {
+        $data['materials'] = $this->local_procurement_model-> get_material_canvass();
         $data['main_content'] = 'procurement/local/ecanvass/material_history/index';
+       
         $this->load->view('inc/navbar', $data);
     }
 
@@ -296,7 +318,7 @@ class Procurement extends CI_Controller {
             $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/w_matcode/add';
             $this->load->view('inc/navbar', $data);
         }
-        else
+        else 
         {
             /*if(!empty($_FILES['attachment']['name']))
             {
