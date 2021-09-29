@@ -4,7 +4,7 @@
 <?php if($this->session->flashdata('error_msg')) : ?>
     <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
 <?php endif; ?>
-<h4><a href="<?php echo base_url(); ?>forms/acronyms" title="Edit Form" class="btn btn-info " style="">Blaine Acronyms</a></h4>
+<h3><a href="<?php echo base_url(); ?>forms/acronyms" title="Edit Form" class="btn btn-lg btn-info " style="">BLAINE ACRONYMS</a></h3>
 <div class="card-header" style="background-color: #0C2D48; color: white">
     <h4>Blaine Form List
         <?php if($this->session->userdata('department_id') == 25 || $this->session->userdata('department_id') == 10) : ?><a href="#" title="Add Form" class="btn btn-info float-right"  data-toggle="modal" data-target="#exampleModal" style="margin-right:10px;">Add</a> <?php endif; ?>

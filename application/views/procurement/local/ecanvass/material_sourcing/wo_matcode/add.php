@@ -210,11 +210,11 @@
                             </div>
                         </div>
                     </div>
-                    <input class="btn btn-success" title="Add Form" type="button" name="add" id="fadd" value="ADD">
-                    <br>
                 </div>    
             </div>
             <br>
+            <input class="btn btn-sm btn-success" title="Add Form" type="button" name="add" id="fadd" value="Add Material" style="width:13%">
+            <br><br>
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">APPROVAL DETAILS</div>
                 <div class="card-body" style="background-color: #E9FAFD;color:black">

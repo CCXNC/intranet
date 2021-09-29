@@ -44,7 +44,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >To Requestor</label>
-                                <input type="text" class="form-control" name="requestor" style="">
+                                <input type="text" class="form-control" name="requestor" id="requestor" style="background-color:white" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -56,7 +56,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >Email </label>
-                                <input type="text" class="form-control" name="email" value="">
+                                <input type="text" class="form-control" name="email" id="email" value="" style="background-color:white" readonly>
                             </div>
                         </div>
                       
@@ -312,6 +312,25 @@
                     });
                 });
                 
+            }
+        });
+
+        $.ajax({
+            url:"<?php echo base_url();?>/procurement/json_material_restriction",
+            dataType:'text',
+            type:"POST",
+            success: function(result){
+                var obj1 = $.parseJSON(result);
+
+                $.each(obj1, function(index, object){
+                    $('#myTextbox').blur(function(e) {
+                        var mcodeType = $(this).val();
+                        if(mcodeType == object['msid']) {
+                            $('#email').val(object['email']);
+                            $('#requestor').val(object['fullname']);
+                        }
+                    });
+                });
             }
         });
 

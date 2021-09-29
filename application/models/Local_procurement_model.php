@@ -76,6 +76,8 @@ class Local_procurement_model extends CI_Model {
        $req_alternate_email2 = $data_explod3[2];
 
        $email_recip = $req_primary_email1.','.$req_alternate_email1.','.$req_primary_email2.','.$req_alternate_email2;
+
+       $transmittal_requestor = $primary_approver.', '.$requestor_alternate;
        
         /** MATERIAL SOURCING INSERT **/ 
         $data_material_source = array(
@@ -172,9 +174,10 @@ class Local_procurement_model extends CI_Model {
         
 
         $data_restriction_access = array(
-            'msid'   => $msid,
-            'access' => $access,
-            'email'  => $email_recip
+            'msid'      => $msid,
+            'access'    => $access,
+            'email'     => $email_recip,
+            'fullname'  => $transmittal_requestor
         );
 
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -453,8 +456,9 @@ class Local_procurement_model extends CI_Model {
        $req_primary_email2 = $data_explod2[2];
        $req_alternate_email2 = $data_explod3[2];
 
-       $email_recip = $req_primary_email1.','.$req_alternate_email1.','.$req_primary_email2.','.$req_alternate_email2;
+       $email_recip = $req_primary_email1.', '.$req_alternate_email1.', '.$req_primary_email2.', '.$req_alternate_email2;
 
+       $transmittal_requestor = $primary_approver.','.$requestor_alternate;
         /** MATERIAL SOURCING INSERT **/ 
         $data_material_source = array(
             'msid'          => $msid,
@@ -549,9 +553,10 @@ class Local_procurement_model extends CI_Model {
         print_r('</pre>');*/
 
         $data_restriction_access = array(
-            'msid'   => $msid,
-            'access' => $access,
-            'email'  => $email_recip
+            'msid'      => $msid,
+            'access'    => $access,
+            'email'     => $email_recip,
+            'fullname'  => $transmittal_requestor
         );
 
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -1198,6 +1203,14 @@ class Local_procurement_model extends CI_Model {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('is_active', 1);
         $query = $blaine_local_procurement->get('material_sourcing');
+
+        return $query->result();
+    }
+
+    public function get_material_restriction()
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $query = $blaine_local_procurement->get('material_restriction');
 
         return $query->result();
     }
@@ -3066,6 +3079,10 @@ class Local_procurement_model extends CI_Model {
         $email1 = ('jesa.lacambra@blainegroup.com.ph');
         $subject = $this->input->post('subject');
         $ms_requested_date = date('Y-m-d');
+        // Procurement Email
+        $procurement = ('jesa.lacambra@blainegroup.com.ph');
+        // Email Recipient
+        //$trans_email_receipt = $email.','.$procurement;
 
         // Transmittal
         $msid = $this->input->post('msid');
@@ -3157,6 +3174,7 @@ class Local_procurement_model extends CI_Model {
             $i++;
         }
 
+        // Get Material Table
         $this->db->select("
             transmittal_material_list.description as description,
             transmittal_material_list.supplier_name as supplier,
@@ -3186,6 +3204,15 @@ class Local_procurement_model extends CI_Model {
                     <td style="font-size:12px">'.$e_attachment.'</td>
                 </tr>
             </tbody>';
+        }
+
+        // Get Trans ID
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $query = $blaine_local_procurement->get('transmittal');
+        $transmittals = $query->result();
+
+        foreach($transmittals as $transmittal){
+            $trans_id = $transmittal->id;
         }
 
         $format .= '<!DOCTYPE html>
@@ -3239,7 +3266,7 @@ class Local_procurement_model extends CI_Model {
                                                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                                                         <tr>
                                                             <td style="width:260px;padding:0;vertical-align:top;">
-                                                                <p style="margin:0 0 12px 0;font-size:13px;line-height:24px;font-family:Arial,sans-serif;"><b>Transmittal No:</b> '.$trans_batch_number.'</p>
+                                                                <p style="margin:0 0 12px 0;font-size:13px;line-height:24px;font-family:Arial,sans-serif;"><b>Transmittal No:</b><a href="http://localhost/blaineintranet/procurement/transmittal_view/'.$trans_id.'/'.$trans_batch_number.'" style="color: #999999;">'.$trans_batch_number.'</a></p>
                                                             </td>
                                                             <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
                                                             <td style="width:260px;padding:0;vertical-align:top;">
@@ -3332,8 +3359,8 @@ class Local_procurement_model extends CI_Model {
         $this->load->library('email', $config);
         $this->email->set_newline("\r\n");
         $this->email->from($config['smtp_user']); // change it to yours
-        $this->email->to($email);// change it to yours
-        //$this->email->cc($cc);
+        $this->email->to($procurement);// change it to yours
+        $this->email->cc($email);
         //$this->email->bcc($bcc);
         $this->email->subject($subject);
         $this->email->message($format);

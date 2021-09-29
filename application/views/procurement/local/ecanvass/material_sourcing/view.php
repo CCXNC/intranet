@@ -35,6 +35,19 @@
 
         document.body.innerHTML = originalContents;
     }
+
+    function toggle(ele) {
+        var cont = document.getElementById('comprecom');
+        if (cont.style.display == 'block') {
+            cont.style.display = 'none';
+
+            document.getElementById(ele.id).value = 'Show Material Details History';
+        }
+        else {
+            cont.style.display = 'block';
+            document.getElementById(ele.id).value = 'Hide Material Details History';
+        }
+    }
 </script>
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
@@ -102,6 +115,66 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#request" style="margin-left:3px">
+                            <span class="fa fa-pencil"></span>
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade bd-example-modal-lg" id="request" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Request Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group ">
+                                                <label><b>Business Unit:</b></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <input name="company" type="text" class="form-control" id="company" value="<?php echo $material_source->company_name; ?>" style="font-size:12px;">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label><b>Sourcing Category:</b></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <input name="category" type="text" class="form-control" id="category" value="<?php echo $material_source->category; ?>" style="font-size:12px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label><b>Date Required:</b></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <input name="date_required" type="text" class="form-control" id="date_required" value="<?php echo $material_source->date_required; ?>" style="font-size:12px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-sm btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>     
         </div>
         <br>
@@ -110,7 +183,6 @@
                 <div class="card-body" id="form_field" style="background-color: #E9FAFD;color:black">
                 <?php if($materials) : ?>
                     <?php foreach($materials as $material) : ?>
-                        <br>
                         <div class="row">
                             <?php if($material->mcode != NULL) : ?>
                                 <div class="col-md-3">
@@ -183,7 +255,106 @@
                                 </div>
                             </div>
                         </div>
-                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
+                                    <span class="fa fa-pencil"></span>
+                                </button>
+                                <a href="" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right" style=""><span class="fa fa-trash"></span></a>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade bd-example-modal-lg" id="material<?php echo $material->id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Edit Material Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <?php if($material->mcode != NULL) : ?>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label><b>Material Code:</b></label>
+                                                            <input type="text" class="form-control" id="myTextbox" id="check" name="material_code[]" placeholder="" style="font-size:12px" value="<?php echo $material->mcode;?>">
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>    
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlTextarea1"><b>Description:</b></label>
+                                                        <input type="text" class="form-control"  id="description" readonly name="description[]" placeholder="" style="font-size:12px" value="<?php echo $material->description;?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlTextarea1"><b>Specification:</b></label>
+                                                        <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" value=""><?php echo $material->specification;?></textarea>
+                                                    </div>
+                                                </div>
+                                            
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label><b>Quantity:</b></label>
+                                                        <input type="number" class="form-control" name="quantity[]" placeholder="" style="font-size:12px" value="<?php echo $material->quantity;?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlSelect1"><b>UOM:</b></label>
+                                                        <input type="text" class="form-control" name="quantity[]" placeholder="" style="font-size:12px" value="<?php echo $material->uom;?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label><b>Shelf Life (Months):</b></label>
+                                                        <input type="number" class="form-control" name="shelf_life[]" placeholder="" style="font-size:12px" value="<?php echo $material->shelf_life;?>"> 
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlTextarea1"><b>Purpose/Remarks:</b></label>
+                                                        <textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1"><?php echo $material->remarks;?></textarea>
+                                                    </div>
+                                                </div>
+                                        
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlTextarea1"><b>Item Application:</b></label>
+                                                        <textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1"><?php echo $material->item_application; ?></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlTextarea1"><b>Required Document:</b></label>
+                                                        <textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1"><?php echo $material->required_document;?></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlSelect1"><b>Material Category:</b></label>
+                                                        <input type="text" class="form-control"  id="materialGroup" readonly name="material_category[]" placeholder="" style="font-size:12px" value="<?php echo $material->category;?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label><b>File Attachment:</b></label>
+                                                        <input type='file' name='attachment[]' size='20' />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-sm btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <hr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -191,6 +362,30 @@
                 </div>    
             </div>
             <br>
+
+            <!-- History -->
+            <p>
+                <input class="btn btn-sm btn-success" type="button" value="Show Material Details History" id="bt" onclick="toggle(this)">
+            </p>
+            <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center; display:none" id="comprecom">
+                <thead>
+                    <tr>
+                        <th scope="col" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Date Updated</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Updated Data</th>
+                        <th scope="col" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Updated By</th>
+                    </tr>
+                </thead>
+                <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <!-- Step of Approver -->
             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                 <thead>
                     <tr class="tbrow">
@@ -311,7 +506,57 @@
                         </div>
                     </center>
                 </form>    
-            <?php endif; ?>    
+            <?php endif; ?>  
+            <div class="card">
+            <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
+                <div class="card-body" style="background-color: #E9FAFD">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                <tr>
+                                    <th scope="row" class="throw" style="width:20%">Canvass No.</th>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="throw" style="width:20%">Transmittal No.</th>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                    <td style="width:10%"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Paid sample only: Cannot provide sample
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Remarks:</label>
+                                <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="remarks" rows="1"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div> 
         </div>
     </div>
 </div>

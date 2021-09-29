@@ -559,6 +559,12 @@ class Procurement extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function json_material_restriction()
+    {
+        $data = $this->local_procurement_model->get_material_restriction();
+        echo json_encode($data);
+    }
+
     public function transmittal()
     {
         $this->form_validation->set_rules('msid', 'Material Source ID', 'required|trim');

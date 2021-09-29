@@ -24,7 +24,7 @@
         <?php if ($transmittal_lists) : ?>
             <?php foreach($transmittal_lists as $transmittal_list) : ?>
                 <tr>
-                    <td><?php echo $transmittal_list->transmittal_no; ?></td>
+                    <td><a href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>"><?php echo $transmittal_list->transmittal_no; ?></a></td>
                     <td><?php echo $transmittal_list->msid; ?></td>
                     <td><?php echo $transmittal_list->ms_request_date; ?></td>
                     <td><?php echo $transmittal_list->company; ?></td>
