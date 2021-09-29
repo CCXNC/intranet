@@ -98,7 +98,7 @@
             </div>
             <br>
             <a href="" style="margin-left:10px;" class="float-right btn btn-danger">CANCEL</a>
-            <input type="submit" class="float-right btn btn-info" value="SUBMIT">   
+            <input type="submit" class="float-right btn btn-info" onclick="return confirm('Do you want to submit data?');" value="SUBMIT">   
         </form>
     </div>
 </div>

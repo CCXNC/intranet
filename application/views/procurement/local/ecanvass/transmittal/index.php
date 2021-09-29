@@ -26,10 +26,10 @@
                 <tr>
                     <td><a href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>"><?php echo $transmittal_list->transmittal_no; ?></a></td>
                     <td><?php echo $transmittal_list->msid; ?></td>
-                    <td><?php echo $transmittal_list->ms_request_date; ?></td>
+                    <td><?php echo date('Y-m-d', strtotime($transmittal_list->ms_request_date)); ?></td>
                     <td><?php echo $transmittal_list->company; ?></td>
                     <td><?php echo $transmittal_list->requestor; ?></td>
-                    <td><?php echo $transmittal_list->transmittal_date; ?></td>
+                    <td><?php echo date('Y-m-d', strtotime($transmittal_list->transmittal_date)); ?></td>
                     <td data-label="Action">
                         <div class="btn-group">
                             <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

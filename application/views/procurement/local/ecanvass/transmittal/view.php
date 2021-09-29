@@ -14,7 +14,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label ><b>Material Source Request Date</b></label>
-                            <p><?php echo $transmittal_lists->ms_request_date; ?></p>
+                            <p><?php echo date('Y-m-d', strtotime($transmittal_lists->ms_request_date)); ?></p>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -40,7 +40,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label ><b>Transmittal Date</b></label>
-                            <p><?php echo $transmittal_lists->transmittal_date; ?></p>
+                            <p><?php echo date('Y-m-d', strtotime($transmittal_lists->transmittal_date)); ?></p>
                         </div>
                     </div>
                     <div class="col-md-4">

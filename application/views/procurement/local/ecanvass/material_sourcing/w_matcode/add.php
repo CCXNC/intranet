@@ -261,7 +261,7 @@
             <br>                    
             <center>
                 <div class="form-group">
-                    <input type="submit" title="Submit Information" class="btn btn-success" value="SUBMIT">
+                    <input type="submit" title="Submit Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT">
                 </div>
             </center>
         </form>
