@@ -449,7 +449,9 @@ class Procurement extends CI_Controller {
         $data['materials'] = $this->local_procurement_model->get_materials_by_material_sourcing_id($msid);
         $data['approval_lists'] = $this->local_procurement_model->get_approval_by_material_sourcing_id($msid);
         $data['first_entry'] = $this->local_procurement_model->get_first_approval_by_material_sourcing_id($msid);
-        $data['last_entry'] = $this->local_procurement_model->get_last_approval_by_material_sourcing_id($msid);
+        $data['last_entry'] = $this->local_procurement_model->get_last_approval_by_material_sourcing_id($msid); 
+        $data['canvass_lists'] = $this->local_procurement_model->get_canvass_no($msid);
+        $data['transmittal_lists'] = $this->local_procurement_model->get_transmittal_no($msid);
 
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/view';
         $this->load->view('inc/navbar', $data);

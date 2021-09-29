@@ -1243,6 +1243,7 @@ class Local_procurement_model extends CI_Model {
             material_approval_list.primary_approver as primary_approver,
             material_approval_list.alternate_approver as alternate_approver,
             material_approval_list.status as status,
+            material_approval_list.step_approval as step_approval,
             material_approval_list.role_status as role_status,
             material_approval_list.created_by as created_by
         ");
@@ -3575,5 +3576,23 @@ class Local_procurement_model extends CI_Model {
         $query = $this->db->get();
 
         return $query->row();
+    }
+
+    public function get_canvass_no($msid)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('msid', $msid);
+        $query = $blaine_local_procurement->get('report_generation');
+
+        return $query->result();
+    }
+
+    public function get_transmittal_no($msid)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('msid', $msid);
+        $query = $blaine_local_procurement->get('transmittal');
+
+        return $query->result();
     }
 }
