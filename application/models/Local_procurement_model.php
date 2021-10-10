@@ -193,7 +193,7 @@ class Local_procurement_model extends CI_Model {
 
         /* Auto-Email After Doing Superior Action Required */
         // Get approval details
-        $this->db->select("
+        /* $this->db->select("
             material_approval_list.primary_approver as primary_approver,
             material_approval_list.alternate_approver as alternate_approver,
             material_approval_list.status as status,
@@ -377,7 +377,7 @@ class Local_procurement_model extends CI_Model {
         }
         else{
             $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-        }
+        }*/
 
         $trans = $this->db->trans_complete();
         return $trans;
@@ -3086,13 +3086,13 @@ class Local_procurement_model extends CI_Model {
         //$trans_email_receipt = $email.','.$procurement;
 
         // Transmittal
+        $attachment = $_FILES['attachment']['name'];
         $msid = $this->input->post('msid');
         $ms_request_date = $this->input->post('ms_request_date');
         $company = $this->input->post('company');
         $requestor = $this->input->post('requestor');
         $transmittal_date = $this->input->post('transmittal_date');
         $email = $this->input->post('email');
-        $attachment = $this->input->post('attachment');
         $date = date('Y-m-d H:i:s');
 
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -3113,6 +3113,7 @@ class Local_procurement_model extends CI_Model {
             'requestor'         => $requestor,
             'transmittal_date'  => $transmittal_date,
             'email'             => $email,
+            'attachment'        => $attachment,
             'created_by'        => $this->session->userdata('username'),
             'created_date'      => date('Y-m-d H:i:s')
         );
@@ -3125,6 +3126,7 @@ class Local_procurement_model extends CI_Model {
         print_r('</pre>');*/
 
         // Transmittal Material List
+        $attachment1 = $_FILES['attachment1']['name'];
         $description = $this->input->post('description');
         $accredited = $this->input->post('accredited');
         $other = $this->input->post('others');
@@ -3141,6 +3143,7 @@ class Local_procurement_model extends CI_Model {
                     'description'       => $description[$i],
                     'supplier_name'     => $accredited[$i],
                     'batch_number'      => $batch_number[$i],
+                    'attachment'        => $attachment1[$i],
                     'created_by'        => $this->session->userdata('username'),
                     'created_date'      => date('Y-m-d H:i:s')
                 );
@@ -3160,6 +3163,7 @@ class Local_procurement_model extends CI_Model {
                     'description'       => $description[$i],
                     'supplier_name'     => $other[$i],
                     'batch_number'      => $batch_number[$i],
+                    'attachment'        => $attachment1[$i],
                     'created_by'        => $this->session->userdata('username'),
                     'created_date'      => date('Y-m-d H:i:s')
                 );
@@ -3216,7 +3220,7 @@ class Local_procurement_model extends CI_Model {
             $trans_id = $transmittal->id;
         }
 
-        $format .= '<!DOCTYPE html>
+        /*$format .= '<!DOCTYPE html>
         <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
             <head>
                 <meta charset="UTF-8">
@@ -3340,13 +3344,13 @@ class Local_procurement_model extends CI_Model {
                     </table>
                 </table>
             </body>
-        </html>';
+        </html>';*/
 
         /*print_r('<pre>');
         print_r($format);
         print_r('</pre>');*/
 
-        $config = Array(
+        /*$config = Array(
             'protocol'      => 'smtp',
             'smtp_host'     => 'mail.blainegroup.com.ph',
             'smtp_crypto'   => 'ssl',
@@ -3370,7 +3374,7 @@ class Local_procurement_model extends CI_Model {
         }
         else{
             $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-        }
+        }*/
 
         $trans = $this->db->trans_complete();
         return $trans;
@@ -3379,10 +3383,31 @@ class Local_procurement_model extends CI_Model {
 
     public function get_transmittal_lists()
     {
-        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        /*$blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('is_active', 1);
         $query = $blaine_local_procurement->get('transmittal');
 
+        return $query->result();*/
+
+        $this->db->select('
+            transmittal.id as id,
+            transmittal.transmittal_no as transmittal_no,
+            transmittal.msid as msid,
+            transmittal.ms_request_date as ms_request_date,
+            transmittal.company as company,
+            transmittal.requestor as requestor,
+            transmittal.transmittal_date as transmittal_date,
+            transmittal.email as email,
+            transmittal.attachment as attachment,
+            material_sourcing.id as matsource_id
+        ');
+        $this->db->from('blaine_local_procurement.transmittal');
+        $this->db->join('blaine_local_procurement.material_sourcing', 'blaine_local_procurement.material_sourcing.msid = blaine_local_procurement.transmittal.msid');
+        $this->db->where('blaine_local_procurement.transmittal.is_active', 1);
+        $query = $this->db->get();
+
         return $query->result();
+
     }
 
     public function get_transmittal_list($id)

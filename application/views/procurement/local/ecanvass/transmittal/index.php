@@ -25,7 +25,7 @@
             <?php foreach($transmittal_lists as $transmittal_list) : ?>
                 <tr>
                     <td><a href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>"><?php echo $transmittal_list->transmittal_no; ?></a></td>
-                    <td><?php echo $transmittal_list->msid; ?></td>
+                    <td><a href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $transmittal_list->matsource_id; ?>/<?php echo $transmittal_list->msid; ?>"><?php echo $transmittal_list->msid; ?></a></td>
                     <td><?php echo date('Y-m-d', strtotime($transmittal_list->ms_request_date)); ?></td>
                     <td><?php echo $transmittal_list->company; ?></td>
                     <td><?php echo $transmittal_list->requestor; ?></td>

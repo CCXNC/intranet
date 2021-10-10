@@ -54,7 +54,7 @@
                 </div>    
             </div>
             <br>
-            <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center;">
+            <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
                 <thead>
                     <tr>
                         <th colspan="7" style="background-color: #0C2D48; color: white; ">Previous Purchase</th>
@@ -252,7 +252,7 @@
                 </div>
             </div>
             
-            <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center;">
+            <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
                 <thead>
                     <tr>
                         <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">No</th>

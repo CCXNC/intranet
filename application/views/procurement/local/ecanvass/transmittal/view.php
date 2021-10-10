@@ -55,7 +55,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label ><b>File Attachment</b></label><br>
-                            <p><?php echo $transmittal_lists->attachment; ?></p>
+                            <p><a href="<?php echo base_url(); ?>procurement/download_transmittal_attachment/<?php echo $transmittal_lists->attachment; ?>"><?php echo $transmittal_lists->attachment; ?></a></p>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                                 <td><?php echo $transmittal_material->description; ?></td>
                                 <td><?php echo $transmittal_material->supplier_name; ?></td>
                                 <td><?php echo $transmittal_material->batch_number; ?></td>
-                                <td><?php echo $transmittal_material->attachment; ?></td>
+                                <td><a href="<?php echo base_url(); ?>procurement/download_transmittal_attachment/<?php echo $transmittal_material->attachment; ?>"><?php echo $transmittal_material->attachment; ?></a></td>
                             </tr>
                         
                         <?php endforeach; ?>

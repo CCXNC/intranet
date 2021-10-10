@@ -71,7 +71,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >File Attachment</label><br>
-                                <input type='file' class name='attachment' size='20' />
+                                <input type='file' name='attachment' size='20'/>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                     $('#myTextbox').blur(function(e) {
                         var mcodeType = $(this).val();
                         if(mcodeType == object['msid']) {
-                            var form = "<tr id='child'><td data-label='Description'><input type='text' id='' class='form-control' name='description[]' value='"+object['description']+"'></td><td data-label='Supplier'><div class=''><div class='form-group'><select class='form-control' id='supplier"+f+"' style='font-size:12px; height:32px' name='supplier[]'><option value=''>SELECT SUPPLIER</option><option value='acc'>ACCREDITED</option><option value='others'>OTHERS</option></select></div></div></td><td><div class='' id='accreditedData"+f+"'><div class='form-group'><select name='accredited[]' class='form-control' id='dataAccredited"+f+"' style=' font-size: 12px;height:32px; width: 200px;'><option value=' '>Select Supplier Name</option><?php if($suppliers) : ?><?php foreach($suppliers as $supplier) : ?><option value='<?php echo $supplier->name; ?>'><?php echo $supplier->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class='' id='othersData"+f+"'><div class='form-group'><input type='text' name='others[]' id='dataOthers"+f+"' class='form-control'></div></div></td><td data-label='Price'><input type='text' class='form-control' name='batch_number[]'></td><td data-label='Year'><input type='file' size='20' name='attachment[]'></td><td><input class='btn btn-danger btn-sm' style='width: 80px' type='button' name='remove' id='cremove' value='Remove'></td></tr>";
+                            var form = "<tr id='child'><td data-label='Description'><input type='text' id='' class='form-control' name='description[]' value='"+object['description']+"'></td><td data-label='Supplier'><div class=''><div class='form-group'><select class='form-control' id='supplier"+f+"' style='font-size:12px; height:32px' name='supplier[]'><option value=''>SELECT SUPPLIER</option><option value='acc'>ACCREDITED</option><option value='others'>OTHERS</option></select></div></div></td><td><div class='' id='accreditedData"+f+"'><div class='form-group'><select name='accredited[]' class='form-control' id='dataAccredited"+f+"' style=' font-size: 12px;height:32px; width: 200px;'><option value=' '>Select Supplier Name</option><?php if($suppliers) : ?><?php foreach($suppliers as $supplier) : ?><option value='<?php echo $supplier->name; ?>'><?php echo $supplier->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class='' id='othersData"+f+"'><div class='form-group'><input type='text' name='others[]' id='dataOthers"+f+"' class='form-control'></div></div></td><td data-label='Price'><input type='text' class='form-control' name='batch_number[]'></td><td data-label='Year'><input type='file' size='20' name='attachment1[]'></td><td><input class='btn btn-danger btn-sm' style='width: 80px' type='button' name='remove' id='cremove' value='Remove'></td></tr>";
                             $("#form_field").append(form);
 
                             $('#accreditedData1').hide();

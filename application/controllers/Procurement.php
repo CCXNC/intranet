@@ -163,6 +163,14 @@ class Procurement extends CI_Controller {
         force_download($name, $data);
     }
 
+    function download_transmittal_attachment()
+    {
+        $this->load->helper('download');
+        $data = file_get_contents('uploads/transmittal_attachment/'.$this->uri->segment(3));
+        $name = $this->uri->segment(3);
+        force_download($name, $data);
+    }
+
     function download_material_attachment()
     {
         $this->load->helper('download');
@@ -320,7 +328,7 @@ class Procurement extends CI_Controller {
         }
         else 
         {
-            /*if(!empty($_FILES['attachment']['name']))
+            if(!empty($_FILES['attachment']['name']))
             {
                 $imageName = $_FILES['attachment']['name'];
 
@@ -343,7 +351,7 @@ class Procurement extends CI_Controller {
                 else{
                     $error = $this->upload->display_errors();
                 }
-            }*/
+            }
                 
             if($this->local_procurement_model->add_material_sourcing_matcode())
             {
@@ -601,10 +609,67 @@ class Procurement extends CI_Controller {
             $this->load->view('inc/navbar', $data);
         }
         else{
+
+            if(!empty($_FILES['attachment']['name']))
+            {
+                $imageName = $_FILES['attachment']['name'];
+
+                // File upload configuration
+                $config['upload_path'] = './uploads/transmittal_attachment/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
+                $config['max_size'] = '100000000';
+                $config['overwrite'] = True;
+
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                // Upload file to server
+                if($this->upload->do_upload('attachment')){
+                    // Upload file data
+                    $fileData = $this->upload->data();
+                    $imgData['file_name'] = $fileData['file_name'];
+                }
+                else{
+                    $error = $this->upload->display_errors();
+                }
+            }
+
+            $data = [];
+            $count = count($_FILES['attachment1']['name']);
+
+            for($i = 0; $i<$count; $i++){
+                if(!empty($_FILES['attachment1']['name'][$i])){
+                    $_FILES['file']['name'] = $_FILES['attachment1']['name'][$i];
+                    $_FILES['file']['type'] = $_FILES['attachment1']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['attachment1']['tmp_name'][$i];
+                    $_FILES['file']['error'] = $_FILES['attachment1']['error'][$i];
+                    $_FILES['file']['size'] = $_FILES['attachment1']['size'][$i];
+
+                    // File upload configuration
+                    $config['upload_path'] = './uploads/transmittal_attachment/';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
+                    $config['max_size'] = '100000000';
+                    $config['overwrite'] = True;
+                    $config['file_name'] = $_FILES['attachment1']['name'][$i];
+
+                    // Load and initialize upload library
+                    $this->load->library('upload', $config);
+
+                    
+                    if($this->upload->do_upload('file')){
+                        $uploadData = $this->upload->data();
+                        $filename = $uploadData['file_name'];
+            
+                        $data['totalFiles'][] = $filename;
+                    }
+                }
+            }
+        
             if($this->local_procurement_model->add_transmittal())
             {
                 $this->session->set_flashdata('success_msg', 'Transmittal Successfully Added!');
-                redirect('procurement/ecanvass_index');
+                redirect('procurement/transmittal_list');
             }
         }
         
