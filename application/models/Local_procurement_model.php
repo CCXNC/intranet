@@ -3514,24 +3514,40 @@ class Local_procurement_model extends CI_Model {
     public function get_material_canvass()
     {
         $this->db->select('
-            quotation_material_list.material_name as material_name,
-            quotation_material_list.supplier_name as supplier_name,
-            quotation_material_list.total_price as total_price,
-            quotation_material_list.created_by as buyer_name,
-            quotation_material_list.canvass_no as canvass_no,
+            supplier_material_list.supplier_name as supplier_name,
+            supplier_material_list.canvass_no as canvass_no,
+            supplier_material_list.moq as moq,
+            supplier_material_list.price_per_unit as price_per_unit,
+            supplier_material_list.created_by as buyer_name,
+
+            material_report_generation_list.description as material_name,
+            material_report_generation_list.quantity as quantity,
+            material_report_generation_list.currency as currency,
+            material_report_generation_list.uom as uom,
+            material_report_generation_list.prev_purchase_unit,
+            material_report_generation_list.year as year,
+
             report_generation.material_pr_no as pr_no,
             report_generation.msid as msid,
-            supplier_report_generation.pmt as terms
+            report_generation.created_date as canvass_date,
+
+            supplier_report_generation.pmt as terms,
+            
+            material_sourcing.id as idms,
         ');
-        $this->db->from('blaine_local_procurement.quotation_material_list');
-        $this->db->join('blaine_local_procurement.report_generation', 'blaine_local_procurement.report_generation.canvass_no = blaine_local_procurement.quotation_material_list.canvass_no');
-        $this->db->join('blaine_local_procurement.supplier_report_generation', 'blaine_local_procurement.supplier_report_generation.supplier_name = blaine_local_procurement.quotation_material_list.supplier_name AND blaine_local_procurement.supplier_report_generation.canvass_no = blaine_local_procurement.quotation_material_list.canvass_no');
+        $this->db->from('blaine_local_procurement.supplier_material_list');
+        $this->db->join('blaine_local_procurement.report_generation', 'blaine_local_procurement.report_generation.canvass_no = blaine_local_procurement.supplier_material_list.canvass_no');
+        $this->db->join('blaine_local_procurement.material_report_generation_list', 'blaine_local_procurement.material_report_generation_list.id = blaine_local_procurement.supplier_material_list.material_id');
+        $this->db->join('blaine_local_procurement.supplier_report_generation', 'blaine_local_procurement.supplier_report_generation.supplier_name = blaine_local_procurement.supplier_material_list.supplier_name AND blaine_local_procurement.supplier_report_generation.canvass_no = blaine_local_procurement.supplier_material_list.canvass_no');
+        $this->db->join('blaine_local_procurement.material_sourcing', 'blaine_local_procurement.material_sourcing.msid = blaine_local_procurement.report_generation.msid', 'left');
+        $this->db->where('blaine_local_procurement.supplier_material_list.price_per_unit !=', 0);
+
         $query = $this->db->get();
 
         return $query->result();
     }
 
-    public function get_canvass_list()
+    public function get_canvass_lists()
     {
         $this->db->select('
             report_generation.canvass_no as canvass_no,
@@ -3541,11 +3557,13 @@ class Local_procurement_model extends CI_Model {
             report_generation.buyer_name as buyer_name,
             report_generation.created_date as canvass_date,
             SUM(quotation_material_list.total_reduction) as cost_saving,
-            SUM(quotation_material_list.total_saving) as cost_avoidance
+            SUM(quotation_material_list.total_saving) as cost_avoidance,
+            material_sourcing.id as idms
         ');
 
         $this->db->from('blaine_local_procurement.report_generation');
         $this->db->join('blaine_local_procurement.quotation_material_list', 'blaine_local_procurement.report_generation.canvass_no = blaine_local_procurement.quotation_material_list.canvass_no');
+        $this->db->join('blaine_local_procurement.material_sourcing', 'blaine_local_procurement.material_sourcing.msid = blaine_local_procurement.report_generation.msid', 'left');
         $this->db->group_by('blaine_local_procurement.quotation_material_list.canvass_no');
         $this->db->where('blaine_local_procurement.report_generation.is_active', 1);
         $query = $this->db->get();
@@ -3620,4 +3638,23 @@ class Local_procurement_model extends CI_Model {
 
         return $query->result();
     }
+
+    public function get_quotation_material_list($canvass_no)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $query = $blaine_local_procurement->get('quotation_material_list');
+
+        return $query->result();
+    }
+
+    public function get_canvass_list($canvass_no)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $query = $blaine_local_procurement->get('report_generation');
+
+        return $query->row();
+    }
+    
 }

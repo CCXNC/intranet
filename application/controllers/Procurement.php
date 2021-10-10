@@ -241,6 +241,19 @@ class Procurement extends CI_Controller {
         }
     }
 
+    public function comparative_quotations($canvass_no)
+    {
+        $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
+        $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
+        $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
+        $data['supplier_materials'] = $this->local_procurement_model->supplier_materials($canvass_no);
+        $data['cost_aviodances'] = $this->local_procurement_model->get_supplier_materials($canvass_no);
+        $data['quotation_lists'] = $this->local_procurement_model->get_quotation_material_list($canvass_no);
+        $data['quotation_canvass'] = $this->local_procurement_model->get_canvass_list($canvass_no);
+
+        $data['main_content'] = 'procurement/local/ecanvass/cost_saving/view';
+        $this->load->view('inc/navbar', $data);
+    }
 
     function comparative_view($canvass_no) 
     {
@@ -287,14 +300,14 @@ class Procurement extends CI_Controller {
         $data['net_cost_avoidance'] = $this->local_procurement_model->get_cost_avoidance();
         $data['cost_saving'] = $this->local_procurement_model->get_cost_saving();
         $data['cost_saving_negative'] = $this->local_procurement_model->get_cost_saving_negative();
-        $data['canvass_lists'] = $this->local_procurement_model->get_canvass_list();
+        $data['canvass_lists'] = $this->local_procurement_model->get_canvass_lists();
         $data['main_content'] = 'procurement/local/ecanvass/cost_saving/index';
         $this->load->view('inc/navbar', $data);
     }
 
     public function material_canvass()    
     {
-        $data['materials'] = $this->local_procurement_model-> get_material_canvass();
+        $data['materials'] = $this->local_procurement_model->get_material_canvass();
         $data['main_content'] = 'procurement/local/ecanvass/material_history/index';
        
         $this->load->view('inc/navbar', $data);
