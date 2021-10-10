@@ -90,9 +90,9 @@
                                 <td ><?php echo $material->description; ?></td>
                                 <td><?php echo $material->quantity; ?></td>
                                 <td><?php echo $material->uom; ?></td>
-                                <td><?php echo $material->prev_purchase_unit; ?></td>
+                                <td><?php if($material->prev_purchase_unit != 0) { echo $material->prev_purchase_unit; } else { echo '-'; } ?></td>
                                 <td><?php echo $material->currency; ?></td>
-                                <td><?php echo $material->year; ?></td>
+                                <td><?php if($material->year != 0) { echo $material->year; } else { echo '-'; } ?></td>
                                 <!-- Computation -->
                                 <?php if($supplier_materials) : ?>  
                                     <?php foreach($supplier_materials as $supplier_material) : ?> 
