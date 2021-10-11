@@ -3181,13 +3181,16 @@ class Local_procurement_model extends CI_Model {
 
         // Get Material Table
         $this->db->select("
+            transmittal_material_list.transmittal_no as transmittal_no,
             transmittal_material_list.description as description,
             transmittal_material_list.supplier_name as supplier,
             transmittal_material_list.batch_number as batch_number,
-            transmittal_material_list.attachment as attachment
+            transmittal_material_list.attachment as attachment,
+            transmittal.id as trans_id
         ");
 
         $this->db->from('blaine_local_procurement.transmittal_material_list');
+        $this->db->join('blaine_local_procurement.transmittal', 'blaine_local_procurement.transmittal.transmittal_no = blaine_local_procurement.transmittal_material_list.transmittal_no');
         $this->db->where('blaine_local_procurement.transmittal_material_list.transmittal_no', $trans_batch_number);
 
         $query = $this->db->get();
@@ -3196,17 +3199,19 @@ class Local_procurement_model extends CI_Model {
 
         foreach($transmittal_lists as $transmittal_list)
         {
+            $e_transmittal_no = $transmittal_list->transmittal_no;
             $e_description = $transmittal_list->description;
             $e_supplier = $transmittal_list->supplier;
             $e_batch_number = $transmittal_list->batch_number;
             $e_attachment = $transmittal_list->attachment;
+            $e_trans_id = $transmittal_list->trans_id;
 
             $transmittal_material .= '<tbody>
                 <tr>
                     <td style="font-size:12px">'.$e_description.'</td>
                     <td style="font-size:12px">'.$e_supplier.'</td>
                     <td style="font-size:12px">'.$e_batch_number.'</td>
-                    <td style="font-size:12px">'.$e_attachment.'</td>
+                    <td style="font-size:12px"><a href="http://localhost/blaineintranet/procurement/transmittal_view/'.$e_trans_id.'/'.$e_transmittal_no.'" style="color: #999999;">'.$e_attachment.'</a></td>
                 </tr>
             </tbody>';
         }

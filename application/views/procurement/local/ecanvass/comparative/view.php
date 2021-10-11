@@ -247,7 +247,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="buyer_name" style="text-transform:uppercase;font-size:12px;background-color:white" readonly value="<?php echo $this->session->userdata('username'); ?>">
+                        <input type="text" class="form-control" name="buyer_name" style="text-transform:uppercase;font-size:12px;background-color:white" readonly value="<?php echo $this->session->userdata('fullname'); ?>">
                     </div>
                 </div>
             </div>

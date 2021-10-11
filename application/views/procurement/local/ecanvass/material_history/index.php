@@ -2,7 +2,7 @@
     <h4>MATERIAL CANVASS HISTORY<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4> 
 </div>
 <br>
-<table id="" class="display" style="width:100%">
+<table id="" class="display table-responsive" style="width:100%; font-size:13px">
     <thead>
         <tr style="background-color:#C8C6C6;">
             <th scope="col">Material</th>

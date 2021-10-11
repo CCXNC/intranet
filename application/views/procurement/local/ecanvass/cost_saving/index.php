@@ -38,7 +38,7 @@
 </div>
 <br>
 
-<table id="" class="display" style="width:100%">
+<table id="" class="display" style="width:100%; font-size:13px;">
     <thead>
         <tr style="background-color:#D4F1F4;">
             <th scope="col">Canvass No.</th>

@@ -432,7 +432,7 @@
                         <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
                         <div class="card-body" style="background-color: #E9FAFD">
                             <div class="row">
-                                <div class="col-md-12">
+                                <!--<div class="col-md-12">
                                     <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                                         <tr>
                                             <th scope="row" class="throw" style="width:20%">Canvass No.</th>
@@ -450,6 +450,42 @@
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         </tr>
+                                    </table>
+                                </div>--> 
+                                <div class="col-md-6">
+                                    <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="background-color: #0C2D48; color:white">Transmittal No.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if($transmittal_lists) : ?>
+                                                <?php foreach($transmittal_lists as $transmittal_list) : ?>
+                                                    <tr>
+                                                        <td><?php echo $transmittal_list->transmittal_no; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="background-color: #0C2D48; color:white">Canvass No.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if($canvass_lists) : ?>
+                                                <?php foreach($canvass_lists as $canvass_list) : ?>
+                                                    <tr>
+                                                        <td><?php echo $canvass_list->canvass_no; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -472,6 +508,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <center>
+                                <div class="form-group">
+                                    <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                </div>
+                            </center>
                         </div>  
                     </div> 
                 <?php endif; ?>     
