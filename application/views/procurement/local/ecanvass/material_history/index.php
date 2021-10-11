@@ -38,7 +38,13 @@
                     <td data-label="Moq"><?php echo $material->moq; ?></td>
                     <td data-label="Terms"><?php echo $material->terms; ?></td>
                     <td data-label="price_per_unit"><?php echo $material->price_per_unit; ?></td>
-                    <td data-label="Total Price"></td>
+                    <td data-label="Total Price">
+                        <?php 
+                            $computation = $material->price_per_unit * $material->quantity;
+                            $total_price = number_format($computation, 2, '.', ',');   
+                            echo $total_price;               
+                        ?>
+                    </td>
                    
                     <td data-label="Buyer"><?php echo $material->buyer_name; ?></td>
                     <td data-label="Reference PR"><?php echo $material->pr_no; ?></td>

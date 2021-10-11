@@ -29,7 +29,7 @@ class Local_procurement_model extends CI_Model {
         $date_requested = date('Y-m-d');
 
         // Material list
-        $attachment = $_FILES['attachment']['name'];
+        $attachment = $_FILES['attachment1']['name'];
         $description = $this->input->post('description');
         $specification = $this->input->post('specification');
         $quantity = $this->input->post('quantity');
@@ -591,7 +591,7 @@ class Local_procurement_model extends CI_Model {
 
         $approval_lists = $query->result();
 
-        foreach($approval_lists as $approval_list)
+        /*foreach($approval_lists as $approval_list)
         {
             $e_step_of_approval = $approval_list->step_of_approval;
             $e_primary_approver = $approval_list->primary_approver;
@@ -757,7 +757,7 @@ class Local_procurement_model extends CI_Model {
         }
         else{
             $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-        }
+        }*/
 
 
         $trans = $this->db->trans_complete();
@@ -813,6 +813,92 @@ class Local_procurement_model extends CI_Model {
         $trans = $this->db->trans_complete();
         return $trans;
 
+    }
+
+    public function delete_material_sourcing_list($id)
+    {
+        $data = array(
+            'is_active' => 0
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $id);
+        $query = $blaine_local_procurement->update('material_sourcing_list', $data);
+
+        return $query;
+    }
+
+    public function update_material_sourcing_list($id)
+    {
+        $attachment = $_FILES['attachment']['name'];
+        $description = $this->input->post('description');
+        $specification = $this->input->post('specification');
+        $quantity = $this->input->post('quantity');
+        $uom =  $this->input->post('uom');
+        $shelf_life =  $this->input->post('shelf_life');
+        $item_application =  $this->input->post('item_application');
+        $required_document = $this->input->post('required_document');
+        $material_category = $this->input->post('material_category');
+        $purpose = $this->input->post('purpose');
+        $mcode = $this->input->post('material_code');
+        $date = date('Y-m-d H:i:s');
+
+        $data_material = array(
+            'mcode'             => $mcode,
+            'description'       => $description,
+            'specification'     => $specification,
+            'quantity'          => $quantity,
+            'uom'               => $uom,
+            'shelf_life'        => $shelf_life,
+            'item_application'  => $item_application,
+            'required_document' => $required_document,
+            'category'          => $material_category,
+            'remarks'           => $purpose,
+            'attachment'        => $attachment,
+            'updated_by'        => $this->session->userdata('username'),
+            'updated_date'      => $date
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $id);
+        $query = $blaine_local_procurement->update('material_sourcing_list', $data_material);
+
+        return $query;
+    }
+
+    public function update_material_sourcing($id)
+    {
+        $company_id = $this->input->post('company_id');
+        $sourcing_category = $this->input->post('sourcing_category');
+        $date_required = $this->input->post('date_required');
+
+        $data = array(
+            'category'      => $sourcing_category,
+            'company_id'    => $company_id,
+            'date_required' => $date_required,
+            'updated_date'  => date('Y-m-d H:i:s'),
+            'updated_by'    => $this->session->userdata('username')
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $id);
+        $query = $blaine_local_procurement->update('material_sourcing', $data);
+
+        return $query;
+
+    }
+
+    public function delete_material_sourcing($id)
+    {
+        $data = array(
+            'is_active' => 0
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $id);
+        $query = $blaine_local_procurement->update('material_sourcing', $data);
+
+        return $query;
     }
 
     public function get_material_sourcing_list()
@@ -1162,6 +1248,7 @@ class Local_procurement_model extends CI_Model {
             material_sourcing.created_date as created_date,
             material_sourcing.role_status as role_status,
             company.name as company_name,
+            company.code as code,
             material_restriction.access as emp_access,
             material_restriction.email as email,
             material_approval_list.primary_approver as primary_approver,
@@ -1184,6 +1271,7 @@ class Local_procurement_model extends CI_Model {
 
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('msid', $msid);
+        $blaine_local_procurement->where('is_active !=', 0);
         $query = $blaine_local_procurement->get('material_sourcing_list');
 
         return $query->result();
@@ -2291,7 +2379,7 @@ class Local_procurement_model extends CI_Model {
 
             }
         }
-        
+
         // ACTION REQUIRED
         elseif($process == 3)
         {
@@ -2741,6 +2829,11 @@ class Local_procurement_model extends CI_Model {
                 }
             }
         
+        }
+
+        elseif($process == 2)
+        {
+            
         }
 
         $trans = $this->db->trans_complete();
