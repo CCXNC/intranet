@@ -52,6 +52,9 @@
 <?php if($this->session->flashdata('success_msg')) : ?>
     <p class="alert alert-dismissable alert-success"><?php echo $this->session->flashdata('success_msg'); ?></p>
 <?php endif; ?>
+<?php if($this->session->flashdata('error_msg')) : ?>
+    <p class="alert alert-dismissable alert-danger"><?php echo $this->session->flashdata('error_msg'); ?></p>
+<?php endif; ?>
 <div class="card" id="printableArea">
     <p style="text-align:center" class="printMe"><img class="card-img-top" style="width:40%" src="<?php echo base_url(); ?>assets/images/header.png" alt=""></p>
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST<a href="<?php echo base_url(); ?>procurement/material_sourcing_index" id="back" title="Go Back" class="btn btn-info float-right d-print-none" style="margin-right:10px;">BACK</a><button type="button" style="margin-right:5px;" class="btn btn-info float-right d-print-none" onclick="printDiv('printableArea')" value="print a div!">PRINT</button></h4></div>
@@ -131,46 +134,57 @@
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group ">
-                                                <label><b>Business Unit:</b></label>
+                                <form method="post" action="<?php echo base_url(); ?>procurement/update_material_sourcing/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" enctype="multipart/form-data">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group ">
+                                                    <label><b>Business Unit:</b></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <select class="form-control" style="font-size:12px" name="company_id" id="">
+                                                        <option value="1"<?php echo $material_source->code == 'RRLC' ? 'selected' : ' '; ?>>RRLC</option>
+                                                        <option value="2"<?php echo $material_source->code == 'BMC' ? 'selected' : ' '; ?>>BMC</option>
+                                                    </select>
+                                          
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label><b>Sourcing Category:</b></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                <select class="form-control" name="sourcing_category" style="font-size:12px;height:32px">
+                                                    <option value="Price Only"<?php echo $material_source->category == "Price Only" ? 'selected' : ' '; ?>>Price Only</option>
+                                                    <option value="Sample Only"<?php echo $material_source->category == "Sample Only" ? 'selected' : ' '; ?>>Sample Only</option>
+                                                    <option value="Price w/ Sample"<?php echo $material_source->category == "Price w/ Sample" ? 'selected' : ' '; ?>>Price w/ Sample</option>
+                                                </select>
+                                                
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <input name="company" type="text" class="form-control" id="company" value="<?php echo $material_source->company_name; ?>" style="font-size:12px;">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label><b>Date Required:</b></label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label><b>Sourcing Category:</b></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <input name="category" type="text" class="form-control" id="category" value="<?php echo $material_source->category; ?>" style="font-size:12px;">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <input name="date_required" type="date" class="form-control" id="date_required" value="<?php echo $material_source->date_required; ?>" style="font-size:12px;">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label><b>Date Required:</b></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <input name="date_required" type="text" class="form-control" id="date_required" value="<?php echo $material_source->date_required; ?>" style="font-size:12px;">
-                                            </div>
-                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Do you want to update data?');" value="Update">
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-sm btn-primary">Save changes</button>
-                                </div>
+                                </form    
                             </div>
                         </div>
                     </div>
@@ -260,7 +274,7 @@
                                 <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
                                     <span class="fa fa-pencil"></span>
                                 </button>
-                                <a href="" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right" style=""><span class="fa fa-trash"></span></a>
+                                <a href="<?php echo base_url(); ?>procurement/delete_material_sourcing_list/<?php echo $material->id; ?>/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right" style=""><span class="fa fa-trash"></span></a>
                             </div>
 
                             <!-- Modal -->
@@ -273,84 +287,87 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <?php if($material->mcode != NULL) : ?>
+                                        <form method="post" action="<?php echo base_url(); ?>procurement/update_material_sourcing_list/<?php echo $material->id; ?>/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" enctype="multipart/form-data">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <?php if($material->mcode != NULL) : ?>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label><b>Material Code:</b></label>
+                                                                <input type="text" class="form-control" id="myTextbox" readonly id="check" name="material_code" placeholder="" style="font-size:12px" value="<?php echo $material->mcode;?>">
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>    
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label><b>Material Code:</b></label>
-                                                            <input type="text" class="form-control" id="myTextbox" id="check" name="material_code[]" placeholder="" style="font-size:12px" value="<?php echo $material->mcode;?>">
+                                                            <label for="exampleFormControlTextarea1"><b>Description:</b></label>
+                                                            <input type="text" class="form-control"  id="description" readonly name="description" placeholder="" style="font-size:12px" value="<?php echo $material->description;?>">
                                                         </div>
                                                     </div>
-                                                <?php endif; ?>    
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlTextarea1"><b>Description:</b></label>
-                                                        <input type="text" class="form-control"  id="description" readonly name="description[]" placeholder="" style="font-size:12px" value="<?php echo $material->description;?>">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlTextarea1"><b>Specification:</b></label>
+                                                            <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification" rows="1" value=""><?php echo $material->specification;?></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlTextarea1"><b>Specification:</b></label>
-                                                        <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" value=""><?php echo $material->specification;?></textarea>
+                                                
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label><b>Quantity:</b></label>
+                                                            <input type="number" class="form-control" name="quantity" placeholder="" style="font-size:12px" value="<?php echo $material->quantity;?>">
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlSelect1"><b>UOM:</b></label>
+                                                            <input type="text" class="form-control" name="uom" placeholder="" style="font-size:12px" value="<?php echo $material->uom;?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label><b>Shelf Life (Months):</b></label>
+                                                            <input type="number" class="form-control" name="shelf_life" placeholder="" style="font-size:12px" value="<?php echo $material->shelf_life;?>"> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlTextarea1"><b>Purpose/Remarks:</b></label>
+                                                            <textarea class="form-control" style="font-size:12px" id="" name="purpose" rows="1"><?php echo $material->remarks;?></textarea>
+                                                        </div>
+                                                    </div>
                                             
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label><b>Quantity:</b></label>
-                                                        <input type="number" class="form-control" name="quantity[]" placeholder="" style="font-size:12px" value="<?php echo $material->quantity;?>">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlTextarea1"><b>Item Application:</b></label>
+                                                            <textarea class="form-control" id="" style="font-size:12px" name="item_application" rows="1"><?php echo $material->item_application; ?></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlSelect1"><b>UOM:</b></label>
-                                                        <input type="text" class="form-control" name="quantity[]" placeholder="" style="font-size:12px" value="<?php echo $material->uom;?>">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlTextarea1"><b>Required Document:</b></label>
+                                                            <textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document" rows="1"><?php echo $material->required_document;?></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label><b>Shelf Life (Months):</b></label>
-                                                        <input type="number" class="form-control" name="shelf_life[]" placeholder="" style="font-size:12px" value="<?php echo $material->shelf_life;?>"> 
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlSelect1"><b>Material Category:</b></label>
+                                                            <input type="text" class="form-control"  id="materialGroup" readonly name="material_category" placeholder="" style="font-size:12px" value="<?php echo $material->category;?>">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlTextarea1"><b>Purpose/Remarks:</b></label>
-                                                        <textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1"><?php echo $material->remarks;?></textarea>
-                                                    </div>
-                                                </div>
-                                        
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlTextarea1"><b>Item Application:</b></label>
-                                                        <textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1"><?php echo $material->item_application; ?></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlTextarea1"><b>Required Document:</b></label>
-                                                        <textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1"><?php echo $material->required_document;?></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlSelect1"><b>Material Category:</b></label>
-                                                        <input type="text" class="form-control"  id="materialGroup" readonly name="material_category[]" placeholder="" style="font-size:12px" value="<?php echo $material->category;?>">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label><b>File Attachment:</b></label>
-                                                        <input type='file' name='attachment[]' size='20' />
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label><b>File Attachment:</b></label>
+                                                            <input type='file' name='attachment' size='20' />
+                                                            <?php echo $material->attachment;?>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-sm btn-primary">Save changes</button>
-                                        </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                                <input type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Do you want to update data?');" value="Update">
+                                            </div>
+                                        </form>    
                                     </div>
                                 </div>
                             </div>

@@ -365,6 +365,37 @@ class Procurement extends CI_Controller {
                     $error = $this->upload->display_errors();
                 }
             }
+
+            $data = []; 
+            $count = count($_FILES['attachment1']['name']);
+
+            for($i = 0; $i<$count; $i++){
+                if(!empty($_FILES['attachment1']['name'][$i])){
+                    $_FILES['file']['name'] = $_FILES['attachment1']['name'][$i];
+                    $_FILES['file']['type'] = $_FILES['attachment1']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['attachment1']['tmp_name'][$i];
+                    $_FILES['file']['error'] = $_FILES['attachment1']['error'][$i];
+                    $_FILES['file']['size'] = $_FILES['attachment1']['size'][$i];
+
+                    // File upload configuration
+                    $config['upload_path'] = './uploads/supplier_attachment/';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
+                    $config['max_size'] = '100000000';
+                    $config['overwrite'] = True;
+                    $config['file_name'] = $_FILES['attachment1']['name'][$i];
+
+                    // Load and initialize upload library
+                    $this->load->library('upload', $config);
+
+                    
+                    if($this->upload->do_upload('file')){
+                        $uploadData = $this->upload->data(); 
+                        $filename = $uploadData['file_name'];
+            
+                        $data['totalFiles'][] = $filename;
+                    }
+                }
+            }
                 
             if($this->local_procurement_model->add_material_sourcing_matcode())
             {
@@ -476,6 +507,76 @@ class Procurement extends CI_Controller {
 
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/view';
         $this->load->view('inc/navbar', $data);
+    }
+
+    public function delete_material_sourcing_list($id,$idms,$msid)
+    {
+        if($this->local_procurement_model->delete_material_sourcing_list($id))
+        {
+            $id = $idms;
+            $msid = $msid;
+            
+            $this->session->set_flashdata('error_msg', 'Material Successfully Deleted!');
+            redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
+        }
+    }
+
+    public function update_material_sourcing_list($id,$idms,$msid)
+    {
+        if(!empty($_FILES['attachment']['name']))
+        {
+            $imageName = $_FILES['attachment']['name'];
+
+            // File upload configuration
+            $config['upload_path'] = './uploads/material_sourcing_attachment/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip';
+            $config['max_size'] = '100000000';
+            $config['overwrite'] = True;
+
+            // Load and initialize upload library
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            // Upload file to server
+            if($this->upload->do_upload('attachment')){
+                // Upload file data
+                $fileData = $this->upload->data();
+                $imgData['file_name'] = $fileData['file_name'];
+            }
+            else{
+                $error = $this->upload->display_errors();
+            }
+        }
+
+        if($this->local_procurement_model->update_material_sourcing_list($id))
+        {
+            $id = $idms;
+            $msid = $msid;
+            
+            $this->session->set_flashdata('success_msg', 'Material Successfully Updated!');
+            redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
+        }
+    }
+
+    public function update_material_sourcing($id,$msid)
+    {
+        if($this->local_procurement_model->update_material_sourcing($id))
+        {
+            $id = $id;
+            $msid = $msid;
+            
+            $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Updated!');
+            redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
+        }
+    }
+
+    public function delete_material_sourcing($id)
+    {
+        if($this->local_procurement_model->delete_material_sourcing($id))
+        {
+            $this->session->set_flashdata('error_msg', 'Material Sourcing successfully deleted!');
+            redirect('procurement/material_sourcing_index');
+        }
     }
 
     public function materialsource_approval_process()
@@ -648,7 +749,7 @@ class Procurement extends CI_Controller {
                 }
             }
 
-            $data = [];
+            $data = []; 
             $count = count($_FILES['attachment1']['name']);
 
             for($i = 0; $i<$count; $i++){
@@ -671,7 +772,7 @@ class Procurement extends CI_Controller {
 
                     
                     if($this->upload->do_upload('file')){
-                        $uploadData = $this->upload->data();
+                        $uploadData = $this->upload->data(); 
                         $filename = $uploadData['file_name'];
             
                         $data['totalFiles'][] = $filename;
