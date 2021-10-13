@@ -29,16 +29,17 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3" >
+    <div class="col-md-3">
         <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; ">
-                PENDING
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px;">
+                ACTION REQUIRED
             </div>
-            <div class="card-body" style="background-color:#E12A2A; color: white; border-radius: 2px; text-align: center;font-size:18px">
-                20
+            <div class="card-body" style="background-color:#FBAA60; color: white; border-radius: 2px; text-align: center;font-size:18px">
+                5
             </div>
         </div>
     </div>
+   
     <div class="col-md-3">
         <div class="card" style="line-height:13px">
             <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; ">
@@ -52,7 +53,17 @@
 </div>
 <br>
 <div class="row">
-<div class="col-md-3">
+    <div class="col-md-3" >
+        <div class="card" style="line-height:13px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px;">
+                DISAPPROVED
+            </div>
+            <div class="card-body" style="background-color:#E12A2A; color: white; border-radius: 2px; text-align: center;font-size:18px">
+                20
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
         <div class="card" style="line-height:13px">
             <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px">
                 AVERAGE CT APPROVER
@@ -69,16 +80,6 @@
             </div>
             <div class="card-body" style="background-color:#5488A5; color: white; border-radius: 2px; text-align: center;font-size:18px">
                 5 Days
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px">
-                ACTION REQUIRED
-            </div>
-            <div class="card-body" style="background-color:#FBAA60; color: white; border-radius: 2px; text-align: center;font-size:18px">
-                5
             </div>
         </div>
     </div>
@@ -113,12 +114,16 @@
                         <td><?php echo $material_source->total_material; ?></td>
                         <td><?php echo  '7 Days'; ?></td>
                         <td><?php echo  '7 Days'; ?></td>
-                        <?php $arr_explode = explode(' ', $material_source->role_status); ?>
+                        <?php $arr_explode = explode(' ', $material_source->role_status); $requestor_explode =  explode('|', $material_source->fullname);  ?>
                         <td>
                             <?php if($arr_explode[0] == "Pending") : ?>
-                                <p style="background-color:#E12A2A; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
+                                <p style="background-color:#FBAA60; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
                             <?php elseif($arr_explode[0] == "Open") : ?>    
                                 <p style="background-color:#FAD02C; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
+                            <?php elseif($arr_explode[0] == "Disapproved") : ?>    
+                                <p style="background-color:#E12A2A; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
+                            <?php else : ?>    
+                                <p style="background-color:#469A49; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
                             <?php endif; ?>    
                             </td>
                         <td data-label="Action">
@@ -128,7 +133,9 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>">View</a>
-                                    <a class="dropdown-item" onclick="return confirm('Do you want to delete data?');" title="Delete Request" href="<?php echo base_url(); ?>procurement/delete_material_sourcing/<?php echo $material_source->id; ?>">Delete</a>
+                                    <?php if($requestor_explode[0] == $this->session->userdata('fullname') || $requestor_explode[1] == $this->session->userdata('fullname') && $arr_explode[0] == "Pending") : ?>
+                                        <a class="dropdown-item" onclick="return confirm('Do you want to delete data?');" title="Delete Request" href="<?php echo base_url(); ?>procurement/delete_material_sourcing/<?php echo $material_source->id; ?>">Delete</a>
+                                    <?php endif; ?>     
                                 </div>
                             </div>
                         </td>

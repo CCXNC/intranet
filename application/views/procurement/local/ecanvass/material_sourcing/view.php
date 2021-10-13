@@ -119,11 +119,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#request" style="margin-left:3px">
-                            <span class="fa fa-pencil"></span>
-                        </button>
-                    </div>
+                    <?php if($first_entry->primary_approver == $this->session->userdata('fullname') || $first_entry->alternate_approver == $this->session->userdata('fullname') && $last_entry->step_approval == 7) : ?>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#request" style="margin-left:3px">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                        </div>
+                    <?php endif; ?>    
                     <!-- Modal -->
                     <div class="modal fade bd-example-modal-lg" id="request" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -270,12 +272,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
-                                    <span class="fa fa-pencil"></span>
-                                </button>
-                                <a href="<?php echo base_url(); ?>procurement/delete_material_sourcing_list/<?php echo $material->id; ?>/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right" style=""><span class="fa fa-trash"></span></a>
-                            </div>
+                            <?php if($first_entry->primary_approver == $this->session->userdata('fullname') || $first_entry->alternate_approver == $this->session->userdata('fullname') && $last_entry->step_approval == 7) : ?>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
+                                        <span class="fa fa-pencil"></span>
+                                    </button>
+                                    <a href="<?php echo base_url(); ?>procurement/delete_material_sourcing_list/<?php echo $material->id; ?>/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right" style=""><span class="fa fa-trash"></span></a>
+                                </div>
+                            <?php endif; ?>    
 
                             <!-- Modal -->
                             <div class="modal fade bd-example-modal-lg" id="material<?php echo $material->id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -379,7 +383,72 @@
                 </div>    
             </div>
             <br>
-
+            <?php $acess_explode = explode('|', $material_source->access); ?>
+            <div class="card">
+                <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
+                <div class="card-body" style="background-color: #E9FAFD">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="background-color: #0C2D48; color:white">Transmittal No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if($transmittal_lists) : ?>
+                                        <?php foreach($transmittal_lists as $transmittal_list) : ?>
+                                            <tr>
+                                                <?php if($acess_explode[0] == $this->session->userdata('employee_number') || $acess_explode[1] == $this->session->userdata('employee_number') || $acess_explode[2] == $this->session->userdata('employee_number') || $acess_explode[3] == $this->session->userdata('employee_number') || "09061027" == $this->session->userdata('employee_number')) : ?>
+                                                    <td><a href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>"><?php echo $transmittal_list->transmittal_no; ?></a></td>
+                                                <?php else : ?>
+                                                    <td><?php echo $transmittal_list->transmittal_no; ?></td>
+                                                <?php endif; ?>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="background-color: #0C2D48; color:white">Canvass No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if($canvass_lists) : ?>
+                                        <?php foreach($canvass_lists as $canvass_list) : ?>
+                                            <tr>
+                                                <?php if($acess_explode[0] == $this->session->userdata('employee_number') || $acess_explode[1] == $this->session->userdata('employee_number') || $acess_explode[2] == $this->session->userdata('employee_number') || $acess_explode[3] == $this->session->userdata('employee_number') || "09061027" == $this->session->userdata('employee_number')) : ?>
+                                                    <td><a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>"><?php echo $canvass_list->canvass_no; ?></a></td>
+                                                <?php else : ?>
+                                                    <td><?php echo $canvass_list->canvass_no; ?></td>
+                                                <?php endif; ?>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <?php if($material_source->is_no_transmittal == 1) : ?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked name="paid_sample_only" value="1" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Paid sample only: Cannot provide sample
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>    
+                    <br>
+                </div>  
+            </div> 
+            <br>
             <!-- History -->
             <p>
                 <input class="btn btn-sm btn-success" type="button" value="Show Material Details History" id="bt" onclick="toggle(this)">
@@ -442,181 +511,171 @@
                 ?>
             </p>
             <br>
-            <?php //echo $material_source->emp_access; ?>
-            <?php if($last_entry->step_approval == 4 && $last_entry->role_status == "Procurement") : ?>
-                <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
-                    <div class="card">
-                        <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
-                        <div class="card-body" style="background-color: #E9FAFD">
-                            <div class="row">
-                                <!--<div class="col-md-12">
-                                    <table class="table table-bordered" style="font-size:12px; line-height:13px;">
-                                        <tr>
-                                            <th scope="row" class="throw" style="width:20%">Canvass No.</th>
-                                            <?php if($canvass_lists) : ?>
-                                                <?php foreach($canvass_lists as $canvass_list) : ?>
-                                                    <td><?php echo $canvass_list->canvass_no; ?></td>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="throw" style="width:20%">Transmittal No.</th>
-                                            <?php if($transmittal_lists) : ?>
-                                                <?php foreach($transmittal_lists as $transmittal_list) : ?>
-                                                    <td><?php echo $transmittal_list->transmittal_no; ?></td>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        </tr>
-                                    </table>
-                                </div>--> 
-                                <div class="col-md-6">
-                                    <table class="table table-bordered" style="font-size:12px; line-height:13px;">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" style="background-color: #0C2D48; color:white">Transmittal No.</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php if($transmittal_lists) : ?>
-                                                <?php foreach($transmittal_lists as $transmittal_list) : ?>
+            <?php if($last_entry->step_approval != 10): ?>
+                <?php if($last_entry->step_approval == 4 && $last_entry->role_status == "Procurement") : ?>
+                    <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
+                        <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_report_generation" enctype="multipart/form-data">
+                            <div class="card">
+                                <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
+                                <div class="card-body" style="background-color: #E9FAFD">
+                                    <input type="text" name="id" value="<?php echo $last_entry->id; ?>">
+                                    <input type="text" name="msid" value="<?php echo $material_source->msid; ?>">
+                                    <input type="text" name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">
+                                    <input type="text" name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                                <thead>
                                                     <tr>
-                                                        <td><?php echo $transmittal_list->transmittal_no; ?></td>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white">Transmittal No.</th>
                                                     </tr>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-md-6">
-                                    <table class="table table-bordered" style="font-size:12px; line-height:13px;">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" style="background-color: #0C2D48; color:white">Canvass No.</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php if($canvass_lists) : ?>
-                                                <?php foreach($canvass_lists as $canvass_list) : ?>
+                                                </thead>
+                                                <tbody>
+                                                    <?php if($transmittal_lists) : ?>
+                                                        <?php foreach($transmittal_lists as $transmittal_list) : ?>
+                                                            <tr>
+                                                                <td><?php echo $transmittal_list->transmittal_no; ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                                <thead>
                                                     <tr>
-                                                        <td><?php echo $canvass_list->canvass_no; ?></td>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white">Canvass No.</th>
                                                     </tr>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            Paid sample only: Cannot provide sample
-                                        </label>
+                                                </thead>
+                                                <tbody>
+                                                    <?php if($canvass_lists) : ?>
+                                                        <?php foreach($canvass_lists as $canvass_list) : ?>
+                                                            <tr>
+                                                                <td><?php echo $canvass_list->canvass_no; ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="paid_sample_only" value="1" id="defaultCheck1">
+                                                <label class="form-check-label" for="defaultCheck1">
+                                                    Paid sample only: Cannot provide sample
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Remarks:</label>
+                                                <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="remarks" rows="1"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <center>
+                                        <div class="form-group">
+                                            <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                        </div>
+                                    </center>
+                                </div>  
+                            </div> 
+                        </form>    
+                    <?php endif; ?>     
+                <?php else : ?>  
+                    <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
+                        <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_approval_process" enctype="multipart/form-data">
+                            <div class="card">
+                                <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">APPROVAL DETAILS</div>
+                                <div class="card-body" style="background-color: #E9FAFD">
+                                    <div class="row">
+
+                                        <!-- Get material details for email -->
+                                        <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
+                                        <input type="text" hidden name="company" value="<?php echo $material_source->company_name; ?>">
+                                        <input type="text" hidden name="category" value="<?php echo $material_source->category; ?>">
+                                        <input type="text" hidden name="date_required" value="<?php echo $material_source->date_required; ?>">
+                                        <input type="text" hidden name="date_requested" value="<?php echo date('Y-m-d', strtotime($material_source->created_date)); ?>">
+                                        <input type="text" hidden name="email_accounts" value="<?php echo $material_source->email; ?>">
+                                        <!-- End of get material details for email -->
+
+                                        <?php $data_explod = explode(' ', $material_source->role_status); ?>
+                                        <input type="text" hidden name="primary_approver_superior" value="<?php echo $material_source->primary_approver; ?>">
+                                        <input type="text" hidden name="alternate_approver_superior" value="<?php echo $material_source->alternate_approver; ?>">
+                                        <input type="text" hidden name="request_approver" value="<?php echo $data_explod[1]; ?>">
+                                        <input type="text" hidden name="msid" value="<?php echo $material_source->msid; ?>">
+
+                                        <input type="text" hidden name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">
+                                        <input type="text" hidden name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">
+                                        <input type="text" hidden name="req_signoff_by" value="<?php echo $first_entry->signoff_by; ?>">
+                                        <input type="text" hidden name="req_remarks" value="<?php echo $first_entry->remarks; ?>">
+
+                                        <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
+                                        <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">
+                                        <input type="text" hidden name="primary_approver1" value="<?php echo $last_entry->primary_approver; ?>">
+                                        <input type="text" hidden name="alternate_approver1" value="<?php echo $last_entry->alternate_approver; ?>">
+                                        
+
+                                        <?php $destination_approval = explode(' ', $last_entry->created_by); ?>
+                                        <?php if($destination_approval[1] != null) : ?>
+                                            <input type="text" hidden name="destination_approval" value="<?php echo $destination_approval[1]; ?>">
+                                        <?php endif; ?>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Sign Off:</label>
+                                                <br>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                                            <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="1" checked>
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                <p style="border-radius: 5px; border: 2px solid #469A49; background-color:#469A49;padding:2px; color:white">Approve</p>
+                                                            </label>
+                                                        </div>
+                                                        <?php if($last_entry->step_approval != 5) : ?>
+                                                            <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                                                <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="2">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    <p style="border-radius: 5px; border: 2px solid #E12A2A; background-color:#E12A2A;padding:2px; color:white">Disapprove</p>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault2" value="3">
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                    <p style="border-radius: 5px; border: 2px solid #FAD02C; background-color:#FAD02C;padding:2px; color:white">Action Required</p>
+                                                                </label>
+                                                            </div>
+                                                        <?php endif; ?>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Remarks</label>
+                                                <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="remarks" rows="1"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    
                             </div>
                             <br>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Remarks:</label>
-                                        <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="remarks" rows="1"></textarea>
-                                    </div>
-                                </div>
-                            </div>
                             <center>
                                 <div class="form-group">
                                     <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
                                 </div>
                             </center>
-                        </div>  
-                    </div> 
-                <?php endif; ?>     
-            <?php else : ?>  
-                <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
-                    <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_approval_process" enctype="multipart/form-data">
-                        <div class="card">
-                            <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">APPROVAL DETAILS</div>
-                            <div class="card-body" style="background-color: #E9FAFD">
-                                <div class="row">
+                        </form>    
+                    <?php endif; ?> 
 
-                                    <!-- Get material details for email -->
-                                    <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
-                                    <input type="text" hidden name="company" value="<?php echo $material_source->company_name; ?>">
-                                    <input type="text" hidden name="category" value="<?php echo $material_source->category; ?>">
-                                    <input type="text" hidden name="date_required" value="<?php echo $material_source->date_required; ?>">
-                                    <input type="text" hidden name="date_requested" value="<?php echo date('Y-m-d', strtotime($material_source->created_date)); ?>">
-                                    <input type="text" hidden name="email_accounts" value="<?php echo $material_source->email; ?>">
-                                    <!-- End of get material details for email -->
-
-                                    <?php $data_explod = explode(' ', $material_source->role_status); ?>
-                                    <input type="text" hidden name="primary_approver_superior" value="<?php echo $material_source->primary_approver; ?>">
-                                    <input type="text" hidden name="alternate_approver_superior" value="<?php echo $material_source->alternate_approver; ?>">
-                                    <input type="text" hidden name="request_approver" value="<?php echo $data_explod[1]; ?>">
-                                    <input type="text" hidden name="msid" value="<?php echo $material_source->msid; ?>">
-
-                                    <input type="text" hidden name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">
-                                    <input type="text" hidden name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">
-                                    <input type="text" hidden name="req_signoff_by" value="<?php echo $first_entry->signoff_by; ?>">
-                                    <input type="text" hidden name="req_remarks" value="<?php echo $first_entry->remarks; ?>">
-
-                                    <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
-                                    <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">
-                                    <input type="text" hidden name="primary_approver1" value="<?php echo $last_entry->primary_approver; ?>">
-                                    <input type="text" hidden name="alternate_approver1" value="<?php echo $last_entry->alternate_approver; ?>">
-
-                                    <?php $destination_approval = explode(' ', $last_entry->created_by); ?>
-                                    <?php if($destination_approval[1] != null) : ?>
-                                        <input type="text" hidden name="destination_approval" value="<?php echo $destination_approval[1]; ?>">
-                                    <?php endif; ?>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Sign Off:</label>
-                                            <br>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                                        <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="1" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            <p style="border-radius: 5px; border: 2px solid #469A49; background-color:#469A49;padding:2px; color:white">Approve</p>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                                        <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="2">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            <p style="border-radius: 5px; border: 2px solid #E12A2A; background-color:#E12A2A;padding:2px; color:white">Disapprove</p>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault2" value="3">
-                                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                            <p style="border-radius: 5px; border: 2px solid #FAD02C; background-color:#FAD02C;padding:2px; color:white">Action Required</p>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Remarks</label>
-                                            <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="remarks" rows="1"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>    
-                        </div>
-                        <br>
-                        <center>
-                            <div class="form-group">
-                                <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
-                            </div>
-                        </center>
-                    </form>    
-                <?php endif; ?> 
-
-            <?php endif; ?>  
+                <?php endif; ?>  
+            <?php endif; ?>
              
         </div>
     </div>

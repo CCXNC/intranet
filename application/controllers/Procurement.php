@@ -341,7 +341,7 @@ class Procurement extends CI_Controller {
         }
         else 
         {
-            if(!empty($_FILES['attachment']['name']))
+            /*if(!empty($_FILES['attachment']['name']))
             {
                 $imageName = $_FILES['attachment']['name'];
 
@@ -364,40 +364,36 @@ class Procurement extends CI_Controller {
                 else{
                     $error = $this->upload->display_errors();
                 }
-            }
+            }*/
 
-            $data = []; 
-            $count = count($_FILES['attachment1']['name']);
+            $number_of_files = sizeof($_FILES['attachment1']['tmp_name']);
+            $files = $_FILES['attachment1'];
 
-            for($i = 0; $i<$count; $i++){
+            $config['upload_path'] = './uploads/supplier_attachment/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
+
+            for($i = 0; $i<$number_of_files; $i++){
                 if(!empty($_FILES['attachment1']['name'][$i])){
-                    $_FILES['file']['name'] = $_FILES['attachment1']['name'][$i];
-                    $_FILES['file']['type'] = $_FILES['attachment1']['type'][$i];
-                    $_FILES['file']['tmp_name'] = $_FILES['attachment1']['tmp_name'][$i];
-                    $_FILES['file']['error'] = $_FILES['attachment1']['error'][$i];
-                    $_FILES['file']['size'] = $_FILES['attachment1']['size'][$i];
+                    $_FILES['attachment1']['name'] = $files['name'][$i];
+                    $_FILES['attachment1']['type'] = $files['type'][$i];
+                    $_FILES['attachment1']['tmp_name'] = $files['tmp_name'][$i];
+                    $_FILES['attachment1']['error'] = $files['error'][$i];
+                    $_FILES['attachment1']['size'] = $files['size'][$i];
 
-                    // File upload configuration
-                    $config['upload_path'] = './uploads/supplier_attachment/';
-                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
-                    $config['max_size'] = '100000000';
-                    $config['overwrite'] = True;
-                    $config['file_name'] = $_FILES['attachment1']['name'][$i];
-
-                    // Load and initialize upload library
-                    $this->load->library('upload', $config);
-
-                    
-                    if($this->upload->do_upload('file')){
-                        $uploadData = $this->upload->data(); 
-                        $filename = $uploadData['file_name'];
+                    $this->upload->initialize($config);
+                    if($this->upload->do_upload('attachment1')){
+                        $data = $this->upload->data(); 
+                        //$filename = $uploadData['file_name'];
             
-                        $data['totalFiles'][] = $filename;
+                        echo '<pre>';
+                        print_r($data);
+                        echo '</pre>';
                     }
                 }
             }
+
                 
-            if($this->local_procurement_model->add_material_sourcing_matcode())
+            /*if($this->local_procurement_model->add_material_sourcing_matcode())
             {
                 $data = $this->local_procurement_model->first_msid();
                 
@@ -406,7 +402,7 @@ class Procurement extends CI_Controller {
 
                 $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
                 redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
-            }
+            }*/
         }
        
     }
@@ -446,7 +442,7 @@ class Procurement extends CI_Controller {
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
 
-                // Upload file to server
+                // Upload file to server                            
                 if($this->upload->do_upload('attachment')){
                     // Upload file data
                     $fileData = $this->upload->data();
@@ -456,6 +452,40 @@ class Procurement extends CI_Controller {
                     $error = $this->upload->display_errors();
                 }
             }*/
+
+            /*$data = []; 
+            $count = count($_FILES['attachment']['name']);
+
+            for($i = 0; $i<$count; $i++){
+                if(!empty($_FILES['attachment']['name'][$i])){
+                    $_FILES['file']['name'] = $_FILES['attachment']['name'][$i];
+                    $_FILES['file']['type'] = $_FILES['attachment']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['attachment']['tmp_name'][$i];
+                    $_FILES['file']['error'] = $_FILES['attachment']['error'][$i];
+                    $_FILES['file']['size'] = $_FILES['attachment']['size'][$i];
+
+                    // File upload configuration
+                    $config['upload_path'] = './uploads/material_sourcing_attachment/';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
+                    $config['max_size'] = '100000000';
+                    $config['overwrite'] = True;
+                    $config['file_name'] = $_FILES['attachment']['name'][$i];
+
+                    // Load and initialize upload library
+                    $this->load->library('upload', $config);
+
+                    
+                    if($this->upload->do_upload('file')){
+                        $uploadData = $this->upload->data(); 
+                        $filename = $uploadData['file_name'];
+            
+                        $data['totalFiles'][] = $filename;
+                    }
+                }
+            }*/
+
+           
+
             if($this->local_procurement_model->add_material_sourcing_nomatcode())
             {
                 $data = $this->local_procurement_model->first_msid();
@@ -582,6 +612,15 @@ class Procurement extends CI_Controller {
     public function materialsource_approval_process()
     {
         if($this->local_procurement_model->material_source_approval_process())
+        {
+            $this->session->set_flashdata('success_msg', 'Approve material sourcing successfully updated!');
+            redirect('procurement/material_sourcing_index');
+        }
+    }
+
+    public function materialsource_report_generation()
+    {
+        if($this->local_procurement_model->material_source_report())
         {
             $this->session->set_flashdata('success_msg', 'Approve material sourcing successfully updated!');
             redirect('procurement/material_sourcing_index');

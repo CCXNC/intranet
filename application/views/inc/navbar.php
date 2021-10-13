@@ -772,7 +772,7 @@
                           
                            
                             <!--PROCUREMENT-->
-                            <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
+                            <?php //if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
                                 <li class="sidebar-dropdown">
                                     <a href="#">
                                         <i class="fa fa-truck" style="background-color:#138B83"></i>
@@ -789,7 +789,7 @@
                                         </ul>
                                     </div>
                                 </li>
-                            <?php endif; ?>    
+                            <?php //endif; ?>    
                             <!--ENGINEERING-->
                             <!--<li class="">
                                 <a href="#">
