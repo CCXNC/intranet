@@ -120,7 +120,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#request" style="margin-left:3px">
+                        <button type="button" class="btn btn-sm btn-info float-right d-print-none" data-toggle="modal" data-target="#request" style="margin-left:3px">
                             <span class="fa fa-pencil"></span>
                         </button>
                     </div>
@@ -148,7 +148,6 @@
                                                         <option value="1"<?php echo $material_source->code == 'RRLC' ? 'selected' : ' '; ?>>RRLC</option>
                                                         <option value="2"<?php echo $material_source->code == 'BMC' ? 'selected' : ' '; ?>>BMC</option>
                                                     </select>
-                                          
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -158,12 +157,11 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                <select class="form-control" name="sourcing_category" style="font-size:12px;height:32px">
-                                                    <option value="Price Only"<?php echo $material_source->category == "Price Only" ? 'selected' : ' '; ?>>Price Only</option>
-                                                    <option value="Sample Only"<?php echo $material_source->category == "Sample Only" ? 'selected' : ' '; ?>>Sample Only</option>
-                                                    <option value="Price w/ Sample"<?php echo $material_source->category == "Price w/ Sample" ? 'selected' : ' '; ?>>Price w/ Sample</option>
-                                                </select>
-                                                
+                                                    <select class="form-control" name="sourcing_category" style="font-size:12px;height:32px">
+                                                        <option value="Price Only"<?php echo $material_source->category == "Price Only" ? 'selected' : ' '; ?>>Price Only</option>
+                                                        <option value="Sample Only"<?php echo $material_source->category == "Sample Only" ? 'selected' : ' '; ?>>Sample Only</option>
+                                                        <option value="Price w/ Sample"<?php echo $material_source->category == "Price w/ Sample" ? 'selected' : ' '; ?>>Price w/ Sample</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -184,7 +182,7 @@
                                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Do you want to update data?');" value="Update">
                                     </div>
-                                </form    
+                                </form>  
                             </div>
                         </div>
                     </div>
@@ -271,10 +269,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
+                                <button type="button" class="btn btn-sm btn-info float-right d-print-none" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
                                     <span class="fa fa-pencil"></span>
                                 </button>
-                                <a href="<?php echo base_url(); ?>procurement/delete_material_sourcing_list/<?php echo $material->id; ?>/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right" style=""><span class="fa fa-trash"></span></a>
+                                <a href="<?php echo base_url(); ?>procurement/delete_material_sourcing_list/<?php echo $material->id; ?>/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right d-print-none" style=""><span class="fa fa-trash"></span></a>
                             </div>
 
                             <!-- Modal -->
@@ -382,7 +380,7 @@
 
             <!-- History -->
             <p>
-                <input class="btn btn-sm btn-success" type="button" value="Show Material Details History" id="bt" onclick="toggle(this)">
+                <input class="btn btn-sm btn-success d-print-none" type="button" value="Show Material Details History" id="bt" onclick="toggle(this)">
             </p>
             <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center; display:none" id="comprecom">
                 <thead>
@@ -400,8 +398,6 @@
                     </tr>
                 </tbody>
             </table>
-
-            <br>
             <!-- Step of Approver -->
             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                 <thead>
@@ -445,7 +441,7 @@
             <?php //echo $material_source->emp_access; ?>
             <?php if($last_entry->step_approval == 4 && $last_entry->role_status == "Procurement") : ?>
                 <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
-                    <div class="card">
+                    <div class="card d-print-none">
                         <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
                         <div class="card-body" style="background-color: #E9FAFD">
                             <div class="row">

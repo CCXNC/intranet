@@ -10,14 +10,13 @@
 <br>
 <table id="" class="display" style="width:100%;font-size:14px">
     <thead>
-        <tr style="background-color:#D4F1F4;">
+        <tr style="background-color:#0D635D;color:white">
             <th scope="col">Transmittal No</th>
             <th scope="col">Material Source ID</th>
             <th scope="col">Material Source Request Date</th>
             <th scope="col">Company</th>
             <th scope="col">Requestor</th>
             <th scope="col">Transmittal Date</th>
-            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -30,16 +29,6 @@
                     <td><?php echo $transmittal_list->company; ?></td>
                     <td><?php echo $transmittal_list->requestor; ?></td>
                     <td><?php echo date('Y-m-d', strtotime($transmittal_list->transmittal_date)); ?></td>
-                    <td data-label="Action">
-                        <div class="btn-group">
-                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" title="View Transmittal" href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>">View</a>
-                            </div>
-                        </div>
-                    </td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

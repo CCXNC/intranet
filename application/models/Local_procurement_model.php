@@ -379,6 +379,17 @@ class Local_procurement_model extends CI_Model {
             $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
         }*/
 
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added: With Matcode",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL SOURCING FORM',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $trans = $this->db->trans_complete();
         return $trans;
 
@@ -759,6 +770,16 @@ class Local_procurement_model extends CI_Model {
             $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
         }*/
 
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added: Without Matcode",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL SOURCING FORM',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
 
         $trans = $this->db->trans_complete();
         return $trans;
@@ -1014,6 +1035,17 @@ class Local_procurement_model extends CI_Model {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->insert('supplier', $data_supplier);
 
+        $data = array (
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: SUPPLIER ENROLLMENT',
+            'date'          => $date
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data);
+
         $trans = $this->db->trans_complete();
         return $trans;
     }
@@ -1033,6 +1065,49 @@ class Local_procurement_model extends CI_Model {
         $address = $this->input->post('address');
         $supplier_profile = $this->input->post('supplier_profile');
         $date = date('Y-m-d H:i:s');
+
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->select('*');
+        $blaine_local_procurement->where('id', $id);
+        $datas = $blaine_local_procurement->get('supplier');
+        $supplier_id = $datas->row()->id;
+        $supplier_scode = $datas->row()->scode;
+        $supplier_name = $datas->row()->name;
+        $supplier_contact_name = $datas->row()->contact_name;
+        $supplier_contact_designation = $datas->row()->contact_designation;
+        $supplier_contact_number = $datas->row()->contact_number;
+        $supplier_email = $datas->row()->email;
+        $supplier_address = $datas->row()->address;
+        $supplier_supplier_profile = $datas->row()->supplier_profile;
+        $supplier_attachment = $datas->row()->attachment;
+
+        $entry_data = array(
+            'id'                    => $supplier_id,
+            'scode'                 => $supplier_scode,
+            'name'                  => $supplier_name,
+            'contact_name'          => $supplier_contact_name,
+            'contact_designation'   => $supplier_contact_designation,
+            'contact_number'        => $supplier_contact_number,
+            'email'                 => $supplier_email,
+            'address'               => $supplier_address,
+            'supplier_profile'      => $supplier_supplier_profile,
+            'attachment'            => $supplier_attachment
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Updated: " . ' ID: ' . $id,
+            'datas'         => "Previous Data: " .$json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: SUPPLIER ENROLLMENT',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
 
         if($attachment == NULL)
         {
@@ -1090,6 +1165,50 @@ class Local_procurement_model extends CI_Model {
 
     public function delete_supplier($id)
     {
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->select('*');
+        $blaine_local_procurement->where('id', $id);
+        $datas = $blaine_local_procurement->get('supplier');
+        $supplier_id = $datas->row()->id;
+        $supplier_scode = $datas->row()->scode;
+        $supplier_name = $datas->row()->name;
+        $supplier_contact_name = $datas->row()->contact_name;
+        $supplier_contact_designation = $datas->row()->contact_designation;
+        $supplier_contact_number = $datas->row()->contact_number;
+        $supplier_email = $datas->row()->email;
+        $supplier_address = $datas->row()->address;
+        $supplier_supplier_profile = $datas->row()->supplier_profile;
+        $supplier_attachment = $datas->row()->attachment;
+
+        $entry_data = array(
+            'id'                        => $supplier_id,
+            'scode'                     => $supplier_scode,
+            'name'                      => $supplier_name,
+            'contact_name'              => $supplier_contact_name,
+            'contact_designation'       => $supplier_contact_designation,
+            'contact_number'            => $supplier_contact_number,
+            'email'                     => $supplier_email,
+            'address'                   => $supplier_address,
+            'supplier_profile'          => $supplier_supplier_profile,
+            'attachment'                => $supplier_attachment
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Deleted: " . ' ID: ' . $id,
+            'datas'         => "Deleted Data: " . $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: SUPPLIER ENROLLMENT',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $data_supplier = array(
             'is_active' => 0
         );
@@ -1169,6 +1288,8 @@ class Local_procurement_model extends CI_Model {
 
     public function add_material()
     {
+        $this->db->trans_start();
+
         $mcode = $this->input->post('mcode');
         $description = $this->input->post('description');
         $material_group = $this->input->post('material_group');
@@ -1183,40 +1304,120 @@ class Local_procurement_model extends CI_Model {
         );
 
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-        $query = $blaine_local_procurement->insert('material', $data);
+        $blaine_local_procurement->insert('material', $data);
+        //$query = $blaine_local_procurement->insert('material', $data);
 
         /*print_r('<pre>');
         print_r($data);
         print_r('</pre>');*/
 
-        return $query;
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL ENROLLMENT',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
+        $trans = $this->db->trans_complete();
+        return $trans;
     }
 
     public function update_material($id)
     {
+        $this->db->trans_start();
+
         $mcode = $this->input->post('mcode');
         $description = $this->input->post('description');
         $material_group = $this->input->post('material_group');
         $date = date('Y-m-d H:i:s');
 
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->select('*');
+        $blaine_local_procurement->where('id', $id);
+        $datas = $blaine_local_procurement->get('material');
+        $material_id = $datas->row()->id;
+        $material_mcode = $datas->row()->mcode;
+        $material_description = $datas->row()->description;
+        $material_group_code = $datas->row()->group_code;
+
+        $entry_data = array(
+            'id'            => $material_id,
+            'mcode'         => $material_mcode,
+            'description'   => $material_description,
+            'group_code'    => $material_group_code  
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Updated: " . ' ID: ' . $id,
+            'datas'         => "Previous Data: " . $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL ENROLLMENT',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $data = array(
             'mcode'        => $mcode,
             'description'  => $description,
             'group_code'   => $material_group,
-            'created_by'   => $this->session->userdata('username'),
-            'created_date' => $date
+            'updated_by'   => $this->session->userdata('username'),
+            'updated_date' => $date
         );
 
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('id', $id);
-        $query = $blaine_local_procurement->update('material', $data);
+        $blaine_local_procurement->update('material', $data);
+        //$query = $blaine_local_procurement->update('material', $data);
 
-        return $query;
+        $trans = $this->db->trans_complete();
+        return $trans;
 
     }
 
     public function delete_material($id)
     {
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->select('*');
+        $blaine_local_procurement->where('id', $id);
+        $datas = $blaine_local_procurement->get('material');
+        $material_id = $datas->row()->id;
+        $material_mcode = $datas->row()->mcode;
+        $material_description = $datas->row()->description;
+        $material_group_code = $datas->row()->group_code;
+
+        $entry_data = array(
+            'id'            => $material_id,
+            'mcode'         => $material_mcode,
+            'description'   => $material_description,
+            'group_code'    => $material_group_code
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Deleted: " . ' ID: ' . $id,
+            'datas'         => "Deleted Data: " . $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL ENROLLMENT',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $data_material = array(
             'is_active' => 0
         );
@@ -2989,6 +3190,17 @@ class Local_procurement_model extends CI_Model {
             $i++;
         }
 
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added: With Matsource Request",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: E-CANVASS REPORT GENERATION STEP:2',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $trans = $this->db->trans_complete();
         return $trans;
     } 
@@ -3473,6 +3685,17 @@ class Local_procurement_model extends CI_Model {
         else{
             $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
         }*/
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: TRANSMITTAL REPORT GENERATION',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
 
         $trans = $this->db->trans_complete();
         return $trans;

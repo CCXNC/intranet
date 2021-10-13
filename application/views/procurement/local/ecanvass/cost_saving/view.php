@@ -1,5 +1,29 @@
-<div class="card" style="font-size:12px">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>COMPARATIVE STATEMENT OF QUOTATIONS<a href="<?php echo base_url(); ?>procurement/ecanvass_cost_saving" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
+<style>
+    .printMe {
+        display: none;
+    }
+    @media print {
+        div {
+            display: none;
+        }
+        .printMe {
+            display: block;
+        }
+    }
+    .tbrow{
+        background-color:#0D635D !important;
+        -webkit-print-color-adjust: exact;
+        color: white; 
+    }
+    .throw{
+       background-color: #0C2D48 !important; 
+       -webkit-print-color-adjust: exact;
+       color:white;
+    }
+</style>
+<div class="card" style="font-size:12px" id="printableArea">
+    <p style="text-align:center" class="printMe"><img class="card-img-top" style="width:40%" src="<?php echo base_url(); ?>assets/images/header.png" alt=""></p>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>COMPARATIVE STATEMENT OF QUOTATIONS<a href="<?php echo base_url(); ?>procurement/ecanvass_cost_saving" id="back" title="Go Back" class="btn btn-info float-right d-print-none" style="margin-right:10px;">BACK</a><button type="button" style="margin-right:5px;" class="btn btn-info float-right d-print-none" onclick="printDiv('printableArea')" value="print a div!">PRINT</button></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
         <div class="card">
@@ -26,8 +50,6 @@
                             <p><?php if($canvass->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?></p>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>PR Number</label>
@@ -54,27 +76,27 @@
         <br>
         <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
-                <tr>
-                    <th colspan="7" style="background-color: #0C2D48; color: white; ">Previous Purchase</th>
+                <tr class="tbrow">
+                    <th colspan="7" style="vertical-align: middle">Previous Purchase</th>
                     <?php $a = 1; ?>
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
-                            <th colspan="" style="background-color: #0C2D48; color: white">Quotation <?php echo $a; ?></th>
+                            <th colspan="" style="vertical-align: middle">Quotation <?php echo $a; ?></th>
                             <?php $a++; ?>
                         <?php endforeach; ?>    
                     <?php endif; ?>
                 </tr>
                 <tr>
-                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">No</th>
-                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Material</th>
-                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">QTY</th>
-                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">UOM</th>
-                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Previous Purchase Per Unit	</th>
-                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Currency</th>
-                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Year</th>
+                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">No</th>
+                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">Material</th>
+                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">QTY</th>
+                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">UOM</th>
+                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">Previous Purchase Per Unit	</th>
+                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">Currency</th>
+                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">Year</th>
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
-                            <th colspan="" style="background-color:#0D635D; color:white; width:10%"><?php echo $supplier->supplier_name; ?></th>
+                            <th class="tbrow" colspan="" style="width:10%; vertical-align:middle"><?php echo $supplier->supplier_name; ?></th>
                         <?php endforeach; ?>    
                     <?php endif; ?>  
                 </tr>
@@ -109,8 +131,8 @@
                     <th scope="row" style="background-color: white; border:none"></th>
                     <td style="background-color: white; border:none"></td>
                     <td style="background-color: white; border:none"></td>
-                    <td rowspan="5" style="vertical-align:middle; background-color:#0D635D; color:white">Purchase Terms</td>
-                    <td colspan="3" style="background-color: #0C2D48; color: white; ">VAT</td>
+                    <td class="tbrow" rowspan="5" style="vertical-align:middle">Purchase Terms</td>
+                    <td class="throw" colspan="3" style="">VAT</td>
                     
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
@@ -122,7 +144,7 @@
                     <th scope="row" style="background-color: white; border:none"></th>
                     <td style="background-color: white; border:none"></td>
                     <td style="background-color: white; border:none"></td>
-                    <td colspan="3" style="background-color: #0C2D48; color: white; ">PMT (Days)</td>
+                    <td class="throw" colspan="3" style="">PMT (Days)</td>
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
                             <td><?php echo $supplier->pmt; ?></td>
@@ -133,7 +155,7 @@
                     <th scope="row" style="background-color: white; border:none"></th>
                     <td style="background-color: white; border:none"></td>
                     <td style="background-color: white; border:none"></td>
-                    <td colspan="3" style="background-color: #0C2D48; color: white; ">DEL (Days)</td>
+                    <td class="throw" colspan="3" style="">DEL (Days)</td>
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
                             <td><?php echo $supplier->del; ?></td>
@@ -144,7 +166,7 @@
                     <th scope="row" style="background-color: white; border:none"></th>
                     <td style="background-color: white; border:none"></td>
                     <td style="background-color: white; border:none"></td>
-                    <td colspan="3" style="background-color: #0C2D48; color: white; ">WRT</td>
+                    <td class="throw" colspan="3" style="">WRT</td>
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
                             <td><?php echo $supplier->wrt; ?></td>
@@ -155,7 +177,7 @@
                     <th scope="row" style="background-color: white; border:none"></th>
                     <td style="background-color: white; border:none"></td>
                     <td style="background-color: white; border:none"></td>
-                    <td colspan="3" style="background-color: #0C2D48; color: white; ">Notes</td>
+                    <td class="throw" colspan="3" style="">Notes</td>
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
                             <td><?php echo $supplier->notes; ?></td>
@@ -164,31 +186,29 @@
                 </tr>
             </tbody>
         </table>
-        <br>
-        <hr>
-        <br>
+        <!--<hr>-->
         <!--Computer Recom-->
-        <p>
-            <input class="btn btn-success" type="button" value="Show Computer Recommendation" id="bt" onclick="toggle(this)">
+        <!--<p>
+            <input class="btn btn-success d-print-none" type="button" value="Show Computer Recommendation" id="bt" onclick="toggle(this)">
         </p>
         <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center; display:none" id="comprecom">
             <thead>
-                <tr>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">No</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Material</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">QTY</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">UOM</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">MOQ</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Quotation</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Supplier</th>
-                    <th colspan="2" style="background-color: #0C2D48; color: white;width: 10%">Cost Saving</th>
-                    <th colspan="2" style="background-color: #0C2D48; color: white;width: 10%">Cost Avoidance</th>
+                <tr class="throw">
+                    <th scope="col" rowspan="2" style="width: 10%">No</th>
+                    <th scope="col" rowspan="2" style="width: 10%">Material</th>
+                    <th scope="col" rowspan="2" style="width: 10%">QTY</th>
+                    <th scope="col" rowspan="2" style="width: 10%">UOM</th>
+                    <th scope="col" rowspan="2" style="width: 10%">MOQ</th>
+                    <th scope="col" rowspan="2" style="width: 10%">Quotation</th>
+                    <th scope="col" rowspan="2" style="width: 10%">Supplier</th>
+                    <th colspan="2" style="width: 10%">Cost Saving</th>
+                    <th colspan="2" style="width: 10%">Cost Avoidance</th>
                 </tr>
-                <tr>
-                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Reduction Per Unit</th>
-                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Reduction</th>
-                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Savings/Unit</th>
-                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Savings</th>
+                <tr class="tbrow">
+                    <th colspan="" style="width: 10%">Reduction Per Unit</th>
+                    <th colspan="" style="width: 10%">Total Reduction</th>
+                    <th colspan="" style="width: 10%">Savings/Unit</th>
+                    <th colspan="" style="width: 10%">Total Savings</th>
                 </tr>
             </thead>
             <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
@@ -232,30 +252,29 @@
                     <td></td>
                 </tr>
             </tbody>
-        </table>
+        </table>-->
    
         <hr>
-        <br>
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
-                <tr>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">No</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Material</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">QTY</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">UOM</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Supplier Name</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">MOQ</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Price Per Unit</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Currency</th>
-                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Total Price</th>
-                    <th colspan="2" style="background-color: #0C2D48; color: white; width: 10%">Cost Saving</th>
-                    <th colspan="2" style="background-color: #0C2D48; color: white; width: 10%">Cost Avoidance</th>
+                <tr class="throw">
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Material</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">QTY</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">UOM</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Supplier Name</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">MOQ</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Price Per Unit</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Currency</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Total Price</th>
+                    <th colspan="2" style="width: 10%; vertical-align: middle">Cost Saving</th>
+                    <th colspan="2" style="width: 10%; vertical-align: middle">Cost Avoidance</th>
                 </tr>
-                <tr>
-                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Reduction Per Unit</th>
-                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Reduction</th>
-                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Savings/Unit</th>
-                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Savings</th>
+                <tr class="tbrow">
+                    <th colspan="" style="width: 10%; vertical-align: middle">Reduction Per Unit</th>
+                    <th colspan="" style="width: 10%; vertical-align: middle">Total Reduction</th>
+                    <th colspan="" style="width: 10%; vertical-align: middle">Savings/Unit</th>
+                    <th colspan="" style="width: 10%; vertical-align: middle">Total Savings</th>
                 </tr>
             </thead>
             <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
@@ -327,4 +346,15 @@
             document.getElementById(ele.id).value = 'Hide Computer Recommendation';
         }
     }
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+
 </script>

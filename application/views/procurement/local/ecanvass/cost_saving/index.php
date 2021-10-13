@@ -40,7 +40,7 @@
 
 <table id="" class="display" style="width:100%; font-size:13px;">
     <thead>
-        <tr style="background-color:#D4F1F4;">
+        <tr style="background-color:#0D635D;color:white">
             <th scope="col">Canvass No.</th>
             <th scope="col">Canvass Date</th>
             <th scope="col">Company</th>

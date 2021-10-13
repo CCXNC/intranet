@@ -4,24 +4,25 @@
 <br>
 <table id="" class="display table-responsive" style="width:100%; font-size:13px">
     <thead>
-        <tr style="background-color:#C8C6C6;">
+        <tr style="background-color:#0D635D;color:white">
             <th scope="col">Material</th>
             <th scope="col">Quantity</th>
             <th scope="col">Uom</th>
             <th scope="col">Currency</th>
             <th scope="col">Prev Purchase Unit</th>
             <th scope="col">Year</th>
-            <th scope="col" style="background-color:#F7F6F2;">Supplier Name</th>
-            <th scope="col"style="background-color:#F7F6F2;">Moq</th>
-            <th scope="col"style="background-color:#F7F6F2;=">Terms</th>
-            <th scope="col"style="background-color:#F7F6F2;">Price Per Unit</th>
-            <th scope="col"style="background-color:#F7F6F2;">Total Price</th>
-            <th scope="col"style="background-color:#F7F6F2;">Buyer</th>
 
-            <th scope="col"style="background-color:#F0E5CF;">PR No.</th>
-            <th scope="col"style="background-color:#F0E5CF;">Material Source No.</th>
-            <th scope="col"style="background-color:#F0E5CF;">Canvass No.</th>
-            <th scope="col"style="background-color:#F0E5CF;">Canvass Date</th>
+            <th scope="col">Supplier Name</th>
+            <th scope="col">Moq</th>
+            <th scope="col">Terms</th>
+            <th scope="col">Price Per Unit</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Buyer</th>
+
+            <th scope="col">PR No.</th>
+            <th scope="col">Material Source No.</th>
+            <th scope="col">Canvass No.</th>
+            <th scope="col">Canvass Date</th>
         </tr>
     </thead>
     <tbody>
