@@ -119,13 +119,6 @@
                     </div>
                 </div>
                 <div class="row">
-<<<<<<< HEAD
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-sm btn-info float-right d-print-none" data-toggle="modal" data-target="#request" style="margin-left:3px">
-                            <span class="fa fa-pencil"></span>
-                        </button>
-                    </div>
-=======
                     <?php if($first_entry->primary_approver == $this->session->userdata('fullname') || $first_entry->alternate_approver == $this->session->userdata('fullname') && $last_entry->step_approval == 7) : ?>
                         <div class="col-md-12">
                             <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#request" style="margin-left:3px">
@@ -133,7 +126,6 @@
                             </button>
                         </div>
                     <?php endif; ?>    
->>>>>>> ms_report
                     <!-- Modal -->
                     <div class="modal fade bd-example-modal-lg" id="request" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -278,14 +270,6 @@
                             </div>
                         </div>
                         <div class="row">
-<<<<<<< HEAD
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-sm btn-info float-right d-print-none" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
-                                    <span class="fa fa-pencil"></span>
-                                </button>
-                                <a href="<?php echo base_url(); ?>procurement/delete_material_sourcing_list/<?php echo $material->id; ?>/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right d-print-none" style=""><span class="fa fa-trash"></span></a>
-                            </div>
-=======
                             <?php if($first_entry->primary_approver == $this->session->userdata('fullname') || $first_entry->alternate_approver == $this->session->userdata('fullname') && $last_entry->step_approval == 7) : ?>
                                 <div class="col-md-12">
                                     <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
@@ -294,7 +278,6 @@
                                     <a href="<?php echo base_url(); ?>procurement/delete_material_sourcing_list/<?php echo $material->id; ?>/<?php echo $material_source->id; ?>/<?php echo $material_source->msid; ?>" title="Delete Form" onclick="return confirm('Are you sure you want to delete data?');" class="btn btn-sm btn-danger float-right" style=""><span class="fa fa-trash"></span></a>
                                 </div>
                             <?php endif; ?>    
->>>>>>> ms_report
 
                             <!-- Modal -->
                             <div class="modal fade bd-example-modal-lg" id="material<?php echo $material->id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
