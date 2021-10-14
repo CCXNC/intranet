@@ -366,7 +366,7 @@ class Procurement extends CI_Controller {
                 }
             }*/
 
-            $number_of_files = sizeof($_FILES['attachment1']['tmp_name']);
+            /*$number_of_files = sizeof($_FILES['attachment1']['tmp_name']);
             $files = $_FILES['attachment1'];
 
             $config['upload_path'] = './uploads/supplier_attachment/';
@@ -390,10 +390,10 @@ class Procurement extends CI_Controller {
                         echo '</pre>';
                     }
                 }
-            }
+            }*/
 
                 
-            /*if($this->local_procurement_model->add_material_sourcing_matcode())
+            if($this->local_procurement_model->add_material_sourcing_matcode())
             {
                 $data = $this->local_procurement_model->first_msid();
                 
@@ -402,7 +402,7 @@ class Procurement extends CI_Controller {
 
                 $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
                 redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
-            }*/
+            }
         }
        
     }

@@ -786,6 +786,7 @@ class Local_procurement_model extends CI_Model {
 
     }
 
+    // OLD UPDATE
     public function update_material_sourcing_matcode()
     {
         $this->db->trans_start();
@@ -838,6 +839,56 @@ class Local_procurement_model extends CI_Model {
 
     public function delete_material_sourcing_list($id)
     {
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->select('*');
+        $blaine_local_procurement->where('id', $id);
+        $datas = $blaine_local_procurement->get('material_sourcing_list');
+        $material_id = $datas->row()->id;
+        $material_msid = $datas->row()->msid;
+        $material_mcode = $datas->row()->mcode;
+        $material_description = $datas->row()->description;
+        $material_specification = $datas->row()->specification;
+        $material_quantity = $datas->row()->quantity;
+        $material_uom = $datas->row()->uom;
+        $material_shelf_life = $datas->row()->shelf_life;
+        $material_item_application = $datas->row()->item_application;
+        $material_required_document = $datas->row()->required_document;
+        $material_category = $datas->row()->category;
+        $material_remarks = $datas->row()->remarks;
+        $material_attachment = $datas->row()->attachment;
+
+        $entry_data = array(
+            'id'                => $material_id,
+            'msid'              => $material_msid,
+            'mcode'             => $material_mcode,
+            'description'       => $material_description,
+            'specification'     => $material_specification,
+            'quantity'          => $material_quantity,
+            'uom'               => $material_uom,
+            'shelf_life'        => $material_shelf_life,
+            'item_application'  => $material_item_application,
+            'required_document' => $material_required_document,
+            'category'          => $material_category,
+            'remarks'           => $material_remarks,
+            'attachment'        => $material_attachment
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Deleted: " . ' ID: ' . $id,
+            'datas'         => "Deleted Data: " . $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL SOURCING LIST',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $data = array(
             'is_active' => 0
         );
@@ -863,6 +914,57 @@ class Local_procurement_model extends CI_Model {
         $purpose = $this->input->post('purpose');
         $mcode = $this->input->post('material_code');
         $date = date('Y-m-d H:i:s');
+
+        // ACTIVITY LOG
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->select('*');
+        $blaine_local_procurement->where('id', $id);
+        $datas = $blaine_local_procurement->get('material_sourcing_list');
+        $material_id = $datas->row()->id;
+        $material_msid = $datas->row()->msid;
+        $material_mcode = $datas->row()->mcode;
+        $material_description = $datas->row()->description;
+        $material_specification = $datas->row()->specification;
+        $material_quantity = $datas->row()->quantity;
+        $material_uom = $datas->row()->uom;
+        $material_shelf_life = $datas->row()->shelf_life;
+        $material_item_application = $datas->row()->item_application;
+        $material_required_document = $datas->row()->required_document;
+        $material_category = $datas->row()->category;
+        $material_remarks = $datas->row()->remarks;
+        $material_attachment = $datas->row()->attachment;
+
+        $entry_data = array(
+            'id'                    => $material_id,
+            'msid'                  => $material_msid,
+            'mcode'                 => $material_mcode,
+            'description'           => $material_description,
+            'specification'         => $material_specification,
+            'quantity'              => $material_quantity,
+            'uom'                   => $material_uom,
+            'shelf_life'            => $material_shelf_life,
+            'item_application'      => $material_item_application,
+            'required_document'     => $material_required_document,
+            'category'              => $material_category,
+            'remarks'               => $material_remarks,
+            'attachment'            => $material_attachment
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Updated: Material Details: " . ' ID: ' . $id,
+            'datas'         => "Previous Data: " .$json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL SOURCING LIST',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
 
         $data_material = array(
             'mcode'             => $mcode,
@@ -893,6 +995,40 @@ class Local_procurement_model extends CI_Model {
         $sourcing_category = $this->input->post('sourcing_category');
         $date_required = $this->input->post('date_required');
 
+        // ACTIVITY LOG
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->select('*');
+        $blaine_local_procurement->where('id', $id);
+        $datas = $blaine_local_procurement->get('material_sourcing');
+        $material_id = $datas->row()-id;
+        $material_msid = $datas->row()->msid;
+        $material_category = $datas->row()->category;
+        $material_company_id = $datas->row()->company_id;
+        $material_date_required = $datas->row()->date_required;
+
+        $entry_data = array(
+            'id'            => $material_id,
+            'msid'          => $material_msid,
+            'category'      => $material_category,
+            'company_id'    => $material_company_id,
+            'date_required' => $material_date_required
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Updated: Request Details: " . ' ID: ' . $id,
+            'datas'         => "Previous Data: " . $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL SOURCING LIST',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $data = array(
             'category'      => $sourcing_category,
             'company_id'    => $company_id,
@@ -911,6 +1047,42 @@ class Local_procurement_model extends CI_Model {
 
     public function delete_material_sourcing($id)
     {
+        // GET OLD DATA BEFORE UPDATE
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->select('*');
+        $blaine_local_procurement->where('id', $id);
+        $datas = $blaine_local_procurement->get('material_sourcing');
+        $material_id = $datas->row()->id;
+        $material_msid = $datas->row()->msid;
+        $material_category = $datas->row()->category;
+        $material_company_id = $datas->row()->company_id;
+        $material_date_required = $datas->row()->date_required;
+        $material_role_status = $datas->row()->role_status;
+
+        $entry_data = array(
+            'id'                => $material_id,
+            'msid'              => $material_msid,
+            'category'          => $material_category,
+            'company_id'        => $material_company_id,
+            'date_required'     => $material_date_required,
+            'role_status'       => $material_role_status
+        );
+
+        $json_data = json_encode($entry_data);
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Deleted: " . ' ID: ' . $id,
+            'datas'         => "Deleted Data: " . $json_data,
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: MATERIAL SOURCING LIST',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        // CALL ACTIVITY LOGS DATABASE
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
         $data = array(
             'is_active' => 0
         );
