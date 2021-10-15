@@ -584,7 +584,7 @@ class Local_procurement_model extends CI_Model {
 
         /* Auto-Email After Doing Superior Action Required */
         // Get approval details
-        $this->db->select("
+       /* $this->db->select("
             material_approval_list.primary_approver as primary_approver,
             material_approval_list.alternate_approver as alternate_approver,
             material_approval_list.status as status,
@@ -602,7 +602,7 @@ class Local_procurement_model extends CI_Model {
 
         $approval_lists = $query->result();
 
-        /*foreach($approval_lists as $approval_list)
+        foreach($approval_lists as $approval_list)
         {
             $e_step_of_approval = $approval_list->step_of_approval;
             $e_primary_approver = $approval_list->primary_approver;
@@ -1690,7 +1690,7 @@ class Local_procurement_model extends CI_Model {
 
                     /* Auto-Email After Doing Superior Action Required */
                     // Get approval details
-                    $this->db->select("
+                    /*$this->db->select("
                         material_approval_list.primary_approver as primary_approver,
                         material_approval_list.alternate_approver as alternate_approver,
                         material_approval_list.status as status,
@@ -1874,7 +1874,7 @@ class Local_procurement_model extends CI_Model {
                     }
                     else{
                         $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                    }
+                    }*/
                 }
                 elseif($destination_approval == 2)
                 {
@@ -1893,7 +1893,7 @@ class Local_procurement_model extends CI_Model {
                     $data_action_required = array(
                         'msid'               => $msid,
                         'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
-                        'alternate_approver' => "MONTEMAYOR, JASMINE DENISSE SANCHEZ",
+                        'alternate_approver' => "IDA, CARLO EMILIO MACATUGOB",
                         'role_status'        => "Procurement",
                         'status'             => 'Pending',
                         'created_by'         => $this->session->userdata('username') . ' 0',
@@ -1911,7 +1911,7 @@ class Local_procurement_model extends CI_Model {
 
                     /* Auto-Email After Doing Superior Action Required */
                     // Get approval details
-                    $this->db->select("
+                    /*$this->db->select("
                         material_approval_list.primary_approver as primary_approver,
                         material_approval_list.alternate_approver as alternate_approver,
                         material_approval_list.status as status,
@@ -2095,7 +2095,7 @@ class Local_procurement_model extends CI_Model {
                     }
                     else{
                         $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                    }
+                    }*/
                 }
                 elseif($destination_approval == 0)
                 {
@@ -2114,7 +2114,7 @@ class Local_procurement_model extends CI_Model {
                     $data_action_required = array(
                         'msid'               => $msid,
                         'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
-                        'alternate_approver' => "MONTEMAYOR, JASMINE DENISSE SANCHEZ",
+                        'alternate_approver' => "IDA, CARLO EMILIO MACATUGOB",
                         'role_status'        => "Procurement",
                         'status'             => 'Done',
                         'created_by'         => $this->session->userdata('username') . ' 0',
@@ -2167,7 +2167,7 @@ class Local_procurement_model extends CI_Model {
                 $data_action_required = array(
                     'msid'               => $msid,
                     'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
-                    'alternate_approver' => "MONTEMAYOR, JASMINE DENISSE SANCHEZ",
+                    'alternate_approver' => "IDA, CARLO EMILIO MACATUGOB",
                     'role_status'        => "Procurement",
                     'status'             => 'Pending',
                     'created_by'         => $this->session->userdata('username') . ' 0',
@@ -2185,7 +2185,7 @@ class Local_procurement_model extends CI_Model {
 
                 /* Auto-Email After Superior Approval */
                 // Get approval details
-                $this->db->select("
+                /*$this->db->select("
                     material_approval_list.primary_approver as primary_approver,
                     material_approval_list.alternate_approver as alternate_approver,
                     material_approval_list.status as status,
@@ -2372,7 +2372,7 @@ class Local_procurement_model extends CI_Model {
                 }
                 else{
                     $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                }
+                }*/
                 
             }
             elseif($role_status == 'Procurement')
@@ -2427,7 +2427,7 @@ class Local_procurement_model extends CI_Model {
 
                 /* Auto-Email After Procurement Approval */
                 // Get approval details
-                $this->db->select("
+                /*$this->db->select("
                     material_approval_list.primary_approver as primary_approver,
                     material_approval_list.alternate_approver as alternate_approver,
                     material_approval_list.status as status,
@@ -2613,7 +2613,7 @@ class Local_procurement_model extends CI_Model {
                 }
                 else{
                     $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                }
+                }*/
 
             }
         }
@@ -2671,7 +2671,7 @@ class Local_procurement_model extends CI_Model {
 
                 /* Auto-Email After Superior Action Required */
                 // Get approval details
-                $this->db->select("
+                /*$this->db->select("
                     material_approval_list.primary_approver as primary_approver,
                     material_approval_list.alternate_approver as alternate_approver,
                     material_approval_list.status as status,
@@ -2857,7 +2857,7 @@ class Local_procurement_model extends CI_Model {
                 }
                 else{
                     $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                }
+                }*/
             }
             elseif($role_status == 'Procurement')
             {
@@ -2878,7 +2878,7 @@ class Local_procurement_model extends CI_Model {
 
                 /* Auto-Email After Superior Action Required */
                 // Get approval details
-                $this->db->select("
+                /*$this->db->select("
                     material_approval_list.primary_approver as primary_approver,
                     material_approval_list.alternate_approver as alternate_approver,
                     material_approval_list.status as status,
@@ -3064,7 +3064,7 @@ class Local_procurement_model extends CI_Model {
                 }
                 else{
                     $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                }
+                }*/
             }
         
         }

@@ -397,7 +397,7 @@
                                     <?php if($transmittal_lists) : ?>
                                         <?php foreach($transmittal_lists as $transmittal_list) : ?>
                                             <tr>
-                                                <?php if($acess_explode[0] == $this->session->userdata('employee_number') || $acess_explode[1] == $this->session->userdata('employee_number') || $acess_explode[2] == $this->session->userdata('employee_number') || $acess_explode[3] == $this->session->userdata('employee_number') || "09061027" == $this->session->userdata('employee_number')) : ?>
+                                                <?php if($acess_explode[0] == $this->session->userdata('employee_number') || $acess_explode[1] == $this->session->userdata('employee_number') || $acess_explode[2] == $this->session->userdata('employee_number') || $acess_explode[3] == $this->session->userdata('employee_number') || "09061027" == $this->session->userdata('employee_number') || "06181150" == $this->session->userdata('employee_number')) : ?>
                                                     <td><a href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>"><?php echo $transmittal_list->transmittal_no; ?></a></td>
                                                 <?php else : ?>
                                                     <td><?php echo $transmittal_list->transmittal_no; ?></td>
@@ -419,7 +419,7 @@
                                     <?php if($canvass_lists) : ?>
                                         <?php foreach($canvass_lists as $canvass_list) : ?>
                                             <tr>
-                                                <?php if($acess_explode[0] == $this->session->userdata('employee_number') || $acess_explode[1] == $this->session->userdata('employee_number') || $acess_explode[2] == $this->session->userdata('employee_number') || $acess_explode[3] == $this->session->userdata('employee_number') || "09061027" == $this->session->userdata('employee_number')) : ?>
+                                                <?php if($acess_explode[0] == $this->session->userdata('employee_number') || $acess_explode[1] == $this->session->userdata('employee_number') || $acess_explode[2] == $this->session->userdata('employee_number') || $acess_explode[3] == $this->session->userdata('employee_number') || "09061027" == $this->session->userdata('employee_number') || "06181150" == $this->session->userdata('employee_number')) : ?>
                                                     <td><a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>"><?php echo $canvass_list->canvass_no; ?></a></td>
                                                 <?php else : ?>
                                                     <td><?php echo $canvass_list->canvass_no; ?></td>

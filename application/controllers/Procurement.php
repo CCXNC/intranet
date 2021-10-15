@@ -366,34 +366,39 @@ class Procurement extends CI_Controller {
                 }
             }*/
 
-            $number_of_files = sizeof($_FILES['attachment1']['tmp_name']);
-            $files = $_FILES['attachment1'];
+            /*$data = []; 
+            $count = count($_FILES['attachment1']['name']);
 
-            $config['upload_path'] = './uploads/supplier_attachment/';
-            $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
-
-            for($i = 0; $i<$number_of_files; $i++){
+            for($i = 0; $i<$count; $i++){
                 if(!empty($_FILES['attachment1']['name'][$i])){
-                    $_FILES['attachment1']['name'] = $files['name'][$i];
-                    $_FILES['attachment1']['type'] = $files['type'][$i];
-                    $_FILES['attachment1']['tmp_name'] = $files['tmp_name'][$i];
-                    $_FILES['attachment1']['error'] = $files['error'][$i];
-                    $_FILES['attachment1']['size'] = $files['size'][$i];
+                    $_FILES['file']['name'] = $_FILES['attachment1']['name'][$i];
+                    $_FILES['file']['type'] = $_FILES['attachment1']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['attachment1']['tmp_name'][$i];
+                    $_FILES['file']['error'] = $_FILES['attachment1']['error'][$i];
+                    $_FILES['file']['size'] = $_FILES['attachment1']['size'][$i];
 
-                    $this->upload->initialize($config);
-                    if($this->upload->do_upload('attachment1')){
-                        $data = $this->upload->data(); 
-                        //$filename = $uploadData['file_name'];
+                    // File upload configuration
+                    $config['upload_path'] = './uploads/test/';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
+                    $config['max_size'] = '100000000';
+                    $config['overwrite'] = True;
+                    $config['file_name'] = $_FILES['attachment1']['name'][$i];
+
+                    // Load and initialize upload library
+                    $this->load->library('upload', $config);
+
+                    
+                    if($this->upload->do_upload('file')){
+                        $uploadData = $this->upload->data(); 
+                        $filename = $uploadData['file_name'];
             
-                        echo '<pre>';
-                        print_r($data);
-                        echo '</pre>';
+                        $data['totalFiles'][] = $filename;
                     }
                 }
-            }
+            }*/
 
                 
-            /*if($this->local_procurement_model->add_material_sourcing_matcode())
+            if($this->local_procurement_model->add_material_sourcing_matcode())
             {
                 $data = $this->local_procurement_model->first_msid();
                 
@@ -402,7 +407,7 @@ class Procurement extends CI_Controller {
 
                 $this->session->set_flashdata('success_msg', 'Material Sourcing Successfully Added!');
                 redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
-            }*/
+            }
         }
        
     }
