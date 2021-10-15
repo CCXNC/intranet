@@ -366,8 +366,11 @@ class Procurement extends CI_Controller {
                 }
             }*/
 
-            /*$data = []; 
-            $count = count($_FILES['attachment1']['name']);
+            /*$number_of_files = sizeof($_FILES['attachment1']['tmp_name']);
+            $files = $_FILES['attachment1'];
+
+            $config['upload_path'] = './uploads/supplier_attachment/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
 
             for($i = 0; $i<$count; $i++){
                 if(!empty($_FILES['attachment1']['name'][$i])){
