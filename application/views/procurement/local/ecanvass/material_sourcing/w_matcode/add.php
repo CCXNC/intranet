@@ -174,7 +174,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>File Attachment</label>
-                                <input type='file' name='attachment1[]' size='20' />
+                                <input type='file' name='attachment1[]' multiple="" size='20' />
                             </div>
                         </div> 
                     </div>
@@ -273,7 +273,7 @@
         </form>
     </div>
 </div>
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $(document).ready(function(){
 
         // FIRST MATERIAL POST
@@ -357,5 +357,5 @@
             $('#date_required').attr('min', maxDate);
         });
     });
-</script>
+</script>-->
 
