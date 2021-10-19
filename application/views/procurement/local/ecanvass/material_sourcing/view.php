@@ -514,16 +514,16 @@
                             <div class="card">
                                 <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
                                 <div class="card-body" style="background-color: #E9FAFD">
-                                    <input type="text" name="id" value="<?php echo $last_entry->id; ?>">
-                                    <input type="text" name="msid" value="<?php echo $material_source->msid; ?>">
-                                    <input type="text" name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">
-                                    <input type="text" name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">
+                                    <!--<input type="text" name="id" value="<?php echo $last_entry->id; ?>">-->
+                                    <!--<input type="text" name="msid" value="<?php echo $material_source->msid; ?>">-->
+                                    <!--<input type="text" name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">-->
+                                    <!--<input type="text" name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">-->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col" style="background-color: #0C2D48; color:white">Transmittal No.</th>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white; font-size:15px;">Transmittal No. <a href="<?php echo base_url(); ?>procurement/transmittal" target="_blank" id="back" title="Transmittal Report Generation" class="btn btn-sm btn-info float-right d-print-none" style="margin-right:10px; font-size:10px">Transmittal Report Generation</a></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -541,7 +541,7 @@
                                             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col" style="background-color: #0C2D48; color:white">Canvass No.</th>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white">Canvass No. <a href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" target="_blank" id="back" title="E-Canvass Report Generation" class="btn btn-sm btn-info float-right d-print-none" style="margin-right:10px; font-size:10px">E-Canvass Report Generation</a></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

@@ -8,7 +8,7 @@
     <h4>TRANSMITTAL LIST<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-left:10px;">BACK</a><a href="<?php echo base_url(); ?>procurement/transmittal" title="Add Form" class="btn btn-info float-right">ADD</a></h4> 
 </div>
 <br>
-<table id="" class="display" style="width:100%;font-size:14px">
+<table id="" class="display" style="width:100%;font-size:13px">
     <thead>
         <tr style="background-color:#0D635D;color:white">
             <th scope="col">Transmittal No</th>

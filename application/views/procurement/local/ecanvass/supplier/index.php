@@ -8,9 +8,9 @@
     <h4>SUPPLIER LIST SUMMARY<a href="<?php echo base_url(); ?>procurement/ecanvass_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-left:10px;">BACK</a><a href="<?php echo base_url(); ?>procurement/supplier_add" title="Add Form" class="btn btn-info float-right">ADD</a><a href="<?php echo base_url(); ?>procurement/supplier_import_view" title="Add Form" class="btn btn-info float-right" style="margin-right: 10px">IMPORT</a></h4> 
 </div>
 <br>
-<table id="" class="display table-responsive" style="width:100%;font-size:14px">
+<table id="" class="display table-responsive" style="width:100%;font-size:13px">
     <thead>
-        <tr style="background-color:#D4F1F4;">
+        <tr style="background-color:#0D635D;color:white">
             <th scope="col">Supplier Code</th>
             <th scope="col">Supplier Name</th>
             <th scope="col">Contact Name</th>

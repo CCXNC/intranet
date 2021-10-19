@@ -298,12 +298,12 @@
                                 <td>
                                     <?php $p = 1; ?>
                                     <select name="" class="form-control" id="selectSupplier<?php echo $y; ?>" style="font-size:12px; height:32px" id="">
-                                        <option value=" ">Select Quatation</option>
+                                        <option value=" "></option>
                                         <?php if($supplier_materials) : ?>  
                                             <?php foreach($supplier_materials as $supplier_material) : ?>  
                                                 <?php if($supplier_material->material_id == $material->id) : ?> 
                                                     <?php if($supplier_material->price_per_unit != 0) : ?>
-                                                        <option value="<?php echo $supplier_material->moq. '|'.$supplier_material->price_per_unit . '|' .$material->quantity.'|'.$material->prev_purchase_unit.'|'.$supplier_material->supplier_name. '|' . $supplier_material->currency. '|' . $supplier_material->currency; ?>"><?php echo 'Quotation '.$p.''; ?></option>
+                                                        <option value="<?php echo $supplier_material->moq. '|'.$supplier_material->price_per_unit . '|' .$material->quantity.'|'.$material->prev_purchase_unit.'|'.$supplier_material->supplier_name. '|' . $supplier_material->currency. '|' . $supplier_material->currency; ?>"><?php echo ''.$p.''; ?></option>
                                                     <?php endif; ?> 
                                                     <?php $p++; ?>
                                                 <?php endif; ?> 

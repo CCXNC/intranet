@@ -10,42 +10,42 @@
 <br>
 <div class="row">
     <div class="col-md-3" >
-        <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; ">
-                STATUS AS OF:
+        <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
+                DISAPPROVED
             </div>
-            <div class="card-body" style="background-color:#A3C4C3; color: white; border-radius: 2px; text-align: center;font-size:18px">
-                <?php echo date("d-M-y")?>
+            <div class="card-body" style="background-color:#8C8C8C; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
+                20
             </div>
         </div>
     </div>
     <div class="col-md-3" >
-        <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; ">
+        <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
                 OPEN
             </div>
-            <div class="card-body" style="background-color:#FAD02C; color: white; border-radius: 2px; text-align: center;font-size:18px">
+            <div class="card-body" style="background-color:#FAD02C; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
                 15
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px;">
+        <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
                 ACTION REQUIRED
             </div>
-            <div class="card-body" style="background-color:#FBAA60; color: white; border-radius: 2px; text-align: center;font-size:18px">
+            <div class="card-body" style="background-color:#BD2514; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
                 5
             </div>
         </div>
     </div>
    
     <div class="col-md-3">
-        <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; ">
+        <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
                 CLOSED
             </div>
-            <div class="card-body" style="background-color:#469A49; color: white; border-radius: 2px; text-align: center;font-size:18px">
+            <div class="card-body" style="background-color:#469A49; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
                 115
             </div>
         </div>
@@ -54,38 +54,38 @@
 <br>
 <div class="row">
     <div class="col-md-3" >
-        <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px;">
-                DISAPPROVED
+        <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px;border-radius:10px 10px 0px 0px">
+                STATUS AS OF:
             </div>
-            <div class="card-body" style="background-color:#E12A2A; color: white; border-radius: 2px; text-align: center;font-size:18px">
-                20
+            <div class="card-body" style="background-color:#A3C4C3; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
+                <?php echo date("d-M-y")?>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px">
+        <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px;border-radius:10px 10px 0px 0px">
                 AVERAGE CT APPROVER
             </div>
-            <div class="card-body" style="background-color:#5DBDEA; color: white; border-radius: 2px; text-align: center; font-size:18px">
+            <div class="card-body" style="background-color:#5DBDEA; color: white; border-radius: 2px; text-align: center; font-size:18px; border-radius:0px 0px 10px 10px">
                 2 Days
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card" style="line-height:13px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px">
+        <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
                 AVERAGE CT PROCUREMENT
             </div>
-            <div class="card-body" style="background-color:#5488A5; color: white; border-radius: 2px; text-align: center;font-size:18px">
+            <div class="card-body" style="background-color:#5488A5; color: white; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
                 5 Days
             </div>
         </div>
     </div>
 </div>
 <br>
-<table id="" class="display" style="width:100%; font-size:14px">
+<table id="" class="display" style="width:100%; font-size:13px">
     <thead>
         <tr style="background-color:#0D635D;color:white">
             <th scope="col">Material Source ID</th>
@@ -117,11 +117,11 @@
                         <?php $arr_explode = explode(' ', $material_source->role_status); $requestor_explode =  explode('|', $material_source->fullname);  ?>
                         <td>
                             <?php if($arr_explode[0] == "Pending") : ?>
-                                <p style="background-color:#FBAA60; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
+                                <p style="background-color:#FF8300; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
                             <?php elseif($arr_explode[0] == "Open") : ?>    
                                 <p style="background-color:#FAD02C; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
                             <?php elseif($arr_explode[0] == "Disapproved") : ?>    
-                                <p style="background-color:#E12A2A; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
+                                <p style="background-color:#8C8C8C; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
                             <?php else : ?>    
                                 <p style="background-color:#469A49; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
                             <?php endif; ?>    

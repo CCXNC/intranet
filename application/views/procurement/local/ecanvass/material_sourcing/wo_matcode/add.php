@@ -48,7 +48,13 @@
         font-size: 12px;
     }
 </style>
-<p style="text-align:left"><img class="card-img-top" style="" src="<?php echo base_url(); ?>assets/images/sourcing_step2.png" alt=""></p>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="background-color: #C3E0E5">
+        <li class="breadcrumb-item"><a style="color:gray" href="<?php echo base_url(); ?>procurement/material_sourcing">Select Transaction</a></li>
+        <li class="breadcrumb-item" style="color:#0C2D48"><b>Encode Material Sourcing Request</b></li>
+    </ol>
+</nav>
+<!--<p style="text-align:left"><img class="card-img-top" style="" src="<?php echo base_url(); ?>assets/images/sourcing_step2.png" alt=""></p>-->
 <div class="card" style="font-size:12px">
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>ELECTRONIC MATERIAL SOURCING REQUEST FORM<a href="<?php echo base_url(); ?>procurement/material_sourcing" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
@@ -103,8 +109,8 @@
                                 <select class="form-control" id="exampleFormControlSelect1" name="sourcing_category" style="font-size:12px;height:32px">
                                 <option value="" selected>Select Category</option>
                                 <option value="Price Only">Price Only</option>
-                                <option value="Sample Only">Sample Only</option>
                                 <option value="Price w/ Sample">Price w/ Sample</option>
+                                <option value="Sample Only">Sample Only</option>
                                 </select>
                             </div>
                         </div>

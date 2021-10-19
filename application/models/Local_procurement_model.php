@@ -1149,6 +1149,7 @@ class Local_procurement_model extends CI_Model {
         ");
         $this->db->from('blaine_local_procurement.supplier');
         $this->db->where('blaine_local_procurement.supplier.is_active', 1);
+        $this->db->order_by('blaine_local_procurement.supplier.name', 'ASC');
 
         $query = $this->db->get();
         return $query->result();
@@ -1862,7 +1863,7 @@ class Local_procurement_model extends CI_Model {
 
                     /* Auto-Email After Doing Superior Action Required */
                     // Get approval details
-                    $this->db->select("
+                    /*$this->db->select("
                         material_approval_list.primary_approver as primary_approver,
                         material_approval_list.alternate_approver as alternate_approver,
                         material_approval_list.status as status,
@@ -2046,7 +2047,7 @@ class Local_procurement_model extends CI_Model {
                     }
                     else{
                         $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                    }
+                    }*/
                 }
                 elseif($destination_approval == 2)
                 {
@@ -2083,7 +2084,7 @@ class Local_procurement_model extends CI_Model {
 
                     /* Auto-Email After Doing Superior Action Required */
                     // Get approval details
-                    $this->db->select("
+                    /*$this->db->select("
                         material_approval_list.primary_approver as primary_approver,
                         material_approval_list.alternate_approver as alternate_approver,
                         material_approval_list.status as status,
@@ -2267,7 +2268,7 @@ class Local_procurement_model extends CI_Model {
                     }
                     else{
                         $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                    }
+                    }*/
                 }
                 elseif($destination_approval == 0)
                 {
@@ -2357,7 +2358,7 @@ class Local_procurement_model extends CI_Model {
 
                 /* Auto-Email After Superior Approval */
                 // Get approval details
-                $this->db->select("
+                /*$this->db->select("
                     material_approval_list.primary_approver as primary_approver,
                     material_approval_list.alternate_approver as alternate_approver,
                     material_approval_list.status as status,
@@ -2544,7 +2545,7 @@ class Local_procurement_model extends CI_Model {
                 }
                 else{
                     $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                }
+                }*/
                 
             }
             elseif($role_status == 'Procurement')
@@ -2599,7 +2600,7 @@ class Local_procurement_model extends CI_Model {
 
                 /* Auto-Email After Procurement Approval */
                 // Get approval details
-                $this->db->select("
+                /*$this->db->select("
                     material_approval_list.primary_approver as primary_approver,
                     material_approval_list.alternate_approver as alternate_approver,
                     material_approval_list.status as status,
@@ -2785,7 +2786,7 @@ class Local_procurement_model extends CI_Model {
                 }
                 else{
                     $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                }
+                }*/
 
             }
         }
@@ -2843,7 +2844,7 @@ class Local_procurement_model extends CI_Model {
 
                 /* Auto-Email After Superior Action Required */
                 // Get approval details
-                $this->db->select("
+                /*$this->db->select("
                     material_approval_list.primary_approver as primary_approver,
                     material_approval_list.alternate_approver as alternate_approver,
                     material_approval_list.status as status,
@@ -3029,7 +3030,7 @@ class Local_procurement_model extends CI_Model {
                 }
                 else{
                     $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                }
+                }*/
             }
             elseif($role_status == 'Procurement')
             {
@@ -3050,7 +3051,7 @@ class Local_procurement_model extends CI_Model {
 
                 /* Auto-Email After Superior Action Required */
                 // Get approval details
-                $this->db->select("
+                /*$this->db->select("
                     material_approval_list.primary_approver as primary_approver,
                     material_approval_list.alternate_approver as alternate_approver,
                     material_approval_list.status as status,
@@ -3236,7 +3237,7 @@ class Local_procurement_model extends CI_Model {
                 }
                 else{
                     $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                }
+                }*/
             }
         
         }
@@ -3397,6 +3398,17 @@ class Local_procurement_model extends CI_Model {
 
             $i++;
         }
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added: PR Only",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: E-CANVASS REPORT GENERATION STEP:2',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
 
         $trans = $this->db->trans_complete();
         return $trans;
@@ -3613,6 +3625,17 @@ class Local_procurement_model extends CI_Model {
 
             $a++;
         }
+
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: E-CANVASS REPORT GENERATION STEP:3',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
       
         $trans = $this->db->trans_complete();
         return $trans;
@@ -4111,6 +4134,16 @@ class Local_procurement_model extends CI_Model {
             $i++;
         }
 
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: E-CANVASS REPORT GENERATION STEP:4',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
 
         $trans = $this->db->trans_complete();
         return $trans;
