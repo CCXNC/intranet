@@ -2,7 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Local_procurement_model extends CI_Model {
-    
+
+    public function insert($data = array()){ 
+        $insert = $this->db->insert_batch('blaine_local_procurement.material_sourcing_list',$data); 
+        return $insert?true:false; 
+    } 
     public function add_material_sourcing_matcode()
     {
         $this->db->trans_start();
@@ -17,7 +21,7 @@ class Local_procurement_model extends CI_Model {
         $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
         
         // Email Information
-        $subject = "Intranet Auto Email";
+        $subject = "Intranet Auto Email"; 
         $email = ('jesa.lacambra@blainegroup.com.ph');
 
         // Material Sourcing 
@@ -28,20 +32,7 @@ class Local_procurement_model extends CI_Model {
         $date_required = $this->input->post('date_required');
         $date_requested = date('Y-m-d');
 
-        // Material list
-        $attachment = $_FILES['attachment1']['name'];
-        $description = $this->input->post('description');
-        $specification = $this->input->post('specification');
-        $quantity = $this->input->post('quantity');
-        $uom =  $this->input->post('uom');
-        $shelf_life =  $this->input->post('shelf_life');
-        $item_application =  $this->input->post('item_application');
-        $required_document = $this->input->post('required_document');
-        $material_category = $this->input->post('material_category');
-        $purpose = $this->input->post('purpose');
-        $i = 0;
-
-       // APPROVAL DETAILS
+       // APPROVAL DETAILS 
        $date = date('Y-m-d H:i:s');
        $remarks = $this->input->post('remarks');
        $role_status = ['Requestor','Superior'];
@@ -90,7 +81,6 @@ class Local_procurement_model extends CI_Model {
             'created_date'  => $date
         );
 
-
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->insert('material_sourcing', $data_material_source);
 
@@ -98,39 +88,8 @@ class Local_procurement_model extends CI_Model {
         print_r($data_material_source);
         print_r('</pre>');*/
 
-
-         /** MATERIAL LIST INSERT **/ 
-        foreach($this->input->post('material_code') as $mcode)
-        {
-            $data_material = array(
-                'msid'              => $msid,
-                'mcode'             => $mcode,
-                'description'       => $description[$i],
-                'specification'     => $specification[$i],
-                'quantity'          => $quantity[$i],
-                'uom'               => $uom[$i],
-                'shelf_life'        => $shelf_life[$i],
-                'item_application'  => $item_application[$i],
-                'required_document' => $required_document[$i],
-                'category'          => $material_category[$i],
-                'remarks'           => $purpose[$i],
-                'attachment'        => $attachment[$i],
-                'created_by'        => $this->session->userdata('username'),
-                'created_date'      => $date
-            );
-
-            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-            $blaine_local_procurement->insert('material_sourcing_list', $data_material);
-
-            /*print_r('<pre>');
-            print_r($data_material);
-            print_r('</pre>');*/
-
-            $i++;
-        }
-
-           /** APPROVER LIST INSERT **/ 
-           $data_material_approver1 = array(
+        /** APPROVER LIST INSERT **/ 
+        $data_material_approver1 = array(
             'msid'               => $msid,
             'primary_approver'   => $primary_approver,
             'alternate_approver' => $requestor_alternate,
@@ -421,18 +380,6 @@ class Local_procurement_model extends CI_Model {
         $date_required = $this->input->post('date_required');
         $date_requested = date('Y-m-d');
 
-        // Material list
-        $attachment = $_FILES['attachment']['name'];
-        $specification = $this->input->post('specification');
-        $quantity = $this->input->post('quantity');
-        $uom =  $this->input->post('uom');
-        $shelf_life =  $this->input->post('shelf_life');
-        $item_application =  $this->input->post('item_application');
-        $required_document = $this->input->post('required_document');
-        $material_category = $this->input->post('material_category');
-        $purpose = $this->input->post('purpose');
-        $i = 0;
-
        // APPROVAL DETAILS
        $date = date('Y-m-d H:i:s');
        $remarks = $this->input->post('remarks');
@@ -488,36 +435,6 @@ class Local_procurement_model extends CI_Model {
         /*print_r('<pre>');
         print_r($data_material_source);
         print_r('</pre>');*/
-
-
-         /** MATERIAL LIST INSERT **/ 
-        foreach($this->input->post('description') as $description)
-        {
-            $data_material = array(
-                'msid'              => $msid,
-                'description'       => $description,
-                'specification'     => $specification[$i],
-                'quantity'          => $quantity[$i],
-                'uom'               => $uom[$i],
-                'shelf_life'        => $shelf_life[$i],
-                'item_application'  => $item_application[$i],
-                'required_document' => $required_document[$i],
-                'category'          => $material_category[$i],
-                'remarks'           => $purpose[$i],
-                'attachment'        => $attachment[$i],
-                'created_by'        => $this->session->userdata('username'),
-                'created_date'      => $date
-            );
-
-            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-            $blaine_local_procurement->insert('material_sourcing_list', $data_material);
-
-            /*print_r('<pre>');
-            print_r($data_material);
-            print_r('</pre>');*/
-
-            $i++;
-        }
 
         /** APPROVER LIST INSERT **/ 
         $data_material_approver1 = array(
@@ -1690,7 +1607,9 @@ class Local_procurement_model extends CI_Model {
             material_approval_list.signoff_by as signoff_by,
             material_approval_list.signoff_date as signoff_date,
             material_approval_list.role_status as role_status,
-            step_of_approver.name as step_of_approval
+            step_of_approver.name as step_of_approval,
+            material_approval_list.created_date as created_date,
+            material_approval_list.cycle_time as cycle_time
         ");
 
         $this->db->from('blaine_local_procurement.material_approval_list');
@@ -1710,7 +1629,8 @@ class Local_procurement_model extends CI_Model {
             material_approval_list.status as status,
             material_approval_list.step_approval as step_approval,
             material_approval_list.role_status as role_status,
-            material_approval_list.created_by as created_by
+            material_approval_list.created_by as created_by,
+            material_approval_list.created_date as created_date
         ");
 
         $this->db->from('blaine_local_procurement.material_approval_list');
@@ -1769,6 +1689,8 @@ class Local_procurement_model extends CI_Model {
         $process = $this->input->post('approve_detail');
         $req_signoff_by = $this->input->post('req_signoff_by');
         $req_remarks = $this->input->post('req_remarks');
+        $cycle_time = $this->input->post('cycle_time');
+       
 
         // Get Superior Approval
         $remarks = $this->input->post('remarks');
@@ -1817,7 +1739,8 @@ class Local_procurement_model extends CI_Model {
                     'status'       => 'Done',
                     'signoff_by'   => $this->session->userdata('username'),
                     'signoff_date' => $date,
-                    'remarks'      => $remarks
+                    'remarks'      => $remarks,
+                    'cycle_time'   => $cycle_time
                 );  
     
                 $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -2273,7 +2196,7 @@ class Local_procurement_model extends CI_Model {
                 elseif($destination_approval == 0)
                 {
                     $data_material_source = array(
-                        'role_status' => 'Closed'
+                        'role_status' => '0 Closed'
                     );
         
                     $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -2326,7 +2249,8 @@ class Local_procurement_model extends CI_Model {
                     'status'       => 'Done',
                     'signoff_by'   => $this->session->userdata('username'),
                     'signoff_date' => $date,
-                    'remarks'      => $remarks
+                    'remarks'      => $remarks,
+                    'cycle_time'   => $cycle_time
                 );  
     
                 $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -2567,7 +2491,8 @@ class Local_procurement_model extends CI_Model {
                     'status'       => 'Done',
                     'signoff_by'   => $this->session->userdata('username'),
                     'signoff_date' => $date,
-                    'remarks'      => $remarks
+                    'remarks'      => $remarks,
+                    'cycle_time'   => $cycle_time
                 );  
     
                 $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -2810,7 +2735,8 @@ class Local_procurement_model extends CI_Model {
                 'status'       => 'Action Required',
                 'signoff_by'   => $this->session->userdata('username'),
                 'signoff_date' => $date,
-                'remarks'      => $remarks
+                'remarks'      => $remarks,
+                'cycle_time'   => $cycle_time
             );  
 
             $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -3250,7 +3176,8 @@ class Local_procurement_model extends CI_Model {
                 'signoff_by'    => $this->session->userdata('username'),
                 'signoff_date'  => $date,
                 'remarks'       => $remarks,
-                'step_approval' => 10 
+                'step_approval' => 10,
+                'cycle_time'    => $cycle_time
             );  
 
             $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -3285,13 +3212,15 @@ class Local_procurement_model extends CI_Model {
         $paid_sample_only = $this->input->post('paid_sample_only');
         $primary_approver = $this->input->post('primary_approver');
         $alternate_approver = $this->input->post('alternate_approver');
+        $cycle_time = $this->input->post('cycle_time');
 
         // MATERIAL APPROVAL LIST
         $data_update_last_entry = array(
             'status'       => 'Done',
             'signoff_by'   => $this->session->userdata('username'),
             'signoff_date' => $date,
-            'remarks'      => $remarks
+            'remarks'      => $remarks,
+            'cycle_time'   => $cycle_time
         );  
 
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -3501,8 +3430,6 @@ class Local_procurement_model extends CI_Model {
         $trans = $this->db->trans_complete();
         return $trans;
     } 
-
-
 
     public function last_canvass_no()
     {
@@ -4012,12 +3939,6 @@ class Local_procurement_model extends CI_Model {
 
     public function get_transmittal_lists()
     {
-        /*$blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-        $blaine_local_procurement->where('is_active', 1);
-        $query = $blaine_local_procurement->get('transmittal');
-
-        return $query->result();*/
-
         $this->db->select('
             transmittal.id as id,
             transmittal.transmittal_no as transmittal_no,

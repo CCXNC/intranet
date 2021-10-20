@@ -476,11 +476,12 @@
                         <th scope="col">Alternate Approver</th>
                         <th scope="col">Status</th>
                         <th scope="col">Date Sign-off</th>
-                        <th scope="col">Date CT</th>
+                        <th scope="col">Days CT</th>
                         <th scope="col">Sign-off By</th>
                         <th scope="col">Remarks</th>
                     </tr>
                 </thead>
+                <?php $total_ct = 0; ?>
                 <?php if($approval_lists) : ?>
                     <?php foreach($approval_lists as $approval_list) : ?>
                         <tr>
@@ -489,13 +490,23 @@
                             <td><?php echo $approval_list->alternate_approver; ?></td>
                             <td><?php echo $approval_list->status; ?></td>
                             <td><?php echo $approval_list->signoff_date; ?></td>
-                            <td><?php echo ' ' ?></td>
+                            <td><?php echo $approval_list->cycle_time; ?></td>
                             <td><?php echo $approval_list->signoff_by; ?></td>
                             <td><?php echo $approval_list->remarks; ?></td>
                         </tr>
-                    
+                        <?php $total_ct += $approval_list->cycle_time; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <th scope="row" class="throw">Total</th>
+                            <td><?php echo $total_ct; ?></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
             
             </table>
             <p class="printMe">
@@ -507,17 +518,26 @@
                 ?>
             </p>
             <br>
-            <?php if($last_entry->step_approval != 10): ?>
+            <?php if($last_entry->step_approval != 6 && $last_entry->step_approval != 10): ?>
                 <?php if($last_entry->step_approval == 4 && $last_entry->role_status == "Procurement") : ?>
                     <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
                         <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_report_generation" enctype="multipart/form-data">
                             <div class="card">
                                 <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
                                 <div class="card-body" style="background-color: #E9FAFD">
-                                    <!--<input type="text" name="id" value="<?php echo $last_entry->id; ?>">-->
-                                    <!--<input type="text" name="msid" value="<?php echo $material_source->msid; ?>">-->
-                                    <!--<input type="text" name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">-->
-                                    <!--<input type="text" name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">-->
+                                    <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
+                                    <input type="text" hidden name="msid" value="<?php echo $material_source->msid; ?>">
+                                    <input type="text" hidden name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">
+                                    <input type="text" hidden name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">
+                                    <?php
+                                            $date = date('Y-m-d H:i:s');
+                                            $date1 = strtotime($last_entry->created_date); 
+                                            $date2 = strtotime($date); 
+                                            $hour = abs($date2 - $date1)/(60*60*24);
+                                            $round_off = round($hour, 2); 
+                                        ?>
+                                        <input type="text" hidden name="cycle_time" value="<?php echo $round_off; ?>">
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
@@ -611,12 +631,20 @@
                                         <input type="text" hidden name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">
                                         <input type="text" hidden name="req_signoff_by" value="<?php echo $first_entry->signoff_by; ?>">
                                         <input type="text" hidden name="req_remarks" value="<?php echo $first_entry->remarks; ?>">
+                                       
 
                                         <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
                                         <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">
                                         <input type="text" hidden name="primary_approver1" value="<?php echo $last_entry->primary_approver; ?>">
                                         <input type="text" hidden name="alternate_approver1" value="<?php echo $last_entry->alternate_approver; ?>">
-                                        
+                                        <?php
+                                            $date = date('Y-m-d H:i:s');
+                                            $date1 = strtotime($last_entry->created_date); 
+                                            $date2 = strtotime($date); 
+                                            $hour = abs($date2 - $date1)/(60*60*24);
+                                            $round_off = round($hour, 2); 
+                                        ?>
+                                        <input type="text" hidden name="cycle_time" value="<?php echo $round_off; ?>">
 
                                         <?php $destination_approval = explode(' ', $last_entry->created_by); ?>
                                         <?php if($destination_approval[1] != null) : ?>
