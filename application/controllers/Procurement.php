@@ -341,66 +341,76 @@ class Procurement extends CI_Controller {
         }
         else 
         {
-            /*if(!empty($_FILES['attachment']['name']))
-            {
-                $imageName = $_FILES['attachment']['name'];
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->order_by('id','DESC');
+            $blaine_local_procurement->select('msid');
+            $datas = $blaine_local_procurement->get('material_sourcing');
+            $inc_number = $datas->row()->msid;
 
-                // File upload configuration
-                $config['upload_path'] = './uploads/material_sourcing_attachment/';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip';
-                $config['max_size'] = '100000000';
-                $config['overwrite'] = True;
+            $arr2 = str_split($inc_number, 9);
+            $i = $arr2[0] + 1;
+            $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
 
-                // Load and initialize upload library
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
+            // Material list
+            $msid = $batch_number;
+            $mcode = $this->input->post('material_code');
+            $description = $this->input->post('description');
+            $specification = $this->input->post('specification');
+            $quantity = $this->input->post('quantity');
+            $uom =  $this->input->post('uom');
+            $shelf_life =  $this->input->post('shelf_life');
+            $item_application =  $this->input->post('item_application');
+            $required_document = $this->input->post('required_document');
+            $material_category = $this->input->post('material_category');
+            $purpose = $this->input->post('purpose');
 
-                // Upload file to server
-                if($this->upload->do_upload('attachment')){
-                    // Upload file data
-                    $fileData = $this->upload->data();
-                    $imgData['file_name'] = $fileData['file_name'];
-                }
-                else{
-                    $error = $this->upload->display_errors();
-                }
-            }*/
+            $data = array(); 
+            $errorUploadType = $statusMsg = ''; 
 
-            /*$number_of_files = sizeof($_FILES['attachment1']['tmp_name']);
-            $files = $_FILES['attachment1'];
+            // If files are selected to upload 
+            if(count(array_filter($_FILES['files']['name'])) > 0){ 
+                $filesCount = count($mcode); 
+                for($i = 0; $i < $filesCount; $i++){ 
+                    $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
+                    $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
+                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
+                    $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
+                    $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
+                     
+                    // File upload configuration 
+                    $uploadPath = './uploads/material_sourcing_attachment/'; 
+                    $config['upload_path'] = $uploadPath; 
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip'; 
+                    //$config['max_size']    = '100'; 
+                    //$config['max_width'] = '1024'; 
+                    //$config['max_height'] = '768'; 
+                     
+                    // Load and initialize upload library 
+                    $this->load->library('upload', $config); 
+                    $this->upload->initialize($config); 
+                     
+                    // Upload file to server 
+                    $this->upload->do_upload('file');
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $uploadData[$i]['attachment'] = $fileData['file_name']; 
+                    $uploadData[$i]['msid'] = $msid;
+                    $uploadData[$i]['mcode'] = $mcode[$i];
+                    $uploadData[$i]['description'] = $description[$i];
+                    $uploadData[$i]['specification'] = $specification[$i];
+                    $uploadData[$i]['quantity'] = $quantity[$i];
+                    $uploadData[$i]['uom'] = $uom[$i];
+                    $uploadData[$i]['shelf_life'] = $shelf_life[$i];
+                    $uploadData[$i]['item_application'] = $item_application[$i];
+                    $uploadData[$i]['required_document'] = $required_document[$i];
+                    $uploadData[$i]['category'] = $material_category[$i];
+                    $uploadData[$i]['remarks'] = $purpose[$i];
+                    $uploadData[$i]['created_date'] = date("Y-m-d H:i:s");
+                    $uploadData[$i]['created_by'] = $this->session->userdata('username');  
+                } 
+            }  
+            $this->local_procurement_model->insert($uploadData); 
 
-            $config['upload_path'] = './uploads/supplier_attachment/';
-            $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
-
-            for($i = 0; $i<$count; $i++){
-                if(!empty($_FILES['attachment1']['name'][$i])){
-                    $_FILES['file']['name'] = $_FILES['attachment1']['name'][$i];
-                    $_FILES['file']['type'] = $_FILES['attachment1']['type'][$i];
-                    $_FILES['file']['tmp_name'] = $_FILES['attachment1']['tmp_name'][$i];
-                    $_FILES['file']['error'] = $_FILES['attachment1']['error'][$i];
-                    $_FILES['file']['size'] = $_FILES['attachment1']['size'][$i];
-
-                    // File upload configuration
-                    $config['upload_path'] = './uploads/test/';
-                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
-                    $config['max_size'] = '100000000';
-                    $config['overwrite'] = True;
-                    $config['file_name'] = $_FILES['attachment1']['name'][$i];
-
-                    // Load and initialize upload library
-                    $this->load->library('upload', $config);
-
-                    
-                    if($this->upload->do_upload('file')){
-                        $uploadData = $this->upload->data(); 
-                        $filename = $uploadData['file_name'];
-            
-                        $data['totalFiles'][] = $filename;
-                    }
-                }
-            }*/
-
-                
             if($this->local_procurement_model->add_material_sourcing_matcode())
             {
                 $data = $this->local_procurement_model->first_msid();
@@ -436,63 +446,73 @@ class Procurement extends CI_Controller {
         }
         else
         {
-            /*if(!empty($_FILES['attachment']['name']))
-            {
-                $imageName = $_FILES['attachment']['name'];
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->order_by('id','DESC');
+            $blaine_local_procurement->select('msid');
+            $datas = $blaine_local_procurement->get('material_sourcing');
+            $inc_number = $datas->row()->msid;
 
-                // File upload configuration
-                $config['upload_path'] = './uploads/material_sourcing_attachment/';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip';
-                $config['max_size'] = '100000000';
-                $config['overwrite'] = True;
+            $arr2 = str_split($inc_number, 9);
+            $i = $arr2[0] + 1;
+            $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
 
-                // Load and initialize upload library
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
+            // Material list
+            $msid = $batch_number;
+            $description = $this->input->post('description');
+            $specification = $this->input->post('specification');
+            $quantity = $this->input->post('quantity');
+            $uom =  $this->input->post('uom');
+            $shelf_life =  $this->input->post('shelf_life');
+            $item_application =  $this->input->post('item_application');
+            $required_document = $this->input->post('required_document');
+            $material_category = $this->input->post('material_category');
+            $purpose = $this->input->post('purpose');
 
-                // Upload file to server                            
-                if($this->upload->do_upload('attachment')){
-                    // Upload file data
-                    $fileData = $this->upload->data();
-                    $imgData['file_name'] = $fileData['file_name'];
-                }
-                else{
-                    $error = $this->upload->display_errors();
-                }
-            }*/
+            $data = array(); 
+            $errorUploadType = $statusMsg = ''; 
 
-            /*$data = []; 
-            $count = count($_FILES['attachment']['name']);
-
-            for($i = 0; $i<$count; $i++){
-                if(!empty($_FILES['attachment']['name'][$i])){
-                    $_FILES['file']['name'] = $_FILES['attachment']['name'][$i];
-                    $_FILES['file']['type'] = $_FILES['attachment']['type'][$i];
-                    $_FILES['file']['tmp_name'] = $_FILES['attachment']['tmp_name'][$i];
-                    $_FILES['file']['error'] = $_FILES['attachment']['error'][$i];
-                    $_FILES['file']['size'] = $_FILES['attachment']['size'][$i];
-
-                    // File upload configuration
-                    $config['upload_path'] = './uploads/material_sourcing_attachment/';
-                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf';
-                    $config['max_size'] = '100000000';
-                    $config['overwrite'] = True;
-                    $config['file_name'] = $_FILES['attachment']['name'][$i];
-
-                    // Load and initialize upload library
-                    $this->load->library('upload', $config);
-
-                    
-                    if($this->upload->do_upload('file')){
-                        $uploadData = $this->upload->data(); 
-                        $filename = $uploadData['file_name'];
-            
-                        $data['totalFiles'][] = $filename;
-                    }
-                }
-            }*/
-
-           
+            // If files are selected to upload 
+            if(count(array_filter($_FILES['files']['name'])) > 0){ 
+                $filesCount = count($description); 
+                for($i = 0; $i < $filesCount; $i++){ 
+                    $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
+                    $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
+                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
+                    $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
+                    $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
+                     
+                    // File upload configuration 
+                    $uploadPath = './uploads/material_sourcing_attachment/'; 
+                    $config['upload_path'] = $uploadPath; 
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip'; 
+                    //$config['max_size']    = '100'; 
+                    //$config['max_width'] = '1024'; 
+                    //$config['max_height'] = '768'; 
+                     
+                    // Load and initialize upload library 
+                    $this->load->library('upload', $config); 
+                    $this->upload->initialize($config); 
+                     
+                    // Upload file to server 
+                    $this->upload->do_upload('file');
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $uploadData[$i]['attachment'] = $fileData['file_name']; 
+                    $uploadData[$i]['msid'] = $msid;
+                    $uploadData[$i]['description'] = $description[$i];
+                    $uploadData[$i]['specification'] = $specification[$i];
+                    $uploadData[$i]['quantity'] = $quantity[$i];
+                    $uploadData[$i]['uom'] = $uom[$i];
+                    $uploadData[$i]['shelf_life'] = $shelf_life[$i];
+                    $uploadData[$i]['item_application'] = $item_application[$i];
+                    $uploadData[$i]['required_document'] = $required_document[$i];
+                    $uploadData[$i]['category'] = $material_category[$i];
+                    $uploadData[$i]['remarks'] = $purpose[$i];
+                    $uploadData[$i]['created_date'] = date("Y-m-d H:i:s");
+                    $uploadData[$i]['created_by'] = $this->session->userdata('username');  
+                } 
+            }  
+            $this->local_procurement_model->insert($uploadData); 
 
             if($this->local_procurement_model->add_material_sourcing_nomatcode())
             {
@@ -643,7 +663,7 @@ class Procurement extends CI_Controller {
 
     public function report_matsource_add()
     {
-        $this->form_validation->set_rules('pr_no', 'PR NUMBER', 'required|trim');   
+        $this->form_validation->set_rules('msid', 'Material Source ID', 'required|trim');   
 
         if($this->form_validation->run() == FALSE)
         {
@@ -659,15 +679,15 @@ class Procurement extends CI_Controller {
                 $data = $this->local_procurement_model->last_canvass_no();
                 
                 $canvass_no = $data->canvass_no;
-                $material_pr_no = $data->material_pr_no;
+                //$material_pr_no = $data->material_pr_no;
                 
-                redirect('procurement/report_matsource_add_supplier/'.$canvass_no.'/'.$material_pr_no.'');
+                redirect('procurement/report_matsource_add_supplier/'.$canvass_no.'');
             }
         }
          
     }
 
-    public function report_matsource_add_supplier($canvass_no,$material_pr_no)
+    public function report_matsource_add_supplier($canvass_no)
     {
         $this->form_validation->set_rules('canvass_no', 'Canvass Number', 'required|trim');   
 

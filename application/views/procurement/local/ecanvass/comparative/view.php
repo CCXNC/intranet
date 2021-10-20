@@ -437,14 +437,15 @@
                 $('#valCostAviodancePerUnit'+incVal+'').val(parseFloat(savingsPerUnit).toFixed(2));
                 $('#valCostAviodanceTotal'+incVal+'').val(parseFloat(totalSavings).toFixed(2));
 
-
                 // TOTAL OF COST SAVING AND COST AVIODANCE
                 $('#sumCostSavingPerUnit').text(parseFloat(sumReductionPerUnit).toFixed(2));
                 $('#sumCostSavingTotalReduction').text(parseFloat(sumTotalReduction).toFixed(2));
                 $('#sumCostAviodancePerUnit').text(parseFloat(sumSavingsPerUnit).toFixed(2));
                 $('#sumCostAviodanceTotal').text(parseFloat(sumTotalSavings).toFixed(2));
+               
             });
             
+        
         }
     });            
 </script>

@@ -123,7 +123,7 @@
                             <?php elseif($arr_explode[0] == "Disapproved") : ?>    
                                 <p style="background-color:#E12A2A; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
                             <?php else : ?>    
-                                <p style="background-color:#469A49; color: white;padding:10px;"><?php echo $material_source->role_status; ?></p>
+                                <p style="background-color:#469A49; color: white;padding:10px;"><?php echo $arr_explode[1]; ?></p>
                             <?php endif; ?>    
                             </td>
                         <td data-label="Action">

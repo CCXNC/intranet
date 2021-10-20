@@ -168,7 +168,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>File Attachment</label>
-                                <input type='file' name='attachment1[]' multiple="" size='20' />
+                                <input type="file" name="files[]" />
                             </div>
                         </div> 
                     </div>
@@ -267,7 +267,7 @@
         </form>
     </div>
 </div>
-<!--<script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function(){
 
         // FIRST MATERIAL POST
@@ -304,7 +304,7 @@
                     type:"POST",
                     success: function(result){
                         
-                        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-3"><div class="form-group"><label>Material Code</label>&nbsp;<i class="verified'+f+'" style="color:green;"></i><input type="text" class="form-control" id="myTextbox'+f+'" name="material_code[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><input type="text" class="form-control" readonly id="description'+f+'" name="description[]" placeholder=""></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" ></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1"><option value=" ">Select UOM</option><?php if($uoms) : ?><?php foreach($uoms as $uom) : ?><option value="<?php echo $uom->name; ?>"><?php echo $uom->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="number" class="form-control" name="shelf_life[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Group</label><input type="text" class="form-control"  id="materialGroup'+f+'" readonly name="material_category[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="attachment1[]" size="20" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
+                        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-3"><div class="form-group"><label>Material Code</label>&nbsp;<i class="verified'+f+'" style="color:green;"></i><input type="text" class="form-control" id="myTextbox'+f+'" name="material_code[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><input type="text" class="form-control" readonly id="description'+f+'" name="description[]" placeholder=""></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" ></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1"><option value=" ">Select UOM</option><?php if($uoms) : ?><?php foreach($uoms as $uom) : ?><option value="<?php echo $uom->name; ?>"><?php echo $uom->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="number" class="form-control" name="shelf_life[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1"></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Group</label><input type="text" class="form-control"  id="materialGroup'+f+'" readonly name="material_category[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="files[]" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
                         $("#form_field").append(form);
 
                         var obj = $.parseJSON(result);
@@ -351,5 +351,5 @@
             $('#date_required').attr('min', maxDate);
         });
     });
-</script>-->
+</script>
 
