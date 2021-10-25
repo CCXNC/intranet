@@ -179,6 +179,14 @@ class Procurement extends CI_Controller {
         force_download($name, $data);
     }
 
+    function download_supplier_matertial_attachment()
+    {
+        $this->load->helper('download');
+        $data = file_get_contents('uploads/supplier_ecanvass_attachment/'.$this->uri->segment(3));
+        $name = $this->uri->segment(3);
+        force_download($name, $data);
+    }
+
     //EDIT
     public function supplier_edit($id)
     {
@@ -368,7 +376,7 @@ class Procurement extends CI_Controller {
             $errorUploadType = $statusMsg = ''; 
 
             // If files are selected to upload 
-            if(count(array_filter($_FILES['files']['name'])) > 0){ 
+            if(count($mcode) > 0){ 
                 $filesCount = count($mcode); 
                 for($i = 0; $i < $filesCount; $i++){ 
                     $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
@@ -472,7 +480,7 @@ class Procurement extends CI_Controller {
             $errorUploadType = $statusMsg = ''; 
 
             // If files are selected to upload 
-            if(count(array_filter($_FILES['files']['name'])) > 0){ 
+            if(count($description) > 0){ 
                 $filesCount = count($description); 
                 for($i = 0; $i < $filesCount; $i++){ 
                     $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
@@ -491,7 +499,7 @@ class Procurement extends CI_Controller {
                      
                     // Load and initialize upload library 
                     $this->load->library('upload', $config); 
-                    $this->upload->initialize($config); 
+                    $this->upload->initialize($config);  
                      
                     // Upload file to server 
                     $this->upload->do_upload('file');
@@ -701,6 +709,65 @@ class Procurement extends CI_Controller {
         }
         else
         {
+            $supplier = $this->input->post('supplier');
+            $canvass_no = $this->input->post('canvass_no');
+            $accredited = $this->input->post('accredited');
+            $other = $this->input->post('others');
+            $vat = $this->input->post('vat');
+            $wrt = $this->input->post('wrt');
+            $pmt = $this->input->post('pmt');
+            $del = $this->input->post('del');
+            $notes = $this->input->post('notes');
+            $date = date('Y-m-d H:i:s');
+
+            $data = array(); 
+            $errorUploadType = $statusMsg = ''; 
+
+            // If files are selected to upload 
+            if(count($supplier) > 0){ 
+                $filesCount = count($supplier); 
+                for($i = 0; $i < $filesCount; $i++){ 
+                    $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
+                    $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
+                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
+                    $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
+                    $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
+                     
+                    // File upload configuration 
+                    $uploadPath = './uploads/supplier_ecanvass_attachment/'; 
+                    $config['upload_path'] = $uploadPath; 
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip'; 
+                    //$config['max_size']    = '100'; 
+                    //$config['max_width'] = '1024'; 
+                    //$config['max_height'] = '768'; 
+                     
+                    // Load and initialize upload library 
+                    $this->load->library('upload', $config); 
+                    $this->upload->initialize($config);  
+                     
+                    // Upload file to server 
+                    $this->upload->do_upload('file');
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $uploadData[$i]['attachment'] = $fileData['file_name']; 
+                    $uploadData[$i]['canvass_no'] = $canvass_no;
+                    if($supplier[$i] == "acc"){
+                        $uploadData[$i]['supplier_name'] = $accredited[$i];
+                    }
+                    elseif($supplier[$i] == "others"){
+                        $uploadData[$i]['supplier_name'] = $other[$i];
+                    }
+                    $uploadData[$i]['vat'] = $vat[$i];
+                    $uploadData[$i]['wrt'] = $wrt[$i];
+                    $uploadData[$i]['pmt'] = $pmt[$i];
+                    $uploadData[$i]['del'] = $del[$i];
+                    $uploadData[$i]['notes'] = $notes[$i];
+                    $uploadData[$i]['created_date'] = date("Y-m-d H:i:s");
+                    $uploadData[$i]['created_by'] = $this->session->userdata('username');  
+                } 
+            }  
+            $this->local_procurement_model->insert_report_generation_with_supplier($uploadData); 
+
             if($this->local_procurement_model->add_report_generation_with_supplier())
             {
                 $canvass_no = $this->input->post('canvass_no');
@@ -737,7 +804,7 @@ class Procurement extends CI_Controller {
      
     }
 
-    public function report_pr_add_supplier($canvass_no,$material_pr_no)
+    public function report_pr_add_supplier($canvass_no)
     {
         $this->form_validation->set_rules('canvass_no', 'Canvass Number', 'required|trim');   
 
@@ -751,6 +818,65 @@ class Procurement extends CI_Controller {
         }
         else
         {
+            $supplier = $this->input->post('supplier');
+            $canvass_no = $this->input->post('canvass_no');
+            $accredited = $this->input->post('accredited');
+            $other = $this->input->post('others');
+            $vat = $this->input->post('vat');
+            $wrt = $this->input->post('wrt');
+            $pmt = $this->input->post('pmt');
+            $del = $this->input->post('del');
+            $notes = $this->input->post('notes');
+            $date = date('Y-m-d H:i:s');
+
+            $data = array(); 
+            $errorUploadType = $statusMsg = ''; 
+
+            // If files are selected to upload 
+            if(count($supplier) > 0){ 
+                $filesCount = count($supplier); 
+                for($i = 0; $i < $filesCount; $i++){ 
+                    $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
+                    $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
+                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
+                    $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
+                    $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
+                     
+                    // File upload configuration 
+                    $uploadPath = './uploads/supplier_ecanvass_attachment/'; 
+                    $config['upload_path'] = $uploadPath; 
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip'; 
+                    //$config['max_size']    = '100'; 
+                    //$config['max_width'] = '1024'; 
+                    //$config['max_height'] = '768'; 
+                     
+                    // Load and initialize upload library 
+                    $this->load->library('upload', $config); 
+                    $this->upload->initialize($config);  
+                     
+                    // Upload file to server 
+                    $this->upload->do_upload('file');
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $uploadData[$i]['attachment'] = $fileData['file_name']; 
+                    $uploadData[$i]['canvass_no'] = $canvass_no;
+                    if($supplier[$i] == "acc"){
+                        $uploadData[$i]['supplier_name'] = $accredited[$i];
+                    }
+                    elseif($supplier[$i] == "others"){
+                        $uploadData[$i]['supplier_name'] = $other[$i];
+                    }
+                    $uploadData[$i]['vat'] = $vat[$i];
+                    $uploadData[$i]['wrt'] = $wrt[$i];
+                    $uploadData[$i]['pmt'] = $pmt[$i];
+                    $uploadData[$i]['del'] = $del[$i];
+                    $uploadData[$i]['notes'] = $notes[$i];
+                    $uploadData[$i]['created_date'] = date("Y-m-d H:i:s");
+                    $uploadData[$i]['created_by'] = $this->session->userdata('username');  
+                } 
+            }  
+            $this->local_procurement_model->insert_report_generation_with_supplier($uploadData);
+            
             if($this->local_procurement_model->add_report_generation_with_supplier())
             {
                 $canvass_no = $this->input->post('canvass_no');
@@ -960,5 +1086,11 @@ class Procurement extends CI_Controller {
         $data['transmittal_lists'] = $this->local_procurement_model->get_transmittal_list($id);
         $data['main_content'] = 'procurement/local/ecanvass/transmittal/view';
         $this->load->view('inc/navbar', $data);
-    }    
+    }
+    
+    function test()
+    {
+        $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/sample_view1';
+        $this->load->view('inc/navbar', $data);
+    }
 }

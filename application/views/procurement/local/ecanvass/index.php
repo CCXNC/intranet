@@ -2,19 +2,13 @@
 <br>
 <div class="row">
     <div class="col-sm-6">
-        <div class="card" >
-            <div class="card-body">
-                <a style="width: 70%; background-color:#29A0B1; border: white" href="<?php echo base_url(); ?>procurement/material_sourcing_index" class="btn btn-primary btn-md float-left">MATERIAL SOURCING LIST</a>
-                <i style="" class="fa fa-cart-plus fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+            <a style="width: 100%; background-color:#29A0B1; padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:18px; font-weight: 500; border: 2px solid #238795; border-radius: 10px" href="<?php echo base_url(); ?>procurement/material_sourcing_index" class="btn btn-primary btn-md float-left">MATERIAL SOURCING LIST <i style="" class="fa fa-cart-plus fa-2x float-right"></i></a>
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <a style="width: 70%; background-color:#29A0B1; border: white" href="<?php echo base_url(); ?>procurement/material_sourcing" class="btn btn-primary btn-md float-left">MATERIAL SOURCING FORM</a>
-                <i style="" class="fa fa-cart-plus fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+            <a style="width: 100%; background-color:#29A0B1; padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:18px; font-weight: 500; border: 2px solid #238795; border-radius: 10px" href="<?php echo base_url(); ?>procurement/material_sourcing" class="btn btn-primary btn-md float-left">MATERIAL SOURCING FORM <i style="" class="fa fa-cart-plus fa-2x float-right"></i></a>
         </div>
     </div>
 </div>
@@ -30,68 +24,50 @@
         </div>
     </div>-->
     <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <a style="width: 70%; background-color: #175873; border:white" href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" class="btn btn-primary btn-md float-left">E-CANVASS REPORT GENERATION</a>
-                <i style="" class="fa fa-chart-bar fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+            <a style="width: 100%; background-color: #175873;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:18px; font-weight: 500; border-radius: 10px; border: 2px solid #238795" href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" class="btn btn-primary btn-md float-left">E-CANVASS REPORT GENERATION<i style="" class="fa fa-chart-bar fa-2x float-right"></i></a>
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <a style="width: 70%;background-color: #175873; border:white" href="<?php echo base_url(); ?>procurement/transmittal" class="btn btn-primary btn-md float-left">TRANSMITTAL REPORT GENERATION</a>
-                <i style="" class="fa fa-chart-bar fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+            <a style="width: 100%;background-color: #175873;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:18px; font-weight: 500; border-radius: 10px; border: 2px solid #238795" href="<?php echo base_url(); ?>procurement/transmittal" class="btn btn-primary btn-md float-left">TRANSMITTAL REPORT GENERATION<i style="" class="fa fa-chart-bar fa-2x float-right"></i></a>
         </div>
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <a style="width: 70%; background-color: #87ACA3; border:white" href="<?php echo base_url(); ?>procurement/ecanvass_cost_saving" class="btn btn-primary btn-md float-left">CANVASS LIST</a>
-                <i style="" class="fa fa-list-ul fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+                <a style="width: 100%; background-color: #87ACA3;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 18px; font-weight: 500; border-radius: 10px; border: 2px solid #238795" href="<?php echo base_url(); ?>procurement/ecanvass_cost_saving" class="btn btn-primary btn-md float-left">CANVASS LIST<i style="" class="fa fa-list-ul fa-2x float-right"></i></a>
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <a style="width: 70%; background-color: #87ACA3; border:white" href="<?php echo base_url(); ?>procurement/material_canvass" class="btn btn-primary btn-md float-left">MATERIAL CANVASS HISTORY</a>
-                <i style="" class="fa fa-list-ul fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+                <a style="width: 100%; background-color: #87ACA3;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 18px; font-weight: 500; border-radius: 10px; border: 2px solid #238795" href="<?php echo base_url(); ?>procurement/material_canvass" class="btn btn-primary btn-md float-left">MATERIAL CANVASS HISTORY<i style="" class="fa fa-list-ul fa-2x float-right"></i></a>
+            
         </div>
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <a style="width: 70%; background-color:#0C1446; border:white" href="<?php echo base_url(); ?>procurement/supplier_index" class="btn btn-primary btn-md float-left">SUPPLIER ENROLLMENT</a>
-                <i style="" class="fa fa-folder fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+                <a style="width: 100%; background-color:#0C1446;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 18px; font-weight: 500; border-radius: 10px; border: 2px solid #238795" href="<?php echo base_url(); ?>procurement/supplier_index" class="btn btn-primary btn-md float-left">SUPPLIER ENROLLMENT<i style="" class="fa fa-folder fa-2x float-right"></i></a>
+            
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <a style="width: 70%; background-color:#0C1446; border:white" href="<?php echo base_url(); ?>procurement/material_enrollment" class="btn btn-primary btn-md float-left">MATERIAL ENROLLMENT</a>
-                <i style="" class="fa fa-folder fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+                <a style="width: 100%; background-color:#0C1446;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 18px; font-weight: 500; border-radius: 10px; border: 2px solid #238795" href="<?php echo base_url(); ?>procurement/material_enrollment" class="btn btn-primary btn-md float-left">MATERIAL ENROLLMENT<i style="" class="fa fa-folder fa-2x float-right"></i></a>
+            
         </div>
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <a style="width: 70%;background-color: #175873; border:white" href="<?php echo base_url(); ?>procurement/transmittal_list" class="btn btn-primary btn-md float-left">TRANSMITTAL LIST</a>
-                <i style="" class="fa fa-chart-bar fa-2x float-right"></i>
-            </div>
+        <div class="card" style="border-radius: 10px">
+                <a style="width: 100%;background-color: #175873;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 18px; font-weight: 500; border-radius: 10px; border: 2px solid #238795" href="<?php echo base_url(); ?>procurement/transmittal_list" class="btn btn-primary btn-md float-left">TRANSMITTAL LIST<i style="" class="fa fa-chart-bar fa-2x float-right"></i></a>
         </div>
     </div>
 </div>

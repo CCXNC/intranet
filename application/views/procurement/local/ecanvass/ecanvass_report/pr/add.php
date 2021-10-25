@@ -79,7 +79,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="previous[]">
+                                    <input type="text" class="form-control" value="0" name="previous[]">
                                 </td>
                                 <td>
                                     <select name="currency[]" class="form-control" style="font-size:12px; height:32px" style="font-size:12px;">
@@ -92,7 +92,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="year[]" style="text-transform:uppercase">
+                                    <input type="text" class="form-control" value="0" name="year[]" style="text-transform:uppercase">
                                 </td>
                                 <td>
                                     <input class="btn btn-success btn-sm" style="width:80px" title="Add Children" type="button" name="add" id="fadd" value="Add">
