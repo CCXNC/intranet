@@ -703,4 +703,5 @@
              
         </div>
     </div>
+    <a href="<?php echo base_url(); ?>procurement/material_sourcing_index" id="back" title="Go Back" class="float-right" style="margin-right:10px;">Go Back</a>
 </div>
