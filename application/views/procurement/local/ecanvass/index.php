@@ -2,7 +2,7 @@
 <br>
 <div class="card">
     <div class="card-header" style="background-color: #0C2D48; color: white">
-        Request List
+        <h5>Request List</h5>
     </div>
     <div class="card-body">
         <div class="row">
@@ -23,7 +23,7 @@
 <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
     <div class="card">
         <div class="card-header" style="background-color: #0C2D48; color: white">
-            Report Generation
+            <h5>Report Generation</h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -43,7 +43,7 @@
     <br>
     <div class="card">
         <div class="card-header" style="background-color: #0C2D48; color: white">
-            Report List
+            <h5>Report List</h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -69,7 +69,7 @@
     <br>
     <div class="card">
         <div class="card-header" style="background-color: #0C2D48; color: white">
-            Data Enrollment
+            <h5>Data Enrollment</h5>
         </div>
         <div class="card-body">
             <div class="row">

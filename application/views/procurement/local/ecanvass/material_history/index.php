@@ -23,6 +23,7 @@
             <th scope="col">Material Source No.</th>
             <th scope="col">Canvass No.</th>
             <th scope="col">Canvass Date</th>
+            <th>Attachment</th>
         </tr>
     </thead>
     <tbody>
@@ -58,6 +59,7 @@
                     </td>
                     <td data-label="Canvass No"><a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $material->canvass_no; ?>"><?php echo $material->canvass_no; ?></a></td>
                     <td data-label="Canvass Date"><?php echo date('Y-m-d', strtotime($material->canvass_date)); ?></td>
+                    <td><p><a href="<?php echo base_url(); ?>procurement/download_supplier_matertial_attachment/<?php echo $material->attachment; ?>"><?php echo $material->attachment; ?></a></p></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif;  ?>

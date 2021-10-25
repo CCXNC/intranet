@@ -1989,7 +1989,7 @@ class Local_procurement_model extends CI_Model {
                     $data_action_required = array(
                         'msid'               => $msid,
                         'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
-                        'alternate_approver' => "IDA, CARLO EMILIO MACATUGOB",
+                        'alternate_approver' => "DEL PILAR, JENIFFER ALVAREZ",
                         'role_status'        => "Procurement",
                         'status'             => 'Pending',
                         'created_by'         => $this->session->userdata('username') . ' 0',
@@ -2210,7 +2210,7 @@ class Local_procurement_model extends CI_Model {
                     $data_action_required = array(
                         'msid'               => $msid,
                         'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
-                        'alternate_approver' => "IDA, CARLO EMILIO MACATUGOB",
+                        'alternate_approver' => "DEL PILAR, JENIFFER ALVAREZ",
                         'role_status'        => "Procurement",
                         'status'             => 'Done',
                         'created_by'         => $this->session->userdata('username') . ' 0',
@@ -2264,7 +2264,7 @@ class Local_procurement_model extends CI_Model {
                 $data_action_required = array(
                     'msid'               => $msid,
                     'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
-                    'alternate_approver' => "IDA, CARLO EMILIO MACATUGOB",
+                    'alternate_approver' => "DEL PILAR, JENIFFER ALVAREZ",
                     'role_status'        => "Procurement",
                     'status'             => 'Pending',
                     'created_by'         => $this->session->userdata('username') . ' 0',
@@ -3460,69 +3460,17 @@ class Local_procurement_model extends CI_Model {
 
     }
 
+    public function insert_report_generation_with_supplier($data = array()){ 
+        $insert = $this->db->insert_batch('blaine_local_procurement.supplier_report_generation',$data); 
+        return $insert?true:false; 
+    } 
+
     public function add_report_generation_with_supplier()
     {
         $this->db->trans_start();
 
         $canvass_no = $this->input->post('canvass_no');
-        $accredited = $this->input->post('accredited');
-        $other = $this->input->post('others');
-        $vat = $this->input->post('vat');
-        $wrt = $this->input->post('wrt');
-        $pmt = $this->input->post('pmt');
-        $del = $this->input->post('del');
-        $notes = $this->input->post('notes');
         $date = date('Y-m-d H:i:s');
-        $i = 0;
-
-        foreach($this->input->post('supplier') as $supplier)
-        {
-            if($supplier == 'acc')
-            {
-                $supplier_data = array(
-                    'canvass_no'    => $canvass_no,
-                    'supplier_name' => $accredited[$i],
-                    'vat'           => $vat[$i],
-                    'wrt'           => $wrt[$i],
-                    'pmt'           => $pmt[$i],
-                    'del'           => $del[$i],
-                    'notes'         => $notes[$i],
-                    'created_by'    => $this->session->userdata('username'),
-                    'created_date'  => $date
-                );
-
-                $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-                $blaine_local_procurement->insert('supplier_report_generation', $supplier_data);
-
-                /*print_r('<pre>');
-                print_r($supplier_data);
-                print_r('</pre>');*/
-                
-            }
-            elseif($supplier == 'others')
-            {
-                $supplier_data = array(
-                    'canvass_no'    => $canvass_no,
-                    'supplier_name' => $other[$i],
-                    'vat'           => $vat[$i],
-                    'wrt'           => $wrt[$i],
-                    'pmt'           => $pmt[$i],
-                    'del'           => $del[$i],
-                    'notes'         => $notes[$i],
-                    'created_by'    => $this->session->userdata('username'),
-                    'created_date'  => $date
-                );
-                
-                $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-                $blaine_local_procurement->insert('supplier_report_generation', $supplier_data);
-
-                /*print_r('<pre>');
-                print_r($supplier_data);
-                print_r('</pre>');*/
-
-            }
-            $i++;
-        }
 
         $supplier_name = $this->input->post('supplier_name');
         $moq = $this->input->post('moq');
@@ -4092,6 +4040,7 @@ class Local_procurement_model extends CI_Model {
             report_generation.created_date as canvass_date,
 
             supplier_report_generation.pmt as terms,
+            supplier_report_generation.attachment as attachment,
             
             material_sourcing.id as idms,
         ');
