@@ -126,7 +126,7 @@
                 //console.log(obj1);
                 $.each(obj1,function(index,object){
                     $('#myTextbox').click(function(e) {
-                        var mcodeType = $(this).val();
+                        var mcodeType = $('#msid').val();
                         if(mcodeType == object['msid']) {
                             if(object['company_id'] == '1') {
                                 $('#company').val('RRLC');
