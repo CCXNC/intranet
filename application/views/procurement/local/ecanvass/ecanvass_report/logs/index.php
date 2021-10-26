@@ -23,7 +23,7 @@
 </style>
 <div class="card" style="font-size:12px" id="printableArea">
     <p style="text-align:center" class="printMe"><img class="card-img-top" style="width:40%" src="<?php echo base_url(); ?>assets/images/header.png" alt=""></p>
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>COMPARATIVE STATEMENT OF QUOTATIONS<a href="<?php echo base_url(); ?>procurement/ecanvass_cost_saving" id="back" title="Go Back" class="btn btn-info float-right d-print-none" style="margin-right:10px;">BACK</a><button type="button" style="margin-right:5px;" class="btn btn-info float-right d-print-none" onclick="printDiv('printableArea')" value="print a div!">PRINT</button></h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>COMPARATIVE STATEMENT OF QUOTATION LOGS<a href="<?php echo base_url(); ?>procurement/ecanvass_cost_saving" id="back" title="Go Back" class="btn btn-info float-right d-print-none" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
         <div class="card">
@@ -207,6 +207,9 @@
         <hr>
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
+                <tr class="tbrow">
+                    <th colspan="13" style="vertical-align: middle">Revsion 2</th>
+                </tr>
                 <tr class="throw">
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Material</th>
@@ -272,39 +275,96 @@
                 </tr>
             </tbody> 
         </table>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <p><b>Buyer Name: </b> <?php echo $quotation_canvass->buyer_name; ?></p>
-                    <p><b>Remarks: </b> <?php echo $quotation_canvass->remarks; ?></p>
-                </div>
-            </div>
-        </div>
         <br>
+
+        <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
+            <thead>
+                <tr class="tbrow">
+                    <th colspan="13" style="vertical-align: middle">Revision 1</th>
+                </tr>
+                <tr class="throw">
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Material</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">QTY</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">UOM</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Supplier Name</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">MOQ</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Price Per Unit</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Currency</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Total Price</th>
+                    <th colspan="2" style="width: 10%; vertical-align: middle">Cost Saving</th>
+                    <th colspan="2" style="width: 10%; vertical-align: middle">Cost Avoidance</th>
+                </tr>
+                <tr class="tbrow">
+                    <th colspan="" style="width: 10%; vertical-align: middle">Reduction Per Unit</th>
+                    <th colspan="" style="width: 10%; vertical-align: middle">Total Reduction</th>
+                    <th colspan="" style="width: 10%; vertical-align: middle">Savings/Unit</th>
+                    <th colspan="" style="width: 10%; vertical-align: middle">Total Savings</th>
+                </tr>
+            </thead>
+            <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
+                <?php $old_sum_reduction_per_unit = 0; $old_sum_reduction = 0; $old_sum_saving_per_unit = 0; $old_sum_saving = 0; $a = 1; ?>
+                <?php if($old_quotation_lists) : ?>
+                    <?php foreach($old_quotation_lists as $old_quotation_list) : ?>
+                        <tr>
+                            <th><?php echo $a; ?></th>
+                            <td><?php echo $old_quotation_list->material_name; ?></td>
+                            <td><?php echo $old_quotation_list->quantity; ?></td>
+                            <td><?php echo $old_quotation_list->uom; ?></td>
+                            <td><?php echo $old_quotation_list->supplier_name; ?></td>
+                            <td><?php echo $old_quotation_list->moq; ?></td>
+                            <td><?php echo $old_quotation_list->price_per_unit; ?></td>
+                            <td><?php echo $old_quotation_list->currency; ?></td>
+                            <td><?php echo $old_quotation_list->total_price; ?></td>
+                            <td><?php echo $old_quotation_list->reduction_per_unit; ?></td>
+                            <td><?php echo $old_quotation_list->total_reduction; ?></td>
+                            <td><?php echo $old_quotation_list->saving_per_unit; ?></td>
+                            <td><?php echo $old_quotation_list->total_saving; ?></td>
+                        </tr>
+                        <?php $a++; ?>
+                        <?php 
+                            $old_sum_reduction_per_unit += $old_quotation_list->reduction_per_unit; 
+                            $old_sum_reduction += $old_quotation_list->total_reduction; 
+                            $old_sum_saving_per_unit += $old_quotation_list->saving_per_unit; 
+                            $old_sum_saving += $old_quotation_list->total_saving;  
+                        ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <tr>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <tH style="background-color: #0C2D48; color: white; width: 10%">Total</tH>
+                    <td id="sumCostSavingPerUnit"><?php echo $old_sum_reduction_per_unit; ?></td>
+                    <td id="sumCostSavingTotalReduction"><?php echo $old_sum_reduction; ?></td>
+                    <td id="sumCostAviodancePerUnit"><?php echo $old_sum_saving_per_unit; ?></td>
+                    <td id="sumCostAviodanceTotal"><?php echo $old_sum_saving; ?></td>
+                </tr>
+            </tbody> 
+        </table>
+
+        <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
+            <thead>
+                <tr class="throw">
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 20%">Supplier Name</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 20%">Date Generated</th>
+                </tr>
+            </thead>
+            <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
+                <?php if($suppliers) : ?>  
+                    <?php foreach($suppliers as $supplier) : ?> 
+                        <tr>
+                            <td><?php echo $supplier->supplier_name; ?></td>
+                            <td><?php echo $supplier->created_date; ?></td>
+                        </tr>
+                    <?php endforeach; ?>    
+                <?php endif; ?>  
+            </tbody>
+        </table>
     </div>
 </div>
-<script>
-    function toggle(ele) {
-        var cont = document.getElementById('comprecom');
-        if (cont.style.display == 'block') {
-            cont.style.display = 'none';
-
-            document.getElementById(ele.id).value = 'Show Computer Recommendation';
-        }
-        else {
-            cont.style.display = 'block';
-            document.getElementById(ele.id).value = 'Hide Computer Recommendation';
-        }
-    }
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-
-        document.body.innerHTML = printContents;
-
-        window.print();
-
-        document.body.innerHTML = originalContents;
-    }
-
-</script>

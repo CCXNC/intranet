@@ -40,7 +40,7 @@
 
 <table id="" class="display" style="width:100%; font-size:13px;">
     <thead>
-        <tr style="background-color:#0D635D;color:white">
+        <tr style="background-color:#0D635D;color:white"> 
             <th scope="col">Canvass No.</th>
             <th scope="col">Canvass Date</th>
             <th scope="col">Company</th>
@@ -49,6 +49,7 @@
             <th scope="col">Buyer</th>
             <th scope="col">PR No.</th>
             <th scope="col">Material Source No.</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -68,6 +69,24 @@
                         <?php else : ?>
                             <?php echo '-'; ?>
                         <?php endif; ?>
+                    </td>
+                    <td data-label="Action">
+                        <div class="btn-group">
+                            <button title="View Actions" type="button" class="btn btn-info dropdown-toggle btn-sm btnaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>">View</a>
+                                <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/add_quotation/<?php echo $canvass_list->canvass_no; ?>">Add Quotation</a>
+                                <?php if($canvass_list_logs) : ?>
+                                    <?php foreach($canvass_list_logs as $canvass_list_log) : ?>
+                                        <?php if($canvass_list_log->canvass_no == $canvass_list->canvass_no) : ?>
+                                            <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/comparative_quotations_logs/<?php echo $canvass_list->canvass_no; ?>">Logs</a>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>        
+                            </div>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>

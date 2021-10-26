@@ -8,12 +8,12 @@
 </style>
 <p style="text-align:left"><img class="card-img-top" style="" src="<?php echo base_url(); ?>assets/images/step3.png" alt=""></p>
 <div class="card" style="font-size:12px;">
-    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION 2</h4></div>
+    <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION 2<a href="<?php echo base_url(); ?>procurement/report_matsource_add" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>procurement/report_matsource_add_supplier/<?php echo $canvass->canvass_no; ?>" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url(); ?>procurement/add_quotation/<?php echo $canvass->canvass_no; ?>" enctype="multipart/form-data">
             <div class="card">
-                <div class="card-header" style="background-color: #0D635D; color: white"><h5>Comparative Statement Quotations</h5></div>
+                <div class="card-header" style="background-color: #0D635D; color: white"><h5>ADD QUOTATIONS</h5></div>
                 <div class="card-body" style="background-color: #E9FAFD;" id="form_field">
                     <input type="text" hidden name="canvass_no" value="<?php echo $canvass->canvass_no; ?>">
                     <div class="row">

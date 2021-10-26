@@ -3,7 +3,7 @@
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>COMPARATIVE STATEMENT OF QUOTATIONS: CHOOSING OF SUPPLIER<a href="<?php echo base_url(); ?>procurement/report_pr_add1" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url();?>procurement/comparative_view/<?php echo $canvass->canvass_no; ?>" enctype="multipart/form-data">
+        <form method="post" action="<?php echo base_url();?>procurement/comparative_view2/<?php echo $canvass->canvass_no; ?>" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D;"><h4></h4></div>
                 <div class="card-body" style="background-color: #E9FAFD;color:black">
@@ -112,7 +112,7 @@
                         <th scope="row" style="background-color: white; border:none"></th>
                         <td style="background-color: white; border:none"></td>
                         <td style="background-color: white; border:none"></td>
-                        <td rowspan="6" style="vertical-align:middle; background-color:#0D635D; color:white">Purchase Terms</td>
+                        <td rowspan="5" style="vertical-align:middle; background-color:#0D635D; color:white">Purchase Terms</td>
                         <td colspan="3" style="background-color: #0C2D48; color: white; ">VAT</td>
                        
                         <?php if($suppliers) : ?>  
@@ -162,23 +162,6 @@
                         <?php if($suppliers) : ?>  
                             <?php foreach($suppliers as $supplier) : ?>  
                                 <td><?php echo $supplier->notes; ?></td>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>  
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: white; border:none"></th>
-                        <td style="background-color: white; border:none"></td>
-                        <td style="background-color: white; border:none"></td>
-                        <td colspan="3" style="background-color: #0C2D48; color: white; ">Attachment</td>
-                        <?php if($suppliers) : ?>  
-                            <?php $q = 1; ?>
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <?php if($supplier->attachment != NULL) : ?>
-                                    <td><a href="<?php echo base_url(); ?>procurement/download_supplier_matertial_attachment/<?php echo $supplier->attachment; ?>">file <?php echo $q; ?> </a></td>
-                                <?php else: ?>
-                                    <td></td>
-                                <?php endif; ?>    
-                                    <?php $q++; ?>
                             <?php endforeach; ?>    
                         <?php endif; ?>  
                     </tr>
@@ -256,6 +239,27 @@
             <br>
             <hr>
             <br>
+            <?php if($old_supplier_lists) : ?>
+                <?php foreach($old_supplier_lists as $old_supplier_list) : ?>
+                    <input type="text" name="old_canvass_no[]" value="<?php echo $old_supplier_list->canvass_no; ?>"><br>
+                    <input type="text" name="old_material_name[]" value="<?php echo $old_supplier_list->material_name; ?>"><br>
+                    <input type="text" name="old_quantity[]" value="<?php echo $old_supplier_list->quantity; ?>"><br>
+                    <input type="text" name="old_uom[]" value="<?php echo $old_supplier_list->uom; ?>"><br>
+                    <input type="text" name="old_supplier_name[]" value="<?php echo $old_supplier_list->supplier_name; ?>"><br>
+                    <input type="text" name="old_moq" value="<?php echo $old_supplier_list->moq; ?>"><br>
+                    <input type="text" name="old_price_per_unit[]" value="<?php echo $old_supplier_list->price_per_unit; ?>"><br>
+                    <input type="text" name="old_currency[]" value="<?php echo $old_supplier_list->currency; ?>"><br>
+                    <input type="text" name="old_total_price[]" value="<?php echo $old_supplier_list->total_price; ?>"><br>
+                    <input type="text" name="old_reduction_per_unit[]" value="<?php echo $old_supplier_list->reduction_per_unit; ?>"><br>
+                    <input type="text" name="old_total_reduction[]" value="<?php echo $old_supplier_list->total_reduction; ?>"><br>
+                    <input type="text" name="old_saving_per_unit[]" value="<?php echo $old_supplier_list->saving_per_unit; ?>"><br>
+                    <input type="text" name="old_total_saving[]" value="<?php echo $old_supplier_list->total_saving; ?>"><br>
+                    <input type="text" name="old_created_by[]" value="<?php echo $old_supplier_list->created_by; ?>"><br>
+                    <input type="text" name="old_created_date[]" value="<?php echo $old_supplier_list->created_date; ?>"><br>
+                    <input type="text" name="old_is_active[]" value="<?php echo $old_supplier_list->is_active; ?>"><br><br>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <br><br>
             <!--Buyer Recom-->
             <div class="row">
                 <div class="col-md-3">
@@ -434,9 +438,9 @@
                 // VIEWING VALUE
                 $('#supplierName'+incVal+'').text(supplierName); 
                 $('#moq'+incVal+'').text(moq); 
-                $('#perUnit'+incVal+'').text(pricePerUnit); 
+                $('#perUnit'+incVal+'').text(parseFloat(pricePerUnit).toFixed(2)); 
                 $('#currency'+incVal+'').text(currency); 
-                $('#totalPriceUnit'+incVal+'').text(computeQuatation); 
+                $('#totalPriceUnit'+incVal+'').text(parseFloat(computeQuatation).toFixed(2)); 
 
                 $('#costSavingPerUnit'+incVal+'').text(parseFloat(reductionPerUnit).toFixed(2));
                 $('#costSavingTotalReduction'+incVal+'').text(parseFloat(totalReduction).toFixed(2));
@@ -446,9 +450,9 @@
                 // INPUT VALUE
                 $('#valSupplierName'+incVal+'').val(supplierName); 
                 $('#valMoq'+incVal+'').val(moq); 
-                $('#valPerUnit'+incVal+'').val(pricePerUnit); 
+                $('#valPerUnit'+incVal+'').val(parseFloat(pricePerUnit).toFixed(2)); 
                 $('#valCurrency'+incVal+'').val(currency); 
-                $('#valTotalPriceUnit'+incVal+'').val(computeQuatation); 
+                $('#valTotalPriceUnit'+incVal+'').val(parseFloat(computeQuatation).toFixed(2)); 
 
                 $('#valCostSavingPerUnit'+incVal+'').val(parseFloat(reductionPerUnit).toFixed(2));
                 $('#valCostSavingTotalReduction'+incVal+'').val(parseFloat(totalReduction).toFixed(2));

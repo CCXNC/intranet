@@ -19,7 +19,12 @@
                         <div class="col-md-4"> 
                             <div class="form-group">
                                 <label >Material Source ID</label>
-                                <input type="text" class="form-control" name="msid"  id="myTextbox" style="text-transform:uppercase; background-color:white">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="msid"  name="msid" style="">
+                                    <div class="input-group-prepend">
+                                       <a href="#" style="font-size:6px" class="input-group-text btn btn-success btn-sm" id="myTextbox"><span class="fa fa-angle-right" style="font-size:10px"></span></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -99,8 +104,9 @@
                 var obj = $.parseJSON(result);
                 //console.log(obj);
                 $.each(obj,function(index,object){
-                    $('#myTextbox').blur(function(e) {
-                        var mcodeType = $(this).val();
+                    $('#myTextbox').click(function(e) {
+                        var mcodeType = $('#msid').val();
+                        //var mcodeType = $(this).val();
                         if(mcodeType == object['msid']) {
                             var form = ' <tr id="child"><td data-label="Mat Code"><input type="text" name="mat_code[]" hidden value="'+object['mcode']+'">'+object['mcode']+'</td><td data-label="Description & Specs"><input type="text" name="description[]" hidden value="'+object['description']+'">'+object['description']+'</td> <td data-label="QTY"><input type="text" name="qty[]" hidden value="'+object['quantity']+'">'+object['quantity']+'</td> <td data-label="UOM"><input type="text" name="uom[]" hidden value="'+object['uom']+'">'+object['uom']+'</td><td data-label="Currency"><select name="currency[]" class="form-control" style="font-size:12px; height:32px" style="font-size:12px;"><option value=""></option><option selected="selected" value="PHP">PHP</option><option value="USD">USD</option><option value="POUND">POUND</option><option value="YUAN">YUAN</option><option value="EURO">EURO</option></select></td><td data-label="Price"><input type="text" class="form-control" name="previous[]" value="0"></td><td data-label="Year"><input type="text" class="form-control" name="year[]" value="0"></td><td> <input class="btn btn-danger btn-sm" style="width: 80px" type="button" name="remove" id="cremove" value="Remove"></td>></tr>';
                             $("#form_field").append(form);
@@ -119,7 +125,7 @@
                 var obj1 = $.parseJSON(result);
                 //console.log(obj1);
                 $.each(obj1,function(index,object){
-                    $('#myTextbox').blur(function(e) {
+                    $('#myTextbox').click(function(e) {
                         var mcodeType = $(this).val();
                         if(mcodeType == object['msid']) {
                             if(object['company_id'] == '1') {

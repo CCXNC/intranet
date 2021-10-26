@@ -263,6 +263,21 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
+    public function comparative_quotations_logs($canvass_no)
+    {
+        $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
+        $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
+        $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
+        $data['supplier_materials'] = $this->local_procurement_model->supplier_materials($canvass_no);
+        $data['cost_aviodances'] = $this->local_procurement_model->get_supplier_materials($canvass_no);
+        $data['quotation_lists'] = $this->local_procurement_model->get_quotation_material_list($canvass_no);
+        $data['old_quotation_lists'] = $this->local_procurement_model->get_quotation_material_list_log($canvass_no);
+        $data['quotation_canvass'] = $this->local_procurement_model->get_canvass_list($canvass_no);
+
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/logs/index';
+        $this->load->view('inc/navbar', $data);
+    }
+
     function comparative_view($canvass_no) 
     {
         $this->form_validation->set_rules('canvass_no', 'Canvass Number', 'required|trim');
@@ -287,7 +302,7 @@ class Procurement extends CI_Controller {
             }
         }
 
-      
+       
     }
 
     public function add_ecanvass_report_generation()
@@ -309,6 +324,7 @@ class Procurement extends CI_Controller {
         $data['cost_saving'] = $this->local_procurement_model->get_cost_saving();
         $data['cost_saving_negative'] = $this->local_procurement_model->get_cost_saving_negative();
         $data['canvass_lists'] = $this->local_procurement_model->get_canvass_lists();
+        $data['canvass_list_logs'] = $this->local_procurement_model->get_quotation_material_list_logs();
         $data['main_content'] = 'procurement/local/ecanvass/cost_saving/index';
         $this->load->view('inc/navbar', $data);
     }
@@ -774,6 +790,116 @@ class Procurement extends CI_Controller {
                 redirect('procurement/comparative_view/'.$canvass_no.'');
             }
         }
+      
+    }
+
+    public function add_quotation($canvass_no)
+    {
+        $this->form_validation->set_rules('canvass_no', 'Canvass Number', 'required|trim');   
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['canvass'] = $this->local_procurement_model->report_generation($canvass_no);
+            $data['suppliers'] = $this->local_procurement_model->get_suppliers();
+            $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
+            $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/logs/add';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            $supplier = $this->input->post('supplier');
+            $canvass_no = $this->input->post('canvass_no');
+            $accredited = $this->input->post('accredited');
+            $other = $this->input->post('others');
+            $vat = $this->input->post('vat');
+            $wrt = $this->input->post('wrt');
+            $pmt = $this->input->post('pmt');
+            $del = $this->input->post('del');
+            $notes = $this->input->post('notes');
+            $date = date('Y-m-d H:i:s');
+
+            $data = array(); 
+            $errorUploadType = $statusMsg = ''; 
+
+            // If files are selected to upload 
+            if(count($supplier) > 0){ 
+                $filesCount = count($supplier); 
+                for($i = 0; $i < $filesCount; $i++){ 
+                    $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
+                    $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
+                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
+                    $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
+                    $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
+                     
+                    // File upload configuration 
+                    $uploadPath = './uploads/supplier_ecanvass_attachment/'; 
+                    $config['upload_path'] = $uploadPath; 
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|docx|xls|xlsx|pdf|zip'; 
+                    //$config['max_size']    = '100'; 
+                    //$config['max_width'] = '1024'; 
+                    //$config['max_height'] = '768'; 
+                     
+                    // Load and initialize upload library 
+                    $this->load->library('upload', $config); 
+                    $this->upload->initialize($config);  
+                     
+                    // Upload file to server 
+                    $this->upload->do_upload('file');
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $uploadData[$i]['attachment'] = $fileData['file_name']; 
+                    $uploadData[$i]['canvass_no'] = $canvass_no;
+                    if($supplier[$i] == "acc"){
+                        $uploadData[$i]['supplier_name'] = $accredited[$i];
+                    }
+                    elseif($supplier[$i] == "others"){
+                        $uploadData[$i]['supplier_name'] = $other[$i];
+                    }
+                    $uploadData[$i]['vat'] = $vat[$i];
+                    $uploadData[$i]['wrt'] = $wrt[$i];
+                    $uploadData[$i]['pmt'] = $pmt[$i];
+                    $uploadData[$i]['del'] = $del[$i];
+                    $uploadData[$i]['notes'] = $notes[$i];
+                    $uploadData[$i]['created_date'] = date("Y-m-d H:i:s");
+                    $uploadData[$i]['created_by'] = $this->session->userdata('username');  
+                } 
+            }  
+            $this->local_procurement_model->insert_report_generation_with_supplier($uploadData); 
+
+            if($this->local_procurement_model->add_report_generation_with_supplier())
+            {
+                $canvass_no = $this->input->post('canvass_no');
+                redirect('procurement/comparative_view2/'.$canvass_no.'');
+            }
+        }
+      
+    }
+
+    function comparative_view2($canvass_no) 
+    {
+        $this->form_validation->set_rules('canvass_no', 'Canvass Number', 'required|trim');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
+            $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
+            $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
+            $data['supplier_materials'] = $this->local_procurement_model->supplier_materials($canvass_no);
+            $data['cost_aviodances'] = $this->local_procurement_model->get_supplier_materials($canvass_no);
+            $data['old_supplier_lists'] = $this->local_procurement_model->supplier_quotations($canvass_no);
+    
+            $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/logs/view';
+            $this->load->view('inc/navbar', $data);
+        }
+        else
+        {
+            if($this->local_procurement_model->additional_quotation_materials($canvass_no))
+            {
+                $this->session->set_flashdata('success_msg', 'Your Data Successfully Added!');
+                redirect('procurement/ecanvass_cost_saving');
+            }
+        }
+
       
     }
 

@@ -1040,8 +1040,6 @@ class Local_procurement_model extends CI_Model {
         return $query->result();
     }
 
-    
-    
     public function first_msid()
     {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
@@ -4019,6 +4017,140 @@ class Local_procurement_model extends CI_Model {
 
     }
 
+    public function additional_quotation_materials($canvass_no)
+    {
+        $this->db->trans_start();
+
+        $canvass_no = $this->input->post('canvass_no');
+        $buyer_name = $this->input->post('buyer_name');
+        $remarks = $this->input->post('remarks');
+        $qty = $this->input->post('qty');
+        $uom = $this->input->post('uom');
+        $supplier_name = $this->input->post('supplier_name');
+        $moq = $this->input->post('moq');
+        $price_per_unit = $this->input->post('price_per_unit');
+        $currency = $this->input->post('currency');
+        $total_price = $this->input->post('total_price');
+        $reduction_per_unit = $this->input->post('reduction_per_unit');
+        $total_reduction = $this->input->post('total_reduction');
+        $saving_unit = $this->input->post('saving_unit');
+        $total_saving = $this->input->post('total_saving');
+        $i = 0;
+
+        $old_canvass_no =  $this->input->post('old_canvass_no');
+        $old_quantity = $this->input->post('old_quantity');
+        $old_uom = $this->input->post('old_uom');
+        $old_supplier_name = $this->input->post('old_supplier_name'); 
+        $old_moq = $this->input->post('old_moq'); 
+        $old_price_per_unit = $this->input->post('old_price_per_unit'); 
+        $old_currency = $this->input->post('old_currency'); 
+        $old_total_price = $this->input->post('old_total_price'); 
+        $old_reduction_per_unit = $this->input->post('old_reduction_per_unit'); 
+        $old_total_reduction = $this->input->post('old_total_reduction'); 
+        $old_saving_per_unit = $this->input->post('old_saving_per_unit'); 
+        $old_total_saving = $this->input->post('old_total_saving'); 
+        $old_created_by = $this->input->post('old_created_by');
+        $old_created_date = $this->input->post('old_created_date');
+        $old_is_active = $this->input->post('old_is_active');
+        $y = 0;
+
+        // TRANSFER TO MATERIAL LIST LOGS
+        foreach($this->input->post('old_material_name') as $old_material_name)
+        {
+            $data_material_logs = array(
+                'canvass_no'         => $old_canvass_no[$y],
+                'material_name'      => $old_material_name,
+                'quantity'           => $old_quantity[$y],
+                'uom'                => $old_uom[$y],
+                'supplier_name'      => $old_supplier_name[$y],
+                'moq'                => $old_moq[$y],
+                'price_per_unit'     => $old_price_per_unit[$y],
+                'currency'           => $old_currency[$y],
+                'total_price'        => $old_total_price[$y],
+                'reduction_per_unit' => $old_reduction_per_unit[$y],
+                'total_reduction'    => $old_total_reduction[$y],
+                'saving_per_unit'    => $old_saving_per_unit[$y],
+                'total_saving'       => $old_total_saving[$y],
+                'created_by'         => $old_created_by[$y],
+                'created_date'       => $old_created_date[$y],
+                'is_active'          => $old_is_active[$y]
+
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('quotation_material_list_logs', $data_material_logs);
+
+            $y++;
+        }
+
+        // REMOVE OLD DATA
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $blaine_local_procurement->delete('quotation_material_list');
+
+        $data_canvass = array(
+            'buyer_name' => $buyer_name,
+            'remarks'    => $remarks,
+            'is_active'  => 1
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $blaine_local_procurement->update('report_generation', $data_canvass);
+
+        /*print_r('<pre>');
+        print_r($data_canvass);
+        print_r('</pre>');*/
+
+        // ADD NEW QUOTATION MATERIAL LIST
+        foreach($this->input->post('material_name') as $material_name)
+        {
+            $data_material = array(
+                'canvass_no'         => $canvass_no,
+                'material_name'      => $material_name,
+                'quantity'           => $qty[$i],
+                'uom'                => $uom[$i],
+                'supplier_name'      => $supplier_name[$i],
+                'moq'                => $moq[$i],
+                'price_per_unit'     => $price_per_unit[$i],
+                'currency'           => $currency[$i],
+                'total_price'        => $total_price[$i],
+                'reduction_per_unit' => $reduction_per_unit[$i],
+                'total_reduction'    => $total_reduction[$i],
+                'saving_per_unit'    => $saving_unit[$i],
+                'total_saving'       => $total_saving[$i],
+                'created_by'         => $this->session->userdata('username'),
+                'created_date'       => date('Y-m-d H:i:s')
+
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('quotation_material_list', $data_material);
+
+            /*print_r('<pre>');
+            print_r($data_material);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+
+        // BLAINE INTRANET LOGS
+        $data_logs = array(
+            'username'      => $this->session->userdata('username'),
+            'activity'      => "Entry Added",
+            'pc_ip'         => $_SERVER['REMOTE_ADDR'],
+            'type'          => 'LOCAL PROCUREMENT: E-CANVASS REPORT GENERATION STEP:4',
+            'date'          => date('Y-m-d H:i:s')
+        );
+
+        $activity_log = $this->load->database('activity_logs', TRUE);
+        $activity_log->insert('blaine_logs', $data_logs);
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+
+    }
+
     public function get_material_canvass()
     {
         $this->db->select('
@@ -4166,4 +4298,31 @@ class Local_procurement_model extends CI_Model {
         return $query->row();
     }
     
+    public function supplier_quotations($canvass_no)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $query = $blaine_local_procurement->get('quotation_material_list');
+
+        return $query->result(); 
+    }
+
+    public function get_quotation_material_list_log($canvass_no)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $query = $blaine_local_procurement->get('quotation_material_list_logs');
+
+        return $query->result();
+    }
+
+    public function get_quotation_material_list_logs()
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->group_by('canvass_no');
+        $query = $blaine_local_procurement->get('quotation_material_list_logs');
+
+        return $query->result();
+    }
+
 }
