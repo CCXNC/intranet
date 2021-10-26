@@ -104,7 +104,6 @@
             </div>
             <br>
             <input type="submit" style="margin-left:10px;" class="float-right btn btn-info" value="NEXT">
-            <!--<a href="<?php echo base_url(); ?>procurement/report_pr_add1" style="margin-left:10px;" class="float-right btn btn-info">NEXT</a>-->
         </form>
     </div>
 </div>

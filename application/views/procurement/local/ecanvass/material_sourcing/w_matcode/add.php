@@ -104,7 +104,12 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Material Code</label>&nbsp;<i class="verified" style="color:green;"></i>
-                                <input type="text" class="form-control" id="myTextbox" id="check" name="material_code[]" placeholder="" required>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="mcode" id="check" name="material_code[]" placeholder="" required>
+                                    <div class="input-group-prepend">
+                                        <a style="font-size:6px" class="input-group-text btn btn-success btn-sm" id="myTextbox"><span class="fa fa-angle-right" style="font-size:10px"></span></a>
+                                    </div>
+                                </div>    
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -282,8 +287,8 @@
             success: function(result){
                 var obj = $.parseJSON(result);
                 $.each(obj,function(index,object){
-                    $('#myTextbox').blur(function(e) {
-                        var mcodeType = $(this).val();
+                    $('#myTextbox').click(function(e) {
+                        var mcodeType = $('#mcode').val();
                         if(mcodeType == object['mcode']) {
                             console.log('SUCCESS');
                             $('#description').val(object['description']);
@@ -308,13 +313,13 @@
                     type:"POST",
                     success: function(result){
                         
-                        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-3"><div class="form-group"><label>Material Code</label>&nbsp;<i class="verified'+f+'" style="color:green;"></i><input type="text" class="form-control" id="myTextbox'+f+'" name="material_code[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><input type="text" class="form-control" readonly id="description'+f+'" name="description[]" placeholder=""></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1" required><?php if($uoms) : ?><?php foreach($uoms as $uom) : ?><option value="<?php echo $uom->name; ?>"><?php echo $uom->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="number" class="form-control" name="shelf_life[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Group</label><input type="text" class="form-control"  id="materialGroup'+f+'" readonly name="material_category[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="files[]" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
+                        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-3"><div class="form-group"><label>Material Code</label>&nbsp;<i class="verified" style="color:green;"></i><div class="input-group"><input type="text" class="form-control" id="mcode'+f+'" id="check" name="material_code[]" placeholder="" required><div class="input-group-prepend"><a style="font-size:6px" class="input-group-text btn btn-success btn-sm" id="myTextbox'+f+'"><span class="fa fa-angle-right" style="font-size:10px"></span></a></div></div></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><input type="text" class="form-control" readonly id="description'+f+'" name="description[]" placeholder=""></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1" required><?php if($uoms) : ?><?php foreach($uoms as $uom) : ?><option value="<?php echo $uom->name; ?>"><?php echo $uom->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="number" class="form-control" name="shelf_life[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Group</label><input type="text" class="form-control"  id="materialGroup'+f+'" readonly name="material_category[]" placeholder=""></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="files[]" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
                         $("#form_field").append(form);
 
                         var obj = $.parseJSON(result);
                         $.each(obj,function(index,object){
-                            $('#myTextbox'+f+'').blur(function(e) {
-                                var mcodeType = $(this).val();
+                            $('#myTextbox'+f+'').click(function(e) {
+                                var mcodeType = $('#mcode'+f+'').val();
                                 if(mcodeType == object['mcode']) {
                                     console.log('SUCCESS');
                                     $('#description'+f+'').val(object['description']);
