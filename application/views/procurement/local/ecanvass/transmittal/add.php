@@ -15,12 +15,23 @@
                 <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px;">TRANSMITTAL DETAILS</div>
                 <div class="card-body" style="background-color: #E9FAFD;">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4"> 
+                            <div class="form-group">
+                                <label >Material Source ID</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="msid"  name="msid" style="">
+                                    <div class="input-group-prepend">
+                                       <a href="#" style="font-size:6px" class="input-group-text btn btn-success btn-sm" id="myTextbox"><span class="fa fa-angle-right" style="font-size:10px"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-4">
                             <div class="form-group">
                                 <label >Material Source ID</label>
                                 <input type="text" class="form-control" id="myTextbox" name="msid" style="">
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >Material Source Request Date</label>
@@ -114,8 +125,8 @@
                 var f = 1;
                 //console.log(obj);
                 $.each(obj,function(index,object){
-                    $('#myTextbox').blur(function(e) {
-                        var mcodeType = $(this).val();
+                    $('#myTextbox').click(function(e) {
+                        var mcodeType = $('#msid').val();
                         if(mcodeType == object['msid']) {
                             var form = "<tr id='child'><td data-label='Description'><input type='text' id='' class='form-control' name='description[]' value='"+object['description']+"'></td><td data-label='Supplier'><div class=''><div class='form-group'><select class='form-control' id='supplier"+f+"' style='font-size:12px; height:32px' name='supplier[]'><option value=''>SELECT SUPPLIER</option><option value='acc'>ACCREDITED</option><option value='others'>OTHERS</option></select></div></div></td><td><div class='' id='accreditedData"+f+"'><div class='form-group'><select name='accredited[]' class='form-control' id='dataAccredited"+f+"' style=' font-size: 12px;height:32px; width: 200px;'><option value=' '>Select Supplier Name</option><?php if($suppliers) : ?><?php foreach($suppliers as $supplier) : ?><option value='<?php echo $supplier->name; ?>'><?php echo $supplier->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class='' id='othersData"+f+"'><div class='form-group'><input type='text' name='others[]' id='dataOthers"+f+"' class='form-control'></div></div></td><td data-label='Price'><input type='text' class='form-control' name='batch_number[]'></td><td data-label='Year'><input type='file' size='20' name='attachment1[]'></td><td><input class='btn btn-danger btn-sm' style='width: 80px' type='button' name='remove' id='cremove' value='Remove'></td></tr>";
                             $("#form_field").append(form);
@@ -298,8 +309,8 @@
                 var obj1 = $.parseJSON(result);
                 //console.log(obj1);
                 $.each(obj1,function(index,object){
-                    $('#myTextbox').blur(function(e) {
-                        var mcodeType = $(this).val();
+                    $('#myTextbox').click(function(e) {
+                        var mcodeType = $('#msid').val();
                         if(mcodeType == object['msid']) {
                             if(object['company_id'] == '1') {
                                 $('#company').val('RRLC');
@@ -323,8 +334,8 @@
                 var obj1 = $.parseJSON(result);
 
                 $.each(obj1, function(index, object){
-                    $('#myTextbox').blur(function(e) {
-                        var mcodeType = $(this).val();
+                    $('#myTextbox').click(function(e) {
+                        var mcodeType = $('#msid').val();
                         if(mcodeType == object['msid']) {
                             $('#email').val(object['email']);
                             $('#requestor').val(object['fullname']);
