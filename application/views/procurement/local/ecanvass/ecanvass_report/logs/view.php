@@ -241,22 +241,22 @@
             <br>
             <?php if($old_supplier_lists) : ?>
                 <?php foreach($old_supplier_lists as $old_supplier_list) : ?>
-                    <input type="text" name="old_canvass_no[]" value="<?php echo $old_supplier_list->canvass_no; ?>"><br>
-                    <input type="text" name="old_material_name[]" value="<?php echo $old_supplier_list->material_name; ?>"><br>
-                    <input type="text" name="old_quantity[]" value="<?php echo $old_supplier_list->quantity; ?>"><br>
-                    <input type="text" name="old_uom[]" value="<?php echo $old_supplier_list->uom; ?>"><br>
-                    <input type="text" name="old_supplier_name[]" value="<?php echo $old_supplier_list->supplier_name; ?>"><br>
-                    <input type="text" name="old_moq" value="<?php echo $old_supplier_list->moq; ?>"><br>
-                    <input type="text" name="old_price_per_unit[]" value="<?php echo $old_supplier_list->price_per_unit; ?>"><br>
-                    <input type="text" name="old_currency[]" value="<?php echo $old_supplier_list->currency; ?>"><br>
-                    <input type="text" name="old_total_price[]" value="<?php echo $old_supplier_list->total_price; ?>"><br>
-                    <input type="text" name="old_reduction_per_unit[]" value="<?php echo $old_supplier_list->reduction_per_unit; ?>"><br>
-                    <input type="text" name="old_total_reduction[]" value="<?php echo $old_supplier_list->total_reduction; ?>"><br>
-                    <input type="text" name="old_saving_per_unit[]" value="<?php echo $old_supplier_list->saving_per_unit; ?>"><br>
-                    <input type="text" name="old_total_saving[]" value="<?php echo $old_supplier_list->total_saving; ?>"><br>
-                    <input type="text" name="old_created_by[]" value="<?php echo $old_supplier_list->created_by; ?>"><br>
-                    <input type="text" name="old_created_date[]" value="<?php echo $old_supplier_list->created_date; ?>"><br>
-                    <input type="text" name="old_is_active[]" value="<?php echo $old_supplier_list->is_active; ?>"><br><br>
+                    <input type="text" hidden name="old_canvass_no[]" value="<?php echo $old_supplier_list->canvass_no; ?>">
+                    <input type="text" hidden name="old_material_name[]" value="<?php echo $old_supplier_list->material_name; ?>">
+                    <input type="text" hidden name="old_quantity[]" value="<?php echo $old_supplier_list->quantity; ?>">
+                    <input type="text" hidden name="old_uom[]" value="<?php echo $old_supplier_list->uom; ?>">
+                    <input type="text" hidden name="old_supplier_name[]" value="<?php echo $old_supplier_list->supplier_name; ?>">
+                    <input type="text" hidden name="old_moq" value="<?php echo $old_supplier_list->moq; ?>">
+                    <input type="text" hidden name="old_price_per_unit[]" value="<?php echo $old_supplier_list->price_per_unit; ?>">
+                    <input type="text" hidden name="old_currency[]" value="<?php echo $old_supplier_list->currency; ?>">
+                    <input type="text" hidden name="old_total_price[]" value="<?php echo $old_supplier_list->total_price; ?>">
+                    <input type="text" hidden name="old_reduction_per_unit[]" value="<?php echo $old_supplier_list->reduction_per_unit; ?>">
+                    <input type="text" hidden name="old_total_reduction[]" value="<?php echo $old_supplier_list->total_reduction; ?>">
+                    <input type="text" hidden name="old_saving_per_unit[]" value="<?php echo $old_supplier_list->saving_per_unit; ?>">
+                    <input type="text" hidden name="old_total_saving[]" value="<?php echo $old_supplier_list->total_saving; ?>">
+                    <input type="text" hidden name="old_created_by[]" value="<?php echo $old_supplier_list->created_by; ?>">
+                    <input type="text" hidden name="old_created_date[]" value="<?php echo $old_supplier_list->created_date; ?>">
+                    <input type="text" hidden name="old_is_active[]" value="<?php echo $old_supplier_list->is_active; ?>">
                 <?php endforeach; ?>
             <?php endif; ?>
             <br><br>
