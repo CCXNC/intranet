@@ -26,7 +26,7 @@
         border: none;
         background: rgb(0,172,238);
         background: linear-gradient(0deg, rgba(0,137,204,231) 0%, rgba(2,104,187,227) 100%);
-        margin-left:50px;
+        
     }
     .btn-5:hover {
         color: black;
@@ -69,7 +69,7 @@
         border: none;
         background: rgb(0,172,238);
         background: linear-gradient(0deg, rgba(0,137,204,231) 0%, rgba(2,104,187,227) 100%);
-        margin-left:50px;
+        
     }
     .btn-5:hover {
         color: black;
@@ -113,7 +113,7 @@
         border: none;
         background: rgb(0,172,238);
         background: linear-gradient(0deg, rgba(0,137,204,231) 0%, rgba(2,104,187,227) 100%);
-        margin-left:50px;
+        
     }
     .btn-4:hover {
         color: black;
@@ -158,11 +158,11 @@
         <div class="row">
             <div class="col-sm-6">
                 <!--<a style="width: 75%; background-color:#175873; padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:15px; font-weight: 500; border: 2px solid #2387AF; border-radius: 10px; margin-left:50px;" href="<?php echo base_url(); ?>procurement/material_sourcing_index" class="btn btn-primary btn-md float-left">MATERIAL SOURCING LIST <i style="font-size:25px" class="fa fa-cart-plus float-right"></i></a>--> 
-                <button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/material_sourcing_index'"><span>MATERIAL SOURCING LIST</span></button>
+                <center><button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/material_sourcing_index'"><span>MATERIAL SOURCING LIST</span></button></center>
             </div>
             <div class="col-sm-6">
                 <!--<a style="width: 75%; background-color:#175873; padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:15px; font-weight: 500; border: 2px solid #2387AF; border-radius: 10px; margin-left:50px" href="<?php echo base_url(); ?>procurement/material_sourcing" class="btn btn-primary btn-md float-left">MATERIAL SOURCING FORM <i style="font-size:25px" class="fa fa-cart-plus float-right"></i></a>--> 
-                <button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/material_sourcing'"><span>MATERIAL SOURCING FORM</span></button>
+                <center><button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/material_sourcing'"><span>MATERIAL SOURCING FORM</span></button></center>
             </div>
         </div>
     </div>
@@ -177,11 +177,11 @@
             <div class="row">
                 <div class="col-sm-6">
                     <!--<a style="width: 75%; background-color: #2387AF;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:15px; font-weight: 500; border-radius: 10px; border: 2px solid #175873; margin-left:50px" href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" class="btn btn-primary btn-md float-left">E-CANVASS REPORT GENERATION<i style="font-size:25px" class="fa fa-chart-bar float-right"></i></a>--> 
-                    <button class="custom-btn btn-5" onclick="location.href='<?php echo base_url(); ?>procurement/ecanvass_report_generation'"><span>E-CANVASS REPORT GENERATION</span></button>
+                    <center><button class="custom-btn btn-5" onclick="location.href='<?php echo base_url(); ?>procurement/ecanvass_report_generation'"><span>E-CANVASS REPORT GENERATION</span></button></center>
                 </div>
                 <div class="col-sm-6">
                     <!--<a style="width: 75%;background-color: #2387AF;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:15px; font-weight: 500; border-radius: 10px; border: 2px solid #175873; margin-left:50px" href="<?php echo base_url(); ?>procurement/transmittal" class="btn btn-primary btn-md float-left">TRANSMITTAL REPORT GENERATION<i style="font-size:25px" class="fa fa-chart-bar float-right"></i></a>-->
-                    <button class="custom-btn btn-5" onclick="location.href='<?php echo base_url(); ?>procurement/transmittal'"><span>TRANSMITTAL REPORT GENERATION</span></button>
+                    <center><button class="custom-btn btn-5" onclick="location.href='<?php echo base_url(); ?>procurement/transmittal'"><span>TRANSMITTAL REPORT GENERATION</span></button></center>
                 </div>
             </div>
         </div>
@@ -195,16 +195,16 @@
             <div class="row">
                 <div class="col-sm-6">
                     <!--<a style="width: 75%; background-color: #175873;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 15px; font-weight: 500; border-radius: 10px; border: 2px solid #2387AF; margin-left:50px" href="<?php echo base_url(); ?>procurement/ecanvass_cost_saving" class="btn btn-primary btn-md float-left">CANVASS LIST<i style="font-size:25px" class="fa fa-list-ul float-right"></i></a>-->
-                    <button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/ecanvass_cost_saving'"><span>CANVASS LIST</span></button>
+                    <center><button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/ecanvass_cost_saving'"><span>CANVASS LIST</span></button></center>
                 </div>
                 <div class="col-sm-6">
                     <!--<a style="width: 75%; background-color: #175873;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 15px; font-weight: 500; border-radius: 10px; border: 2px solid #2387AF; margin-left:50px" href="<?php echo base_url(); ?>procurement/material_canvass" class="btn btn-primary btn-md float-left">MATERIAL CANVASS HISTORY<i style="font-size:25px" class="fa fa-list-ul float-right"></i></a>-->
-                    <button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/material_canvass'"><span>MATERIAL CANVASS HISTORY</span></button>
+                    <center><button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/material_canvass'"><span>MATERIAL CANVASS HISTORY</span></button></center>
                 </div>
                 <div class="col-sm-6">
                     <br>
                     <!--<a style="width: 75%;background-color: #175873;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 15px; font-weight: 500; border-radius: 10px; border: 2px solid #2387AF; margin-left:50px" href="<?php echo base_url(); ?>procurement/transmittal_list" class="btn btn-primary btn-md float-left">TRANSMITTAL LIST<i style="font-size:25px" class="fa fa-chart-bar float-right"></i></a>-->
-                    <button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/transmittal_list'"><span>TRANSMITTAL LIST</span></button>
+                    <center><button class="custom-btn btn-4" onclick="location.href='<?php echo base_url(); ?>procurement/transmittal_list'"><span>TRANSMITTAL LIST</span></button></center>
                 </div>
             </div>
         </div>
@@ -218,11 +218,11 @@
             <div class="row">
                 <div class="col-sm-6">
                     <!--<a style="width: 75%; background-color:#2387AF;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 15px; font-weight: 500; border-radius: 10px; border: 2px solid #175873; margin-left:50px" href="<?php echo base_url(); ?>procurement/supplier_index" class="btn btn-primary btn-md float-left">SUPPLIER ENROLLMENT<i style="font-size:25px" class="fa fa-folder float-right"></i></a>--> 
-                    <button class="custom-btn btn-5" onclick="location.href='<?php echo base_url(); ?>procurement/supplier_index'"><span>SUPPLIER ENROLLMENT</span></button>
+                    <center><button class="custom-btn btn-5" onclick="location.href='<?php echo base_url(); ?>procurement/supplier_index'"><span>SUPPLIER ENROLLMENT</span></button></center>
                 </div>
                 <div class="col-sm-6">
                     <!--<a style="width: 75%; background-color:#2387AF;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 15px; font-weight: 500; border-radius: 10px; border: 2px solid #175873; margin-left:50px" href="<?php echo base_url(); ?>procurement/material_enrollment" class="btn btn-primary btn-md float-left">MATERIAL ENROLLMENT<i style="font-size:25px" class="fa fa-folder float-right"></i></a>--> 
-                    <button class="custom-btn btn-5" onclick="location.href='<?php echo base_url(); ?>procurement/material_enrollment'"><span>MATERIAL ENROLLMENT</span></button>
+                    <center><button class="custom-btn btn-5" onclick="location.href='<?php echo base_url(); ?>procurement/material_enrollment'"><span>MATERIAL ENROLLMENT</span></button></center>
                 </div>
             </div>
         </div>
