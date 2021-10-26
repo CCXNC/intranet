@@ -29,7 +29,7 @@
         
     }
     .btn-5:hover {
-        color: black;
+        color: #175873;
         background: #BDF5F9;
         box-shadow:none;
         outline:none;
@@ -72,8 +72,8 @@
         
     }
     .btn-5:hover {
-        color: black;
-        background: #BDF5F9;
+        color: #175873;
+        background: #EDF2F3;
         box-shadow:none;
         outline:none;
     }
@@ -116,7 +116,7 @@
         
     }
     .btn-4:hover {
-        color: black;
+        color: #175873;
         background: #EDF2F3;
         box-shadow:none;
         outline:none;
@@ -151,10 +151,10 @@
 <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS</h4></div>
 <br>
 <div class="card" style="border: solid #175873 1.5px">
-    <div class="card-header" style="background-color: #175873; color: white;">
+    <div class="card-header" style="background-color: #0F3859; color: white;">
         <h5 style="margin-top:-5px; margin-bottom:-5px">Request List</h5>
     </div>
-    <div class="card-body" style="background-color: #BDF5F9">
+    <div class="card-body" style="">
         <div class="row">
             <div class="col-sm-6">
                 <!--<a style="width: 75%; background-color:#175873; padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:15px; font-weight: 500; border: 2px solid #2387AF; border-radius: 10px; margin-left:50px;" href="<?php echo base_url(); ?>procurement/material_sourcing_index" class="btn btn-primary btn-md float-left">MATERIAL SOURCING LIST <i style="font-size:25px" class="fa fa-cart-plus float-right"></i></a>--> 
@@ -170,10 +170,10 @@
 <br>
 <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
     <div class="card" style="border: solid #175873 1.5px">
-        <div class="card-header" style="background-color: #175873; color: white">
+        <div class="card-header" style="background-color: #0F3859; color: white">
             <h5 style="margin-top:-5px; margin-bottom:-5px">Report Generation</h5>
         </div>
-        <div class="card-body" style="background-color: #EDF2F3">
+        <div class="card-body" style="background-color: #DEEDF2">
             <div class="row">
                 <div class="col-sm-6">
                     <!--<a style="width: 75%; background-color: #2387AF;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size:15px; font-weight: 500; border-radius: 10px; border: 2px solid #175873; margin-left:50px" href="<?php echo base_url(); ?>procurement/ecanvass_report_generation" class="btn btn-primary btn-md float-left">E-CANVASS REPORT GENERATION<i style="font-size:25px" class="fa fa-chart-bar float-right"></i></a>--> 
@@ -188,10 +188,10 @@
     </div>
     <br>
     <div class="card" style="border: solid #175873 1.5px">
-        <div class="card-header" style="background-color: #175873; color: white">
+        <div class="card-header" style="background-color: #0F3859; color: white">
             <h5 style="margin-top:-5px; margin-bottom:-5px">Report List</h5>
         </div>
-        <div class="card-body" style="background-color: #BDF5F9">
+        <div class="card-body" style="">
             <div class="row">
                 <div class="col-sm-6">
                     <!--<a style="width: 75%; background-color: #175873;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 15px; font-weight: 500; border-radius: 10px; border: 2px solid #2387AF; margin-left:50px" href="<?php echo base_url(); ?>procurement/ecanvass_cost_saving" class="btn btn-primary btn-md float-left">CANVASS LIST<i style="font-size:25px" class="fa fa-list-ul float-right"></i></a>-->
@@ -211,10 +211,10 @@
     </div>
     <br>
     <div class="card" style="border: solid #175873 1.5px">
-        <div class="card-header" style="background-color: #175873; color: white">
+        <div class="card-header" style="background-color: #0F3859; color: white">
             <h5 style="margin-top:-5px; margin-bottom:-5px">Data Enrollment</h5>
         </div>
-        <div class="card-body" style="background-color: #E9F4FB">
+        <div class="card-body" style="background-color: #DEEDF2">
             <div class="row">
                 <div class="col-sm-6">
                     <!--<a style="width: 75%; background-color:#2387AF;  padding: 12px; box-shadow: 5px 10px 18px #B0B0B0; font-size: 15px; font-weight: 500; border-radius: 10px; border: 2px solid #175873; margin-left:50px" href="<?php echo base_url(); ?>procurement/supplier_index" class="btn btn-primary btn-md float-left">SUPPLIER ENROLLMENT<i style="font-size:25px" class="fa fa-folder float-right"></i></a>--> 

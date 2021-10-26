@@ -26,12 +26,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="col-md-4">
-                            <div class="form-group">
-                                <label >Material Source ID</label>
-                                <input type="text" class="form-control" id="myTextbox" name="msid" style="">
-                            </div>
-                        </div>-->
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >Material Source Request Date</label>
@@ -105,6 +99,8 @@
                         <tbody id="form_field">
                         </tbody>
                     </table>
+                    <!--Adding of Materials-->
+                    <input class="btn btn-success" title="Add Academe Information" type="button" name="add" id="add" value="ADD">
                 </div>
             </div>
             <br>
@@ -123,12 +119,15 @@
             success: function(result){
                 var obj = $.parseJSON(result);
                 var f = 1;
+                var max = 10;
+                var x = 1;
                 //console.log(obj);
                 $.each(obj,function(index,object){
                     $('#myTextbox').click(function(e) {
                         var mcodeType = $('#msid').val();
                         if(mcodeType == object['msid']) {
                             var form = "<tr id='child'><td data-label='Description'><input type='text' id='' class='form-control' name='description[]' value='"+object['description']+"'></td><td data-label='Supplier'><div class=''><div class='form-group'><select class='form-control' id='supplier"+f+"' style='font-size:12px; height:32px' name='supplier[]'><option value=''>SELECT SUPPLIER</option><option value='acc'>ACCREDITED</option><option value='others'>OTHERS</option></select></div></div></td><td><div class='' id='accreditedData"+f+"'><div class='form-group'><select name='accredited[]' class='form-control' id='dataAccredited"+f+"' style=' font-size: 12px;height:32px; width: 200px;'><option value=' '>Select Supplier Name</option><?php if($suppliers) : ?><?php foreach($suppliers as $supplier) : ?><option value='<?php echo $supplier->name; ?>'><?php echo $supplier->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class='' id='othersData"+f+"'><div class='form-group'><input type='text' name='others[]' id='dataOthers"+f+"' class='form-control'></div></div></td><td data-label='Price'><input type='text' class='form-control' name='batch_number[]'></td><td data-label='Year'><input type='file' size='20' name='attachment1[]'></td><td><input class='btn btn-danger btn-sm' style='width: 80px' type='button' name='remove' id='cremove' value='Remove'></td></tr>";
+                            
                             $("#form_field").append(form);
 
                             $('#accreditedData1').hide();
@@ -293,11 +292,51 @@
 
                             f++;
                         }
-                    });
-                    
-                    
+                    });    
+                });
+
+                /* Adding of materials */
+                $("#add").click(function(){
+                    if(f <= max){
+                        var add_material = "<tr id='child'><td data-label='Description'><input type='text' id='' class='form-control' name='description[]' value=''></td><td data-label='Supplier'><div class=''><div class='form-group'><select class='form-control' id='supplier' style='font-size:12px; height:32px' name='supplier[]'><option value=''>SELECT SUPPLIER</option><option value='acc'>ACCREDITED</option><option value='others'>OTHERS</option></select></div></div></td><td><div class='' id='accreditedData'><div class='form-group'><select name='accredited[]' class='form-control' id='' style=' font-size: 12px;height:32px; width: 200px;' ><option value=' '>Select Supplier Name</option><?php if($suppliers) : ?><?php foreach($suppliers as $supplier) : ?><option value='<?php echo $supplier->name; ?>'><?php echo $supplier->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class='' id='othersData'><div class='form-group'><input type='text' name='others[]' id='' class='form-control' ></div></div></td><td data-label='Price'><input type='text' class='form-control' name='batch_number[]'></td><td data-label='Year'><input type='file' size='20' name='attachment1[]'></td><td><input class='btn btn-danger btn-sm' style='width: 80px' type='button' name='remove' id='cremove' value='Remove'></td></tr>";
+                        $("#form_field").append(add_material);
+                        
+                        $('#accreditedData').hide();
+                        $('#othersData').hide();
+                        $('#accreditedData1').hide();
+                        $('#othersData1').hide();
+                        
+                        $('#supplier').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData').show(); 
+                                $('#othersData').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData').show();
+                                $('#accreditedData').hide();
+                            }
+                        });
+                        $('#supplier1').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData1').show(); 
+                                $('#othersData1').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData1').show();
+                                $('#accreditedData1').hide();
+                            }
+                        });
+                        f++;
+                    }
                 });
                 
+                $("#form_field").on('click','#cremove',function(){
+                    $(this).closest('#child').remove();
+                });
             }
         });
 
