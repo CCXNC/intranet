@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function(){ 
         
-        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="description[]" rows="1" required></textarea></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="number" class="form-control" name="quantity[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1" required><?php if($uoms) : ?><?php foreach($uoms as $uom) : ?><option value="<?php echo $uom->name; ?>"><?php echo $uom->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="number" class="form-control" name="shelf_life[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Group</label><select class="form-control" name="material_category[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1" required><?php if($material_groups) : ?><?php foreach($material_groups as $material_group) : ?><option value="<?php echo $material_group->name; ?>"><?php echo $material_group->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="files[]" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
+        var form = '<div id="form"><br><hr><br><div class="row"><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Description</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="description[]" rows="1" required></textarea></div></div><div class="col-md-6"><div class="form-group"><label for="exampleFormControlTextarea1">Specification</label><textarea style="background-color:white; font-size:12px" class="form-control" id="" name="specification[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label>Quantity</label><input type="text" class="form-control" name="quantity[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">UOM</label><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1" required><?php if($uoms) : ?><?php foreach($uoms as $uom) : ?><option value="<?php echo $uom->name; ?>"><?php echo $uom->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class="col-md-3"><div class="form-group"><label>Shelf Life (Months)</label><input type="text" class="form-control" name="shelf_life[]" placeholder="" required></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Purpose/Remarks</label><textarea class="form-control" style="font-size:12px" id="" name="purpose[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Item Application</label><textarea class="form-control" id="" style="font-size:12px" name="item_application[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlTextarea1">Required Document</label><textarea class="form-control" style="font-size:12px" id="exampleFormControlTextarea1" name="required_document[]" rows="1" required></textarea></div></div><div class="col-md-3"><div class="form-group"><label for="exampleFormControlSelect1">Material Group</label><select class="form-control" name="material_category[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1" required><?php if($material_groups) : ?><?php foreach($material_groups as $material_group) : ?><option value="<?php echo $material_group->name; ?>"><?php echo $material_group->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class="col-md-3"><div class="form-group"><label>File Attachment</label><input type="file" name="files[]" /></div></div></div><input class="btn btn-danger" type="button" name="remove" id="fremove" value="Remove"></div>';
         var fmax = 20;
         var f = 1;
 
@@ -155,7 +155,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input type="number" class="form-control" name="quantity[]" placeholder="" required>
+                                <input type="text" class="form-control" name="quantity[]" placeholder="" required>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -173,7 +173,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Shelf Life (Months)</label>
-                                <input type="number" class="form-control" name="shelf_life[]" placeholder="" required>
+                                <input type="text" class="form-control" name="shelf_life[]" placeholder="" required>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -233,10 +233,10 @@
                             <label for="">Step/Approver</label>
                         </div>
                         <div class="col-md-4">
-                            <label for="">Primary Approver</label>
+                            <label for="">Primary</label>
                         </div>
                         <div class="col-md-4">
-                            <label for="">Alternate Approver</label>
+                            <label for="">Alternate</label>
                         </div>
                     </div>
                     <div class="row">
@@ -246,7 +246,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <select style="color:black;font-size:12px" name="requestor_primary1" class="form-control" required> 
-                                    <option value="">Select Primary Approver</option> 
+                                    <option value="">Select Primary Requestor</option> 
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
                                         <option value="<?php echo $employee->fullname.'|'. $employee->emp_no .'|'. $employee->email ; ?>"<?php echo $this->session->userdata('employee_number') ==  $employee->emp_no ? 'selected' : ''; ?>><?php echo $employee->fullname; ?></option>
@@ -258,7 +258,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <select style="color:black;font-size:12px" name="requestor_alternate1" class="form-control">
-                                    <option value="">Select Alternate Approver</option>
+                                    <option value="">Select Alternate Requestor</option>
                                     <?php if($employees) : ?>
                                     <?php foreach($employees as $employee) : ?>
                                         <option value="<?php echo $employee->fullname.'|'. $employee->emp_no .'|' . $employee->email ; ?>"><?php echo $employee->fullname;?></option>

@@ -43,6 +43,13 @@
                                 <a class="dropdown-item" title="View Supplier" href="<?php echo base_url(); ?>procurement/supplier_view/<?php echo $supplier->id;?>">View</a>
                                 <a class="dropdown-item" title="Edit Supplier" href="<?php echo base_url(); ?>procurement/supplier_edit/<?php echo $supplier->id; ?>">Edit</a>
                                 <a onclick="return confirm('Are you sure you want to delete data?');" title="Delete Supplier" class="dropdown-item" href="<?php echo base_url(); ?>procurement/supplier_delete/<?php echo $supplier->id;?>">Delete</a>
+                                <?php if($suppliers_logs) : ?>
+                                    <?php foreach($suppliers_logs as $suppliers_log) : ?>
+                                        <?php if($suppliers_log->scode == $supplier->scode) : ?>
+                                            <a class="dropdown-item" title="View Logs" href="<?php echo base_url(); ?>procurement/supplier_logs/<?php echo $supplier->scode; ?>">Logs</a>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </td>

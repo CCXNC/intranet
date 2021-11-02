@@ -316,7 +316,7 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label><b>Quantity:</b></label>
-                                                            <input type="number" class="form-control" name="quantity" placeholder="" style="font-size:12px" value="<?php echo $material->quantity;?>">
+                                                            <input type="text" class="form-control" name="quantity" placeholder="" style="font-size:12px" value="<?php echo $material->quantity;?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -328,7 +328,7 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label><b>Shelf Life (Months):</b></label>
-                                                            <input type="number" class="form-control" name="shelf_life" placeholder="" style="font-size:12px" value="<?php echo $material->shelf_life;?>"> 
+                                                            <input type="text" class="form-control" name="shelf_life" placeholder="" style="font-size:12px" value="<?php echo $material->shelf_life;?>"> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">

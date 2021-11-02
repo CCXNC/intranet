@@ -28,7 +28,7 @@
         background: linear-gradient(0deg, rgba(0,137,204,231) 0%, rgba(2,104,187,227) 100%);
         
     }
-    .btn-5:hover {
+    /*.btn-5:hover {
         color: #175873;
         background: #BDF5F9;
         box-shadow:none;
@@ -59,7 +59,7 @@
     .btn-5:hover:after{
         width:100%;
         transition:800ms ease all;
-    }
+    }*/
 
      .btn-5 {
         width: 350px;
@@ -71,7 +71,7 @@
         background: linear-gradient(0deg, rgba(0,137,204,231) 0%, rgba(2,104,187,227) 100%);
         
     }
-    .btn-5:hover {
+    /*.btn-5:hover {
         color: #175873;
         background: #EDF2F3;
         box-shadow:none;
@@ -102,7 +102,7 @@
     .btn-5:hover:after{
         width:100%;
         transition:800ms ease all;
-    }
+    }*/
 
     /*4 */
     .btn-4 {
@@ -115,7 +115,7 @@
         background: linear-gradient(0deg, rgba(0,137,204,231) 0%, rgba(2,104,187,227) 100%);
         
     }
-    .btn-4:hover {
+    /*.btn-4:hover {
         color: #175873;
         background: #EDF2F3;
         box-shadow:none;
@@ -146,13 +146,13 @@
     .btn-4:hover:after{
         width:100%;
         transition:800ms ease all;
-    }
+    }*/
 </style>
 <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS</h4></div>
 <br>
 <div class="card" style="border: solid #175873 1.5px">
     <div class="card-header" style="background-color: #0F3859; color: white;">
-        <h5 style="margin-top:-5px; margin-bottom:-5px">Request List</h5>
+        <p style="margin-top:-5px; margin-bottom:-5px; font-size:16px;">Request List</p>
     </div>
     <div class="card-body" style="">
         <div class="row">
@@ -171,7 +171,7 @@
 <?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
     <div class="card" style="border: solid #175873 1.5px">
         <div class="card-header" style="background-color: #0F3859; color: white">
-            <h5 style="margin-top:-5px; margin-bottom:-5px">Report Generation</h5>
+            <p style="margin-top:-5px; margin-bottom:-5px; font-size:16px;">Report Generation</p>
         </div>
         <div class="card-body" style="background-color: #DEEDF2">
             <div class="row">
@@ -189,7 +189,7 @@
     <br>
     <div class="card" style="border: solid #175873 1.5px">
         <div class="card-header" style="background-color: #0F3859; color: white">
-            <h5 style="margin-top:-5px; margin-bottom:-5px">Report List</h5>
+            <p style="margin-top:-5px; margin-bottom:-5px; font-size:16px;">Report List</p>
         </div>
         <div class="card-body" style="">
             <div class="row">
@@ -212,7 +212,7 @@
     <br>
     <div class="card" style="border: solid #175873 1.5px">
         <div class="card-header" style="background-color: #0F3859; color: white">
-            <h5 style="margin-top:-5px; margin-bottom:-5px">Data Enrollment</h5>
+            <p style="margin-top:-5px; margin-bottom:-5px; font-size:16px;">Data Enrollment</p>
         </div>
         <div class="card-body" style="background-color: #DEEDF2">
             <div class="row">

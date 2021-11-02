@@ -2,7 +2,15 @@
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>SUPPLIER INFORMATION<a href="<?php echo base_url(); ?>procurement/supplier_index" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
         <div class="card">
-            <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">SUPPLIER DETAILS</div>
+            <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">SUPPLIER DETAILS
+                <?php if($supplier_logs) : ?>
+                    <?php foreach($supplier_logs as $supplier_log) : ?>
+                        <?php if($supplier_log->scode == $supplier->scode) : ?>
+                            <a href="<?php echo base_url(); ?>procurement/supplier_logs/<?php echo $supplier->scode; ?>" target="_blank" id="back" title="View Logs" class="btn btn-sm btn-info float-right d-print-none" style="font-size:12px">View Logs</a>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
             <div class="card-body" style="background-color: #E9FAFD;color:black">
                 <div class="row">
                     <div class="col-md-4">
@@ -99,4 +107,4 @@
             </div>    
         </div>
     </div>
-</div>
+</div> 

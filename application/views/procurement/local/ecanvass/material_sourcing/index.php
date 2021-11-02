@@ -11,30 +11,30 @@
 <div class="row">
     <div class="col-md-3" >
         <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; border-radius:10px 10px 0px 0px; padding-top:15px; padding-bottom:15px;">
                 DISAPPROVED
             </div>
-            <div class="card-body" style="background-color:#8C8C8C; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
+            <div class="card-body" style="background-color:#8C8C8C; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px;padding-top:15px; padding-bottom:15px;">
                 20
             </div>
         </div>
     </div>
     <div class="col-md-3" >
         <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; border-radius:10px 10px 0px 0px; padding-top:15px; padding-bottom:15px;">
                 OPEN
             </div>
-            <div class="card-body" style="background-color:#FAD02C; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
+            <div class="card-body" style="background-color:#FAD02C; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
                 15
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; border-radius:10px 10px 0px 0px; padding-top:15px; padding-bottom:15px;">
                 ACTION REQUIRED
             </div>
-            <div class="card-body" style="background-color:#BD2514; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
+            <div class="card-body" style="background-color:#BD2514; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
                 5
             </div>
         </div>
@@ -42,10 +42,10 @@
    
     <div class="col-md-3">
         <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; border-radius:10px 10px 0px 0px; padding-top:15px; padding-bottom:15px;">
                 CLOSED
             </div>
-            <div class="card-body" style="background-color:#469A49; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
+            <div class="card-body" style="background-color:#469A49; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
                 115
             </div>
         </div>
@@ -55,30 +55,30 @@
 <div class="row">
     <div class="col-md-3" >
         <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px;border-radius:10px 10px 0px 0px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; border-radius:10px 10px 0px 0px; padding-top:15px; padding-bottom:15px;">
                 STATUS AS OF:
             </div>
-            <div class="card-body" style="background-color:#A3C4C3; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
+            <div class="card-body" style="background-color:#A3C4C3; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
                 <?php echo date("d-M-y")?>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px;border-radius:10px 10px 0px 0px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; border-radius:10px 10px 0px 0px; padding-top:15px; padding-bottom:15px;">
                 AVERAGE CT APPROVER
             </div>
-            <div class="card-body" style="background-color:#5DBDEA; color: white; border-radius: 2px; text-align: center; font-size:18px; border-radius:0px 0px 10px 10px">
+            <div class="card-body" style="background-color:#5DBDEA; color: white; border-radius: 2px; text-align: center; font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
                 2 Days
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card" style="line-height:13px; border-radius:10px 10px 10px 10px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; padding-bottom:24.5px; border-radius:10px 10px 0px 0px">
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; font-size:13px; border-radius:10px 10px 0px 0px; padding-top:15px; padding-bottom:15px;">
                 AVERAGE CT PROCUREMENT
             </div>
-            <div class="card-body" style="background-color:#5488A5; color: white; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px">
+            <div class="card-body" style="background-color:#5488A5; color: white; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
                 5 Days
             </div>
         </div>

@@ -20,7 +20,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label >PR Number</label>
-                                <input type="text" class="form-control" name="pr_no">
+                                <input type="text" class="form-control" name="pr_no" required>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -63,10 +63,10 @@
                                     <input type="text" class="form-control" id="mCode" name="mat_code[]">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" id="description" name="description[]">
+                                    <input type="text" class="form-control" id="description" name="description[]" required>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="qty[]">
+                                    <input type="text" class="form-control" name="qty[]" required>
                                 </td>
                                 <td>
                                     <select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1">
@@ -144,7 +144,7 @@
                     type:"POST",
                     success: function(result){
                         
-                        var form = '<tr id="child"><br><td><input type="text" class="form-control" id="mCode'+f+'" name="mat_code[]"></td><td><input type="text" class="form-control" id="description'+f+'" name="description[]"></td><td><input type="text" class="form-control" name="qty[]"></td><td><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1"><option value=" ">SELECT UOM</option><?php if($uoms) : ?><?php foreach($uoms as $uom) : ?><option value="<?php echo $uom->name; ?>"><?php echo $uom->name; ?></option><?php endforeach; ?><?php endif; ?></select></td><td><input type="text" class="form-control" name="previous[]"></td><td><select name="currency[]" class="form-control" style="font-size:12px; height:32px" style="font-size:12px;"><option value=""></option><option selected="selected" value="PHP">PHP</option><option value="USD">USD</option><option value="POUND">POUND</option><option value="YUAN">YUAN</option><option value="EURO">EURO</option></select></td><td><input type="text" class="form-control" name="year[]" style="text-transform:uppercase"></td><td> <input class="btn btn-danger btn-sm" style="width: 80px" type="button" name="remove" id="cremove" value="Remove"></td></tr>';
+                        var form = '<tr id="child"><br><td><input type="text" class="form-control" id="mCode'+f+'" name="mat_code[]"></td><td><input type="text" class="form-control" id="description'+f+'" name="description[]" required></td><td><input type="text" class="form-control" name="qty[]" required></td><td><select class="form-control" name="uom[]" style="font-size:12px; height:32px" id="exampleFormControlSelect1"><option value=" ">SELECT UOM</option><?php if($uoms) : ?><?php foreach($uoms as $uom) : ?><option value="<?php echo $uom->name; ?>"><?php echo $uom->name; ?></option><?php endforeach; ?><?php endif; ?></select></td><td><input type="text" class="form-control" name="previous[]"></td><td><select name="currency[]" class="form-control" style="font-size:12px; height:32px" style="font-size:12px;"><option value=""></option><option selected="selected" value="PHP">PHP</option><option value="USD">USD</option><option value="POUND">POUND</option><option value="YUAN">YUAN</option><option value="EURO">EURO</option></select></td><td><input type="text" class="form-control" name="year[]" style="text-transform:uppercase"></td><td> <input class="btn btn-danger btn-sm" style="width: 80px" type="button" name="remove" id="cremove" value="Remove"></td></tr>';
                         $("#form_field").append(form);
 
                         var obj = $.parseJSON(result);

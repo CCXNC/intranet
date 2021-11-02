@@ -1091,6 +1091,29 @@ class Local_procurement_model extends CI_Model {
         return $query->row();
     }
 
+    public function get_supplier_logs($scode)
+    {
+        $this->db->select("
+            supplier_logs.id as id,
+            supplier_logs.supplier_id as supplier_id,
+            supplier_logs.scode as scode,
+            supplier_logs.name as name,
+            supplier_logs.contact_name as contact_name,
+            supplier_logs.contact_designation as contact_designation,
+            supplier_logs.contact_number as contact_number,
+            supplier_logs.email as email,
+            supplier_logs.address as address,
+            supplier_logs.supplier_profile as supplier_profile,
+            supplier_logs.updated_by as updated_by,
+            supplier_logs.updated_date as updated_date
+        ");
+        $this->db->from('blaine_local_procurement.supplier_logs');
+        $this->db->where('blaine_local_procurement.supplier_logs.scode', $scode);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function add_supplier()
     {
         $this->db->trans_start();
@@ -1197,6 +1220,23 @@ class Local_procurement_model extends CI_Model {
 
         $activity_log = $this->load->database('activity_logs', TRUE);
         $activity_log->insert('blaine_logs', $data_logs);
+
+        $data_history = array(
+            'supplier_id'           => $supplier_id,
+            'scode'                 => $supplier_scode,
+            'name'                  => $supplier_name,
+            'contact_name'          => $supplier_contact_name,
+            'contact_designation'   => $supplier_contact_designation,
+            'contact_number'        => $supplier_contact_number,
+            'email'                 => $supplier_email,
+            'address'               => $supplier_address,
+            'supplier_profile'      => $supplier_supplier_profile,
+            'updated_by'            => $this->session->userdata('username'),
+            'updated_date'          => date('Y-m-d H:i:s')
+        );
+
+        $history_log = $this->load->database('blaine_local_procurement', TRUE);
+        $history_log->insert('supplier_logs', $data_history);
 
         if($attachment == NULL)
         {
@@ -4325,4 +4365,12 @@ class Local_procurement_model extends CI_Model {
         return $query->result();
     }
 
+    public function get_supplier_list_logs()
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->group_by('scode');
+        $query = $blaine_local_procurement->get('supplier_logs');
+
+        return $query->result();
+    }
 }

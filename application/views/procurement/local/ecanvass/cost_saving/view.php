@@ -27,7 +27,17 @@
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
         <div class="card">
-            <div class="card-header" style="background-color: #0D635D;"><h4></h4></div>
+            <div class="card-header" style="background-color: #0D635D;">
+                <h4>
+                    <?php if($canvass_list_logs) : ?>
+                        <?php foreach($canvass_list_logs as $canvass_list_log) :?>
+                            <?php if($canvass_list_log->canvass_no == $canvass->canvass_no) : ?>
+                                <a href="<?php echo base_url(); ?>procurement/comparative_quotations_logs/<?php echo $canvass->canvass_no; ?>" target="_blank" id="back" title="Transmittal Report Generation" class="btn btn-sm btn-info float-right d-print-none" style="font-size:12px">View Logs</a>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </h4>
+            </div>
             <div class="card-body" style="background-color: #E9FAFD;color:black">
                 <div class="row">
                     <div class="col-md-3">

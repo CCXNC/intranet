@@ -5,6 +5,7 @@
 <table id="" class="display table-responsive" style="width:100%; font-size:13px">
     <thead>
         <tr style="background-color:#0D635D;color:white">
+            <th scope="col">Canvass Date</th>
             <th scope="col">Material</th>
             <th scope="col">Quantity</th>
             <th scope="col">Uom</th>
@@ -22,7 +23,7 @@
             <th scope="col">PR No.</th>
             <th scope="col">Material Source No.</th>
             <th scope="col">Canvass No.</th>
-            <th scope="col">Canvass Date</th>
+            
             <th>Attachment</th>
         </tr>
     </thead>
@@ -30,6 +31,7 @@
         <?php if($materials) : ?>
             <?php foreach($materials as $material) : ?>
                 <tr>
+                    <td data-label="Canvass Date"><?php echo date('Y-m-d', strtotime($material->canvass_date)); ?></td>
                     <td data-label="Material"><?php echo $material->material_name; ?></td>
                     <td data-label="Quantity"><?php echo $material->quantity; ?></td>
                     <td data-label="Uom"><?php echo $material->uom; ?></td>
@@ -58,7 +60,6 @@
                         <?php endif; ?>
                     </td>
                     <td data-label="Canvass No"><a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $material->canvass_no; ?>"><?php echo $material->canvass_no; ?></a></td>
-                    <td data-label="Canvass Date"><?php echo date('Y-m-d', strtotime($material->canvass_date)); ?></td>
                     <td><p><a href="<?php echo base_url(); ?>procurement/download_supplier_matertial_attachment/<?php echo $material->attachment; ?>"><?php echo $material->attachment; ?></a></p></td>
                 </tr>
             <?php endforeach; ?>

@@ -5,9 +5,9 @@
 <div class="row">
     <div class="col-md-3">
         <div class="card" style="font-size:12px; border-radius:10px 10px 10px 10px">
-            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; border-radius:10px 10px 0px 0px">NET COST SAVING
+            <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; border-radius:10px 10px 0px 0px;">NET COST SAVING
             </div>
-            <div class="card-body" style="background-color:#5488A5; color: white; text-align:center; border-radius:0px 0px 10px 10px"><?php $net_cost_saving = number_format($net_cost_saving->net_cost_saving, 2, '.', ','); echo $net_cost_saving; ?>
+            <div class="card-body" style="background-color:#5488A5; color: white; text-align:center; border-radius:0px 0px 10px 10px;padding-top:10px; padding-bottom:10px;"><?php $net_cost_saving = number_format($net_cost_saving->net_cost_saving, 2, '.', ','); echo $net_cost_saving; ?>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="card" style="font-size:12px; border-radius:10px 10px 10px 10px">
             <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; border-radius:10px 10px 0px 0px">COST SAVING (+)
             </div>
-            <div class="card-body" style="background-color:#469A49; color: white; text-align:center; border-radius:0px 0px 10px 10px"><?php $cost_saving = number_format($cost_saving->cost_saving, 2, '.', ','); echo $cost_saving; ?>
+            <div class="card-body" style="background-color:#469A49; color: white; text-align:center; border-radius:0px 0px 10px 10px;padding-top:10px; padding-bottom:10px;"><?php $cost_saving = number_format($cost_saving->cost_saving, 2, '.', ','); echo $cost_saving; ?>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
         <div class="card" style="font-size:12px; border-radius:10px 10px 10px 10px">
             <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; border-radius:10px 10px 0px 0px">COST SAVING (-)
             </div>
-            <div class="card-body" style="background-color:#A3C4C3; color: white; text-align:center; border-radius:0px 0px 10px 10px"><?php $cost_saving_negative = number_format($cost_saving_negative->cost_saving, 2, '.', ','); echo $cost_saving_negative; ?>
+            <div class="card-body" style="background-color:#A3C4C3; color: white; text-align:center; border-radius:0px 0px 10px 10px;padding-top:10px; padding-bottom:10px;"><?php $cost_saving_negative = number_format($cost_saving_negative->cost_saving, 2, '.', ','); echo $cost_saving_negative; ?>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         <div class="card" style="font-size:12px; border-radius:10px 10px 10px 10px">
             <div class="card-header" style="background-color: #0C2D48; color: white;text-align:center; border-radius:10px 10px 0px 0px">COST AVOIDANCE
             </div>
-            <div class="card-body" style="text-align:center;background-color:#5DBDEA; color: white; border-radius:0px 0px 10px 10px"><?php $cost_avoidance= number_format($net_cost_avoidance->total_saving, 2, '.', ','); echo $cost_avoidance; ?>
+            <div class="card-body" style="text-align:center;background-color:#5DBDEA; color: white; border-radius:0px 0px 10px 10px;padding-top:10px; padding-bottom:10px;"><?php $cost_avoidance= number_format($net_cost_avoidance->total_saving, 2, '.', ','); echo $cost_avoidance; ?>
             </div>
         </div>
     </div>

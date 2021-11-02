@@ -208,7 +208,7 @@
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="tbrow">
-                    <th colspan="13" style="vertical-align: middle">Revsion 2</th>
+                    <th colspan="13" style="vertical-align: middle">Revision 2</th>
                 </tr>
                 <tr class="throw">
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>

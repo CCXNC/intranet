@@ -58,6 +58,7 @@ class Procurement extends CI_Controller {
     function supplier_index()
     {
         $data['suppliers'] = $this->local_procurement_model->get_suppliers();
+        $data['suppliers_logs'] = $this->local_procurement_model->get_supplier_list_logs();
         $data['main_content'] = 'procurement/local/ecanvass/supplier/index';
         $this->load->view('inc/navbar', $data);
     }
@@ -151,7 +152,15 @@ class Procurement extends CI_Controller {
     function supplier_view($id)
     {
         $data['supplier'] = $this->local_procurement_model->get_supplier($id);
+        $data['supplier_logs'] = $this->local_procurement_model->get_supplier_list_logs();
         $data['main_content'] = 'procurement/local/ecanvass/supplier/view';
+        $this->load->view('inc/navbar', $data);
+    }
+
+    function supplier_logs($scode)
+    {
+        $data['logs'] = $this->local_procurement_model->get_supplier_logs($scode);
+        $data['main_content'] = 'procurement/local/ecanvass/supplier/logs';
         $this->load->view('inc/navbar', $data);
     }
     
@@ -258,6 +267,7 @@ class Procurement extends CI_Controller {
         $data['cost_aviodances'] = $this->local_procurement_model->get_supplier_materials($canvass_no);
         $data['quotation_lists'] = $this->local_procurement_model->get_quotation_material_list($canvass_no);
         $data['quotation_canvass'] = $this->local_procurement_model->get_canvass_list($canvass_no);
+        $data['canvass_list_logs'] = $this->local_procurement_model->get_quotation_material_list_logs();
 
         $data['main_content'] = 'procurement/local/ecanvass/cost_saving/view';
         $this->load->view('inc/navbar', $data);
