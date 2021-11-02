@@ -3514,6 +3514,98 @@ class Local_procurement_model extends CI_Model {
         return $trans;
     }
 
+    public function edit_supplier_material($id)
+    {
+        $this->db->trans_start();
+       
+        $supplier_name = $this->input->post('supplier_name');
+        $moq = $this->input->post('moq');
+        $price_per_unit = $this->input->post('price');
+        $currency = $this->input->post('currency');
+        $date = date('Y-m-d H:i:s');
+        $a = 0;
+
+        foreach($this->input->post('material_id') as $material_id)
+        {
+            $material_list = array(
+                'supplier_name'  => $supplier_name[$a],
+                'moq'            => $moq[$a],
+                'price_per_unit' => $price_per_unit[$a],
+                'currency'       => $currency[$a],
+                'updated_by'     => $this->session->userdata('username'),
+                'updated_date'   => $date
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->where('supplier_material_list.id', $material_id);
+            $blaine_local_procurement->update('supplier_material_list', $material_list);
+
+            /*print_r('<pre>');
+            print_r($material_list);
+            print_r('</pre>');*/
+
+            $a++;
+        }
+        $attachment = $_FILES['image']['name'];
+        $canvass_no = $this->input->post('canvass_no');
+        $supplier = $this->input->post('supplier');
+        $accredited = $this->input->post('accredited');
+        $vat = $this->input->post('vat');
+        $wrt = $this->input->post('wrt');
+        $pmt = $this->input->post('pmt');
+        $del = $this->input->post('del');
+        $notes = $this->input->post('notes');
+
+        if($attachment == NULL)
+        {
+            $data_supplier = array(
+                'supplier_name'  => $supplier,
+                'vat'            => $vat,
+                'wrt'            => $wrt,
+                'pmt'            => $pmt,
+                'del'            => $del,
+                'notes'          => $notes,
+                'updated_by'     => $this->session->userdata('username'),
+                'updated_date'   => $date,
+            );
+    
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->where('supplier_report_generation.id', $id);
+            $blaine_local_procurement->update('supplier_report_generation', $data_supplier);
+    
+            /*print_r('<pre>');
+            print_r($data_supplier);
+            print_r('</pre>');*/
+        }
+        else
+        {
+            $data_supplier = array(
+                'supplier_name'  => $supplier,
+                'vat'            => $vat,
+                'wrt'            => $wrt,
+                'pmt'            => $pmt,
+                'del'            => $del,
+                'notes'          => $notes,
+                'attachment'     => $attachment,
+                'updated_by'     => $this->session->userdata('username'),
+                'updated_date'   => $date,
+            );
+    
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->where('supplier_report_generation.id', $id);
+            $blaine_local_procurement->update('supplier_report_generation', $data_supplier);
+    
+            /*print_r('<pre>');
+            print_r($data_supplier);
+            print_r('</pre>');*/
+        }
+       
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+        
+    }
+
     public function get_supplier_report_generation($canvass_no)
     {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);

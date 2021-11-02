@@ -115,7 +115,7 @@ class Announcement_model extends CI_Model {
 
 		// PROCESS FOR UPDATE ANNOUNCEMENT
 		if($image == NULL)
-		{
+		{  
 			$data = array(
 				'title'         => $title,
 				'category'      => $category,

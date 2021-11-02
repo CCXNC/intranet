@@ -3,273 +3,445 @@
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>COMPARATIVE STATEMENT OF QUOTATIONS: CHOOSING OF SUPPLIER<a href="<?php echo base_url(); ?>procurement/report_pr_add1" id="back" title="Go Back" class="btn btn-info float-right" style="margin-right:10px;">BACK</a></h4></div>
     <div class="card-body">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url();?>procurement/comparative_view/<?php echo $canvass->canvass_no; ?>" enctype="multipart/form-data">
-            <div class="card">
-                <div class="card-header" style="background-color: #0D635D;"><h4></h4></div>
-                <div class="card-body" style="background-color: #E9FAFD;color:black">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Canvass Number</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="canvass_no" style="text-transform:uppercase; font-size:12px;background-color:white" readonly value="<?php echo $canvass->canvass_no; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Company</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" style="text-transform:uppercase; font-size:12px; background-color:white" readonly value="<?php if($canvass->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?>">
-                            </div>
+        <div class="card">
+            <div class="card-header" style="background-color: #0D635D;"><h4></h4></div>
+            <div class="card-body" style="background-color: #E9FAFD;color:black">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Canvass Number</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>PR Number</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" style="text-transform:uppercase; font-size:12px;background-color:white" readonly value="<?php echo $canvass->material_pr_no; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>PR Date</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control"  style="font-size:12px;background-color:white" readonly value="<?php echo date('Y-m-d', strtotime($canvass->pr_date)); ?>">
-                            </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="canvass_no" style="text-transform:uppercase; font-size:12px;background-color:white" readonly value="<?php echo $canvass->canvass_no; ?>">
                         </div>
                     </div>
-                </div>    
-            </div>
-            <br>
-            <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
-                <thead>
-                    <tr>
-                        <th colspan="7" style="background-color: #0C2D48; color: white; ">Previous Purchase</th>
-                        <?php $a = 1; ?>
-                        <?php if($suppliers) : ?>  
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <th colspan="" style="background-color: #0C2D48; color: white">Quotation <?php echo $a; ?></th>
-                                <?php $a++; ?>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>
-                    </tr>
-                    <tr>
-                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">No</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Material</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">QTY</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">UOM</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Previous Purchase Per Unit	</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Currency</th>
-                        <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Year</th>
-                        <?php if($suppliers) : ?>  
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <th colspan="" style="background-color:#0D635D; color:white; width:10%"><?php echo $supplier->supplier_name; ?></th>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>  
-                    </tr>
-                </thead>
-                <tbody style="line-height:12px; background-color: #E9FAFD;color:black" >
-                    <?php $i = 1; ?>
-                    <?php if($materials) : ?>  
-                        <?php foreach($materials as $material) : ?>  
-                            <tr >
-                                <th scope="row"><?php echo $i; ?></th>
-                                <td ><?php echo $material->description; ?></td>
-                                <td><?php echo $material->quantity; ?></td>
-                                <td><?php echo $material->uom; ?></td>
-                                <td><?php if($material->prev_purchase_unit != 0) { echo $material->prev_purchase_unit; } else { echo '-'; } ?></td>
-                                <td><?php echo $material->currency; ?></td>
-                                <td><?php if($material->year != 0) { echo $material->year; } else { echo '-'; } ?></td>
-                                <!-- Computation -->
-                                <?php if($supplier_materials) : ?>  
-                                    <?php foreach($supplier_materials as $supplier_material) : ?> 
-                                        <?php if($supplier_material->material_id == $material->id) : ?> 
-                                            <td><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?></td>
-                                            <!--<td><?php $computation_per_unit = $material->quantity * $supplier_material->price_per_unit; ?><?php if($computation_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($computation_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?></td>-->
-                                        <?php endif; ?> 
-                                    <?php endforeach; ?>    
-                                <?php endif; ?>  
-                            </tr>
-                            <?php $i++; ?>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Company</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" style="text-transform:uppercase; font-size:12px; background-color:white" readonly value="<?php if($canvass->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?>">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>PR Number</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" style="text-transform:uppercase; font-size:12px;background-color:white" readonly value="<?php echo $canvass->material_pr_no; ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>PR Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control"  style="font-size:12px;background-color:white" readonly value="<?php echo date('Y-m-d', strtotime($canvass->pr_date)); ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <br>
+        <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
+            <thead>
+                <tr>
+                    <th colspan="7" style="background-color: #0C2D48; color: white; ">Previous Purchase</th>
+                    <?php $a = 1; ?>
+                    <?php if($suppliers) : ?>  
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <th colspan="" style="background-color: #0C2D48; color: white">Quotation <?php echo $a; ?></th>
+                            <?php $a++; ?>
+                        <?php endforeach; ?>    
+                    <?php endif; ?>
+                </tr>
+                <tr>
+                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">No</th>
+                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Material</th>
+                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">QTY</th>
+                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">UOM</th>
+                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Previous Purchase Per Unit	</th>
+                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Currency</th>
+                    <th scope="col" style="background-color: #0C2D48; color: white; width: 10%">Year</th>
+                    <?php if($suppliers) : ?>  
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <th colspan="" style="background-color:#0D635D; color:white; width:10%"><?php echo $supplier->supplier_name; ?></th>
                         <?php endforeach; ?>    
                     <?php endif; ?>  
-                 
-                  
-                    <tr>
-                        <th scope="row" style="background-color: white; border:none"></th>
-                        <td style="background-color: white; border:none"></td>
-                        <td style="background-color: white; border:none"></td>
-                        <td rowspan="6" style="vertical-align:middle; background-color:#0D635D; color:white">Purchase Terms</td>
-                        <td colspan="3" style="background-color: #0C2D48; color: white; ">VAT</td>
-                       
-                        <?php if($suppliers) : ?>  
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <td><?php echo $supplier->vat; ?></td>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>  
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: white; border:none"></th>
-                        <td style="background-color: white; border:none"></td>
-                        <td style="background-color: white; border:none"></td>
-                        <td colspan="3" style="background-color: #0C2D48; color: white; ">PMT (Days)</td>
-                        <?php if($suppliers) : ?>  
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <td><?php echo $supplier->pmt; ?></td>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>  
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: white; border:none"></th>
-                        <td style="background-color: white; border:none"></td>
-                        <td style="background-color: white; border:none"></td>
-                        <td colspan="3" style="background-color: #0C2D48; color: white; ">DEL (Days)</td>
-                        <?php if($suppliers) : ?>  
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <td><?php echo $supplier->del; ?></td>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>  
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: white; border:none"></th>
-                        <td style="background-color: white; border:none"></td>
-                        <td style="background-color: white; border:none"></td>
-                        <td colspan="3" style="background-color: #0C2D48; color: white; ">WRT</td>
-                        <?php if($suppliers) : ?>  
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <td><?php echo $supplier->wrt; ?></td>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>  
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: white; border:none"></th>
-                        <td style="background-color: white; border:none"></td>
-                        <td style="background-color: white; border:none"></td>
-                        <td colspan="3" style="background-color: #0C2D48; color: white; ">Notes</td>
-                        <?php if($suppliers) : ?>  
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <td><?php echo $supplier->notes; ?></td>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>  
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: white; border:none"></th>
-                        <td style="background-color: white; border:none"></td>
-                        <td style="background-color: white; border:none"></td>
-                        <td colspan="3" style="background-color: #0C2D48; color: white; ">Attachment</td>
-                        <?php if($suppliers) : ?>  
-                            <?php $q = 1; ?>
-                            <?php foreach($suppliers as $supplier) : ?>  
-                                <?php if($supplier->attachment != NULL) : ?>
-                                    <td><a href="<?php echo base_url(); ?>procurement/download_supplier_matertial_attachment/<?php echo $supplier->attachment; ?>">file <?php echo $q; ?> </a></td>
-                                <?php else: ?>
-                                    <td></td>
-                                <?php endif; ?>    
-                                    <?php $q++; ?>
-                            <?php endforeach; ?>    
-                        <?php endif; ?>  
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <hr>
-            <br>
-            <!--Computer Recom-->
-            <p>
-                <input class="btn btn-success" type="button" value="Show Computer Recommendation" id="bt" onclick="toggle(this)">
-            </p>
-            <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center; display:none" id="comprecom">
-                <thead>
-                    <tr>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">No</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Material</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">QTY</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">UOM</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">MOQ</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Quotation</th>
-                        <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Supplier</th>
-                        <th colspan="2" style="background-color: #0C2D48; color: white;width: 10%">Cost Saving</th>
-                        <th colspan="2" style="background-color: #0C2D48; color: white;width: 10%">Cost Avoidance</th>
-                    </tr>
-                    <tr>
-                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Reduction Per Unit</th>
-                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Reduction</th>
-                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Savings/Unit</th>
-                        <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Savings</th>
-                    </tr>
-                </thead>
-                <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
-                    <tr >
-                        <th scope="row">1</th>
-                        <td >Packaging Tape</td>
-                        <td>100</td>
-                        <td>Pack/s</td>
-                        <td></td>
-                        <td></td>
-                        <td>KJ Packaging</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Latex Gloves</td>
-                        <td>1,000</td>
-                        <td>Pack/s</td>
-                        <td></td>
-                        <td></td>
-                        <td>ABC Consumables</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Nitrile Gloves</td>
-                        <td>1,000</td>
-                        <td>Pack/s</td>
-                        <td></td>
-                        <td></td>
-                        <td>JGC Chemicals</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <hr>
-            <br>
-            <!--Buyer Recom-->
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Buyer Recommendation</label>
+                </tr>
+            </thead>
+            <tbody style="line-height:12px; background-color: #E9FAFD;color:black" >
+                <?php $i = 1; ?>
+                <?php if($materials) : ?>  
+                    <?php foreach($materials as $material) : ?>  
+                        <tr >
+                            <th scope="row"><?php echo $i; ?></th>
+                            <td ><?php echo $material->description; ?></td>
+                            <td><?php echo $material->quantity; ?></td>
+                            <td><?php echo $material->uom; ?></td>
+                            <td><?php if($material->prev_purchase_unit != 0) { echo $material->prev_purchase_unit; } else { echo '-'; } ?></td>
+                            <td><?php echo $material->currency; ?></td>
+                            <td><?php if($material->year != 0) { echo $material->year; } else { echo '-'; } ?></td>
+                            <!-- Computation -->
+                            <?php if($supplier_materials) : ?>  
+                                <?php foreach($supplier_materials as $supplier_material) : ?> 
+                                    <?php if($supplier_material->material_id == $material->id) : ?> 
+                                        <td><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?></td>
+                                        <!--<td><?php $computation_per_unit = $material->quantity * $supplier_material->price_per_unit; ?><?php if($computation_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($computation_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?></td>-->
+                                    <?php endif; ?> 
+                                <?php endforeach; ?>    
+                            <?php endif; ?>  
+                        </tr>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>    
+                <?php endif; ?>  
+                
+                
+                <tr>
+                    <th scope="row" style="background-color: white; border:none"></th>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td rowspan="7" style="vertical-align:middle; background-color:#0D635D; color:white">Purchase Terms</td>
+                    <td colspan="3" style="background-color: #0C2D48; color: white; ">VAT</td>
+                    
+                    <?php if($suppliers) : ?>  
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <td><?php echo $supplier->vat; ?></td>
+                        <?php endforeach; ?>    
+                    <?php endif; ?>  
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: white; border:none"></th>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td colspan="3" style="background-color: #0C2D48; color: white; ">PMT (Days)</td>
+                    <?php if($suppliers) : ?>  
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <td><?php echo $supplier->pmt; ?></td>
+                        <?php endforeach; ?>    
+                    <?php endif; ?>  
+                </tr>
+                <tr> 
+                    <th scope="row" style="background-color: white; border:none"></th>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td colspan="3" style="background-color: #0C2D48; color: white; ">DEL (Days)</td>
+                    <?php if($suppliers) : ?>  
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <td><?php echo $supplier->del; ?></td>
+                        <?php endforeach; ?>    
+                    <?php endif; ?>  
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: white; border:none"></th>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td colspan="3" style="background-color: #0C2D48; color: white; ">WRT</td>
+                    <?php if($suppliers) : ?>  
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <td><?php echo $supplier->wrt; ?></td>
+                        <?php endforeach; ?>    
+                    <?php endif; ?>  
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: white; border:none"></th>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td colspan="3" style="background-color: #0C2D48; color: white; ">Notes</td>
+                    <?php if($suppliers) : ?>  
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <td><?php echo $supplier->notes; ?></td>
+                        <?php endforeach; ?>    
+                    <?php endif; ?>  
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: white; border:none"></th>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td colspan="3" style="background-color: #0C2D48; color: white; ">Attachment</td>
+                    <?php if($suppliers) : ?>  
+                        <?php $q = 1; ?>
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <?php if($supplier->attachment != NULL) : ?>
+                                <td><a href="<?php echo base_url(); ?>procurement/download_supplier_matertial_attachment/<?php echo $supplier->attachment; ?>">file <?php echo $q; ?> </a></td>
+                            <?php else: ?>
+                                <td></td>
+                            <?php endif; ?>    
+                                <?php $q++; ?>
+                        <?php endforeach; ?>    
+                    <?php endif; ?>  
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: white; border:none"></th>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td colspan="3" style="background-color: #0C2D48; color: white; ">Action</td>
+                    <?php if($suppliers) : ?>  
+                        <?php foreach($suppliers as $supplier) : ?>  
+                            <td>
+                                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#supplier<?php echo $supplier->id; ?>">Edit</button>
+                            </td>
+                        <?php endforeach; ?>    
+                    <?php endif; ?>  
+                </tr>
+            </tbody>
+        </table>
+        <!-- MODAL -->
+        <?php if($suppliers) : ?>  
+            <?php foreach($suppliers as $supplier) : ?>  
+                <div class="modal fade bd-example-modal-lg"  id="supplier<?php echo $supplier->id; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form method="post" action="<?php echo base_url();?>procurement/edit_supplier_material/<?php echo $supplier->id; ?>/<?php echo $canvass->canvass_no; ?>" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                <div class="card" >
+                                    <div class="card-header" style="background-color: #0D635D; color: white"><h5>Edit Supplier Details</h5></div>
+                                    <div class="card-body" style="background-color: #E9FAFD;" id="form_field">
+                                        <input type="text" hidden name="canvass_no" value="<?php echo $canvass->canvass_no; ?>">
+                                        <div class="row">
+                                            <?php if($supplier->supplier_type == "accredited") : ?>
+                                                <div class="col-md-4" id="accreditedData">
+                                                    <div class="form-group">
+                                                        <label for="">Supplier`s Name</label>
+                                                        <select name="supplier" class="form-control" id="dataAccredited" style=" font-size: 12px;">
+                                                            <option value=" ">Select Supplier Name</option>
+                                                            <?php if($suppliers1) : ?>
+                                                                <?php foreach($suppliers1 as $supplier1) : ?>
+                                                                    <option value="<?php echo $supplier1->name; ?>"<?php echo $supplier->supplier_name == $supplier1->name ? 'selected' : ' '; ?>><?php echo $supplier1->name; ?></option>
+                                                                <?php endforeach; ?>
+                                                            <?php endif; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            <?php else : ?>
+                                                <div class="col-md-4" id="othersData">
+                                                    <div class="form-group">
+                                                        <label for="">Supplier`s Name</label>
+                                                        <input type="text" name="supplier" id="dataOthers" class="form-control" value="<?php echo $supplier->supplier_name; ?>">
+                                                    </div>
+                                                </div>
+                                            <?php endif; ?>    
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">   
+                                                <table id="" class="table table-striped"  style="width:100%">
+                                                    <thead>
+                                                        <tr style="background-color:#0D635D; color:white;">
+                                                            <th scope="col">Material</th>
+                                                            <th scope="col">QTY</th>
+                                                            <th scope="col">UOM</th>
+                                                            <th scope="col">MOQ</th>
+                                                            <th scope="col">Price Per UOM</th>
+                                                            <th scope="col">Currency</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php if($materials) : ?>
+                                                            <?php foreach($materials as $material) : ?>
+                                                                <tr>
+                                                                    <td hidden><input type="text" hidden name="supplier_name[]" class="supplierName" value="<?php echo $supplier->supplier_name; ?>"></td>
+                                                                    <td data-label="Description & Specs"><input type="text" name="description[]" hidden value="<?php echo $material->description; ?>"><?php echo $material->description; ?></td>
+                                                                    <td data-label="QTY"><input type="text" name="quantity[]" hidden value="<?php echo $material->quantity; ?>"><?php echo $material->quantity; ?></td>
+                                                                    <td data-label="UOM"><input type="text" name="uom[]" hidden value="<?php echo $material->uom; ?>"><?php echo $material->uom; ?></td>
+                                                                    <?php if($supplier_materials) : ?>  
+                                                                        <?php foreach($supplier_materials as $supplier_material) : ?> 
+                                                                            <?php if($supplier_material->material_id == $material->id && $supplier_material->supplier_name == $supplier->supplier_name) : ?> 
+                                                                                <td hidden><input hidden type="text" name="material_id[]" value="<?php echo $supplier_material->id; ?>"></td>
+                                                                                <td><input type="text" style="font-size:12px;" class="form-control" name="moq[]" value="<?php echo $supplier_material->moq; ?>"></td>
+                                                                                <td><input type="text" style="font-size:12px;" class="form-control" name="price[]" value="<?php if($supplier_material->price_per_unit == 0) { echo '0';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?>"></td>
+                                                                                <td data-label="Currency">
+                                                                                    <select name="currency[]" class="form-control" style="font-size:12px; height:32px" style="font-size:12px;">
+                                                                                        <option value=""></option>
+                                                                                            <option value="PHP"<?php echo $supplier_material->currency == 'PHP' ? 'selected' : ' '; ?>>PHP</option>
+                                                                                            <option value="USD"<?php echo $supplier_material->currency == 'USD' ? 'selected' : ' '; ?>>USD</option>
+                                                                                            <option value="POUND"<?php echo $supplier_material->currency == 'POUND' ? 'selected' : ' '; ?>>POUND</option>
+                                                                                            <option value="YUAN"<?php echo $supplier_material->currency == 'YUAN' ? 'selected' : ' '; ?>>YUAN</option>
+                                                                                            <option value="EURO"<?php echo $supplier_material->currency == 'EURO' ? 'selected' : ' '; ?>>EURO</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                            <?php endif; ?> 
+                                                                        <?php endforeach; ?>    
+                                                                    <?php endif; ?>  
+                                                                    <!--<td data-label="Price"><input type="text" style="font-size:12px;" class="form-control" name="price[]" value="0"></td>-->
+                                                                    
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div style="background-color: #0D635D; color: white; padding:7px 5px 4px 5px; border-radius:5px; font-size:14px;">Purchase Term</div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlSelect1">VAT</label>
+                                                            <select class="form-control" name="vat" style="font-size:12px; height:32px" id="exampleFormControlSelect1">
+                                                                <option value="" selected></option>
+                                                                <option value="INC"<?php echo $supplier->vat == 'INC' ? 'selected' : ''; ?>>INC</option>
+                                                                <option value="EX"<?php echo $supplier->vat == 'EX' ? 'selected' : ''; ?>>EX</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="">WRT</label>
+                                                            <input type="text" name="wrt" style="font-size:12px;" class="form-control" value="<?php echo $supplier->wrt; ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="">PMT (Days)</label>
+                                                            <input type="text" name="pmt" style="font-size:12px;" class="form-control" value="<?php echo $supplier->pmt; ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="">DEL (Days)</label>
+                                                            <input type="text" name="del" style="font-size:12px;" class="form-control" value="<?php echo $supplier->del; ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="">Notes</label>
+                                                            <textarea style="font-size:12px" style="font-size:12px;" class="form-control" name="notes" id="" rows="1"><?php echo $supplier->notes; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input type="file" name="image" />
+                                                            <?php echo $supplier->attachment; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br><br>
+                                    </div>  
+                                    
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Do you want to update data?');" value="Update">
+                                </div>
+                            </form>    
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="buyer_name" style="text-transform:uppercase;font-size:12px;background-color:white" readonly value="<?php echo $this->session->userdata('fullname'); ?>">
-                    </div>
+            <?php endforeach; ?>    
+        <?php endif; ?>      
+        <br>
+        <hr>
+        <br>
+        <!--Computer Recom-->
+        <p>
+            <input class="btn btn-success" type="button" value="Show Computer Recommendation" id="bt" onclick="toggle(this)">
+        </p>
+        <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center; display:none" id="comprecom">
+            <thead>
+                <tr>
+                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">No</th>
+                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Material</th>
+                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">QTY</th>
+                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">UOM</th>
+                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">MOQ</th>
+                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Quotation</th>
+                    <th scope="col" rowspan="2" style="background-color: #0C2D48; color: white; vertical-align:middle; width: 10%">Supplier</th>
+                    <th colspan="2" style="background-color: #0C2D48; color: white;width: 10%">Cost Saving</th>
+                    <th colspan="2" style="background-color: #0C2D48; color: white;width: 10%">Cost Avoidance</th>
+                </tr>
+                <tr>
+                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Reduction Per Unit</th>
+                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Reduction</th>
+                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Savings/Unit</th>
+                    <th colspan="" style="background-color:#0D635D; color:white; width: 10%">Total Savings</th>
+                </tr>
+            </thead>
+            <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
+                <tr >
+                    <th scope="row">1</th>
+                    <td >Packaging Tape</td>
+                    <td>100</td>
+                    <td>Pack/s</td>
+                    <td></td>
+                    <td></td>
+                    <td>KJ Packaging</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Latex Gloves</td>
+                    <td>1,000</td>
+                    <td>Pack/s</td>
+                    <td></td>
+                    <td></td>
+                    <td>ABC Consumables</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Nitrile Gloves</td>
+                    <td>1,000</td>
+                    <td>Pack/s</td>
+                    <td></td>
+                    <td></td>
+                    <td>JGC Chemicals</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <br>
+        <!--Buyer Recom-->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Buyer Recommendation</label>
                 </div>
             </div>
-            
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="buyer_name" style="text-transform:uppercase;font-size:12px;background-color:white" readonly value="<?php echo $this->session->userdata('fullname'); ?>">
+                </div>
+            </div>
+        </div>
+        <form method="post" action="<?php echo base_url();?>procurement/comparative_view/<?php echo $canvass->canvass_no; ?>" enctype="multipart/form-data">
             <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
                 <thead>
                     <tr>
@@ -465,5 +637,15 @@
             
         
         }
+
+        $('#dataAccredited').on('change', function() {
+           var dta =  $('#dataAccredited').val();
+           $('.supplierName').val(dta); 
+        });
+
+        $('#dataOthers').on('blur', function() {
+           var dta =  $('#dataOthers').val();
+           $('.supplierName').val(dta); 
+        });
     });            
 </script>
