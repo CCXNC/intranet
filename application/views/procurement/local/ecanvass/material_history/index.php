@@ -60,7 +60,7 @@
                         <?php endif; ?>
                     </td>
                     <td data-label="Canvass No"><a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $material->canvass_no; ?>"><?php echo $material->canvass_no; ?></a></td>
-                    <td><p><a href="<?php echo base_url(); ?>procurement/download_supplier_matertial_attachment/<?php echo $material->attachment; ?>"><?php echo $material->attachment; ?></a></p></td>
+                    <td><p><a href="<?php echo base_url(); ?>procurement/download_supplier_matertial_attachment/<?php echo $material->attachment; ?>"><?php if($material->attachment != NULL) { echo "Download"; } ?></a></p></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif;  ?>

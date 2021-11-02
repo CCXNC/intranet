@@ -274,7 +274,7 @@ class Procurement extends CI_Controller {
     }
 
     public function comparative_quotations_logs($canvass_no)
-    {
+    { 
         $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
         $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
         $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
@@ -299,9 +299,10 @@ class Procurement extends CI_Controller {
             $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
             $data['supplier_materials'] = $this->local_procurement_model->supplier_materials($canvass_no);
             $data['cost_aviodances'] = $this->local_procurement_model->get_supplier_materials($canvass_no);
+            $data['suppliers1'] = $this->local_procurement_model->get_suppliers();
     
             $data['main_content'] = 'procurement/local/ecanvass/comparative/view';
-            $this->load->view('inc/navbar', $data);
+            $this->load->view('inc/navbar', $data);  
         }
         else
         {
@@ -311,8 +312,44 @@ class Procurement extends CI_Controller {
                 redirect('procurement/ecanvass_cost_saving');
             }
         }
+    }
 
-       
+    public function edit_supplier_material($id,$canvass_no)
+    {
+        $material = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
+        $prevImage = $material->attachment;
+
+        if(!empty($_FILES['image']['name'])){ 
+            $imageName = $_FILES['image']['name']; 
+             
+            // File upload configuration 
+            $config['upload_path'] = './uploads/supplier_ecanvass_attachment/';  
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|docs|xls|xlsx|pdf';
+             
+            // Load and initialize upload library 
+            $this->load->library('upload', $config);  
+            $this->upload->initialize($config); 
+
+            if(!empty($imageName)){ 
+                 // Remove old file from the server 
+                @unlink('./uploads/supplier_ecanvass_attachment/'.$prevImage);  
+
+                 // Upload file to server 
+                 if($this->upload->do_upload('image')){ 
+                    // Uploaded file data 
+                    $fileData = $this->upload->data(); 
+                    $imgData['file_name'] = $fileData['file_name']; 
+                
+                }else{ 
+                    $error = $this->upload->display_errors();  
+                } 
+            } 
+            
+        }
+
+        $this->local_procurement_model->edit_supplier_material($id);
+        $canvass_no = $this->input->post('canvass_no');
+        redirect('procurement/comparative_view/'.$canvass_no.'');
     }
 
     public function add_ecanvass_report_generation()

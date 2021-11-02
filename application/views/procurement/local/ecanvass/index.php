@@ -168,7 +168,7 @@
     </div>
 </div>
 <br>
-<?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '06212107') : ?>
+<?php if($this->session->userdata('access_level_id') == 1 && $this->session->userdata('department_id') == 25 || $this->session->userdata('employee_number') == '09061027' || $this->session->userdata('employee_number') == '10212112') : ?>
     <div class="card" style="border: solid #175873 1.5px">
         <div class="card-header" style="background-color: #0F3859; color: white">
             <p style="margin-top:-5px; margin-bottom:-5px; font-size:16px;">Report Generation</p>
