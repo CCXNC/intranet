@@ -4763,7 +4763,6 @@ class Local_procurement_model extends CI_Model {
 
     public function get_transmittal_material_list($trans_batch_number)
     {
-
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('transmittal_no', $trans_batch_number);
         $query = $blaine_local_procurement->get('transmittal_material_list');
@@ -5111,6 +5110,15 @@ class Local_procurement_model extends CI_Model {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('msid', $msid);
         $query = $blaine_local_procurement->get('transmittal');
+
+        return $query->result();
+    }
+
+    public function get_material_transmittal_no($msid)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('msid', $msid);
+        $query = $blaine_local_procurement->get('transmittal_material_list');
 
         return $query->result();
     }
