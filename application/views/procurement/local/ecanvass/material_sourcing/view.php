@@ -529,6 +529,11 @@
                                     <input type="text" hidden name="msid" value="<?php echo $material_source->msid; ?>">
                                     <input type="text" hidden name="primary_approver" value="<?php echo $first_entry->primary_approver; ?>">
                                     <input type="text" hidden name="alternate_approver" value="<?php echo $first_entry->alternate_approver; ?>">
+                                    <input type="text" hidden name="company" value="<?php echo $material_source->company_name; ?>">
+                                    <input type="text" hidden name="category" value="<?php echo $material_source->category; ?>">
+                                    <input type="text" hidden name="date_required" value="<?php echo $material_source->date_required; ?>">
+                                    <input type="text" hidden name="date_requested" value="<?php echo date('Y-m-d', strtotime($material_source->created_date)); ?>">
+                                    <input type="text" hidden name="email_accounts" value="<?php echo $material_source->email; ?>">
                                     <?php
                                             $date = date('Y-m-d H:i:s');
                                             $date1 = strtotime($last_entry->created_date); 

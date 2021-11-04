@@ -127,7 +127,7 @@
                             <?php if($supplier_materials) : ?>  
                                 <?php foreach($supplier_materials as $supplier_material) : ?> 
                                     <?php if($supplier_material->material_id == $material->id) : ?> 
-                                        <td><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?></td>
+                                        <td><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?><br>per uom</td>
                                         <!--<td><?php $computation_per_unit = $material->quantity * $supplier_material->price_per_unit; ?><?php if($computation_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($computation_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?></td>-->
                                     <?php endif; ?> 
                                 <?php endforeach; ?>    
