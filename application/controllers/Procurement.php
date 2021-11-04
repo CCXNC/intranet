@@ -633,6 +633,7 @@ class Procurement extends CI_Controller {
         $data['last_entry'] = $this->local_procurement_model->get_last_approval_by_material_sourcing_id($msid); 
         $data['canvass_lists'] = $this->local_procurement_model->get_canvass_no($msid);
         $data['transmittal_lists'] = $this->local_procurement_model->get_transmittal_no($msid);
+        $data['material_transmittal_lists'] = $this->local_procurement_model->get_material_transmittal_no($msid);
 
         $data['main_content'] = 'procurement/local/ecanvass/material_sourcing/view';
         $this->load->view('inc/navbar', $data);
@@ -712,17 +713,36 @@ class Procurement extends CI_Controller {
     {
         if($this->local_procurement_model->material_source_approval_process())
         {
+            $id = $this->input->post('source_id');
+            $msid = $this->input->post('msid');
+
             $this->session->set_flashdata('success_msg', 'Approve material sourcing successfully updated!');
-            redirect('procurement/material_sourcing_index');
+            redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
         }
     }
+
+    public function materialsource_report_generation_process()
+    {
+        if($this->local_procurement_model->material_source_report_generation_process())
+        {
+            $id = $this->input->post('source_id');
+            $msid = $this->input->post('msid');
+
+            $this->session->set_flashdata('success_msg', 'Requestor Feedback Successfully Added!');
+            redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
+        }
+    }
+
 
     public function materialsource_report_generation()
     {
         if($this->local_procurement_model->material_source_report())
         {
+            $id = $this->input->post('source_id');
+            $msid = $this->input->post('msid');
+
             $this->session->set_flashdata('success_msg', 'Approve material sourcing successfully updated!');
-            redirect('procurement/material_sourcing_index');
+            redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
         }
     }
 
@@ -1035,9 +1055,11 @@ class Procurement extends CI_Controller {
                     $uploadData[$i]['canvass_no'] = $canvass_no;
                     if($supplier[$i] == "acc"){
                         $uploadData[$i]['supplier_name'] = $accredited[$i];
+                        $uploadData[$i]['supplier_type'] = "accredited";
                     }
                     elseif($supplier[$i] == "others"){
                         $uploadData[$i]['supplier_name'] = $other[$i];
+                        $uploadData[$i]['supplier_type'] = "others";
                     }
                     $uploadData[$i]['vat'] = $vat[$i];
                     $uploadData[$i]['wrt'] = $wrt[$i];
@@ -1057,7 +1079,7 @@ class Procurement extends CI_Controller {
             }
         }
        
-    }
+    } 
 
     public function json_material_sourcing_list()
     {
@@ -1084,6 +1106,7 @@ class Procurement extends CI_Controller {
 
         if($this->form_validation->run() == FALSE){
             $data['material_sourcings'] = $this->local_procurement_model->get_material_sourcing_list();
+            $data['materials'] = $this->local_procurement_model->get_material_list();
             $data['suppliers'] = $this->local_procurement_model->get_suppliers();
             $data['main_content'] = 'procurement/local/ecanvass/transmittal/add';
             $this->load->view('inc/navbar', $data);

@@ -99,8 +99,9 @@
                         <tbody id="form_field">
                         </tbody>
                     </table>
-                    <!--Adding of Materials-->
-                    <input class="btn btn-success" title="Add Academe Information" type="button" name="add" id="add" value="ADD">
+                     <!--Adding of Materials-->
+                     <input class="btn btn-success" title="Add Academe Information" type="button" name="add" id="add" value="ADD">
+                  
                 </div>
             </div>
             <br>
@@ -109,6 +110,9 @@
         </form>
     </div>
 </div>
+
+
+
 <script>
      $(document).ready(function(){
 
@@ -121,9 +125,14 @@
                 var f = 1;
                 var max = 10;
                 var x = 1;
+                var y = 11;
+                var maxy = 20;
                 //console.log(obj);
-                $.each(obj,function(index,object){
-                    $('#myTextbox').click(function(e) {
+                $('#add').hide();
+                $('#myTextbox').click(function(e) {
+                    var mcodeType = $('#msid').val();
+                    $.each(obj,function(index,object){
+                        $('#add').show();
                         var mcodeType = $('#msid').val();
                         if(mcodeType == object['msid']) {
                             var form = "<tr id='child'><td data-label='Description'><input type='text' id='' class='form-control' name='description[]' value='"+object['description']+"'></td><td data-label='Supplier'><div class=''><div class='form-group'><select class='form-control' id='supplier"+f+"' style='font-size:12px; height:32px' name='supplier[]'><option value=''>SELECT SUPPLIER</option><option value='acc'>ACCREDITED</option><option value='others'>OTHERS</option></select></div></div></td><td><div class='' id='accreditedData"+f+"'><div class='form-group'><select name='accredited[]' class='form-control' id='dataAccredited"+f+"' style=' font-size: 12px;height:32px; width: 200px;'><option value=' '>Select Supplier Name</option><?php if($suppliers) : ?><?php foreach($suppliers as $supplier) : ?><option value='<?php echo $supplier->name; ?>'><?php echo $supplier->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class='' id='othersData"+f+"'><div class='form-group'><input type='text' name='others[]' id='dataOthers"+f+"' class='form-control'></div></div></td><td data-label='Price'><input type='text' class='form-control' name='batch_number[]'></td><td data-label='Year'><input type='file' size='20' name='attachment1[]'></td><td><input class='btn btn-danger btn-sm' style='width: 80px' type='button' name='remove' id='cremove' value='Remove'></td></tr>";
@@ -292,49 +301,172 @@
 
                             f++;
                         }
-                    });    
+                    });   
+                  
                 });
-
                 /* Adding of materials */
                 $("#add").click(function(){
-                    if(f <= max){
-                        var add_material = "<tr id='child'><td data-label='Description'><input type='text' id='' class='form-control' name='description[]' value=''></td><td data-label='Supplier'><div class=''><div class='form-group'><select class='form-control' id='supplier' style='font-size:12px; height:32px' name='supplier[]'><option value=''>SELECT SUPPLIER</option><option value='acc'>ACCREDITED</option><option value='others'>OTHERS</option></select></div></div></td><td><div class='' id='accreditedData'><div class='form-group'><select name='accredited[]' class='form-control' id='' style=' font-size: 12px;height:32px; width: 200px;' ><option value=' '>Select Supplier Name</option><?php if($suppliers) : ?><?php foreach($suppliers as $supplier) : ?><option value='<?php echo $supplier->name; ?>'><?php echo $supplier->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class='' id='othersData'><div class='form-group'><input type='text' name='others[]' id='' class='form-control' ></div></div></td><td data-label='Price'><input type='text' class='form-control' name='batch_number[]'></td><td data-label='Year'><input type='file' size='20' name='attachment1[]'></td><td><input class='btn btn-danger btn-sm' style='width: 80px' type='button' name='remove' id='cremove' value='Remove'></td></tr>";
+                    if(y <= maxy){
+                        var add_material = "<tr id='child'><td data-label='Description'><select name='description[]' class='form-control'><?php if($materials) : ?><?php foreach($materials as $material) : ?><?php //if($material->msid == mcodeType) : ?><option value='<?php echo $material->description; ?>'><?php echo $material->description; ?></option><?php //endif; ?><?php endforeach; ?><?php endif; ?></select></td><td data-label='Supplier'><div class=''><div class='form-group'><select class='form-control' id='supplier"+y+"' style='font-size:12px; height:32px' name='supplier[]'><option value=''>SELECT SUPPLIER</option><option value='acc'>ACCREDITED</option><option value='others'>OTHERS</option></select></div></div></td><td><div class='' id='accreditedData"+y+"''><div class='form-group'><select name='accredited[]' class='form-control' id='dataAccredited"+y+"' style=' font-size: 12px;height:32px; width: 200px;' ><option value=' '>Select Supplier Name</option><?php if($suppliers) : ?><?php foreach($suppliers as $supplier) : ?><option value='<?php echo $supplier->name; ?>'><?php echo $supplier->name; ?></option><?php endforeach; ?><?php endif; ?></select></div></div><div class='' id='othersData"+y+"'><div class='form-group'><input type='text' name='others[]' id='dataOthers"+y+"' class='form-control' ></div></div></td><td data-label='Price'><input type='text' class='form-control' name='batch_number[]'></td><td data-label='Year'><input type='file' size='20' name='attachment1[]'></td><td><input class='btn btn-danger btn-sm' style='width: 80px' type='button' name='remove' id='cremove' value='Remove'></td></tr>";
                         $("#form_field").append(add_material);
                         
-                        $('#accreditedData').hide();
-                        $('#othersData').hide();
-                        $('#accreditedData1').hide();
-                        $('#othersData1').hide();
+                        $('#accreditedData11').hide();
+                        $('#othersData11').hide();
+
+                        $('#accreditedData12').hide();
+                        $('#othersData12').hide();
+
+                        $('#accreditedData13').hide();
+                        $('#othersData13').hide();
+
+                        $('#accreditedData14').hide();
+                        $('#othersData14').hide();
+
+                        $('#accreditedData15').hide();
+                        $('#othersData15').hide();
+
+                        $('#accreditedData16').hide();
+                        $('#othersData16').hide();
+
+                        $('#accreditedData17').hide();
+                        $('#othersData17').hide();
+
+                        $('#accreditedData18').hide();
+                        $('#othersData18').hide();
+
+                        $('#accreditedData19').hide();
+                        $('#othersData19').hide();
+
+                        $('#accreditedData20').hide();
+                        $('#othersData20').hide();
                         
-                        $('#supplier').on('change', function() {
+                        $('#supplier11').on('change', function() {
                             if(this.value == 'acc')
                             {
-                                $('#accreditedData').show(); 
-                                $('#othersData').hide();
+                                $('#accreditedData11').show(); 
+                                $('#othersData11').hide();
                             }
                             else if(this.value == 'others')
                             {
-                                $('#othersData').show();
-                                $('#accreditedData').hide();
+                                $('#othersData11').show();
+                                $('#accreditedData11').hide();
                             }
                         });
-                        $('#supplier1').on('change', function() {
+                        $('#supplier12').on('change', function() {
                             if(this.value == 'acc')
                             {
-                                $('#accreditedData1').show(); 
-                                $('#othersData1').hide();
+                                $('#accreditedData12').show(); 
+                                $('#othersData12').hide();
                             }
                             else if(this.value == 'others')
                             {
-                                $('#othersData1').show();
-                                $('#accreditedData1').hide();
+                                $('#othersData12').show();
+                                $('#accreditedData12').hide();
                             }
                         });
-                        f++;
+                        $('#supplier13').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData13').show(); 
+                                $('#othersData13').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData13').show();
+                                $('#accreditedData13').hide();
+                            }
+                        });
+                        $('#supplier14').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData14').show(); 
+                                $('#othersData14').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData14').show();
+                                $('#accreditedData14').hide();
+                            }
+                        });
+                        $('#supplier15').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData15').show(); 
+                                $('#othersData15').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData15').show();
+                                $('#accreditedData15').hide();
+                            }
+                        });
+                        $('#supplier16').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData16').show(); 
+                                $('#othersData16').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData16').show();
+                                $('#accreditedData16').hide();
+                            }
+                        });
+                        $('#supplier17').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData17').show(); 
+                                $('#othersData17').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData17').show();
+                                $('#accreditedData17').hide();
+                            }
+                        });
+                        $('#supplier18').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData18').show(); 
+                                $('#othersData18').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData18').show();
+                                $('#accreditedData18').hide();
+                            }
+                        });
+                        $('#supplier19').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData19').show(); 
+                                $('#othersData19').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData19').show();
+                                $('#accreditedData19').hide();
+                            }
+                        });
+                        $('#supplier20').on('change', function() {
+                            if(this.value == 'acc')
+                            {
+                                $('#accreditedData20').show(); 
+                                $('#othersData20').hide();
+                            }
+                            else if(this.value == 'others')
+                            {
+                                $('#othersData20').show();
+                                $('#accreditedData20').hide();
+                            }
+                        });
+                        y++;
                     }
-                });
+                }); 
+
+               
                 
-                $("#form_field").on('click','#cremove',function(){
+                    $("#form_field").on('click','#cremove',function(){
                     $(this).closest('#child').remove();
                 });
             }

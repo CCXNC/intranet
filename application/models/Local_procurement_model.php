@@ -3239,6 +3239,88 @@ class Local_procurement_model extends CI_Model {
         
     }
 
+    public function material_source_report_generation_process()
+    {
+        $this->db->trans_start();
+
+        $last_entry_id = $this->input->post('id');
+        $role_status = $this->input->post('role_status');
+        $remarks = $this->input->post('remarks');
+        $cycle_time = $this->input->post('cycle_time');
+        $msid = $this->input->post('msid');
+        $date = date('Y-m-d H:i:s');
+
+        $data_material_source = array(
+            'role_status' => 'Pending Procurement'
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('msid', $msid);
+        $blaine_local_procurement->update('material_sourcing', $data_material_source);
+
+        $data_update_last_entry = array(
+            'status'       => 'Done',
+            'signoff_by'   => $this->session->userdata('username'),
+            'signoff_date' => $date,
+            'remarks'      => $remarks,
+            'cycle_time'   => $cycle_time
+        );  
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $last_entry_id);
+        $blaine_local_procurement->update('material_approval_list', $data_update_last_entry);
+
+        /*print_r('<pre>');
+        print_r($data_update_last_entry);
+        print_r('</pre>');*/
+
+
+        $data_action_required = array(
+            'msid'               => $msid,
+            'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
+            'alternate_approver' => "DEL PILAR, JENIFFER ALVAREZ",
+            'role_status'        => "Procurement",
+            'status'             => 'Pending',
+            'created_by'         => $this->session->userdata('username') . ' 0',
+            'created_date'       => $date,
+            'step_approval'      => 9
+
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->insert('material_approval_list', $data_action_required);
+
+        /*print_r('<pre>');
+        print_r($data_action_required);
+        print_r('</pre>');*/
+
+        $status = $this->input->post('status');
+        $i = 0;
+
+        foreach($this->input->post('trans_id') as $trans_id)
+        {
+            $data_transmittal = array(
+                'id'           => $trans_id,
+                'status'       => $status[$i],
+                'updated_by'   => $this->session->userdata('username'),
+                'updated_date' => $date,
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->where('id', $trans_id);
+            $blaine_local_procurement->update('transmittal_material_list', $data_transmittal);
+
+            /*print_r('<pre>');
+            print_r($data_transmittal);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+    }
+
     public function material_source_report()
     {
         $this->db->trans_start();
@@ -4060,7 +4142,6 @@ class Local_procurement_model extends CI_Model {
 
     public function get_transmittal_material_list($trans_batch_number)
     {
-
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('transmittal_no', $trans_batch_number);
         $query = $blaine_local_procurement->get('transmittal_material_list');
@@ -4408,6 +4489,15 @@ class Local_procurement_model extends CI_Model {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('msid', $msid);
         $query = $blaine_local_procurement->get('transmittal');
+
+        return $query->result();
+    }
+
+    public function get_material_transmittal_no($msid)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('msid', $msid);
+        $query = $blaine_local_procurement->get('transmittal_material_list');
 
         return $query->result();
     }
