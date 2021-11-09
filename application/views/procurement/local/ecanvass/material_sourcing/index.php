@@ -15,7 +15,7 @@
                 DISAPPROVED
             </div>
             <div class="card-body" style="background-color:#8C8C8C; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px;padding-top:15px; padding-bottom:15px;">
-                20
+                -
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
                 OPEN
             </div>
             <div class="card-body" style="background-color:#FAD02C; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
-                15
+               -
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                 ACTION REQUIRED
             </div>
             <div class="card-body" style="background-color:#BD2514; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
-                5
+                -
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                 CLOSED
             </div>
             <div class="card-body" style="background-color:#469A49; color: white; border-radius: 2px; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
-                115
+                -
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
                 AVERAGE CT APPROVER
             </div>
             <div class="card-body" style="background-color:#5DBDEA; color: white; border-radius: 2px; text-align: center; font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
-                2 Days
+                -
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@
                 AVERAGE CT PROCUREMENT
             </div>
             <div class="card-body" style="background-color:#5488A5; color: white; text-align: center;font-size:18px; border-radius:0px 0px 10px 10px; padding-top:15px; padding-bottom:15px;">
-                5 Days
+               -
             </div>
         </div>
     </div>

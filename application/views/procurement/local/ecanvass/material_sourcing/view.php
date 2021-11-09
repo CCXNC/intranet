@@ -119,7 +119,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <?php if($first_entry->primary_approver == $this->session->userdata('fullname') || $first_entry->alternate_approver == $this->session->userdata('fullname') && $last_entry->step_approval == 7) : ?>
+                    <?php if($first_entry->primary_approver == $this->session->userdata('fullname') && $first_entry->alternate_approver == $this->session->userdata('fullname') || $last_entry->status != "Closed") : ?>
                         <div class="col-md-12">
                             <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#request" style="margin-left:3px">
                                 <span class="fa fa-pencil"></span>
@@ -270,7 +270,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <?php if($first_entry->primary_approver == $this->session->userdata('fullname') || $first_entry->alternate_approver == $this->session->userdata('fullname') && $last_entry->step_approval == 7) : ?>
+                            <?php if($first_entry->primary_approver == $this->session->userdata('fullname') && $first_entry->alternate_approver == $this->session->userdata('fullname') || $last_entry->status != "Closed") : ?>
                                 <div class="col-md-12">
                                     <button type="button" class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#material<?php echo $material->id;?>" style="margin-left:3px">
                                         <span class="fa fa-pencil"></span>
@@ -518,9 +518,9 @@
                 ?>
             </p>
             <br>
-            <?php if($last_entry->step_approval != 6 && $last_entry->step_approval != 10): ?>
-                <?php if($last_entry->step_approval == 4 && $last_entry->role_status == "Procurement") : ?>
-                    <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
+            <?php if($last_entry->status != "Closed" && $last_entry->step_approval != 10): ?>
+                <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
+                    <?php if($last_entry->step_approval == 4 && $last_entry->role_status == "Procurement") : ?>
                         <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_report_generation" enctype="multipart/form-data">
                             <div class="card">
                                 <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
@@ -609,117 +609,183 @@
                                 </div>  
                             </div> 
                         </form>    
-                    <?php endif; ?>     
-                <?php elseif($last_entry->step_approval == 5 && $last_entry->role_status == "Requestor") : ?>
-                    <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_report_generation_process" enctype="multipart/form-data">
-                        <div class="card">
-                            <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
-                            <div class="card-body" style="background-color: #E9FAFD">
-                                <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
-                                <input type="text" hidden name="msid" value="<?php echo $material_source->msid; ?>">
-                                <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
-                                <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">
-                                <?php
-                                        $date = date('Y-m-d H:i:s');
-                                        $date1 = strtotime($last_entry->created_date); 
-                                        $date2 = strtotime($date); 
-                                        $hour = abs($date2 - $date1)/(60*60*24);
-                                        $round_off = round($hour, 2); 
-                                    ?>
-                                <input type="text" hidden name="cycle_time" value="<?php echo $round_off; ?>">
+                    <?php elseif($last_entry->step_approval == 5 && $last_entry->role_status == "Requestor") : ?>
+                        <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_report_generation_process" enctype="multipart/form-data">
+                            <div class="card">
+                                <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
+                                <div class="card-body" style="background-color: #E9FAFD">
+                                    <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
+                                    <input type="text" hidden name="msid" value="<?php echo $material_source->msid; ?>">
+                                    <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
+                                    <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">
+                                    <?php
+                                            $date = date('Y-m-d H:i:s');
+                                            $date1 = strtotime($last_entry->created_date); 
+                                            $date2 = strtotime($date); 
+                                            $hour = abs($date2 - $date1)/(60*60*24);
+                                            $round_off = round($hour, 2); 
+                                        ?>
+                                    <input type="text" hidden name="cycle_time" value="<?php echo $round_off; ?>">
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <table class="table table-bordered" style="font-size:12px; line-height:13px;">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" colspan="12" style="background-color: #0C2D48; color:white; font-size:15px;">Transmittal No.</th>
-                                                </tr>
-                                                <?php if($transmittal_lists) : ?>
-                                                    <?php foreach($transmittal_lists as $transmittal_lists) : ?>
-                                                        <tr>
-                                                            <th scope="col" colspan="12" style="font-size:12px;">
-                                                                <a href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>"><?php echo $transmittal_list->transmittal_no; ?></a>
-                                                            </th>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                <?php endif; ?>
-                                                <tr>
-                                                    <th scope="col" style="background-color: #0C2D48; color:white; font-size:12px;">Batch Number</th>
-                                                    <th scope="col" style="background-color: #0C2D48; color:white; font-size:12px;">Material Name</th>
-                                                    <th scope="col" style="background-color: #0C2D48; color:white; font-size:12px;">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $y = 0; ?>
-                                                <?php if($material_transmittal_lists) : ?>
-                                                    <?php foreach($material_transmittal_lists as $material_transmittal_list) : ?>
-                                                        <tr>
-                                                            <td hidden><input hidden type="text" name="trans_id[]" value="<?php echo $material_transmittal_list->id; ?>"></td>
-                                                            <td><?php echo $material_transmittal_list->batch_number; ?></td>
-                                                            <td><?php echo $material_transmittal_list->description; ?></td>
-                                                            <td>
-                                                                <div class="row">
-                                                                    <div class="form-check" style="margin-right: 20px; margin-left: 15px;">
-                                                                        <input class="form-check-input" type="radio" name="status[<?php echo $y; ?>]" id="company" value="1">
-                                                                        <label class="form-check-label" for="company">
-                                                                            <p>Pass</p>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                                                        <input class="form-check-input" type="radio" name="status[<?php echo $y; ?>]" id="company" value="0">
-                                                                        <label class="form-check-label" for="company">
-                                                                            <p>Fail</p>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <?php $y++; ?>
-                                                    <?php endforeach; ?>
-                                                <?php endif; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-bordered" style="font-size:12px; line-height:13px;">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" style="background-color: #0C2D48; color:white">Canvass No. </th>
-                                                </tr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" colspan="12" style="background-color: #0C2D48; color:white; font-size:15px;">Transmittal No.</th>
+                                                    </tr>
+                                                    <?php if($transmittal_lists) : ?>
+                                                        <?php foreach($transmittal_lists as $transmittal_list) : ?>
+                                                            <tr>
+                                                                <th scope="col" colspan="12" style="font-size:12px;">
+                                                                    <a href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>"><?php echo $transmittal_list->transmittal_no; ?></a>
+                                                                </th>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                    <tr>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white; font-size:12px;">Batch Number</th>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white; font-size:12px;">Material Name</th>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white; font-size:12px;">Attachment</th>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white; font-size:12px;">Notes</th>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white; font-size:12px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php if($material_transmittal_lists) : ?>
+                                                        <?php foreach($material_transmittal_lists as $material_transmittal_list) : ?>
+                                                            <?php if($material_transmittal_list->status == NULL): ?>
+                                                                <tr>
+                                                                    <td ><input  type="text" name="trans_id[]" value="<?php echo $material_transmittal_list->id; ?>"></td>
+                                                                    <td><?php echo $material_transmittal_list->batch_number; ?></td>
+                                                                    <td><?php echo $material_transmittal_list->description; ?></td>
+                                                                    <td><a href="<?php echo base_url(); ?>procurement/download_transmittal_attachment/<?php echo $material_transmittal_list->attachment; ?>"><?php if($material_transmittal_list->attachment != NULL) { echo 'Download'; } ?></a></td>
+                                                                    <td><input type="text" name="notes[]" class="form-control" style="font-size:12px; background-color:white"></td>
+                                                                    <td>
+                                                                        <div class="row">
+                                                                            <div class="form-check" style="margin-right: 20px; margin-left: 15px;">
+                                                                                <input class="form-check-input" type="radio" name="status[<?php echo $material_transmittal_list->id; ?>]" id="company" value="1">
+                                                                                <label class="form-check-label" for="company">
+                                                                                    <p>Pass</p>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                                                                <input class="form-check-input" type="radio" name="status[<?php echo $material_transmittal_list->id; ?>]" id="company" value="0">
+                                                                                <label class="form-check-label" for="company">
+                                                                                    <p>Fail</p>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered" style="font-size:12px; line-height:13px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" style="background-color: #0C2D48; color:white">Canvass No. </th>
+                                                    </tr>
 
-                                                <?php if($canvass_lists) : ?>
-                                                    <?php foreach($canvass_lists as $canvass_list) : ?>
-                                                        <tr>
-                                                            <th scope="col" colspan="12" style="font-size:12px;">
-                                                                <a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>"><?php echo $canvass_list->canvass_no; ?></a>
-                                                            </th>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                <?php endif; ?>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Remarks:</label>
-                                            <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="remarks" rows="1"></textarea>
+                                                    <?php if($canvass_lists) : ?>
+                                                        <?php foreach($canvass_lists as $canvass_list) : ?>
+                                                            <tr>
+                                                                <th scope="col" colspan="12" style="font-size:12px;">
+                                                                    <a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>"><?php echo $canvass_list->canvass_no; ?></a>
+                                                                </th>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </thead>
+                                            </table>
                                         </div>
                                     </div>
-                                </div>
-                                <center>
-                                    <div class="form-group">
-                                        <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Sign Off:</label>
+                                                <br>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                                            <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="Approve" checked>
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                <p style="border-radius: 5px; border: 2px solid #469A49; background-color:#469A49;padding:2px; color:white">Approve</p>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault2" value="Action Required">
+                                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                                <p style="border-radius: 5px; border: 2px solid #FAD02C; background-color:#FAD02C;padding:2px; color:white">Action Required</p>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                                            <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="Discontinued">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                <p style="border-radius: 5px; border: 2px solid #E12A2A; background-color:#E12A2A;padding:2px; color:white">Discontinued</p>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Remarks</label>
+                                                <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="remarks" rows="1"></textarea>
+                                            </div>
+                                        </div>  
                                     </div>
-                                </center>
-                            </div>  
-                        </div> 
-                    </form>   
-                <?php else : ?>  
-                    <?php if($this->session->userdata('fullname') == $last_entry->primary_approver || $this->session->userdata('fullname') == $last_entry->alternate_approver) : ?>
+                                    <center>
+                                        <div class="form-group">
+                                            <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                        </div>
+                                    </center>
+                                </div>  
+                            </div> 
+                        </form>   
+                    <?php elseif($last_entry->step_approval == 9 && $last_entry->role_status == "Procurement") : ?>  
+                        <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_close_process" enctype="multipart/form-data">
+                            <div class="card">
+                                <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">APPROVAL DETAILS</div>
+                                <div class="card-body" style="background-color: #E9FAFD">
+                                    <div class="row">
+
+                                        <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
+                                        <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
+                                        <input type="text" hidden name="role_status" value="<?php echo $last_entry->role_status; ?>">
+                                        <input type="text" hidden name="msid" value="<?php echo $material_source->msid; ?>">
+                                        <?php
+                                            $date = date('Y-m-d H:i:s');
+                                            $date1 = strtotime($last_entry->created_date); 
+                                            $date2 = strtotime($date); 
+                                            $hour = abs($date2 - $date1)/(60*60*24);
+                                            $round_off = round($hour, 2); 
+                                        ?>
+                                        <input type="text" hidden name="cycle_time" value="<?php echo $round_off; ?>">
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Remarks</label>
+                                                <textarea class="form-control" id="" style="font-size:12px; background-color:white" name="remarks" rows="1"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+                            <br>
+                            <center>
+                                <div class="form-group">
+                                    <input type="submit" title="Submit Employee Information" class="btn btn-success" onclick="return confirm('Do you want to submit data?');" value="SUBMIT" >
+                                </div>
+                            </center>
+                        </form>    
+                    <?php else : ?>  
                         <form class="d-print-none" method="post" action="<?php echo base_url(); ?>procurement/materialsource_approval_process" enctype="multipart/form-data">
                             <div class="card">
                                 <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">APPROVAL DETAILS</div>
@@ -775,20 +841,19 @@
                                                                 <p style="border-radius: 5px; border: 2px solid #469A49; background-color:#469A49;padding:2px; color:white">Approve</p>
                                                             </label>
                                                         </div>
-                                                        <?php if($last_entry->step_approval != 5) : ?>
-                                                            <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                                                <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="2">
-                                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                                    <p style="border-radius: 5px; border: 2px solid #E12A2A; background-color:#E12A2A;padding:2px; color:white">Disapprove</p>
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault2" value="3">
-                                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                                    <p style="border-radius: 5px; border: 2px solid #FAD02C; background-color:#FAD02C;padding:2px; color:white">Action Required</p>
-                                                                </label>
-                                                            </div>
-                                                        <?php endif; ?>    
+                                                    
+                                                        <div class="form-check" style="margin-right: 20px; margin-left: 15px">
+                                                            <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="2">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                <p style="border-radius: 5px; border: 2px solid #E12A2A; background-color:#E12A2A;padding:2px; color:white">Disapprove</p>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault2" value="3">
+                                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                                <p style="border-radius: 5px; border: 2px solid #FAD02C; background-color:#FAD02C;padding:2px; color:white">Action Required</p>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -809,9 +874,8 @@
                                 </div>
                             </center>
                         </form>    
-                    <?php endif; ?> 
-
-                <?php endif; ?>  
+                    <?php endif; ?>  
+                <?php endif; ?>         
             <?php endif; ?>
         </div>
     </div>

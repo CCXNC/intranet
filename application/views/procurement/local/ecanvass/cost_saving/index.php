@@ -41,13 +41,14 @@
 <table id="" class="display" style="width:100%; font-size:13px;">
     <thead>
         <tr style="background-color:#0D635D;color:white"> 
-            <th scope="col">Canvass No.</th>
             <th scope="col">Canvass Date</th>
+            <th scope="col">Canvass No.</th>
             <th scope="col">Company</th>
             <th scope="col">Cost Saving</th>
             <th scope="col">Cost Avoidance</th>
             <th scope="col">Buyer</th>
             <th scope="col">PR No.</th>
+            <th scope="col">No of Supplier</th>
             <th scope="col">Material Source No.</th>
             <th scope="col">Action</th>
         </tr>
@@ -56,13 +57,21 @@
         <?php if($canvass_lists) : ?>
             <?php foreach($canvass_lists as $canvass_list) : ?>
                 <tr>
-                    <td data-label="Canvass No"><a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>"><?php echo $canvass_list->canvass_no; ?></a></td>
                     <td data-label="Date"><?php echo $canvass_list->canvass_date; ?></td>
+                    <td data-label="Canvass No"><a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>"><?php echo $canvass_list->canvass_no; ?></a></td>
                     <td data-label="Company"><?php if($canvass_list->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?></td>
                     <td data-label="Cost Saving"><?php  $total_cost_saving = number_format($canvass_list->cost_saving, 2, '.', ','); echo $total_cost_saving; ?></td>
                     <td data-label="Cost Aviodance"><?php $total_cost_avoidance= number_format($canvass_list->cost_avoidance, 2, '.', ','); echo $total_cost_avoidance; ?></td>
                     <td data-label="Buyer"><?php echo $canvass_list->buyer_name; ?></td>
                     <td data-label="Pr No"><?php echo $canvass_list->pr_no; ?></td>
+                    <?php if($canvass_list_suppliers) : ?>
+                        <?php foreach($canvass_list_suppliers as $canvass_list_supplier) : ?>
+                            <?php if($canvass_list_supplier->canvass_no == $canvass_list->canvass_no) : ?>
+                                <td data-label="No of Supplier"><?php echo $canvass_list_supplier->total_supplier; ?></td>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                  
                     <td data-label="Material Source No"> 
                         <?php if($canvass_list->msid != NULL) : ?>
                             <a href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $canvass_list->idms; ?>/<?php echo $canvass_list->msid; ?>"><?php echo $canvass_list->msid; ?></a>

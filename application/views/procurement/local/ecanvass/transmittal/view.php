@@ -73,6 +73,7 @@
                             <th scope="col">Supporting Documents</th>
                             <th scope="col">Status</th>
                             <th scope="col">PIC</th>
+                            <th scope="col">Notes</th>
                         </tr>
                     </thead>
                     <?php if($transmittal_materials) : ?>
@@ -84,6 +85,7 @@
                                 <td><a href="<?php echo base_url(); ?>procurement/download_transmittal_attachment/<?php echo $transmittal_material->attachment; ?>"><?php echo $transmittal_material->attachment; ?></a></td>
                                 <td><?php if($transmittal_material->status == NULL) { echo '-';} else { if($transmittal_material->status == 1) { echo 'Passed'; } elseif($transmittal_material->status == 0) { echo 'Failed';} } ?></td>
                                 <td><?php echo $transmittal_material->updated_by; ?></td>
+                                <td><?php echo $transmittal_material->notes; ?></td>
                             </tr>
                         
                         <?php endforeach; ?>

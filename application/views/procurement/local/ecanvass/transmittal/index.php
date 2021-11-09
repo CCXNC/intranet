@@ -11,24 +11,25 @@
 <table id="" class="display" style="width:100%;font-size:13px">
     <thead>
         <tr style="background-color:#0D635D;color:white">
+            <th scope="col">Transmittal Date</th>
             <th scope="col">Transmittal No</th>
             <th scope="col">Material Source ID</th>
             <th scope="col">Material Source Request Date</th>
             <th scope="col">Company</th>
             <th scope="col">Requestor</th>
-            <th scope="col">Transmittal Date</th>
+           
         </tr>
     </thead>
     <tbody>
         <?php if ($transmittal_lists) : ?>
             <?php foreach($transmittal_lists as $transmittal_list) : ?>
                 <tr>
+                    <td><?php echo date('Y-m-d', strtotime($transmittal_list->transmittal_date)); ?></td>
                     <td><a href="<?php echo base_url(); ?>procurement/transmittal_view/<?php echo $transmittal_list->id; ?>/<?php echo $transmittal_list->transmittal_no; ?>"><?php echo $transmittal_list->transmittal_no; ?></a></td>
                     <td><a href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $transmittal_list->matsource_id; ?>/<?php echo $transmittal_list->msid; ?>"><?php echo $transmittal_list->msid; ?></a></td>
                     <td><?php echo date('Y-m-d', strtotime($transmittal_list->ms_request_date)); ?></td>
                     <td><?php echo $transmittal_list->company; ?></td>
                     <td><?php echo $transmittal_list->requestor; ?></td>
-                    <td><?php echo date('Y-m-d', strtotime($transmittal_list->transmittal_date)); ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

@@ -208,7 +208,7 @@
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="tbrow">
-                    <th colspan="13" style="vertical-align: middle">Revision 2</th>
+                    <th colspan="13" style="vertical-align: middle">Revision 2 (<?php echo date('Y-m-d', strtotime($new_revision->created_date)); ?>) </th>
                 </tr>
                 <tr class="throw">
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>
@@ -280,7 +280,7 @@
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="tbrow">
-                    <th colspan="13" style="vertical-align: middle">Revision 1</th>
+                    <th colspan="13" style="vertical-align: middle">Revision 1 (<?php echo date('Y-m-d', strtotime($old_revision->created_date)); ?>)</th>
                 </tr>
                 <tr class="throw">
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>

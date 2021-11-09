@@ -2251,233 +2251,6 @@ class Local_procurement_model extends CI_Model {
                     }
                 }
 
-                // CLOSURE
-                elseif($destination_approval == 0)
-                {
-                    $data_material_source = array(
-                        'role_status' => '0 Closed'
-                    );
-        
-                    $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-                    $blaine_local_procurement->where('msid', $msid);
-                    $blaine_local_procurement->update('material_sourcing', $data_material_source);
-        
-                    /*print_r('<pre>');
-                    print_r($data_material_source);
-                    print_r('</pre>');*/
-
-                    $data_action_required = array(
-                        'msid'               => $msid,
-                        'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
-                        'alternate_approver' => "DEL PILAR, JENIFFER ALVAREZ",
-                        'role_status'        => "Procurement",
-                        'status'             => 'Done',
-                        'created_by'         => $this->session->userdata('username') . ' 0',
-                        'created_date'       => $date,
-                        'signoff_date'       => $date,
-                        'step_approval'      => 6
-        
-                    );
-        
-                    $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-                    $blaine_local_procurement->insert('material_approval_list', $data_action_required);
-        
-                    /*print_r('<pre>');
-                    print_r($data_action_required);
-                    print_r('</pre>');*/
-
-                    // Auto-Email For Request Closure
-                    // Get approval details
-                    $this->db->select("
-                        material_approval_list.primary_approver as primary_approver,
-                        material_approval_list.alternate_approver as alternate_approver,
-                        material_approval_list.status as status,
-                        material_approval_list.remarks as remarks,
-                        material_approval_list.signoff_by as signoff_by,
-                        material_approval_list.signoff_date as signoff_date,
-                        material_approval_list.cycle_time as cycle_time,
-                        material_approval_list.role_status as role_status,
-                        step_of_approver.name as step_of_approval
-                    ");
-
-                    $this->db->from('blaine_local_procurement.material_approval_list');
-                    $this->db->join('blaine_local_procurement.step_of_approver', 'blaine_local_procurement.step_of_approver.id = blaine_local_procurement.material_approval_list.step_approval', 'left');
-                    $this->db->where('blaine_local_procurement.material_approval_list.msid', $msid);
-                    $query = $this->db->get();
-
-                    $approval_lists = $query->result();
-
-                    foreach($approval_lists as $approval_list)
-                    {
-                        $e_step_of_approval = $approval_list->step_of_approval;
-                        $e_primary_approver = $approval_list->primary_approver;
-                        $e_alternate_approver = $approval_list->alternate_approver;
-                        $e_status = $approval_list->status;
-                        $e_signoff_date = $approval_list->signoff_date;
-                        $e_cycle_time = $approval_list->cycle_time;
-                        $e_signoff_by = $approval_list->signoff_by;
-                        $e_remarks = $approval_list->remarks;
-
-                        $approver .= '<tbody>
-                            <tr>
-                                <th scope="row" align="left" class="throw" style="font-size:12px">'.$e_step_of_approval.'</th>
-                                <td style="font-size:12px">'.$e_primary_approver.'</td>
-                                <td style="font-size:12px">'.$e_alternate_approver.'</td>
-                                <td style="font-size:12px">'.$e_status.'</td>
-                                <td style="font-size:12px">'.$e_signoff_date.'</td>
-                                <td style="font-size:12px">'.$e_cycle_time.'</td>
-                                <td style="font-size:12px">'.$e_signoff_by.'</td>
-                                <td style="font-size:12px">'.$e_remarks.'</td>
-                            </tr>
-                        </tbody>';
-                    }
-                    $format .= '<!DOCTYPE html>
-                    <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width,initial-scale=1">
-                            <meta name="x-apple-disable-message-reformatting">
-                            <title></title>
-                            <style>
-                                table, td, div, h1, p {font-family: Arial, sans-serif;}
-                            </style>
-                        </head>
-                        <body style="margin:0;padding:0;">
-                            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
-                                <tr>
-                                    <td align="center" style="padding:0;">
-                                        <table role="presentation" style="width:1,000px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
-                                            <tr>
-                                                <td align="center" style="padding:18px 0 18px 0;background:#003060;color:white; font-size:18px">
-                                                    BLAINE INTRANET
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center" style="padding:15px 0 10px 0; font-size:25px">
-                                                    Electronic Material Sourcing Request
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center" style="padding:5px 0 10px 0; font-size:20px">
-                                                <hr color="#E0E0E0" align="center" width="90%" size="1" noshade style="margin: 0; padding: 0;" />
-                                                </td>
-                                            </tr>
-                                            <tr>	
-                                                <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 2.25%; padding-right: 2.25%; width: 100%;" class="line">
-                                                    <hrcolor="#E0E0E0" align="center" width="100%" size="1" noshade style="margin: 0; padding: 0;" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="padding:10px 30px 0px 30px;">
-                                                    <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
-                                                        <tr>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding:0;">
-                                                                <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
-                                                                    <tr>
-                                                                        <td style="width:260px;padding:0;vertical-align:top;">
-                                                                            <p style="margin:0 0 12px 0;font-size:13px;line-height:24px;font-family:Arial,sans-serif;"><b>Business Unit:</b> '.$company.'</p>
-                                                                        </td>
-                                                                        <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                                        <td style="width:260px;padding:0;vertical-align:top;">
-                                                                            <p style="margin:0 0 12px 0;font-size:13px;line-height:24px;font-family:Arial,sans-serif;"><b>Material Source ID:</b> <a href="http://localhost/blaineintranet/procurement/material_sourcing_view/'.$source_id.'/'.$msid.'" style="color: #999999;">'.$msid.'</a></p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width:260px;padding:0;vertical-align:top;">
-                                                                            <p style="margin:0 0 12px 0;font-size:13px;line-height:24px;font-family:Arial,sans-serif;"><b>Sourcing Category:</b> '.$category.'</p>
-                                                                        </td>
-                                                                        <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                                        <td style="width:260px;padding:0;vertical-align:top;">
-                                                                            <p style="margin:0 0 12px 0;font-size:13px;line-height:24px;font-family:Arial,sans-serif;"><b>Date Required:</b> '.$date_required.'</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width:260px;padding:0;vertical-align:top;">
-                                                                            <p style="margin:0 0 12px 0;font-size:13px;line-height:24px;font-family:Arial,sans-serif;"><b>Date Requested:</b> '.$date_requested.'</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding:10px 30px 10px 30px; width: 100%; font-size: 10px;font-family: sans-serif;">
-                                                    <div class="row">
-                                                        <table class="table table-striped">
-                                                            <thead>
-                                                                <tr style="background-color:#003060; color: white; padding: 15px 5px 15px 5px;">
-                                                                    <th scope="col" style="font-size:12px">Step/Approver</th>
-                                                                    <th scope="col" style="font-size:12px">Primary Approver</th>
-                                                                    <th scope="col" style="font-size:12px">Alternate Approver</th>
-                                                                    <th scope="col" style="font-size:12px">Status</th>
-                                                                    <th scope="col" style="font-size:12px">Date Sign-Off</th>
-                                                                    <th scope="col" style="font-size:12px">Date CT</th>
-                                                                    <th scope="col" style="font-size:12px">Sign-Off By</th>
-                                                                    <th scope="col" style="font-size:12px">Remarks</th>
-                                                                </tr>
-                                                            </thead>
-                                                            '.$approver.'
-                                                        </table>
-                                                    </div>
-                                                    <br>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <table border="0" cellpadding="0" cellspacing="0" align="center"
-                                    width="560" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
-                                    max-width: 560px;" class="wrapper">
-                                    <tr>
-                                        <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
-                                            padding-top: 20px;
-                                            padding-bottom: 20px;
-                                            color: #999999;
-                                            font-family: sans-serif;" class="footer">
-                                            <b>Copyright 2021 - Blaine Intranet - All Rights Reserved</b>
-                                            <br>This is an auto-generated email from Blaine Intranet system.
-                                            <img width="1" height="1" border="0" vspace="0" hspace="0" style="margin: 0; padding: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: block;"
-                                            src="https://raw.githubusercontent.com/konsav/email-templates/master/images/tracker.png" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </table>
-                        </body>
-                    </html>';
-
-                    $config = Array(
-                        'protocol'      => 'smtp',
-                        'smtp_host'     => 'mail.blainegroup.com.ph',
-                        'smtp_crypto'   => 'ssl',
-                        'smtp_port'     => 465,
-                        'smtp_user'     => 'procurement_system@blainegroup.com.ph', // change it to yours
-                        'smtp_pass'     => '@Bl@ine2021', // change it to yours
-                        'mailtype'      => 'html',
-                        'charset'       => 'iso-8859-1',
-                        'wordwrap'      => TRUE
-                    );
-
-                    $this->load->library('email', $config);
-                    $this->email->set_newline("\r\n");
-                    $this->email->from($config['smtp_user']); // change it to yours
-                    $this->email->to($recipient2);// change it to yours
-                    $this->email->cc($recipient2_cc);
-                    //$this->email->bcc($bcc);
-                    $this->email->subject($subject_6);
-                    $this->email->message($format);
-                    if($this->email->send()){
-                        $this->session->set_flashdata('message', 'Email sent');
-                    }
-                    else{
-                        $this->session->set_flashdata('message', show_error($this->email->print_debugger()));
-                    }
-                }
-               
-               
             }
 
             // IMMEDIATE SUPERIOR APPROVAL
@@ -3653,6 +3426,152 @@ class Local_procurement_model extends CI_Model {
         $trans = $this->db->trans_complete();
         return $trans;
         
+    }
+
+    public function material_source_report_generation_process()
+    {
+        $this->db->trans_start();
+
+        $last_entry_id = $this->input->post('id');
+        $role_status = $this->input->post('role_status');
+        $remarks = $this->input->post('remarks');
+        $cycle_time = $this->input->post('cycle_time');
+        $msid = $this->input->post('msid');
+        $date = date('Y-m-d H:i:s');
+        $approve_detail = $this->input->post('approve_detail');
+        
+
+        $data_material_source = array(
+            'role_status' => 'Pending Procurement'
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('msid', $msid);
+        $blaine_local_procurement->update('material_sourcing', $data_material_source);
+
+        $data_update_last_entry = array(
+            'status'       => $approve_detail,
+            'signoff_by'   => $this->session->userdata('username'),
+            'signoff_date' => $date,
+            'remarks'      => $remarks,
+            'cycle_time'   => $cycle_time
+        );  
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $last_entry_id);
+        $blaine_local_procurement->update('material_approval_list', $data_update_last_entry);
+
+        /*print_r('<pre>');
+        print_r($data_update_last_entry);
+        print_r('</pre>');*/
+
+        if($approve_detail == "Approve" || $approve_detail == "Discontinued")
+        {
+            $data_action_required = array(
+                'msid'               => $msid,
+                'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
+                'alternate_approver' => "DEL PILAR, JENIFFER ALVAREZ",
+                'role_status'        => "Procurement",
+                'status'             => 'Pending',
+                'created_by'         => $this->session->userdata('username') . ' 0',
+                'created_date'       => $date,
+                'step_approval'      => 9
+    
+            );
+    
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('material_approval_list', $data_action_required);
+        }
+        elseif($approve_detail == "Action Required")
+        {
+            $data_action_required = array(
+                'msid'               => $msid,
+                'primary_approver'   => "CATANGUI, SHARON ROSE BALLES",
+                'alternate_approver' => "DEL PILAR, JENIFFER ALVAREZ",
+                'role_status'        => "Procurement",
+                'status'             => 'Pending',
+                'created_by'         => $this->session->userdata('username') . ' 0',
+                'created_date'       => $date,
+                'step_approval'      => 4
+    
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->insert('material_approval_list', $data_action_required);
+            
+            /*print_r('<pre>');
+            print_r($data_action_required);
+            print_r('</pre>');*/
+    
+        }
+
+        $status = $this->input->post('status');
+        $notes = $this->input->post('notes');
+        $i = 0;
+
+        foreach($this->input->post('trans_id') as $trans_id)
+        {
+            $data_transmittal = array(
+                'id'           => $trans_id,
+                'status'       => $status[$trans_id],
+                'notes'        => $notes[$i],
+                'updated_by'   => $this->session->userdata('username'),
+                'updated_date' => $date,
+            );
+
+            $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+            $blaine_local_procurement->where('id', $trans_id);
+            $blaine_local_procurement->update('transmittal_material_list', $data_transmittal);
+
+            /*print_r('<pre>');
+            print_r($data_transmittal);
+            print_r('</pre>');*/
+
+            $i++;
+        }
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+    }
+
+    public function material_source_close_process()
+    {
+        $this->db->trans_start();
+
+        $last_entry_id = $this->input->post('id');
+        $role_status = $this->input->post('role_status');
+        $remarks = $this->input->post('remarks');
+        $cycle_time = $this->input->post('cycle_time');
+        $msid = $this->input->post('msid');
+        $date = date('Y-m-d H:i:s');
+
+        $data_material_source = array(
+            'role_status' => '0 Closed'
+        );
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('msid', $msid);
+        $blaine_local_procurement->update('material_sourcing', $data_material_source);
+
+        $data_update_last_entry = array(
+            'status'       => "Closed",
+            'signoff_by'   => $this->session->userdata('username'),
+            'signoff_date' => $date,
+            'remarks'      => $remarks,
+            'cycle_time'   => $cycle_time
+        );  
+
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('id', $last_entry_id);
+        $blaine_local_procurement->update('material_approval_list', $data_update_last_entry);
+
+        /*print_r('<pre>');
+        print_r($data_update_last_entry);
+        print_r('</pre>');*/
+
+        $trans = $this->db->trans_complete();
+        return $trans;
+       
     }
 
     public function material_source_report()
@@ -5046,6 +4965,19 @@ class Local_procurement_model extends CI_Model {
         return $query->result();
     }
 
+    public function get_total_supplier()
+    {
+        $this->db->select('
+            supplier_report_generation.canvass_no as canvass_no,
+            COUNT(distinct(supplier_report_generation.supplier_name)) as total_supplier
+        ');
+        $this->db->from('blaine_local_procurement.supplier_report_generation');
+        $this->db->group_by('blaine_local_procurement.supplier_report_generation.canvass_no');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
     public function get_net_cost_saving()
     {
         $this->db->select('
@@ -5175,5 +5107,23 @@ class Local_procurement_model extends CI_Model {
         $query = $blaine_local_procurement->get('supplier_logs');
 
         return $query->result();
+    }
+
+    public function get_new_revision_date($canvass_no)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $query = $blaine_local_procurement->get('quotation_material_list');
+
+        return $query->row();
+    }
+
+    public function get_old_revision_date($canvass_no)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('canvass_no', $canvass_no);
+        $query = $blaine_local_procurement->get('quotation_material_list_logs');
+
+        return $query->row();
     }
 }

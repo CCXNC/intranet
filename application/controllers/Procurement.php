@@ -273,7 +273,7 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function comparative_quotations_logs($canvass_no)
+    public function comparative_quotations_logs($canvass_no) 
     { 
         $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
         $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
@@ -283,6 +283,8 @@ class Procurement extends CI_Controller {
         $data['quotation_lists'] = $this->local_procurement_model->get_quotation_material_list($canvass_no);
         $data['old_quotation_lists'] = $this->local_procurement_model->get_quotation_material_list_log($canvass_no);
         $data['quotation_canvass'] = $this->local_procurement_model->get_canvass_list($canvass_no);
+        $data['new_revision'] = $this->local_procurement_model->get_new_revision_date($canvass_no);
+        $data['old_revision'] = $this->local_procurement_model->get_old_revision_date($canvass_no);
 
         $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/logs/index';
         $this->load->view('inc/navbar', $data);
@@ -371,8 +373,10 @@ class Procurement extends CI_Controller {
         $data['cost_saving'] = $this->local_procurement_model->get_cost_saving();
         $data['cost_saving_negative'] = $this->local_procurement_model->get_cost_saving_negative();
         $data['canvass_lists'] = $this->local_procurement_model->get_canvass_lists();
+        $data['canvass_list_suppliers'] = $this->local_procurement_model->get_total_supplier();
         $data['canvass_list_logs'] = $this->local_procurement_model->get_quotation_material_list_logs();
         $data['main_content'] = 'procurement/local/ecanvass/cost_saving/index';
+      
         $this->load->view('inc/navbar', $data);
     }
 
@@ -729,6 +733,18 @@ class Procurement extends CI_Controller {
             $msid = $this->input->post('msid');
 
             $this->session->set_flashdata('success_msg', 'Requestor Feedback Successfully Added!');
+            redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
+        }
+    }
+
+    public function materialsource_close_process()
+    {
+        if($this->local_procurement_model->material_source_close_process())
+        {
+            $id = $this->input->post('source_id');
+            $msid = $this->input->post('msid');
+
+            $this->session->set_flashdata('success_msg', 'Procurement Request Acceptance Closed!');
             redirect('procurement/material_sourcing_view/'.$id.'/'.$msid.'');
         }
     }
