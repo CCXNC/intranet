@@ -74,7 +74,7 @@
             </div>    
         </div>
         <br>
-        <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center;">
+        <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="tbrow">
                     <th colspan="7" style="vertical-align: middle">Previous Purchase</th>
@@ -348,7 +348,7 @@
             </tbody> 
         </table>
 
-        <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
+        <table class="table table-bordered" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="throw">
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 20%">Supplier Name</th>
