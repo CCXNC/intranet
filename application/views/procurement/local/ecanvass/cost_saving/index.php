@@ -47,7 +47,7 @@
             <th scope="col">Cost Saving</th>
             <th scope="col">Cost Avoidance</th>
             <th scope="col">Buyer</th>
-            <th scope="col">PR No.</th>
+            <th scope="col">With PR</th>
             <th scope="col">No of Supplier</th>
             <th scope="col">Material Source No.</th>
             <th scope="col">Action</th>
@@ -63,7 +63,7 @@
                     <td data-label="Cost Saving"><?php  $total_cost_saving = number_format($canvass_list->cost_saving, 2, '.', ','); echo $total_cost_saving; ?></td>
                     <td data-label="Cost Aviodance"><?php $total_cost_avoidance= number_format($canvass_list->cost_avoidance, 2, '.', ','); echo $total_cost_avoidance; ?></td>
                     <td data-label="Buyer"><?php echo $canvass_list->buyer_name; ?></td>
-                    <td data-label="Pr No"><?php echo $canvass_list->pr_no; ?></td>
+                    <td data-label="Pr No"><?php if($canvass_list->pr_no != NULL){ echo 'Yes'; } else { echo 'No'; } ?></td>
                     <?php if($canvass_list_suppliers) : ?>
                         <?php foreach($canvass_list_suppliers as $canvass_list_supplier) : ?>
                             <?php if($canvass_list_supplier->canvass_no == $canvass_list->canvass_no) : ?>
