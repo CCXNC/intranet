@@ -23,35 +23,12 @@
                             <p><?php echo $transmittal_lists->company; ?></p>
                         </div>
                     </div>
-                </div>
-            </div>    
-        </div>
-        <br>
-        <div class="card">
-            <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">REQUEST DETAILS</div>
-            <div class="card-body" style="background-color: #E9FAFD;">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label ><b>To Requestor</b></label>
-                            <p><?php echo $transmittal_lists->requestor; ?></p>
-                        </div>
-                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label ><b>Transmittal Date</b></label>
                             <p><?php echo date('Y-m-d', strtotime($transmittal_lists->transmittal_date)); ?></p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label ><b>Email</b> </label>
-                            <p><?php echo $transmittal_lists->email; ?></p>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label ><b>File Attachment</b></label><br>

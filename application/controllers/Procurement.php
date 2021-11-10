@@ -1118,7 +1118,6 @@ class Procurement extends CI_Controller {
     public function transmittal()
     {
         $this->form_validation->set_rules('msid', 'Material Source ID', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim');
 
         if($this->form_validation->run() == FALSE){
             $data['material_sourcings'] = $this->local_procurement_model->get_material_sourcing_list();

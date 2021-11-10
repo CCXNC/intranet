@@ -16,7 +16,6 @@
             <th scope="col">Material Source ID</th>
             <th scope="col">Material Source Request Date</th>
             <th scope="col">Company</th>
-            <th scope="col">Requestor</th>
            
         </tr>
     </thead>
@@ -29,7 +28,6 @@
                     <td><a href="<?php echo base_url(); ?>procurement/material_sourcing_view/<?php echo $transmittal_list->matsource_id; ?>/<?php echo $transmittal_list->msid; ?>"><?php echo $transmittal_list->msid; ?></a></td>
                     <td><?php echo date('Y-m-d', strtotime($transmittal_list->ms_request_date)); ?></td>
                     <td><?php echo $transmittal_list->company; ?></td>
-                    <td><?php echo $transmittal_list->requestor; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

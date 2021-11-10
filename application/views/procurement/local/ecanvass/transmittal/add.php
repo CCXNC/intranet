@@ -38,11 +38,23 @@
                                 <input type="text" class="form-control" name="company" id="company" style="background-color:white" readonly>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label >Transmittal Date</label>
+                                <input type="date" class="form-control" name="transmittal_date" value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label >File Attachment</label><br>
+                                <input type='file' name='attachment' size='20'/>
+                            </div>
+                        </div>
                     </div>
                 </div>    
             </div>
             <br>
-            <div class="card">
+            <!--<div class="card">
                 <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">REQUEST DETAILS</div>
                 <div class="card-body" style="background-color: #E9FAFD;">
                     <div class="row">
@@ -81,7 +93,7 @@
                         </div>
                     </div>
                 </div>    
-            </div>
+            </div>-->
             <br>
             <div class="card">
                 <div class="card-body" style="background-color: #E9FAFD;">

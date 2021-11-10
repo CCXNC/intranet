@@ -389,8 +389,8 @@
                         <div class="col-md-6">
                             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                                 <thead>
-                                    <tr>
-                                        <th scope="col" style="background-color: #0C2D48; color:white">Transmittal No.</th>
+                                    <tr class="throw">
+                                        <th scope="col">Transmittal No.</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -411,8 +411,8 @@
                         <div class="col-md-6">
                             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                                 <thead>
-                                    <tr>
-                                        <th scope="col" style="background-color: #0C2D48; color:white">Canvass No.</th>
+                                    <tr class="throw">
+                                        <th scope="col">Canvass No.</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -614,6 +614,17 @@
                             <div class="card">
                                 <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">REPORT GENERATION</div>
                                 <div class="card-body" style="background-color: #E9FAFD">
+
+                                    <!-- Get material details for email -->
+                                    <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
+                                    <input type="text" hidden name="company" value="<?php echo $material_source->company_name; ?>">
+                                    <input type="text" hidden name="category" value="<?php echo $material_source->category; ?>">
+                                    <input type="text" hidden name="date_required" value="<?php echo $material_source->date_required; ?>">
+                                    <input type="text" hidden name="date_requested" value="<?php echo date('Y-m-d', strtotime($material_source->created_date)); ?>">
+                                    <input type="text" hidden name="email_accounts" value="<?php echo $material_source->email; ?>">
+                                    <!-- End of get material details for email -->
+
+
                                     <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">
                                     <input type="text" hidden name="msid" value="<?php echo $material_source->msid; ?>">
                                     <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
@@ -628,7 +639,7 @@
                                     <input type="text" hidden name="cycle_time" value="<?php echo $round_off; ?>">
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                                                 <thead>
                                                     <tr>
@@ -656,7 +667,7 @@
                                                         <?php foreach($material_transmittal_lists as $material_transmittal_list) : ?>
                                                             <?php if($material_transmittal_list->status == NULL): ?>
                                                                 <tr>
-                                                                    <td ><input  type="text" name="trans_id[]" value="<?php echo $material_transmittal_list->id; ?>"></td>
+                                                                    <td hidden ><input hidden type="text" name="trans_id[]" value="<?php echo $material_transmittal_list->id; ?>"></td>
                                                                     <td><?php echo $material_transmittal_list->batch_number; ?></td>
                                                                     <td><?php echo $material_transmittal_list->description; ?></td>
                                                                     <td><a href="<?php echo base_url(); ?>procurement/download_transmittal_attachment/<?php echo $material_transmittal_list->attachment; ?>"><?php if($material_transmittal_list->attachment != NULL) { echo 'Download'; } ?></a></td>
@@ -684,7 +695,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <table class="table table-bordered" style="font-size:12px; line-height:13px;">
                                                 <thead>
                                                     <tr>
@@ -755,6 +766,15 @@
                                 <div class="card-header" style="background-color: #0D635D; font-size:15px; color:white">APPROVAL DETAILS</div>
                                 <div class="card-body" style="background-color: #E9FAFD">
                                     <div class="row">
+
+                                        <!-- Get material details for email -->
+                                        <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
+                                        <input type="text" hidden name="company" value="<?php echo $material_source->company_name; ?>">
+                                        <input type="text" hidden name="category" value="<?php echo $material_source->category; ?>">
+                                        <input type="text" hidden name="date_required" value="<?php echo $material_source->date_required; ?>">
+                                        <input type="text" hidden name="date_requested" value="<?php echo date('Y-m-d', strtotime($material_source->created_date)); ?>">
+                                        <input type="text" hidden name="email_accounts" value="<?php echo $material_source->email; ?>">
+                                        <!-- End of get material details for email -->
 
                                         <input type="text" hidden name="source_id" value="<?php echo $material_source->id; ?>">
                                         <input type="text" hidden name="id" value="<?php echo $last_entry->id; ?>">

@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" style="text-transform:uppercase; font-size:12px; background-color:white" readonly value="<?php if($canvass->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?>">
+                            <input type="text" class="form-control" name="company" style="text-transform:uppercase; font-size:12px; background-color:white" readonly value="<?php if($canvass->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?>">
                         </div>
                     </div>
                 </div>
@@ -537,6 +537,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">Remarks</label>
+                        <input type="text" hidden class="form-control" name="canvass_no" style="text-transform:uppercase; font-size:12px;background-color:white" readonly value="<?php echo $canvass->canvass_no; ?>">
                         <textarea style="background-color:white; font-size:12px" class="form-control" id="" name="remarks" rows="1" ></textarea>
                     </div>
                 </div>
