@@ -4206,6 +4206,7 @@ class Local_procurement_model extends CI_Model {
         $cycle_time = $this->input->post('cycle_time');
 
         // Email Information
+        $source_id = $this->input->post('source_id');
         $company = $this->input->post('company');
         $category = $this->input->post('category');
         $date_required = $this->input->post('date_required');
