@@ -11,7 +11,7 @@
     <div class="card-header" style="background-color: #0C2D48; color: white"><h4>E-CANVASS REPORT GENERATION 2</h4></div>
     <div class="card-body">
         <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <form method="post" action="<?php echo base_url(); ?>procurement/report_matsource_add_supplier/<?php echo $canvass->canvass_no; ?>" enctype="multipart/form-data">
+        <form method="POST" id="report" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header" style="background-color: #0D635D; color: white"><h5>Comparative Statement Quotations</h5></div>
                 <div class="card-body" style="background-color: #E9FAFD;" id="form_field">
@@ -151,7 +151,7 @@
                 
             </div>
             <br>
-            <input type="submit"  style="margin-left:10px;" class="float-right btn btn-info" value="NEXT">
+            <input type="submit"  style="margin-left:10px;" id="process" class="float-right btn btn-info" value="NEXT">
         </form>
     </div>
 </div>
@@ -439,7 +439,22 @@
            $('.supplierName').val(dta); 
         });
 
-
+        $('#process').click(function() {
+            if(f < 3) {
+                var a = confirm("You have encoded less than 3 suppliers. Are you sure you want to proceed?");
+                if (a == true) {
+                    var canvassNo = $('#canvassNo').val(); 
+                    $('#report').attr('action', 'report_matsource_add_supplier/'+canvassNo+'');
+                    $('#report').submit();
+                } else {
+                    return false;
+                } 
+            } else {
+                var canvassNo = $('#canvassNo').val(); 
+                $('#report').attr('action', 'report_matsource_add_supplier/'+canvassNo+'');
+                $('#report').submit();
+            }
+		});
     
     });
 </script>

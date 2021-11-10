@@ -852,9 +852,11 @@ class Procurement extends CI_Controller {
                     $uploadData[$i]['canvass_no'] = $canvass_no;
                     if($supplier[$i] == "acc"){
                         $uploadData[$i]['supplier_name'] = $accredited[$i];
+                        $uploadData[$i]['supplier_type'] = "accredited";
                     }
                     elseif($supplier[$i] == "others"){
                         $uploadData[$i]['supplier_name'] = $other[$i];
+                        $uploadData[$i]['supplier_type'] = "others";
                     }
                     $uploadData[$i]['vat'] = $vat[$i];
                     $uploadData[$i]['wrt'] = $wrt[$i];
@@ -934,9 +936,11 @@ class Procurement extends CI_Controller {
                     $uploadData[$i]['canvass_no'] = $canvass_no;
                     if($supplier[$i] == "acc"){
                         $uploadData[$i]['supplier_name'] = $accredited[$i];
+                        $uploadData[$i]['supplier_type'] = "accredited";
                     }
                     elseif($supplier[$i] == "others"){
                         $uploadData[$i]['supplier_name'] = $other[$i];
+                        $uploadData[$i]['supplier_type'] = "others";
                     }
                     $uploadData[$i]['vat'] = $vat[$i];
                     $uploadData[$i]['wrt'] = $wrt[$i];
@@ -1040,6 +1044,7 @@ class Procurement extends CI_Controller {
 
             $data = array(); 
             $errorUploadType = $statusMsg = ''; 
+            $filesCount = count($supplier); 
 
             // If files are selected to upload 
             if(count($supplier) > 0){ 
@@ -1085,7 +1090,8 @@ class Procurement extends CI_Controller {
                     $uploadData[$i]['created_date'] = date("Y-m-d H:i:s");
                     $uploadData[$i]['created_by'] = $this->session->userdata('username');  
                 } 
-            }  
+            }
+
             $this->local_procurement_model->insert_report_generation_with_supplier($uploadData);
             
             if($this->local_procurement_model->add_report_generation_with_supplier())
@@ -1096,6 +1102,13 @@ class Procurement extends CI_Controller {
         }
        
     } 
+
+    public function validation_supplier($canvass_no)
+    {
+        $data['canvass'] = $this->local_procurement_model->report_generation($canvass_no);
+        $data['main_content'] = 'procurement/local/ecanvass/ecanvass_report/validation';
+        $this->load->view('inc/navbar', $data);
+    }
 
     public function json_material_sourcing_list()
     {
