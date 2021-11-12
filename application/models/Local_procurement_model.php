@@ -18,7 +18,7 @@ class Local_procurement_model extends CI_Model {
 
         $arr2 = str_split($inc_number, 9);
         $i = $arr2[0] + 1;
-        $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+        $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
 
         // Material Sourcing 
         $msid = $batch_number;
@@ -369,7 +369,7 @@ class Local_procurement_model extends CI_Model {
 
         $arr2 = str_split($inc_number, 9);
         $i = $arr2[0] + 1;
-        $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+        $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
 
         // Material Sourcing 
         $msid = $batch_number;
@@ -4485,7 +4485,7 @@ class Local_procurement_model extends CI_Model {
 
         $arr2 = str_split($inc_number, 9);
         $i = $arr2[0] + 1;
-        $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+        $batch_number = str_pad($i, 9, 'CN000000', STR_PAD_LEFT);
 
         $data = array(
             'canvass_no'     => $batch_number,
@@ -4572,7 +4572,7 @@ class Local_procurement_model extends CI_Model {
 
         $arr2 = str_split($inc_number, 9);
         $i = $arr2[0] + 1;
-        $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+        $batch_number = str_pad($i, 9, 'CN000000', STR_PAD_LEFT);
 
         $data = array(
             'canvass_no'     => $batch_number,
@@ -4952,7 +4952,7 @@ class Local_procurement_model extends CI_Model {
 
         $arr2 = str_split($inc_number, 9);
         $i = $arr2[0] + 1;
-        $trans_batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+        $trans_batch_number = str_pad($i, 9, 'TN000000', STR_PAD_LEFT);
 
         $data = array(
             'transmittal_no'    => $trans_batch_number,
