@@ -40,15 +40,15 @@
 
 <table id="" class="display" style="width:100%; font-size:13px;">
     <thead>
-        <tr style="background-color:#0D635D;color:white"> 
+        <tr style="background-color:#0D635D;color:white;"> 
             <th scope="col">Canvass Date</th>
             <th scope="col">Canvass No.</th>
             <th scope="col">Company</th>
             <th scope="col">Cost Saving</th>
             <th scope="col">Cost Avoidance</th>
             <th scope="col">Buyer</th>
-            <th scope="col">With PR</th>
-            <th scope="col">No of Supplier</th>
+            <th scope="col">PR No.</th>
+            <th scope="col">No of Supplier Unique Supplier</th>
             <th scope="col">Material Source No.</th>
             <th scope="col">Action</th>
         </tr>
@@ -63,11 +63,18 @@
                     <td data-label="Cost Saving"><?php  $total_cost_saving = number_format($canvass_list->cost_saving, 2, '.', ','); echo $total_cost_saving; ?></td>
                     <td data-label="Cost Aviodance"><?php $total_cost_avoidance= number_format($canvass_list->cost_avoidance, 2, '.', ','); echo $total_cost_avoidance; ?></td>
                     <td data-label="Buyer"><?php echo $canvass_list->buyer_name; ?></td>
-                    <td data-label="Pr No"><?php if($canvass_list->pr_no != NULL){ echo 'Yes'; } else { echo 'No'; } ?></td>
+                    <!--<td data-label="Pr No"><?php //if($canvass_list->pr_no != NULL){ echo 'Yes'; } else { echo 'No'; } ?></td>-->
+                    <td data-label="Pr No"><?php if($canvass_list->pr_no != NULL){ echo $canvass_list->pr_no; } else { echo '-'; } ?></td>
                     <?php if($canvass_list_suppliers) : ?>
                         <?php foreach($canvass_list_suppliers as $canvass_list_supplier) : ?>
                             <?php if($canvass_list_supplier->canvass_no == $canvass_list->canvass_no) : ?>
-                                <td data-label="No of Supplier"><?php echo $canvass_list_supplier->total_supplier; ?></td>
+                                <?php if($canvass_list_supplier->total_supplier <= 2) : ?>
+                                    <td data-label="No of Supplier"><p style="color: #C85250; font-weight:800; text-align: center;"><?php echo $canvass_list_supplier->total_supplier; ?></p></td>
+                                <?php elseif($canvass_list_supplier->total_supplier == 3) : ?>  
+                                    <td data-label="No of Supplier"><p style="color: #FBC00E; font-weight:800; text-align: center;"><?php echo $canvass_list_supplier->total_supplier; ?></p></td> 
+                                <?php elseif($canvass_list_supplier->total_supplier >= 4) : ?>  
+                                    <td data-label="No of Supplier"><p style="color: #1D741B; font-weight:800; text-align: center;"><?php echo $canvass_list_supplier->total_supplier; ?></p></td> 
+                                <?php endif; ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>

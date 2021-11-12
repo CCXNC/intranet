@@ -736,9 +736,9 @@
                                                             </label>
                                                         </div>
                                                         <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                                            <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="Discontinued">
+                                                            <input class="form-check-input" type="radio" name="approve_detail" id="flexRadioDefault1" value="Terminate">
                                                             <label class="form-check-label" for="flexRadioDefault1">
-                                                                <p style="border-radius: 5px; border: 2px solid #E12A2A; background-color:#E12A2A;padding:2px; color:white">Discontinued</p>
+                                                                <p style="border-radius: 5px; border: 2px solid #E12A2A; background-color:#E12A2A;padding:2px; color:white">Terminate</p>
                                                             </label>
                                                         </div>
                                                     </div>

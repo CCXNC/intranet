@@ -117,7 +117,8 @@
                             <?php if($supplier_materials) : ?>  
                                 <?php foreach($supplier_materials as $supplier_material) : ?> 
                                     <?php if($supplier_material->material_id == $material->id) : ?> 
-                                        <td><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?><br>per uom</td>
+                                        <!--<td><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?><br>per uom</td>-->
+                                        <td><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit .'<br> <p style="font-size:10px;">'. $material->currency. '/' .$material->uom. '</p>';  } ?></td>
                                         <!--<td><?php $computation_per_unit = $material->quantity * $supplier_material->price_per_unit; ?><?php if($computation_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($computation_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?></td>-->
                                     <?php endif; ?> 
                                 <?php endforeach; ?>    
@@ -208,7 +209,7 @@
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="tbrow">
-                    <th colspan="13" style="vertical-align: middle">Revision 2 (<?php echo date('Y-m-d', strtotime($new_revision->created_date)); ?>) </th>
+                    <th colspan="13" style="vertical-align: middle">Recent Revisions (<?php echo date('Y-m-d', strtotime($new_revision->created_date)); ?>) </th>
                 </tr>
                 <tr class="throw">
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>
@@ -280,7 +281,7 @@
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="tbrow">
-                    <th colspan="13" style="vertical-align: middle">Revision 1 (<?php echo date('Y-m-d', strtotime($old_revision->created_date)); ?>)</th>
+                    <th colspan="13" style="vertical-align: middle">Previous Revisions (<?php echo date('Y-m-d', strtotime($old_revision->created_date)); ?>)</th>
                 </tr>
                 <tr class="throw">
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>

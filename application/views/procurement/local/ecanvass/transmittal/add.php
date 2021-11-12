@@ -112,7 +112,7 @@
                         </tbody>
                     </table>
                      <!--Adding of Materials-->
-                     <input class="btn btn-success" title="Add Academe Information" type="button" name="add" id="add" value="ADD">
+                     <!--<input class="btn btn-success" title="Add Academe Information" type="button" name="add" id="add" value="ADD">-->
                   
                 </div>
             </div>

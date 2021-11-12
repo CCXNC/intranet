@@ -1055,6 +1055,16 @@ class Local_procurement_model extends CI_Model {
         return $query->row();
 
     }
+
+    public function first_transid()
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->order_by('id', 'DESC');
+        $query = $blaine_local_procurement->get('transmittal');
+
+        return $query->row();
+    }
+
     public function get_suppliers()
     {
         $this->db->select("
@@ -3490,7 +3500,7 @@ class Local_procurement_model extends CI_Model {
         print_r($data_update_last_entry);
         print_r('</pre>');*/
 
-        if($approve_detail == "Approve" || $approve_detail == "Discontinued")
+        if($approve_detail == "Approve" || $approve_detail == "Terminate")
         {
             $data_action_required = array(
                 'msid'               => $msid,

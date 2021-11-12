@@ -7,14 +7,14 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label ><b>Material Source ID</b></label>
-                            <p><?php echo $transmittal_lists->msid; ?></p>
+                            <label ><b>Transmittal Number</b></label>
+                            <p><?php echo $transmittal_lists->transmittal_no; ?></p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label ><b>Material Source Request Date</b></label>
-                            <p><?php echo date('Y-m-d', strtotime($transmittal_lists->ms_request_date)); ?></p>
+                            <label ><b>Transmittal Date</b></label>
+                            <p><?php echo date('Y-m-d', strtotime($transmittal_lists->transmittal_date)); ?></p>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -25,8 +25,14 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label ><b>Transmittal Date</b></label>
-                            <p><?php echo date('Y-m-d', strtotime($transmittal_lists->transmittal_date)); ?></p>
+                            <label ><b>Material Source ID</b></label>
+                            <p><?php echo $transmittal_lists->msid; ?></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label ><b>Material Source Request Date</b></label>
+                            <p><?php echo date('Y-m-d', strtotime($transmittal_lists->ms_request_date)); ?></p>
                         </div>
                     </div>
                     <div class="col-md-4">

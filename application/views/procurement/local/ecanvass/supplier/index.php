@@ -11,7 +11,7 @@
 <table id="" class="display table-responsive" style="width:100%;font-size:13px">
     <thead>
         <tr style="background-color:#0D635D;color:white">
-            <th scope="col">Supplier Code</th>
+            <th scope="col">Vendor Code</th>
             <th scope="col">Supplier Name</th>
             <th scope="col">Contact Name</th>
             <th scope="col">Contact Designation</th>

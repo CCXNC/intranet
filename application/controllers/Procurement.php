@@ -311,7 +311,8 @@ class Procurement extends CI_Controller {
             if($this->local_procurement_model->add_quotation_materials($canvass_no))
             {
                 $this->session->set_flashdata('success_msg', 'Your Data Successfully Added!');
-                redirect('procurement/ecanvass_cost_saving');
+                $canvass_no = $this->input->post('canvass_no');
+                redirect('procurement/comparative_quotations/'.$canvass_no.'');
             }
         }
     }
@@ -1199,8 +1200,13 @@ class Procurement extends CI_Controller {
         
             if($this->local_procurement_model->add_transmittal())
             {
+                $data = $this->local_procurement_model->first_transid();
+
+                $id = $data->id;
+                $transmittal_no = $data->transmittal_no;
+
                 $this->session->set_flashdata('success_msg', 'Transmittal Successfully Added!');
-                redirect('procurement/transmittal_list');
+                redirect('procurement/transmittal_view/'.$id.'/'.$transmittal_no.'');
             }
         }
         
