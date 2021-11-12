@@ -425,7 +425,7 @@ class Procurement extends CI_Controller {
 
             $arr2 = str_split($inc_number, 9);
             $i = $arr2[0] + 1;
-            $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+            $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
 
             // Material list
             $msid = $batch_number;
@@ -530,7 +530,7 @@ class Procurement extends CI_Controller {
 
             $arr2 = str_split($inc_number, 9);
             $i = $arr2[0] + 1;
-            $batch_number = str_pad($i, 9, '0', STR_PAD_LEFT);
+            $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
 
             // Material list
             $msid = $batch_number;
@@ -782,8 +782,6 @@ class Procurement extends CI_Controller {
         {
             if($this->local_procurement_model->add_report_generation_msid())
             {
-                
-
                 $data = $this->local_procurement_model->last_canvass_no();
                 
                 $canvass_no = $data->canvass_no;
