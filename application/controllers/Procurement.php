@@ -423,8 +423,9 @@ class Procurement extends CI_Controller {
             $datas = $blaine_local_procurement->get('material_sourcing');
             $inc_number = $datas->row()->msid;
 
-            $arr2 = str_split($inc_number, 9);
-            $i = $arr2[0] + 1;
+            $str1 = str_split($inc_number, 3);
+            $strCompute = $str1[1] . '' .$str1[2];
+            $i = $strCompute + 1;
             $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
 
             // Material list
@@ -528,8 +529,9 @@ class Procurement extends CI_Controller {
             $datas = $blaine_local_procurement->get('material_sourcing');
             $inc_number = $datas->row()->msid;
 
-            $arr2 = str_split($inc_number, 9);
-            $i = $arr2[0] + 1;
+            $str1 = str_split($inc_number, 3);
+            $strCompute = $str1[1] . '' .$str1[2];
+            $i = $strCompute + 1;
             $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
 
             // Material list
@@ -625,7 +627,6 @@ class Procurement extends CI_Controller {
                 redirect('procurement/material_sourcing_index');
             }
         }
-
       
     } 
 
@@ -985,7 +986,6 @@ class Procurement extends CI_Controller {
                 redirect('procurement/ecanvass_cost_saving');
             }
         }
-
       
     }
 
@@ -1003,8 +1003,6 @@ class Procurement extends CI_Controller {
         {
             if($this->local_procurement_model->add_report_generation())
             {
-                
-
                 $data = $this->local_procurement_model->last_canvass_no();
                 
                 $canvass_no = $data->canvass_no;

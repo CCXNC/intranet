@@ -34,13 +34,13 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                        <input class="form-check-input" type="radio" name="company" id="company" value="2">
+                                        <input class="form-check-input" type="radio" name="company" id="company" value="1">
                                         <label class="form-check-label" for="company">
                                             <p>BMC</p>
                                         </label>
                                     </div>
                                     <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                        <input class="form-check-input" type="radio" name="company" id="company" value="1">
+                                        <input class="form-check-input" type="radio" name="company" id="company" value="0">
                                         <label class="form-check-label" for="company">
                                             <p>RRLC</p>
                                         </label>
@@ -84,10 +84,14 @@
                                 <?php
                                     $s_id = $batch_number->id;
                                     $source_id = $s_id[0] + 1;
-
-                                    $arr2 = str_split($batch_number->msid, 9);
-                                    $i = $arr2[0] + 1;
+                                    $msid = $batch_number->msid;
+                                  
+                                    $str1 = str_split($batch_number->msid, 3);
+                                    $strCompute = $str1[1] . '' .$str1[2];
+                                    $i = $strCompute + 1;
                                     $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
+                                    echo $batch_number;
+                                   
                                 ?>
                                 <input type="text" class="form-control" id="msid"  name="msid" value="<?php echo $batch_number;?>" readonly>
                                 <input type="text" class="form-control" id="source_id"  name="source_id" value="<?php echo $source_id;?>" readonly>
