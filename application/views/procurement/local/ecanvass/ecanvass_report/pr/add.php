@@ -33,8 +33,8 @@
                             <div class="form-group">
                                 <label >Company</label>
                                 <select name="company" class="form-control" style="font-size:12px; height:32px" style="font-size:12px;">
-                                    <option value="0">RRLC</option>
-                                    <option value="1">BMC</option>
+                                    <option value="1">RRLC</option>
+                                    <option value="2">BMC</option>
                                 </select>
                             </div>
                         </div>

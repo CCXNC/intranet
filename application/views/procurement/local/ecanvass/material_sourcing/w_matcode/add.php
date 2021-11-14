@@ -34,13 +34,13 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                        <input class="form-check-input" type="radio" name="company" id="company" value="1">
+                                        <input class="form-check-input" type="radio" name="company" id="company" value="2">
                                         <label class="form-check-label" for="company">
                                             <p>BMC</p>
                                         </label>
                                     </div>
                                     <div class="form-check" style="margin-right: 20px; margin-left: 15px">
-                                        <input class="form-check-input" type="radio" name="company" id="company" value="0">
+                                        <input class="form-check-input" type="radio" name="company" id="company" value="1">
                                         <label class="form-check-label" for="company">
                                             <p>RRLC</p>
                                         </label>

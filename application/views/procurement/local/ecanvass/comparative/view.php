@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="company" style="text-transform:uppercase; font-size:12px; background-color:white" readonly value="<?php if($canvass->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?>">
+                            <input type="text" class="form-control" name="company" style="text-transform:uppercase; font-size:12px; background-color:white" readonly value="<?php if($canvass->company == 1) { echo 'RRLC'; } else { echo 'BMC'; } ?>">
                         </div>
                     </div>
                 </div>

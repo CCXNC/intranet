@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <p><?php if($canvass->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?></p>
+                            <p><?php if($canvass->company == 1) { echo 'RRLC'; } else { echo 'BMC'; } ?></p>
                         </div>
                     </div>
                 </div>
