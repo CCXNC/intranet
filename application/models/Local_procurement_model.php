@@ -16,8 +16,13 @@ class Local_procurement_model extends CI_Model {
 		$datas = $blaine_local_procurement->get('material_sourcing');
 		$inc_number = $datas->row()->msid;
 
-        $arr2 = str_split($inc_number, 9);
+        /*$arr2 = str_split($inc_number, 9);
         $i = $arr2[0] + 1;
+        $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);*/
+         
+        $str1 = str_split($inc_number, 3);
+        $strCompute = $str1[1] . '' .$str1[2];
+        $i = $strCompute + 1;
         $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
 
         // Material Sourcing 
@@ -367,8 +372,9 @@ class Local_procurement_model extends CI_Model {
 		$datas = $blaine_local_procurement->get('material_sourcing');
 		$inc_number = $datas->row()->msid;
 
-        $arr2 = str_split($inc_number, 9);
-        $i = $arr2[0] + 1;
+        $str1 = str_split($inc_number, 3);
+        $strCompute = $str1[1] . '' .$str1[2];
+        $i = $strCompute + 1;
         $batch_number = str_pad($i, 9, 'MS000000', STR_PAD_LEFT);
 
         // Material Sourcing 
@@ -4493,8 +4499,9 @@ class Local_procurement_model extends CI_Model {
 		$datas = $blaine_local_procurement->get('report_generation');
 		$inc_number = $datas->row()->canvass_no;
 
-        $arr2 = str_split($inc_number, 9);
-        $i = $arr2[0] + 1;
+        $str1 = str_split($inc_number, 3);
+        $strCompute = $str1[1] . '' .$str1[2];
+        $i = $strCompute + 1;
         $batch_number = str_pad($i, 9, 'CN000000', STR_PAD_LEFT);
 
         $data = array(
@@ -4580,8 +4587,9 @@ class Local_procurement_model extends CI_Model {
 		$datas = $blaine_local_procurement->get('report_generation');
 		$inc_number = $datas->row()->canvass_no;
 
-        $arr2 = str_split($inc_number, 9);
-        $i = $arr2[0] + 1;
+        $str1 = str_split($inc_number, 3);
+        $strCompute = $str1[1] . '' .$str1[2];
+        $i = $strCompute + 1;
         $batch_number = str_pad($i, 9, 'CN000000', STR_PAD_LEFT);
 
         $data = array(
@@ -4960,9 +4968,10 @@ class Local_procurement_model extends CI_Model {
         $datas = $blaine_local_procurement->get('transmittal');
         $inc_number = $datas->row()->transmittal_no;
 
-        $arr2 = str_split($inc_number, 9);
-        $i = $arr2[0] + 1;
-        $trans_batch_number = str_pad($i, 9, 'TN000000', STR_PAD_LEFT);
+        $str1 = str_split($inc_number, 3);
+        $strCompute = $str1[1] . '' .$str1[2];
+        $i = $strCompute + 1;
+        $batch_number = str_pad($i, 9, 'TN000000', STR_PAD_LEFT);
 
         $data = array(
             'transmittal_no'    => $trans_batch_number,
