@@ -94,7 +94,6 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>">View</a>
                                 <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/add_quotation/<?php echo $canvass_list->canvass_no; ?>">Add Quotation</a>
-                                <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/print_comparative/<?php echo $canvass_list->canvass_no; ?>">Print</a>
                                 <?php if($canvass_list_logs) : ?>
                                     <?php foreach($canvass_list_logs as $canvass_list_log) : ?>
                                         <?php if($canvass_list_log->canvass_no == $canvass_list->canvass_no) : ?>

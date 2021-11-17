@@ -138,7 +138,7 @@
         })
 
          // LIMIT OF ADD MATERIAL CODE class="fa fa-times"
-         var fmax = 20;
+         var fmax = 50;
          var f = 1;
 
         $("#fadd").click(function(){

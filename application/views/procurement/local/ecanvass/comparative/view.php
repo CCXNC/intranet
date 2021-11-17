@@ -476,7 +476,6 @@
                                         <?php if($y == $z): ?>
                                             <input type="text" hidden id="totalPerMaterial<?php echo $y; ?>" value="<?php echo $cost_aviodance->total_price_per_material; ?>">
                                             <input type="text" hidden id="materialCount<?php echo $y; ?>" value="<?php echo $cost_aviodance->count_per_material ; ?>">
-                                            <br>
                                         <?php endif; ?>
                                         <?php $z++; ?>
                                     <?php endforeach; ?>

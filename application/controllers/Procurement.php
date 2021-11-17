@@ -1320,18 +1320,4 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function print_comparative($canvass_no)
-    {
-        $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
-        $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
-        $data['canvass'] = $this->local_procurement_model->get_report_generation($canvass_no);
-        $data['supplier_materials'] = $this->local_procurement_model->supplier_materials($canvass_no);
-        $data['cost_aviodances'] = $this->local_procurement_model->get_supplier_materials($canvass_no);
-        $data['quotation_lists'] = $this->local_procurement_model->get_quotation_material_list($canvass_no);
-        $data['quotation_canvass'] = $this->local_procurement_model->get_canvass_list($canvass_no);
-        $data['canvass_list_logs'] = $this->local_procurement_model->get_quotation_material_list_logs();
-
-        $data['main_content'] = 'procurement/local/ecanvass/cost_saving/print';
-        $this->load->view('inc/navbar', $data);
-    }
 }
