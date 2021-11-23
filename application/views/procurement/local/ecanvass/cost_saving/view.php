@@ -298,7 +298,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <p><b>Remarks: </b> <?php echo $quotation_canvass->remarks; ?></p>
+                    <b style="font-size:12px;">Remarks: </b> <br>
+                    <p style="white-space: pre-wrap; font-size:12px;"><?php echo $quotation_canvass->remarks; ?></p>
                 </div>
             </div>
         </div>
@@ -540,8 +541,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <p style="font-size:10px;"><b>Remarks: </b> <?php echo $quotation_canvass->remarks; ?></p>
-                    <p style="font-size:10px; margin-top:-15px; margin-bottom:2px;"><b>Buyer Name: </b> <?php echo $quotation_canvass->buyer_name; ?></p>
+                    <p style="font-size:10px; margin-top:-10px; margin-bottom:2px;"><b>Buyer Name: </b> <?php echo $quotation_canvass->buyer_name; ?></p>
+                    <p style="font-size:10px; margin-bottom:0px;"><b>Remarks: </b></p>
+                    <p style="font-size:10px; white-space: pre-wrap;"><?php echo $quotation_canvass->remarks; ?></p>
                 </div>
             </div>
         </div>
