@@ -22,17 +22,18 @@
                     <tbody>
                         <?php if($logs) : ?>
                             <?php foreach($logs as $log) : ?>
+                                <?php $obj = json_decode($log->datas); ?>
                                 <tr>
-                                    <td><?php echo $log->updated_date;?></td>
-                                    <td><?php echo $log->updated_by;?></td>
-                                    <td><?php echo $log->scode; ?></td>
-                                    <td><?php echo $log->name; ?></td>
-                                    <td><?php echo $log->contact_name; ?></td>
-                                    <td><?php echo $log->contact_designation; ?></td>
-                                    <td><?php echo $log->contact_number; ?></td>
-                                    <td><?php echo $log->email; ?></td>
-                                    <td><?php echo $log->address; ?></td>
-                                    <td><?php echo $log->supplier_profile; ?></td>
+                                    <td><?php echo $log->created_date; ?></td>
+                                    <td><?php echo $log->created_by; ?></td>
+                                    <td><?php echo $obj->{'scode'}; ?></td>
+                                    <td><?php echo $obj->{'name'}; ?></td>
+                                    <td><?php echo $obj->{'contact_name'}; ?></td>
+                                    <td><?php echo $obj->{'contact_designation'}; ?></td>
+                                    <td><?php echo $obj->{'contact_number'}; ?></td>
+                                    <td><?php echo $obj->{'email'}; ?></td>
+                                    <td><?php echo $obj->{'address'}; ?></td>
+                                    <td><?php echo $obj->{'supplier_profile'}; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

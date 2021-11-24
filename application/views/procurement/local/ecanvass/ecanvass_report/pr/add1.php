@@ -149,7 +149,7 @@
                 </div>  
             </div>
             <br>
-            <input type="submit" style="margin-left:10px;"  id="process" class="float-right btn btn-info btn-sm" value="Next">
+            <input type="submit" style="margin-left:10px;" id="process" class="float-right btn btn-info btn-sm" value="Next">
             <input class="btn btn-success btn-sm float-right" title="Add Form" type="button" name="add" id="fadd" value="Add Material">
         </form>
     </div>
@@ -1365,7 +1365,7 @@
            var dta =  $('#dataOthers').val();
            $('.supplierName').val(dta); 
         });
-
+    
         $('#process').click(function() {
             if(f < 3) {
                 var a = confirm("You have encoded less than 3 suppliers. Are you sure you want to proceed?");
@@ -1382,6 +1382,21 @@
                 $('#report').submit();
             }
 		});
+
+        /*$('#process').confirm({
+
+            title: '<b style="color:red">Alert!</b>',
+            content:'if(f < 3) {  echo <b style="color:red">You have encoded less than 3 suppliers. Are you sure you want to proceed?</b> ; } else { echo 123; }',
+            buttons: {
+                confirm: function () {
+                    var canvassNo = $('#canvassNo').val(); 
+                    $('#report').attr('action', 'report_pr_add_supplier/'+canvassNo+'');
+                    $('#report').submit();
+                },
+                cancel: function () {
+                },
+            }
+        });*/
     
     });
 </script>

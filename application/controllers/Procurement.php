@@ -273,7 +273,7 @@ class Procurement extends CI_Controller {
         $this->load->view('inc/navbar', $data);
     }
 
-    public function comparative_quotations_logs($canvass_no) 
+    public function comparative_quotations_logs($canvass_no)  
     { 
         $data['suppliers'] = $this->local_procurement_model->get_supplier_report_generation($canvass_no);
         $data['materials'] = $this->local_procurement_model->get_canvass_material_list($canvass_no);
