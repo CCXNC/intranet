@@ -105,7 +105,7 @@ class Announcement_model extends CI_Model {
 			'activity' => "Entry Updated: " . ' ID: ' . $announcement_id,
 			'datas'    => "Previous Data: " . $json_data,
 			'pc_ip'    => $_SERVER['REMOTE_ADDR'],
-			'type'     => 'HRIS: ANNOUNCEMENT',
+			'type'     => 'HRIS: ANNOUNCEMENT', 
 			'date'     => $date
 		);
 

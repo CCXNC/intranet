@@ -14,7 +14,7 @@
                         </div> 
                         <div class="col-md-8">
                             <div class="form-group">
-                                <input type="text" class="form-control"  name="scode" value="<?php echo $supplier->scode; ?>">
+                                <input type="text" class="form-control" readonly name="scode" value="<?php echo $supplier->scode; ?>">
                             </div>
                         </div>
                         <div class="col-md-4">

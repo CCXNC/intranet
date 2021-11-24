@@ -44,6 +44,10 @@
         <!-- LETTER SEARCH FOR ACRONYMS -->
         <link type="text/css" href="//gyrocode.github.io/jquery-datatables-alphabetSearch/1.2.5/css/dataTables.alphabetSearch.css" rel="stylesheet" />
         <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-alphabetSearch/1.2.5/js/dataTables.alphabetSearch.min.js"></script>
+
+        <!-- ALERT MODAL JS -->
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>-->
     </head>
     <style>
         @keyframes swing {

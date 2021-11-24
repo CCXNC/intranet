@@ -96,7 +96,7 @@
                                 <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/add_quotation/<?php echo $canvass_list->canvass_no; ?>">Add Quotation</a>
                                 <?php if($canvass_list_logs) : ?>
                                     <?php foreach($canvass_list_logs as $canvass_list_log) : ?>
-                                        <?php if($canvass_list_log->canvass_no == $canvass_list->canvass_no) : ?>
+                                        <?php if($canvass_list_log->activity_id == $canvass_list->canvass_no) : ?>
                                             <a class="dropdown-item" title="View Request" href="<?php echo base_url(); ?>procurement/comparative_quotations_logs/<?php echo $canvass_list->canvass_no; ?>">Logs</a>
                                         <?php endif; ?>
                                     <?php endforeach; ?>

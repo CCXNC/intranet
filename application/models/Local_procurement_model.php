@@ -1113,7 +1113,7 @@ class Local_procurement_model extends CI_Model {
         return $query->row();
     }
 
-    public function get_supplier_logs($scode)
+    /*public function get_supplier_logs($scode)
     {
         $this->db->select("
             supplier_logs.id as id,
@@ -1133,6 +1133,15 @@ class Local_procurement_model extends CI_Model {
         $this->db->where('blaine_local_procurement.supplier_logs.scode', $scode);
 
         $query = $this->db->get();
+        return $query->result();
+    }*/
+
+    public function get_supplier_logs($scode)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('activity_id', $scode);
+        $query = $blaine_local_procurement->get('logs');
+
         return $query->result();
     }
 
@@ -1242,6 +1251,15 @@ class Local_procurement_model extends CI_Model {
 
         $activity_log = $this->load->database('activity_logs', TRUE);
         $activity_log->insert('blaine_logs', $data_logs);
+
+        $supplier_logs = array(
+            'activity_id'   => $supplier_scode,
+            'type'          => 'supplier',
+            'datas'         => $json_data,
+        );
+
+        $activity_log = $this->load->database('blaine_local_procurement', TRUE);
+        $activity_log->insert('logs', $supplier_logs);
 
         $data_history = array(
             'supplier_id'           => $supplier_id,
@@ -1369,7 +1387,7 @@ class Local_procurement_model extends CI_Model {
         $query = $blaine_local_procurement->update('supplier', $data_supplier);
 
         return $query;
-    }
+    } 
 
     public function get_materials()
     {
@@ -5235,7 +5253,7 @@ class Local_procurement_model extends CI_Model {
                 'material_name'      => $old_material_name,
                 'quantity'           => $old_quantity[$y],
                 'uom'                => $old_uom[$y],
-                'supplier_name'      => $old_supplier_name[$y],
+                'supplier_name'      => $old_supplier_name[$y], 
                 'moq'                => $old_moq[$y],
                 'price_per_unit'     => $old_price_per_unit[$y],
                 'currency'           => $old_currency[$y],
@@ -5249,6 +5267,19 @@ class Local_procurement_model extends CI_Model {
                 'is_active'          => $old_is_active[$y]
 
             );
+
+            $json_data = json_encode($data_material_logs);
+
+            $supplier_logs = array(
+                'activity_id'   => $old_canvass_no[$y],
+                'type'          => 'ecanvass',
+                'datas'         => $json_data,
+                'created_date'  => date('Y-m-d H:i:s'),
+                'created_by'    => $this->session->userdata('username')
+            );
+    
+            $activity_log = $this->load->database('blaine_local_procurement', TRUE);
+            $activity_log->insert('logs', $supplier_logs);
 
             $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
             $blaine_local_procurement->insert('quotation_material_list_logs', $data_material_logs);
@@ -5502,11 +5533,20 @@ class Local_procurement_model extends CI_Model {
         return $query->result(); 
     }
 
-    public function get_quotation_material_list_log($canvass_no)
+    /*public function get_quotation_material_list_log($canvass_no)
     {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
         $blaine_local_procurement->where('canvass_no', $canvass_no);
         $query = $blaine_local_procurement->get('quotation_material_list_logs');
+
+        return $query->result();
+    }*/
+
+    public function get_quotation_material_list_log($canvass_no)
+    {
+        $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
+        $blaine_local_procurement->where('activity_id', $canvass_no);
+        $query = $blaine_local_procurement->get('logs');
 
         return $query->result();
     }
@@ -5514,8 +5554,9 @@ class Local_procurement_model extends CI_Model {
     public function get_quotation_material_list_logs()
     {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-        $blaine_local_procurement->group_by('canvass_no');
-        $query = $blaine_local_procurement->get('quotation_material_list_logs');
+        $blaine_local_procurement->where('type', "ecanvass");
+        $blaine_local_procurement->group_by('activity_id');
+        $query = $blaine_local_procurement->get('logs');
 
         return $query->result();
     }
@@ -5523,8 +5564,9 @@ class Local_procurement_model extends CI_Model {
     public function get_supplier_list_logs()
     {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-        $blaine_local_procurement->group_by('scode');
-        $query = $blaine_local_procurement->get('supplier_logs');
+        $blaine_local_procurement->where('type', "supplier");
+        $blaine_local_procurement->group_by('activity_id');
+        $query = $blaine_local_procurement->get('logs');
 
         return $query->result();
     }
@@ -5541,8 +5583,8 @@ class Local_procurement_model extends CI_Model {
     public function get_old_revision_date($canvass_no)
     {
         $blaine_local_procurement = $this->load->database('blaine_local_procurement', TRUE);
-        $blaine_local_procurement->where('canvass_no', $canvass_no);
-        $query = $blaine_local_procurement->get('quotation_material_list_logs');
+        $blaine_local_procurement->where('activity_id', $canvass_no);
+        $query = $blaine_local_procurement->get('logs');
 
         return $query->row();
     }

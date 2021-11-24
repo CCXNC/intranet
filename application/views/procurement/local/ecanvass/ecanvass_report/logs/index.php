@@ -281,7 +281,8 @@
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="tbrow">
-                    <th colspan="13" style="vertical-align: middle">Previous Revisions (<?php echo date('Y-m-d', strtotime($old_revision->created_date)); ?>)</th>
+                    <?php $obj = json_decode($old_revision->datas); ?>
+                    <th colspan="13" style="vertical-align: middle">Previous Revisions (<?php echo date('Y-m-d', strtotime($obj->{'created_date'})); ?>)</th>
                 </tr>
                 <tr class="throw">
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>
@@ -307,27 +308,28 @@
                 <?php $old_sum_reduction_per_unit = 0; $old_sum_reduction = 0; $old_sum_saving_per_unit = 0; $old_sum_saving = 0; $a = 1; ?>
                 <?php if($old_quotation_lists) : ?>
                     <?php foreach($old_quotation_lists as $old_quotation_list) : ?>
+                        <?php $obj = json_decode($old_quotation_list->datas); ?>
                         <tr>
                             <th><?php echo $a; ?></th>
-                            <td><?php echo $old_quotation_list->material_name; ?></td>
-                            <td><?php echo $old_quotation_list->quantity; ?></td>
-                            <td><?php echo $old_quotation_list->uom; ?></td>
-                            <td><?php echo $old_quotation_list->supplier_name; ?></td>
-                            <td><?php echo $old_quotation_list->moq; ?></td>
-                            <td><?php echo $old_quotation_list->price_per_unit; ?></td>
-                            <td><?php echo $old_quotation_list->currency; ?></td>
-                            <td><?php echo $old_quotation_list->total_price; ?></td>
-                            <td><?php echo $old_quotation_list->reduction_per_unit; ?></td>
-                            <td><?php echo $old_quotation_list->total_reduction; ?></td>
-                            <td><?php echo $old_quotation_list->saving_per_unit; ?></td>
-                            <td><?php echo $old_quotation_list->total_saving; ?></td>
+                            <td><?php echo $obj->{'material_name'}; ?></td>
+                            <td><?php echo $obj->{'quantity'}; ?></td>
+                            <td><?php echo $obj->{'uom'}; ?></td>
+                            <td><?php echo $obj->{'supplier_name'}; ?></td>
+                            <td><?php echo $obj->{'moq'}; ?></td>
+                            <td><?php echo $obj->{'price_per_unit'}; ?></td>
+                            <td><?php echo $obj->{'currency'}; ?></td>
+                            <td><?php echo $obj->{'total_price'}; ?></td>
+                            <td><?php echo $obj->{'reduction_per_unit'}; ?></td>
+                            <td><?php echo $obj->{'total_reduction'}; ?></td>
+                            <td><?php echo $obj->{'saving_per_unit'}; ?></td>
+                            <td><?php echo $obj->{'total_saving'}; ?></td>
                         </tr>
                         <?php $a++; ?>
                         <?php 
-                            $old_sum_reduction_per_unit += $old_quotation_list->reduction_per_unit; 
-                            $old_sum_reduction += $old_quotation_list->total_reduction; 
-                            $old_sum_saving_per_unit += $old_quotation_list->saving_per_unit; 
-                            $old_sum_saving += $old_quotation_list->total_saving;  
+                            $old_sum_reduction_per_unit += $obj->{'reduction_per_unit'}; 
+                            $old_sum_reduction +=$obj->{'total_reduction'};
+                            $old_sum_saving_per_unit += $obj->{'saving_per_unit'};
+                            $old_sum_saving += $obj->{'total_saving'};
                         ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
