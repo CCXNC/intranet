@@ -1256,6 +1256,8 @@ class Local_procurement_model extends CI_Model {
             'activity_id'   => $supplier_scode,
             'type'          => 'supplier',
             'datas'         => $json_data,
+            'created_by'    => $this->session->userdata('username'),
+            'created_date'  => date('Y-m-d H:i:s')
         );
 
         $activity_log = $this->load->database('blaine_local_procurement', TRUE);

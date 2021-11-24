@@ -5,7 +5,7 @@
             <div class="card-header" style="background-color: #0D635D; color: white; font-size:15px">SUPPLIER DETAILS
                 <?php if($supplier_logs) : ?>
                     <?php foreach($supplier_logs as $supplier_log) : ?>
-                        <?php if($supplier_log->scode == $supplier->scode) : ?>
+                        <?php if($supplier_log->activity_id == $supplier->scode) : ?>
                             <a href="<?php echo base_url(); ?>procurement/supplier_logs/<?php echo $supplier->scode; ?>" target="_blank" id="back" title="View Logs" class="btn btn-sm btn-info float-right d-print-none" style="font-size:12px">View Logs</a>
                         <?php endif; ?>
                     <?php endforeach; ?>
