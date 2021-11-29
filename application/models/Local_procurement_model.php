@@ -5405,6 +5405,7 @@ class Local_procurement_model extends CI_Model {
             report_generation.created_date as canvass_date,
             SUM(quotation_material_list.total_reduction) as cost_saving,
             SUM(quotation_material_list.total_saving) as cost_avoidance,
+            SUM(quotation_material_list.total_price) as total_price,
             material_sourcing.id as idms
         ');
 

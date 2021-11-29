@@ -251,7 +251,7 @@
                 </tr>
             </thead>
             <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
-                <?php $sum_reduction_per_unit = 0; $sum_reduction = 0; $sum_saving_per_unit = 0; $sum_saving = 0; $y = 1; ?>
+                <?php $sum_total_price = 0; $sum_reduction_per_unit = 0; $sum_reduction = 0; $sum_saving_per_unit = 0; $sum_saving = 0; $y = 1; ?>
                 <?php if($quotation_lists) : ?>
                     <?php foreach($quotation_lists as $quotation_list) : ?>
                         <tr>
@@ -263,14 +263,15 @@
                             <td><?php echo $quotation_list->moq; ?></td>
                             <td><?php echo $quotation_list->price_per_unit; ?></td>
                             <td><?php echo $quotation_list->currency; ?></td>
-                            <td><?php echo $quotation_list->total_price; ?></td>
-                            <td><?php echo $quotation_list->reduction_per_unit; ?></td>
-                            <td><?php echo $quotation_list->total_reduction; ?></td>
-                            <td><?php echo $quotation_list->saving_per_unit; ?></td>
-                            <td><?php echo $quotation_list->total_saving; ?></td>
+                            <td><?php $total_price = number_format($quotation_list->total_price, 2, '.', ','); echo $total_price; ?></td>
+                            <td><?php $reduction_per_unit = number_format($quotation_list->reduction_per_unit, 2, '.', ','); echo $reduction_per_unit; ?></td>
+                            <td><?php $total_reduction = number_format($quotation_list->total_reduction, 2, '.', ','); echo $total_reduction; ?></td>
+                            <td><?php $saving_per_unit = number_format($quotation_list->saving_per_unit, 2, '.', ','); echo $saving_per_unit; ?></td>
+                            <td><?php $total_saving = number_format($quotation_list->total_saving, 2, '.', ','); echo $total_saving; ?></td>
                         </tr>
                         <?php $y++; ?>
                         <?php 
+                            $sum_total_price += $quotation_list->total_price;
                             $sum_reduction_per_unit += $quotation_list->reduction_per_unit; 
                             $sum_reduction += $quotation_list->total_reduction; 
                             $sum_saving_per_unit += $quotation_list->saving_per_unit; 
@@ -286,12 +287,12 @@
                     <td style="background-color: white; border:none"></td>
                     <td style="background-color: white; border:none"></td>
                     <td style="background-color: white; border:none"></td>
-                    <td style="background-color: white; border:none"></td>
                     <tH style="background-color: #0C2D48; color: white; width: 10%">Total</tH>
-                    <td id="sumCostSavingPerUnit"><?php echo $sum_reduction_per_unit; ?></td>
-                    <td id="sumCostSavingTotalReduction"><?php echo $sum_reduction; ?></td>
-                    <td id="sumCostAviodancePerUnit"><?php echo $sum_saving_per_unit; ?></td>
-                    <td id="sumCostAviodanceTotal"><?php echo $sum_saving; ?></td>
+                    <td id="sumTotalPrice"><?php $total_price = number_format($sum_total_price, 2, '.', ','); echo $total_price; ?></td>
+                    <td id="sumCostSavingPerUnit"><?php $reduction_per_unit = number_format($sum_reduction_per_unit, 2, '.', ','); echo $reduction_per_unit; ?></td>
+                    <td id="sumCostSavingTotalReduction"><?php $total_reduction = number_format($sum_reduction, 2, '.', ','); echo $total_reduction; ?></td>
+                    <td id="sumCostAviodancePerUnit"><?php $saving_per_unit = number_format($sum_saving_per_unit, 2, '.', ','); echo $saving_per_unit; ?></td>
+                    <td id="sumCostAviodanceTotal"><?php $total_saving = number_format($sum_saving, 2, '.', ','); echo $total_saving; ?></td>
                 </tr>
             </tbody> 
         </table>
@@ -494,26 +495,27 @@
                 </tr>
             </thead>
             <tbody style="line-height:12px; background-color: #E9FAFD;color:black">
-                <?php $sum_reduction_per_unit = 0; $sum_reduction = 0; $sum_saving_per_unit = 0; $sum_saving = 0; $y = 1; ?>
+                <?php $sum_total_price = 0; $sum_reduction_per_unit = 0; $sum_reduction = 0; $sum_saving_per_unit = 0; $sum_saving = 0; $y = 1; ?>
                 <?php if($quotation_lists) : ?>
                     <?php foreach($quotation_lists as $quotation_list) : ?>
                         <tr>
-                            <th style="text-align: center; padding: 2px;"><?php echo $y; ?></th>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->material_name; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->quantity; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->uom; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->supplier_name; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->moq; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->price_per_unit; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->currency; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->total_price; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->reduction_per_unit; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->total_reduction; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->saving_per_unit; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->total_saving; ?></td>
+                            <th><?php echo $y; ?></th>
+                            <td><?php echo $quotation_list->material_name; ?></td>
+                            <td><?php echo $quotation_list->quantity; ?></td>
+                            <td><?php echo $quotation_list->uom; ?></td>
+                            <td><?php echo $quotation_list->supplier_name; ?></td>
+                            <td><?php echo $quotation_list->moq; ?></td>
+                            <td><?php echo $quotation_list->price_per_unit; ?></td>
+                            <td><?php echo $quotation_list->currency; ?></td>
+                            <td><?php $total_price = number_format($quotation_list->total_price, 2, '.', ','); echo $total_price; ?></td>
+                            <td><?php $reduction_per_unit = number_format($quotation_list->reduction_per_unit, 2, '.', ','); echo $reduction_per_unit; ?></td>
+                            <td><?php $total_reduction = number_format($quotation_list->total_reduction, 2, '.', ','); echo $total_reduction; ?></td>
+                            <td><?php $saving_per_unit = number_format($quotation_list->saving_per_unit, 2, '.', ','); echo $saving_per_unit; ?></td>
+                            <td><?php $total_saving = number_format($quotation_list->total_saving, 2, '.', ','); echo $total_saving; ?></td>
                         </tr>
                         <?php $y++; ?>
                         <?php 
+                            $sum_total_price += $quotation_list->total_price;
                             $sum_reduction_per_unit += $quotation_list->reduction_per_unit; 
                             $sum_reduction += $quotation_list->total_reduction; 
                             $sum_saving_per_unit += $quotation_list->saving_per_unit; 
@@ -522,19 +524,19 @@
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <tr>
-                    <td style="background-color: white; border:none; text-align: center; padding: 2px;"></td>
-                    <td style="background-color: white; border:none; text-align: center; padding: 2px;"></td>
-                    <td style="background-color: white; border:none; text-align: center; padding: 2px;"></td>
-                    <td style="background-color: white; border:none; text-align: center; padding: 2px;"></td>
-                    <td style="background-color: white; border:none; text-align: center; padding: 2px;"></td>
-                    <td style="background-color: white; border:none; text-align: center; padding: 2px;"></td>
-                    <td style="background-color: white; border:none; text-align: center; padding: 2px;"></td>
-                    <td style="background-color: white; border:none; text-align: center; padding: 2px;"></td>
-                    <td style="background-color: #0C2D48; color: white; width: 10%; text-align: center; padding: 2px;">Total</tH>
-                    <td style="text-align: center; padding: 2px;" id="sumCostSavingPerUnit"><?php echo $sum_reduction_per_unit; ?></td>
-                    <td style="text-align: center; padding: 2px;" id="sumCostSavingTotalReduction"><?php echo $sum_reduction; ?></td>
-                    <td style="text-align: center; padding: 2px;" id="sumCostAviodancePerUnit"><?php echo $sum_saving_per_unit; ?></td>
-                    <td style="text-align: center; padding: 2px;" id="sumCostAviodanceTotal"><?php echo $sum_saving; ?></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <td style="background-color: white; border:none"></td>
+                    <tH style="background-color: #0C2D48; color: white; width: 10%">Total</tH>
+                    <td id="sumTotalPrice"><?php $total_price = number_format($sum_total_price, 2, '.', ','); echo $total_price; ?></td>
+                    <td id="sumCostSavingPerUnit"><?php $reduction_per_unit = number_format($sum_reduction_per_unit, 2, '.', ','); echo $reduction_per_unit; ?></td>
+                    <td id="sumCostSavingTotalReduction"><?php $total_reduction = number_format($sum_reduction, 2, '.', ','); echo $total_reduction; ?></td>
+                    <td id="sumCostAviodancePerUnit"><?php $saving_per_unit = number_format($sum_saving_per_unit, 2, '.', ','); echo $saving_per_unit; ?></td>
+                    <td id="sumCostAviodanceTotal"><?php $total_saving = number_format($sum_saving, 2, '.', ','); echo $total_saving; ?></td>
                 </tr>
             </tbody> 
         </table>

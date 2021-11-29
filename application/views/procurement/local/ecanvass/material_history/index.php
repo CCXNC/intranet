@@ -36,16 +36,16 @@
                     <td data-label="Quantity"><?php echo $material->quantity; ?></td>
                     <td data-label="Uom"><?php echo $material->uom; ?></td>
                     <td data-label="currency"><?php echo $material->currency; ?></td>
-                    <td data-label="prev_purchase_unit"><?php if($material->prev_purchase_unit != 0) { echo $material->prev_purchase_unit; } else { echo '-'; } ?></td>
+                    <td data-label="prev_purchase_unit"><?php if($material->prev_purchase_unit != 0) { $prev_purchase_unit = number_format($material->prev_purchase_unit, 2, '.',','); echo $prev_purchase_unit; } else { echo '-'; } ?></td>
                     <td data-label="year"><?php if($material->year != 0) { echo $material->year; } else { echo '-'; }?></td>
                     <td data-label="Supplier"><?php echo $material->supplier_name; ?></td>
                     <td data-label="Moq"><?php echo $material->moq; ?></td>
                     <td data-label="Terms"><?php echo $material->terms; ?></td>
-                    <td data-label="price_per_unit"><?php echo $material->price_per_unit; ?></td>
+                    <td data-label="price_per_unit"><?php $price_per_unit = number_format($material->price_per_unit, 2, '.',','); echo $price_per_unit; ?></td>
                     <td data-label="Total Price">
                         <?php 
                             $computation = $material->price_per_unit * $material->quantity;
-                            $total_price = number_format($computation, 2, '.', ',');   
+                            $total_price = number_format($computation, 2, '.',',');   
                             echo $total_price;               
                         ?>
                     </td>
