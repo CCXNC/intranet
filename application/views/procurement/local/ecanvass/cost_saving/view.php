@@ -110,13 +110,13 @@
                     <?php endif; ?>
                 </tr>
                 <tr>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">No</th>
+                    <th class="throw" scope="col" style="width: 3%; vertical-align: middle">No</th>
                     <th class="throw" scope="col" style="width: 10%; vertical-align: middle">Material</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">QTY</th>
+                    <th class="throw" scope="col" style="width: 5%; vertical-align: middle">QTY</th>
                     <th class="throw" scope="col" style="width: 10%; vertical-align: middle">UOM</th>
                     <th class="throw" scope="col" style="width: 10%; vertical-align: middle">Previous Purchase Per Unit	</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">Currency</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle">Year</th>
+                    <th class="throw" scope="col" style="width: 5%; vertical-align: middle">Currency</th>
+                    <th class="throw" scope="col" style="width: 5%; vertical-align: middle">Year</th>
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
                             <th class="tbrow" colspan="" style="width:10%; vertical-align:middle"><?php echo $supplier->supplier_name; ?></th>
@@ -231,14 +231,14 @@
         <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="throw">
-                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">No</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 3%">No</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Material</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">QTY</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">UOM</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Supplier Name</th>
-                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">MOQ</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 5%">MOQ</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Price Per Unit</th>
-                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Currency</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 5%">Currency</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%">Total Price</th>
                     <th colspan="2" style="width: 10%; vertical-align: middle">Cost Saving</th>
                     <th colspan="2" style="width: 10%; vertical-align: middle">Cost Avoidance</th>
@@ -311,16 +311,16 @@
 <div class="card printable-page" style="font-size:12px" id="printableLandscape">
     <div class="row">
         <div class="col-md-2">
-            <p><img class="card-img-top" style="width:150%; margin-left: -40px;" src="<?php echo base_url(); ?>assets/images/header.png" alt=""></p>
+            <p><img class="card-img-top" style="width:200%; margin-left: -80px;" src="<?php echo base_url(); ?>assets/images/header.png" alt=""></p>
         </div>
         <div class="col-md-10">
             <div class="card">
-            <div class="card-body" style="margin-bottom:-25px; margin-top:-10px; font-size:10px">
+            <div class="card-body" style="margin-bottom:-25px; margin-top:-10px; font-size:12px">
                 <div class="row">
                     <div class="col-md-6">
                         <p><b>Canvass No:</b> <?php echo $canvass->canvass_no; ?></p>
                         <p style="margin-top: -15px"><b>PR No:</b> <?php echo $canvass->material_pr_no; ?></p>
-                        <p style="margin-top: -15px"><b>Company:</b> <?php if($canvass->company == 0) { echo 'Refamed Research Laboratory Corporation'; } else { echo 'Blaine Manufacturing Corporation'; } ?></p>
+                        <p style="margin-top: -15px"><b>Company:</b> <?php if($canvass->company == 1) { echo 'RRLC'; } else { echo 'BMC'; } ?></p>
                     </div>
                     <div class="col-md-6">
                         <p><b>Canvass Date:</b> <?php echo date('Y-m-d', strtotime($canvass->created_date)); ?></p>
@@ -331,7 +331,7 @@
         </div>
     </div>
     <div class="col-md-12">
-        <div class="card-header" style="padding: 1px; font-size:10px;">
+        <div class="card-header" style="padding: 1px; font-size:12px;">
             <center>
                 COMPARATIVE STATEMENT OF QUOTATIONS
             </center>
@@ -339,9 +339,9 @@
     </div>
     <div class="card-body" style="padding-top:3px;">
     <div style="color:red"><?php echo validation_errors(); ?> </div>
-        <table class="table table-bordered" style="font-size:8px !important; line-height:9px; text-align: center;">
+        <table class="table table-bordered" style="font-size:12px !important; line-height:9px; text-align: center;">
             <thead>
-                <tr class="tbrow" style="font-size:10px;">
+                <tr class="tbrow" style="font-size:12px;">
                     <th colspan="7" style="vertical-align: middle; padding: 2px;">Previous Purchase</th>
                     <?php $a = 1; ?>
                     <?php if($suppliers) : ?>  
@@ -351,14 +351,14 @@
                         <?php endforeach; ?>    
                     <?php endif; ?>
                 </tr>
-                <tr style="font-size:10px">
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle; padding: 2px;">No</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle; padding: 2px;">Material</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle; padding: 2px;">QTY</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle; padding: 2px;">UOM</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle; padding: 2px;">Previous Purchase Per Unit	</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle; padding: 2px;">Currency</th>
-                    <th class="throw" scope="col" style="width: 10%; vertical-align: middle; padding: 2px;">Year</th>
+                <tr style="font-size:12px">
+                    <th class="throw" scope="col" style="width: 2%; vertical-align: middle; padding: 2px;">No</th>
+                    <th class="throw" scope="col" style="width: 15%; vertical-align: middle; padding: 2px;">Material</th>
+                    <th class="throw" scope="col" style="width: 5%; vertical-align: middle; padding: 2px;">QTY</th>
+                    <th class="throw" scope="col" style="width: 5%; vertical-align: middle; padding: 2px;">UOM</th>
+                    <th class="throw" scope="col" style="width: 5%; vertical-align: middle; padding: 2px;">Previous Purchase Per Unit	</th>
+                    <th class="throw" scope="col" style="width: 5%; vertical-align: middle; padding: 2px;">Currency</th>
+                    <th class="throw" scope="col" style="width: 5%; vertical-align: middle; padding: 2px;">Year</th>
                     <?php if($suppliers) : ?>  
                         <?php foreach($suppliers as $supplier) : ?>  
                             <th class="tbrow" colspan="" style="width:10%; vertical-align:middle; padding: 2px;"><?php echo $supplier->supplier_name; ?></th>
@@ -366,25 +366,25 @@
                     <?php endif; ?>  
                 </tr>
             </thead>
-            <tbody style="line-height:12px; background-color: #E9FAFD;color:black; font-size:10px;" >
+            <tbody style="line-height:12px; background-color: #E9FAFD;color:black; font-size:12px;" >
                 <?php $i = 1; ?>
                 <?php if($materials) : ?>  
                     <?php foreach($materials as $material) : ?>  
                         <tr >
-                            <th scope="row" style="vertical-align:middle; padding: 2px;"><?php echo $i; ?></th>
-                            <td style="vertical-align:middle; padding: 2px;"><?php echo $material->description; ?></td>
-                            <td style="vertical-align:middle; padding: 2px;"><?php echo $material->quantity; ?></td>
-                            <td style="vertical-align:middle; padding: 2px;"><?php echo $material->uom; ?></td>
-                            <td style="vertical-align:middle; padding: 2px;"><?php if($material->prev_purchase_unit != 0) { echo $material->prev_purchase_unit; } else { echo '-'; } ?></td>
-                            <td style="vertical-align:middle; padding: 2px;"><?php echo $material->currency; ?></td>
-                            <td style="vertical-align:middle; padding: 2px;"><?php if($material->year != 0) { echo $material->year; } else { echo '-'; } ?></td>
+                            <th scope="row" style="vertical-align:middle; padding: 2px; width: 2%;"><?php echo $i; ?></th>
+                            <td style="vertical-align:middle; padding: 2px; width: 15%"><?php echo $material->description; ?></td>
+                            <td style="vertical-align:middle; padding: 2px; width: 5%"><?php echo $material->quantity; ?></td>
+                            <td style="vertical-align:middle; padding: 2px; width: 5%"><?php echo $material->uom; ?></td>
+                            <td style="vertical-align:middle; padding: 2px; width: 5%"><?php if($material->prev_purchase_unit != 0) { echo $material->prev_purchase_unit; } else { echo '-'; } ?></td>
+                            <td style="vertical-align:middle; padding: 2px; width: 5%; "><?php echo $material->currency; ?></td>
+                            <td style="vertical-align:middle; padding: 2px; width: 5%; "><?php if($material->year != 0) { echo $material->year; } else { echo '-'; } ?></td>
                             <!-- Computation -->
                             <?php if($supplier_materials) : ?>  
                                 <?php foreach($supplier_materials as $supplier_material) : ?> 
                                     <?php if($supplier_material->material_id == $material->id) : ?> 
                                         <!--<td style="vertical-align:middle; padding: 2px;"><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit .'<br> <p style="font-size:10px;">'. $material->currency. '/' .$material->uom. '</p>';  } ?></td>-->
                                         <!--<td style="vertical-align: middle; padding: 2px;"><?php $computation_per_unit = $material->quantity * $supplier_material->price_per_unit; ?><?php if($computation_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($computation_per_unit, 2, '.', ','); echo $total_per_unit ;  } ?></td>-->
-                                        <td style="vertical-align: middle; padding: 2px;"><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit .'<br> <p style="font-size:8px; vertical-align: middle; padding: 2px;">'. $material->currency. '/' .$material->uom. '</p>';  } ?></td>
+                                        <td style="vertical-align: middle; padding: 2px;"><?php if($supplier_material->price_per_unit == 0) { echo '-';} else { $total_per_unit = number_format($supplier_material->price_per_unit, 2, '.', ','); echo $total_per_unit .'<br> <p style="font-size:12px; vertical-align: middle; padding: 2px;">'. $material->currency. '/' .$material->uom. '</p>';  } ?></td>
                                     <?php endif; ?> 
                                 <?php endforeach; ?>    
                             <?php endif; ?>  
@@ -471,17 +471,17 @@
             </tbody>
         </table>
         <hr>
-        <table class="table table-bordered table-responsive" style="font-size:10px; line-height:13px; text-align: center;">
+        <table class="table table-bordered table-responsive" style="font-size:12px; line-height:13px; text-align: center;">
             <thead>
                 <tr class="throw">
-                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">No</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 3%; padding: 2px;">No</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">Material</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">QTY</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">UOM</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">Supplier Name</th>
-                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">MOQ</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 5%; padding: 2px;">MOQ</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">Price Per Unit</th>
-                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">Currency</th>
+                    <th scope="col" rowspan="2" style="vertical-align:middle; width: 5%; padding: 2px;">Currency</th>
                     <th scope="col" rowspan="2" style="vertical-align:middle; width: 10%; padding: 2px;">Total Price</th>
                     <th colspan="2" style="width: 10%; vertical-align: middle; padding: 2px;">Cost Saving</th>
                     <th colspan="2" style="width: 10%; vertical-align: middle; padding: 2px;">Cost Avoidance</th>
@@ -498,14 +498,14 @@
                 <?php if($quotation_lists) : ?>
                     <?php foreach($quotation_lists as $quotation_list) : ?>
                         <tr>
-                            <th style="text-align: center; padding: 2px;"><?php echo $y; ?></th>
+                            <th style="text-align: center; padding: 2px; width: 3%;"><?php echo $y; ?></th>
                             <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->material_name; ?></td>
                             <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->quantity; ?></td>
                             <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->uom; ?></td>
                             <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->supplier_name; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->moq; ?></td>
+                            <td style="text-align: center; padding: 2px; width: 5%"><?php echo $quotation_list->moq; ?></td>
                             <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->price_per_unit; ?></td>
-                            <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->currency; ?></td>
+                            <td style="text-align: center; padding: 2px; width: 5%"><?php echo $quotation_list->currency; ?></td>
                             <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->total_price; ?></td>
                             <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->reduction_per_unit; ?></td>
                             <td style="text-align: center; padding: 2px;"><?php echo $quotation_list->total_reduction; ?></td>
@@ -541,9 +541,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <p style="font-size:10px; margin-top:-10px; margin-bottom:2px;"><b>Buyer Name: </b> <?php echo $quotation_canvass->buyer_name; ?></p>
-                    <p style="font-size:10px; margin-bottom:0px;"><b>Remarks: </b></p>
-                    <p style="font-size:10px; white-space: pre-wrap;"><?php echo $quotation_canvass->remarks; ?></p>
+                    <p style="font-size:12px; margin-top:-10px; margin-bottom:2px;"><b>Buyer Name: </b> <?php echo $quotation_canvass->buyer_name; ?></p>
+                    <p style="font-size:12px; margin-bottom:0px;"><b>Remarks: </b></p>
+                    <p style="font-size:12px; white-space: pre-wrap;"><?php echo $quotation_canvass->remarks; ?></p>
                 </div>
             </div>
         </div>
