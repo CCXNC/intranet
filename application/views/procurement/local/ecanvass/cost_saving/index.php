@@ -60,7 +60,7 @@
                 <tr>
                     <td data-label="Date"><?php echo $canvass_list->canvass_date; ?></td>
                     <td data-label="Canvass No"><a href="<?php echo base_url(); ?>procurement/comparative_quotations/<?php echo $canvass_list->canvass_no; ?>"><?php echo $canvass_list->canvass_no; ?></a></td>
-                    <td data-label="Company"><?php if($canvass_list->company == 0) { echo 'RRLC'; } else { echo 'BMC'; } ?></td>
+                    <td data-label="Company"><?php if($canvass_list->company == 1) { echo 'RRLC'; } else { echo 'BMC'; } ?></td>
                     <td data-label="Cost Saving"><?php  $total_cost_saving = number_format($canvass_list->cost_saving, 2, '.', ','); echo $total_cost_saving; ?></td>
                     <td data-label="Cost Aviodance"><?php $total_cost_avoidance= number_format($canvass_list->cost_avoidance, 2, '.', ','); echo $total_cost_avoidance; ?></td>
                     <td data-label="Cost Aviodance"><?php $total_price= number_format($canvass_list->total_price, 2, '.', ','); echo $total_price; ?></td>
